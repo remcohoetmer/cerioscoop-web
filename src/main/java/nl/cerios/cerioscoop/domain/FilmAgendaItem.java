@@ -41,21 +41,6 @@ public class FilmAgendaItem<E> {
 		return datum;
 	}
 
-//	public Date getFirstDate(List<FilmAgendaItem> items) {
-//		int datum = items.indexOf(0);
-//		System.out.println(datum);
-//		return null;
-//	}
-	
-//	public Date getEersteDatum(List<FilmAgendaItem> items) {
-//		Collections.sort(items, new Comparator<Movie>()){
-//			public <T> int compare(T m1, T m2) {
-//		        return m1.getDate().compare(m2.getDate());
-//		}
-//		
-//		return datum;
-//	}
-
 	public void setDatum(Date datum) {
 		this.datum = datum;
 	}
@@ -68,6 +53,20 @@ public class FilmAgendaItem<E> {
 		this.tijd = tijd;
 	}
 	
+//	public Date getFirstDate(List<FilmAgendaItem> items) {
+//	int datum = items.indexOf(0);
+//	System.out.println(datum);
+//	return null;
+//}
+
+//public Date getEersteDatum(List<FilmAgendaItem> items) {
+//	Collections.sort(items, new Comparator<Movie>()){
+//		public <T> int compare(T m1, T m2) {
+//	        return m1.getDate().compare(m2.getDate());
+//	}
+//	
+//	return datum;
+//}
 	
 
 }

@@ -2,6 +2,7 @@ package nl.cerios.cerioscoop.web;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import nl.cerios.cerioscoop.service.FilmAgendaItemService;
 public class MyFirstServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String DATE_FORMAT = "dd-MM-yyyy";
+	private static final String DATE_FORMAT2 = "dd MMMMM";
 	private static final String TIME_FORMAT = "HH:mm";
 	
    	/**
@@ -35,6 +37,21 @@ public class MyFirstServlet extends HttpServlet {
 		
 		List<FilmAgendaItem> items = FilmAgendaItemService.getFilmAgendaItems();  //hierbij gaf de service een NullPointerException
 		
+		items.sort(new Comparator<FilmAgendaItem>() {
+
+			@Override
+			public int compare(FilmAgendaItem itemL, FilmAgendaItem itemR) {  //is itemL groter dan itemR? anders bovenaan
+				if (itemL.getDatum().before(itemR.getDatum())) {
+					return 1;
+				} else if (itemL.getDatum().after(itemR.getDatum())) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+		
+		List<FilmAgendaItem> items2 = FilmAgendaItemService.getFirstFilmAgendaItems();
 		
 		 StringBuilder html = new StringBuilder("<!DOCTYPE html>")
 			        .append("<html>")
@@ -52,12 +69,12 @@ public class MyFirstServlet extends HttpServlet {
 			          .append(formatTijd(item.getTijd()))
 			          .append("</td></tr>");
 			    }
-			    for (FilmAgendaItem item : items) {
+			    for (FilmAgendaItem item : items2) {
 			    html.append("</tbody>")
 			        .append("</table>")
 			        .append("<h1></h1>")
 			        .append("<p>Vandaag is het " +getDate())
-			        .append("<br />De eerstvolgende film is op "+item.getDatum())
+			        .append("<br />De eerstvolgende film is op "+format2(item.getDatum())+" om "+formatTijd(item.getTijd()))
 			        .append("<br />Dat is over circa 2 weken."+ "</p>");
 			    }
 			    html.append("</body>")
@@ -78,6 +95,16 @@ public class MyFirstServlet extends HttpServlet {
 	 }
 	
 	/**
+	 * It returns a date object in a string with format "dd MMMMM".
+	 * 
+	 * @param datum
+	 * @return "dd MMMMM"
+	 */
+	private String format2(Date datum) {
+	    return datum != null ? new SimpleDateFormat(DATE_FORMAT2).format(datum) : "onbekend";
+	 }
+	
+	/**
 	 * It returns a time object in a string with format "HH:mm".
 	 * 
 	 * @param tijd
@@ -87,15 +114,6 @@ public class MyFirstServlet extends HttpServlet {
 	    return tijd != null ? new SimpleDateFormat(TIME_FORMAT).format(tijd) : "onbekend";
 	 }
 	
-	/**
-	 * It returns a date object in a string with format "d MMMM, HH:mm".
-	 * 
-	 * @param datum
-	 * @return 
-	 */
-//	private String format2(Date datum) {
-//	    return datum != null ? new SimpleDateFormat(DATE_FORMAT).format(datum) : "onbekend";
-//	 }
 	private String getDate() {
 		return new SimpleDateFormat("d MMMM, HH:mm").format(new Date());
 	}
