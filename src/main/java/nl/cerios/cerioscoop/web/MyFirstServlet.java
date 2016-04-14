@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import nl.cerios.cerioscoop.domain.FilmAgendaItem;
 import nl.cerios.cerioscoop.service.FilmAgendaItemService;
-import nl.cerios.cerioscoop.service.FilmAgendaServiceException;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 
@@ -120,51 +119,31 @@ public class MyFirstServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Date date = null;
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
-		java.sql.Date sqlDate = null;
-		java.sql.Date sqlDate2 = null;
-		System.out.println("Status submitit: " + request.getParameter("submitit") + ".");
+		Date date2 = null;
+		DateFormat from = new SimpleDateFormat("MM/dd/yyyy"); 						// current format
+		DateFormat formatTo = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);	// wanted format
+		java.sql.Date premdatum = null;
+		java.sql.Date laatvoor = null;
 
-		if (request.getParameter("submitit").equals("submitted")) {
+		if (request.getParameter("submitit").equals("submit")) {
 			String filmnaam = request.getParameter("filmnaam");
-			System.out.println("In de if: " + request.getParameter("filmnaam"));
-			String min = request.getParameter("minuten");
-			int minuten = Integer.parseInt(min);
-			System.out.println("In de if: " + request.getParameter("minuten"));
-			String tp = request.getParameter("type");
-			int type = Integer.parseInt(tp);
-			System.out.println("In de if: " + request.getParameter("type"));
-			String taal = request.getParameter("taal");
-			System.out.println("In de if: " + request.getParameter("taal"));
-			
+			int minuten = Integer.parseInt(request.getParameter("minuten"));
+			int type = Integer.parseInt(request.getParameter("type"));
+			String taal = request.getParameter("taal");		
 			String premdat = request.getParameter("premdat");
-			System.out.println("In de if: " + request.getParameter("premdat"));
+			String lavoor = request.getParameter("lavoor");
 			
-			if(premdat != "yyyy-MM-dd"){
-				System.out.println("De datum is NIET het juiste formaat: "+premdat);  
-				//Hoe kan je nu een bericht in html terug geven?
-				
-			
-				
 			try {
-				
-				date = format.parse(premdat);  
-				//bij het invoeren van de verkeerde datum of verkeerde formaat krijg je rare getallen!
-				//check inbouwen!
-				sqlDate = new java.sql.Date(date.getTime());  //Maak een methode in DateUtils!
+				premdat = formatTo.format(from.parse(premdat));
+				date = formatTo.parse(premdat);
+				lavoor = formatTo.format(from.parse(lavoor));
+				date2 = formatTo.parse(lavoor); 
+				premdatum = new java.sql.Date(date.getTime());  //Maak een methode in DateUtils!
+				laatvoor = new java.sql.Date(date2.getTime());	//Maak een methode in DateUtils!
 			} catch (ParseException e) {
 				throw new MyFirstServletException("Something went wrong while parsing premiere datum.", e);
 				}
-			}
-			String lavoor = request.getParameter("lavoor");
-			System.out.println("In de if: " + request.getParameter("lavoor"));
-			try {
-				date = format.parse(lavoor);
-				sqlDate2 = new java.sql.Date(date.getTime());  //Maak een methode in DateUtils!
-			} catch (ParseException e) {
-				throw new MyFirstServletException("Something went wrong while parsing datum laatste voorstelling.", e);
-			}
-			FilmAgendaItemService.registerFilm(filmnaam, minuten, type, taal, sqlDate, sqlDate2);
+			FilmAgendaItemService.registerFilm(filmnaam, minuten, type, taal, premdatum, laatvoor);
 		}
 		doGet(request, response);
 	}
