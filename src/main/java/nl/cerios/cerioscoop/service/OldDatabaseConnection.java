@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import com.mysql.jdbc.Connection;
 
-public class DatabaseConnection {
+public class OldDatabaseConnection {
 	private static Connection con;
 	
 	public static Connection connectionDatabase() {
@@ -16,7 +16,7 @@ public class DatabaseConnection {
 		} catch (ClassNotFoundException e) {
 			System.out.println("Driver not found: "+e);
 		}
-		String url="jdbc:mysql://localhost/cerioscoop_db";
+		String url="jdbc:mysql://localhost/cerioscoopdb";
 		String user="root";
 		String password="mhx60099";
 		 

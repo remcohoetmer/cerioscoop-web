@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import nl.cerios.cerioscoop.domain.Film;
-import nl.cerios.cerioscoop.service.VoorstellingService;
+import nl.cerios.cerioscoop.service.MotionpictureService;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 /**
@@ -28,7 +28,7 @@ import nl.cerios.cerioscoop.util.DateUtils;
 public class MyFirstServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static DateUtils DU = new DateUtils();
-	private static VoorstellingService VS = new VoorstellingService();
+	private static MotionpictureService MPS = new MotionpictureService();
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,8 +38,8 @@ public class MyFirstServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<Film> items = VS.getFilms();
-		Film items2 = VS.getFirstFilmAfterCurrentDate();
+		List<Film> items = MPS.getFilms();
+		Film items2 = MPS.getFirstFilmAfterCurrentDate();
 		java.util.Date premMoment = null;
 		String premMomentDB = null;
 		
@@ -103,33 +103,12 @@ public class MyFirstServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Date date = null;
-		Date date2 = null;
-		DateFormat from = new SimpleDateFormat("MM/dd/yyyy"); 						// current format
-		DateFormat formatTo = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);	// wanted format
-		java.sql.Date premdatum = null;
-		java.sql.Date laatvoor = null;
-		java.sql.Time premtijd = DU.getCurrentSqlTime();
-
-		if (request.getParameter("submitit").equals("submit")) {
-			String filmnaam = request.getParameter("filmnaam");
-			int minuten = Integer.parseInt(request.getParameter("minuten"));
+		if (request.getParameter("submitit").equals("Submit")) {
+			String filmname = (request.getParameter("filmname"));
+			int minutes = Integer.parseInt(request.getParameter("minutes"));
 			int type = Integer.parseInt(request.getParameter("type"));
-			String taal = request.getParameter("taal");		
-			String premdat = request.getParameter("premdat");
-			String lavoor = request.getParameter("lavoor");
-			
-			try {
-				premdat = formatTo.format(from.parse(premdat));
-				date = formatTo.parse(premdat);
-				lavoor = formatTo.format(from.parse(lavoor));
-				date2 = formatTo.parse(lavoor); 
-				premdatum = new java.sql.Date(date.getTime());  //Maak methode in DateUtils!
-				laatvoor = new java.sql.Date(date2.getTime());	//Maak methode in DateUtils!
-			} catch (ParseException e) {
-				throw new MyFirstServletException("Something went wrong while parsing premiere datum.", e);
-				}
-			VS.registerFilm(filmnaam, minuten, type, taal, premdatum, premtijd, laatvoor);
+			String language = request.getParameter("language");		
+			MPS.registerFilm(filmname, minutes, type, language);
 		}
 		doGet(request, response);
 	}
