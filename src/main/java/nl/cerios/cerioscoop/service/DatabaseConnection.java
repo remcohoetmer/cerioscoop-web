@@ -1,7 +1,11 @@
 package nl.cerios.cerioscoop.service;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
+import java.util.Scanner;
 
 import com.mysql.jdbc.Connection;
 
@@ -10,24 +14,25 @@ public class DatabaseConnection {
 	
 	public static Connection connectionDatabase() {
 		try {
-		
+			Scanner pwInput = new Scanner(System.in);
+
 			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("Driver found");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Driver not found: "+e);
-		}
-		String url="jdbc:mysql://localhost/cerioscoop_db";
-		String user="root";
-		String password="mhx60099";
+			
+			final String url="jdbc:mysql://localhost/cerioscoop_db";
+			final String user= "root";
+			
+			System.out.println("Enter your password:");
+			final String password= pwInput.nextLine();
+			
+			int i= 0;
+			while(i < 100){System.out.println(" "); i++;}
 		 
-		try {
-			 con=(Connection) DriverManager.getConnection(url, user, password);
+			con=(Connection) DriverManager.getConnection(url, user, password);
 			 
-			 System.out.println("Connected succesfully");
-		}catch (SQLException e) {
-			System.out.println("Something went wrong in the connection string");
+			System.out.println("Connected succesfully");
+		}catch (SQLException | ClassNotFoundException e) {
+			System.out.println("Something went wrong in the connection string" + e);
 		}
 		return con; 
 	}
-
 }
