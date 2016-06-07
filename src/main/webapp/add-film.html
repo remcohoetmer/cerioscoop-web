@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Save Film</title>
+</head>
+<body>
+<form action="MyFirstServlet" method="POST"> 
+  Film name:<br>
+  <input type="text" name="filmname">
+  <br>
+  Minutes:<br>
+  <input type="text" name="minutes">
+  <br>
+  Film type 2D of 3D:<br>
+  <input type="radio" name="type" value="2" checked> 2D<br>
+  <input type="radio" name="type" value="3"> 3D<br>
+  Language:<br>
+  <select name="language">
+  <option value="English">English</option>
+  <option value="German">German</option>
+  <option value="Dutch">Dutch</option>
+  <option value="French">French</option>
+  </select>
+  <br><br>
+  <input type="submit" name="submitit" value="Submit">
+</form> 
+</body>
+</html>
