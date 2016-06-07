@@ -1,85 +1,61 @@
 package nl.cerios.cerioscoop.domain;
 
-import java.sql.Date;
-import java.sql.Time;
-
 public class Film {
-
-	private int id;
-	private String naam;
-	private int minuten;
+	private int filmID;
+	private String name;
+	private int minutes;
 	private int type;
-	private String taal;
-	private Date premiereDatum;
-	private Time premiereTijd;
-	private Date laatsteVoorstelling;
+	private String language;
 	
-	public Film(){
+	public Film() {
 		
 	}
-	
-	public Film(int id, String naam, int minuten, int type, String taal, Date premiereDatum, Time premiereTijd, Date laatsteVoorstelling) {
-		this.id = id;
-		this.naam = naam;
-		this.minuten = minuten; 
+
+	public Film(int filmID, String name, int minutes, int type, String language) {
+		this.filmID = filmID;
+		this.name = name;
+		this.minutes = minutes; 
 		this.type = type;
-		this.taal = taal;
-		this.premiereDatum = premiereDatum;
-		this.setPremiereTijd(premiereTijd);
-		this.laatsteVoorstelling = laatsteVoorstelling;
+		this.language = language;
 	}
-		
-	public int getId() {
-		return id;
+	
+	public int getFilmID() {
+		return filmID;
 	}
-	public void setId(int id) {
-		this.id = id;
+
+	public void setFilmID(int filmID) {
+		this.filmID = filmID;
 	}
-	public String getNaam() {
-		return naam;
+
+	public String getName() {
+		return name;
 	}
-	public void setNaam(String naam) {
-		this.naam = naam;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	public int getMinuten() {
-		return minuten;
+
+	public int getMinutes() {
+		return minutes;
 	}
-	public void setMinuten(int minuten) {
-		this.minuten = minuten;
+
+	public void setMinutes(int minutes) {
+		this.minutes = minutes;
 	}
+
 	public int getType() {
 		return type;
 	}
+
 	public void setType(int type) {
 		this.type = type;
 	}
-	public Date getPremiereDatum() {
-		return premiereDatum;
-	}
-	public void setPremiereDatum(Date premiereDatum) {
-		this.premiereDatum = premiereDatum;
-	}
-	public Date getLaatsteVoorstelling() {
-		return laatsteVoorstelling;
-	}
-	public void setLaatsteVoorstelling(Date laatsteVoorstelling) {
-		this.laatsteVoorstelling = laatsteVoorstelling;
+
+	public String getLanguage() {
+		return language;
 	}
 
-	public String getTaal() {
-		return taal;
+	public void setLanguage(String language) {
+		this.language = language;
 	}
-
-	public void setTaal(String taal) {
-		this.taal = taal;
-	}
-
-	public Time getPremiereTijd() {
-		return premiereTijd;
-	}
-
-	public void setPremiereTijd(Time premiereTijd) {
-		this.premiereTijd = premiereTijd;
-	}
-	
 }

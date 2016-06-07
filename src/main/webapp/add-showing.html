@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add showing</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script>
+ $(function() {
+ $( "#datepicker" ).datepicker();});
+</script>
+ <script>
+ $(function() {
+ $( "#datepicker2" ).datepicker();});
+</script>
+</head>
+<body><h1>Add showing</h1>
+<form name="add-showing" method="post" action="http://localhost:9080/cerioscoop-web/AddShowingServlet">
+Film ID:<br>
+<input type="text" name="filmID"><br>
+Room ID:<br>
+<input type="radio" name="roomID" value="1"> Red room<br>
+<input type="radio" name="roomID" value="2"> Blue room<br>
+Premiere date:<br>
+<input type="text" id="datepicker" name="premieredate"><br>
+Last showing date:<br>
+ <input type="text" id="datepicker2" name="lastshowingdate"><br>
+ <input type="submit" name="submitit" value="Submit"/>
+ <input type="reset" value="cancel" />
+ </form>
+ </body>
+</html>

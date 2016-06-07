@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import nl.cerios.cerioscoop.domain.Film;
-import nl.cerios.cerioscoop.service.MotionpictureService;
+import nl.cerios.cerioscoop.domain.OldFilm;
+import nl.cerios.cerioscoop.domain.Showing;
+import nl.cerios.cerioscoop.service.ShowingService;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 /**
@@ -24,11 +26,11 @@ import nl.cerios.cerioscoop.util.DateUtils;
  * 
  * http://stackoverflow.com/questions/2349633/doget-and-dopost-in-servlets
  */
-@WebServlet("/MyFirstServlet")
-public class MyFirstServlet extends HttpServlet {
+@WebServlet("/FilmShowingServlet")
+public class FilmShowingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static DateUtils DU = new DateUtils();
-	private static MotionpictureService MPS = new MotionpictureService();
+	private static ShowingService SS = new ShowingService();
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,15 +40,17 @@ public class MyFirstServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<Film> items = MPS.getFilms();
-		Film items2 = MPS.getFirstFilmAfterCurrentDate();
+		List<OldFilm> items = SS.getOldFilms();
+		List<Film> films = SS.getFilms();
+		OldFilm items2 = SS.getFirstFilmAfterCurrentDate();
+		Showing firstShowing = SS.getFirstShowingAfterCurrentDate();
 		java.util.Date premMoment = null;
 		String premMomentDB = null;
 		
-		items.sort(new Comparator<Film>() {
+		items.sort(new Comparator<OldFilm>() {
 
 			@Override
-			public int compare(Film itemL, Film itemR) {  //is itemL groter dan itemR? anders bovenaan
+			public int compare(OldFilm itemL, OldFilm itemR) {  //is itemL groter dan itemR? anders bovenaan
 				if (itemL.getPremiereDatum().before(itemR.getPremiereDatum())) {
 					return -1;
 				} else if (itemL.getPremiereDatum().after(itemR.getPremiereDatum())) {
@@ -64,7 +68,7 @@ public class MyFirstServlet extends HttpServlet {
 			        .append("<table>")
 			        .append("<thead><th>Filmtitel</th><th>speelt op:</th><th>tijd</th></thead>")
 			        .append("<tbody>");
-			    for (Film item : items) {
+			    for (OldFilm item : items) {
 				html.append("<tr><td>")
 					.append(item.getNaam())
 					.append("</td><td>")
@@ -80,7 +84,7 @@ public class MyFirstServlet extends HttpServlet {
 					try {
 						premMoment = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(premMomentDB);
 					} catch (ParseException e) {
-						throw new MyFirstServletException("Something went wrong while parsing premiere datum.", e);
+						throw new FilmShowingServletException("Something went wrong while parsing premiere datum.", e);
 					}
 			    html.append("</tbody>")
 					.append("</table>")
@@ -103,13 +107,6 @@ public class MyFirstServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if (request.getParameter("submitit").equals("Submit")) {
-			String filmname = (request.getParameter("filmname"));
-			int minutes = Integer.parseInt(request.getParameter("minutes"));
-			int type = Integer.parseInt(request.getParameter("type"));
-			String language = request.getParameter("language");		
-			MPS.registerFilm(filmname, minutes, type, language);
-		}
 		doGet(request, response);
 	}
 }

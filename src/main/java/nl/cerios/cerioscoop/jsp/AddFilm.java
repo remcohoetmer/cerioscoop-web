@@ -6,10 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import nl.cerios.cerioscoop.service.MotionpictureService;
 import nl.cerios.cerioscoop.util.DateUtils;
-import nl.cerios.cerioscoop.web.MyFirstServlet;
-import nl.cerios.cerioscoop.web.MyFirstServletException;
+import nl.cerios.cerioscoop.web.FilmShowingServlet;
+import nl.cerios.cerioscoop.web.FilmShowingServletException;
 
 //public class AddFilm {
 //	private static DateUtils DU = new DateUtils();
