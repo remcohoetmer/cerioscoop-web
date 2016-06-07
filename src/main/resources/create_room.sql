@@ -5,7 +5,7 @@ CREATE TABLE `room` (
 	`name` VARCHAR(255) NOT NULL COLLATE 'utf8_bin',
 	`chair_amount` INT(50) UNSIGNED NULL,
 	`type` INT(1) UNSIGNED NULL,
-	PRIMARY KEY (`zaal_id`)
+	PRIMARY KEY (`room_id`)
 )
 COLLATE='utf8_bin'
 ENGINE=InnoDB;
