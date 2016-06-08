@@ -17,7 +17,7 @@ public class DateUtils {
 	private static final String DATE_FORMAT = "dd-MM-yyyy";
 	private static final String DATE_FORMAT2 = "dd MMMMM";
 	private static final String DATE_FORMAT3 = "yyyy-dd-MM";
-	private static final String DATE_FORMAT_HEIDI = "yyyy-MM-dd";
+	private static final String DATE_FORMAT_SQL = "yyyy-MM-dd";
 	private static final String TIME_FORMAT = "HH:mm:ss";
 	private static final String DATETIME_FORMAT = "yyyy-MM-dd hh:mm:ss";
 	
@@ -141,41 +141,41 @@ public class DateUtils {
 	/**
 	 * It returns a date object converted into a string with format "yyyy-dd-MM".
 	 * 
-	 * @param datum
+	 * @param date
 	 * @return String "yyyy-dd-MM"
 	 */
-	public String format3(Date datum) {
-	    return datum != null ? new SimpleDateFormat(DATE_FORMAT3, Locale.FRANCE).format(datum) : "onbekend";
+	public String format3(Date date) {
+	    return date != null ? new SimpleDateFormat(DATE_FORMAT3, Locale.FRANCE).format(date) : "onbekend";
 	 }
 	
 	/**
 	 * It returns a date object converted into a string with format "yyyy-MM-dd".
 	 * 
-	 * @param datum
+	 * @param date
 	 * @return String "yyyy-MM-dd"
 	 */
-	public String formatHeidi(Date datum) {
-	    return datum != null ? new SimpleDateFormat(DATE_FORMAT_HEIDI, Locale.FRANCE).format(datum) : "onbekend";
+	public String sqlDatabaseFormat(Date date) {
+	    return date != null ? new SimpleDateFormat(DATE_FORMAT_SQL, Locale.FRANCE).format(date) : "onbekend";
 	 }
 	
 	/**
 	 * It returns a time object converted into a string with format "HH:mm:ss".
 	 * 
-	 * @param tijd
+	 * @param time
 	 * @return String "HH:mm:ss"
 	 */
-	public String formatTijd(Date tijd) {
-	    return tijd != null ? new SimpleDateFormat(TIME_FORMAT).format(tijd) : "onbekend";
+	public String timeFormat(Date time) {
+	    return time != null ? new SimpleDateFormat(TIME_FORMAT).format(time) : "onbekend";
 	 }
 	
 	/**
 	 * It returns a time object converted into a string with format "yyyy-MM-dd hh:mm:ss".
 	 * 
-	 * @param tijd
+	 * @param time
 	 * @return String "yyyy-MM-dd hh:mm:ss"
 	 */
-	public String formatDatumEnTijd(Date tijd) {
-	    return tijd != null ? new SimpleDateFormat(DATETIME_FORMAT).format(tijd) : "onbekend";
+	public String formatDatumEnTijd(Date time) {
+	    return time != null ? new SimpleDateFormat(DATETIME_FORMAT).format(time) : "onbekend";
 	 }
 	public String getDate() {
 		return new SimpleDateFormat("d MMMM, HH:mm").format(new Date());

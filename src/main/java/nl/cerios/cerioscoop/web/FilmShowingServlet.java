@@ -1,13 +1,10 @@
 package nl.cerios.cerioscoop.web;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import nl.cerios.cerioscoop.domain.Film;
-import nl.cerios.cerioscoop.domain.OldFilm;
 import nl.cerios.cerioscoop.domain.Showing;
 import nl.cerios.cerioscoop.service.ShowingService;
 import nl.cerios.cerioscoop.util.DateUtils;
@@ -37,23 +32,24 @@ public class FilmShowingServlet extends HttpServlet {
 	 * 
 	 * R40><link href='/cerioscoop-web/cerioscoop.css' type='text/css' rel='stylesheet' />
 	 * LET OP:		projectNaam/cssFileNaam.css		zo verwijs je naar de juiste locatie!
+	 * 
+	 * @Todo filmnaam weergeven door koppeling met film_id o.i.d.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<OldFilm> items = SS.getOldFilms();
-		List<Film> films = SS.getFilms();
-		OldFilm items2 = SS.getFirstFilmAfterCurrentDate();
+		//List<Film> films = SS.getFilms(); 
+		List<Showing> showings = SS.getShowing();
 		Showing firstShowing = SS.getFirstShowingAfterCurrentDate();
 		java.util.Date premMoment = null;
 		String premMomentDB = null;
 		
-		items.sort(new Comparator<OldFilm>() {
+		showings.sort(new Comparator<Showing>() {
 
 			@Override
-			public int compare(OldFilm itemL, OldFilm itemR) {  //is itemL groter dan itemR? anders bovenaan
-				if (itemL.getPremiereDatum().before(itemR.getPremiereDatum())) {
+			public int compare(Showing itemL, Showing itemR) {  //is itemL groter dan itemR? anders bovenaan
+				if (itemL.getPremiereDate().before(itemR.getPremiereDate())) {
 					return -1;
-				} else if (itemL.getPremiereDatum().after(itemR.getPremiereDatum())) {
+				} else if (itemL.getPremiereDate().after(itemR.getPremiereDate())) {
 					return 1;
 				} else {
 					return 0;
@@ -68,19 +64,19 @@ public class FilmShowingServlet extends HttpServlet {
 			        .append("<table>")
 			        .append("<thead><th>Filmtitel</th><th>speelt op:</th><th>tijd</th></thead>")
 			        .append("<tbody>");
-			    for (OldFilm item : items) {
+			    for (Showing item : showings) {
 				html.append("<tr><td>")
-					.append(item.getNaam())
+					.append(item.getFilmID())
 					.append("</td><td>")
-					.append(DU.format(item.getPremiereDatum()))
+					.append(DU.format(item.getPremiereDate()))
 					.append("</td><td>")
-					.append(DU.formatTijd(item.getPremiereTijd()))
+					.append(DU.timeFormat(item.getPremiereTime()))
 					.append("</td></tr>");
 					}
 			    html.append("</tbody>")
 					.append("</table>");
 			   // for (Film item : items) {
-			    	premMomentDB = DU.formatHeidi(items2.getPremiereDatum())+" "+DU.formatTijd(items2.getPremiereTijd());
+			    	premMomentDB = DU.sqlDatabaseFormat(firstShowing.getPremiereDate())+" "+DU.timeFormat(firstShowing.getPremiereTime());
 					try {
 						premMoment = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(premMomentDB);
 					} catch (ParseException e) {
@@ -90,7 +86,7 @@ public class FilmShowingServlet extends HttpServlet {
 					.append("</table>")
 					.append("<h1></h1>")
 					.append("<p>Vandaag is het " +DU.getDate())
-					.append("<br />De eerstvolgende film: "+items2.getNaam() +" is op "+DU.format2(items2.getPremiereDatum())+" om "+DU.formatTijd(items2.getPremiereTijd()))
+					.append("<br />De eerstvolgende film: "+firstShowing.getFilmID() +" is op "+DU.format2(firstShowing.getPremiereDate())+" om "+DU.timeFormat(firstShowing.getPremiereTime()))
 					.append("<br />Dat is over "+ DU.calculateTime(DU.getSecondsBetween(premMoment, DU.getCurrentDate())) +"</p>");
 			//    	}
 			    html.append("</body>")

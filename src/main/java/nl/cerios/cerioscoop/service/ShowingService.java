@@ -11,81 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.cerios.cerioscoop.domain.Film;
-import nl.cerios.cerioscoop.domain.OldFilm;
 import nl.cerios.cerioscoop.domain.Showing;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 public class ShowingService {
 
-	private static Connection oldCon = OldDatabaseConnection.connectionDatabase();
 	private static Connection con = DatabaseConnection.connectionDatabase();
 	private static Statement stmt = null;
 	private static ResultSet rs = null;
 	private static DateUtils DU = new DateUtils();
 	
-
-	public List<Showing> getVoorstelling(){
-		List<Showing> items = new ArrayList<>();
-		try {stmt = oldCon.createStatement();
-			rs = stmt.executeQuery("select naam, premiere_datum from film voorstellingen where voorstellingen.Datum >= '2016-04-11'");
-	        while (rs.next()) {
-//	        	Date sqlDatum = rs.getDate("premiere_datum");
-//	        	String titel = rs.getString("naam");
-//	        	Date datum = sqlDatum == null ? null : new Date(sqlDatum.getTime());
-	        	items.add(new Showing());
-	        	}
-	        return items;
-	    }catch (SQLException e) {
-	    	throw new ShowingServiceException("Something went terribly wrong while retrieving the filmagenda.", e);
-	    }
-	}
-	/**
-	 * @return
-	 * @Todo maak een constructor zonder parameters
-	 */
-	public OldFilm getFirstFilm(){
-		OldFilm item = null;
-		try {stmt = oldCon.createStatement();
-			rs = stmt.executeQuery("select naam, premiere_datum from film, voorstellingen "
-						+ "where voorstellingen.Film_ID = film.film_id "
-						+ "and voorstellingen.Datum = (SELECT premiere_datum FROM voorstellingen ORDER BY datum Limit 1)"); 
-			while (rs.next()) {
-	        	Date sqlDatum = rs.getDate("premiere_datum");
-	        	rs.getString("naam");
-	        	new Date(sqlDatum.getTime());
-	        	};
-	        return item;
-	    }catch (SQLException e) {
-	    	throw new ShowingServiceException("Something went terribly wrong while retrieving the first date.", e);
-	    }
-	}
-	
-	public List<OldFilm> getOldFilms(){
-		List<OldFilm> items = new ArrayList<>();
-		try {stmt = oldCon.createStatement();
-			rs = stmt.executeQuery("select film_id, naam, minuten, type, taal, premiere_datum, premiere_tijd, laatste_voorstelling from film"); { 
-			
-				while (rs.next()) {
-	        	int id = rs.getInt("film_id");
-	        	String naam = rs.getString("naam");
-	        	int minuten = rs.getInt("minuten");
-	        	int type = rs.getInt("type");
-	        	String taal = rs.getString("taal");
-	        	Date sqlPD = rs.getDate("premiere_datum");
-	        	Time sqlPT = rs.getTime("premiere_tijd");
-	        	Date sqlLV = rs.getDate("laatste_voorstelling");
-	        	
-	        	Date premiereDatum = sqlPD == null ? null : new Date(sqlPD.getTime());
-	        	Time premiereTijd = sqlPT == null ? null : new Time(sqlPT.getTime());
-	        	Date laatsteVoorstelling = sqlLV == null ? null : new Date(sqlLV.getTime());
-	        	items.add(new OldFilm(id, naam, minuten, type, taal, premiereDatum, premiereTijd, laatsteVoorstelling));
-	        	}
-	        return items;
-	      }
-	    }catch (SQLException e) {
-	    	throw new ShowingServiceException("Something went terribly wrong while retrieving the first date.", e);
-	    }
-	}
 	public List<Film> getFilms(){
 		List<Film> items = new ArrayList<>();
 		try {stmt = con.createStatement();
@@ -133,23 +68,7 @@ public class ShowingService {
 	    }
 	}
 	
-	public void registerOldFilm(String nieuweFilmNaam, int minuten, int type, String taal, Date premiereDatum, Time premiereTijd, Date laatsteVoorstelling){		
-		try (PreparedStatement ps = oldCon.prepareStatement("INSERT INTO film (naam, minuten, type, taal, premiere_datum, premiere_tijd,laatste_voorstelling) "
-														+ "values (?,?,?,?,?,?,?);")) {
-			ps.setString(1, nieuweFilmNaam);
-			ps.setInt(2, minuten);
-			ps.setInt(3, type);
-			ps.setString(4, taal);
-			ps.setDate(5, premiereDatum);
-			ps.setTime(6, premiereTijd);
-			ps.setDate(7, laatsteVoorstelling);
-			ps.executeUpdate();
-			System.out.println("Data inserted.");
-		} catch (SQLException e) {
-			throw new ShowingServiceException("Something went wrong while inserting the filmagenda items.", e);
-		}
-	}
-
+	
 	public void registerFilm(String newFilmName, int minutes, int type, String language) {
 		try (PreparedStatement ps = con.prepareStatement("INSERT INTO film (name, minutes, type, language) values (?,?,?,?);")) {
 			ps.setString(1, newFilmName);
@@ -178,28 +97,6 @@ public class ShowingService {
 	    	throw new ShowingServiceException("Something went wrong while inserting the filmagenda items.", e);
 	    }
 	}
-	/**
-	 * Returns a first film record of the type FilmAgendaItem.
-	 * 
-	 * @return eerstVolgendeFilm
-	 */
-	public OldFilm getFirstFilmAfterCurrentDate(){
-		List<OldFilm> items = getOldFilms();
-		OldFilm eerstVolgendeFilm = null;
-		
-		for (OldFilm eerstVolgendeFilmKandidaat : items) {
-			if(eerstVolgendeFilmKandidaat.getPremiereDatum().after(DU.getCurrentSqlDate())){	
-				if(eerstVolgendeFilm == null){			//hier wordt voor 1x eerstVolgendeFilm gevuld					
-					eerstVolgendeFilm = eerstVolgendeFilmKandidaat;
-				}
-				else if(eerstVolgendeFilmKandidaat.getPremiereDatum().before(eerstVolgendeFilm.getPremiereDatum())){
-					eerstVolgendeFilm = eerstVolgendeFilmKandidaat;			
-				}
-			}
-		}
-		System.out.println(eerstVolgendeFilm);
-		return eerstVolgendeFilm;
-	}
 	
 	/**
 	 * Returns a first showing record.
@@ -226,12 +123,10 @@ public class ShowingService {
 	
 	public static void main(String[] args) {
 		//ShowingService SS = new ShowingService();
-		//SS.registerOldFilm("Lion King2", 90, 2, null, null, null, null);
 		//SS.registerFilm("Lion King", 90, 2, "Nederlands");
 		//SS.registerShowing(1, 2, DU.getCurrentSqlDate(), DU.getCurrentSqlTime(), DU.getCurrentSqlDate(), DU.getCurrentSqlTime());
 		//DU.convertCurrentSqlDateToString();
-		//System.out.println(SS.getFirstFilmAfterCurrentDate());
-		//System.out.println(SS.getOldFilms());
+		//System.out.println(SS.getFilms());
 		//System.out.println(SS.getShowing());
 		//System.out.println(SS.getFirstShowingAfterCurrentDate());
 	}
