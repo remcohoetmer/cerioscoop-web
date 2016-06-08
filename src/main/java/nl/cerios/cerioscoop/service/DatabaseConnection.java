@@ -1,21 +1,17 @@
 package nl.cerios.cerioscoop.service;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 import java.util.Scanner;
 
 import com.mysql.jdbc.Connection;
 
 public class DatabaseConnection {
 	private static Connection con;
+	private static Scanner pwInput = new Scanner(System.in);
 	
 	public static Connection connectionDatabase() {
-		try {
-			Scanner pwInput = new Scanner(System.in);
-
+		try {		
 			Class.forName("com.mysql.jdbc.Driver");
 			
 			final String url="jdbc:mysql://localhost/cerioscoop_db";

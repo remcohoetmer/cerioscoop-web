@@ -40,8 +40,8 @@ public class FilmShowingServlet extends HttpServlet {
 		//List<Film> films = SS.getFilms(); 
 		List<Showing> showings = SS.getShowing();
 		Showing firstShowing = SS.getFirstShowingAfterCurrentDate();
-		java.util.Date premMoment = null;
-		String premMomentDB = null;
+		java.util.Date showingPremiere = null;
+		String showingPremiereSqlDatabase = null;
 		
 		showings.sort(new Comparator<Showing>() {
 
@@ -60,9 +60,9 @@ public class FilmShowingServlet extends HttpServlet {
 		StringBuilder html = new StringBuilder("<!DOCTYPE html>")
 			        .append("<html>")
 			        .append("<head><title>Filmagenda</title><link href='/cerioscoop-web/cerioscoop.css' type='text/css' rel='stylesheet' /></head>")
-			        .append("<body><h1>Voorstellingen</h1>")
+			        .append("<body><h1>Now Showing</h1>")
 			        .append("<table>")
-			        .append("<thead><th>Filmtitel</th><th>speelt op:</th><th>tijd</th></thead>")
+			        .append("<thead><th>Filmtitle</th><th>plays on:</th><th>time</th></thead>")
 			        .append("<tbody>");
 			    for (Showing item : showings) {
 				html.append("<tr><td>")
@@ -75,19 +75,18 @@ public class FilmShowingServlet extends HttpServlet {
 					}
 			    html.append("</tbody>")
 					.append("</table>");
-			   // for (Film item : items) {
-			    	premMomentDB = DU.sqlDatabaseFormat(firstShowing.getPremiereDate())+" "+DU.timeFormat(firstShowing.getPremiereTime());
+			    	showingPremiereSqlDatabase = DU.sqlDatabaseFormat(firstShowing.getPremiereDate())+" "+DU.timeFormat(firstShowing.getPremiereTime());
 					try {
-						premMoment = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(premMomentDB);
+						showingPremiere = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(showingPremiereSqlDatabase);
 					} catch (ParseException e) {
 						throw new FilmShowingServletException("Something went wrong while parsing premiere datum.", e);
 					}
 			    html.append("</tbody>")
 					.append("</table>")
 					.append("<h1></h1>")
-					.append("<p>Vandaag is het " +DU.getDate())
-					.append("<br />De eerstvolgende film: "+firstShowing.getFilmID() +" is op "+DU.format2(firstShowing.getPremiereDate())+" om "+DU.timeFormat(firstShowing.getPremiereTime()))
-					.append("<br />Dat is over "+ DU.calculateTime(DU.getSecondsBetween(premMoment, DU.getCurrentDate())) +"</p>");
+					.append("<p>Today it is " +DU.getDate())
+					.append("<br />The first upcoming film: "+firstShowing.getFilmID() +" is on "+DU.format2(firstShowing.getPremiereDate())+" at "+DU.timeFormat(firstShowing.getPremiereTime()))
+					.append("<br />That's in "+ DU.calculateTime(DU.getSecondsBetween(showingPremiere, DU.getCurrentDate())) +"</p>");
 			//    	}
 			    html.append("</body>")
 			        .append("</html>");
