@@ -172,14 +172,14 @@ hr {
 /* navigation styles
 /* ========================================== */
 .custom-navbar {
-    background: #000000;
+    background: #ff0080;
     border: none;
     margin-bottom: 0;
     text-align: center;
 }
 
 .custom-navbar .navbar-brand  {
-  border: 4px solid #ffffff;
+  border: 4px solid #ffa400;
   color: #ffffff;
   font-weight: 600;
   font-size: 24px;
@@ -212,7 +212,7 @@ hr {
 
 .custom-navbar .nav > li > a:focus {
   background-color: transparent;
-  color: #ffffff;
+  color: #ff8000;
   outline: none;
 }
 
@@ -233,7 +233,7 @@ hr {
     .custom-navbar {
          border-bottom: 1px solid rgba(250,250,250,0.3);
         padding: 16px;
-       background: 0 0;
+       background: #000000;
     }
 
     .custom-navbar.top-nav-collapse {
@@ -275,7 +275,7 @@ hr {
 }
 
 .bx-thumbnail-wrapper {
-  background-color: #161616;
+  background-color: #000000;
   text-align: center;
   margin-top: -1px;
   position: relative;
