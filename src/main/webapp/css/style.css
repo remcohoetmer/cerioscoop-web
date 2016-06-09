@@ -172,7 +172,7 @@ hr {
 /* navigation styles
 /* ========================================== */
 .custom-navbar {
-    background: #ff0080;
+    background: #000000;
     border: none;
     margin-bottom: 0;
     text-align: center;
@@ -212,7 +212,7 @@ hr {
 
 .custom-navbar .nav > li > a:focus {
   background-color: transparent;
-  color: #ff8000;
+  color: #ffa400;
   outline: none;
 }
 
