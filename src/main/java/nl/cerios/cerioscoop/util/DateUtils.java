@@ -21,18 +21,17 @@ public class DateUtils {
 	private static final String TIME_FORMAT = "HH:mm:ss";
 	private static final String DATETIME_FORMAT = "yyyy-MM-dd hh:mm:ss";
 	
-	public long getDaysBetween(Date startDate, Date endDate) {
+	public long getDaysBetween(final Date startDate, final Date endDate) {
 		long diff = Math.abs(endDate.getTime() - startDate.getTime());
 		long daysBetween = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-		//System.out.println("Days: " + daysBetween);
-
+		
 		return daysBetween;
 	}
 	
-	public long getSecondsBetween(Date startDate, Date endDate) {
+	public long getSecondsBetween(final Date startDate, final Date endDate) {
 		long diff = Math.abs(endDate.getTime() - startDate.getTime());
 		long secondsBetween = TimeUnit.SECONDS.convert(diff, TimeUnit.MILLISECONDS);
-		//System.out.println("Seconds: " + secondsBetween);
+
 		return secondsBetween;
 	}
 	
@@ -75,27 +74,27 @@ public class DateUtils {
 	 * @param timeInSeconds
 	 * @return
 	 */
-	public String calculateTime(long timeInSeconds) {
-		long oneMinuteInSec = 60;
-		long oneHourInSec = 3600;
-		long oneDayInSec = 86400;
-		int oneWeekInSec = 604800;	
-		int oneYearInSec = 31536000;
+	public String calculateTime(final long timeInSeconds) {
+		final long oneMinuteInSec = 60;
+		final long oneHourInSec = 3600;
+		final long oneDayInSec = 86400;
+		final int oneWeekInSec = 604800;	
+		final int oneYearInSec = 31536000;
 		
-		int year = (int) timeInSeconds / oneYearInSec;
-		int	week = (int) ((timeInSeconds % oneYearInSec) / oneWeekInSec);  //Let op een int rond af op hele getallen!
-		long day = ((timeInSeconds % oneWeekInSec ) / oneDayInSec); 
-		long hours = (timeInSeconds % oneDayInSec ) / oneHourInSec;
-		long minute = ((timeInSeconds % oneDayInSec ) % oneHourInSec ) / oneMinuteInSec; 
-		long second = ((timeInSeconds % oneDayInSec ) % oneHourInSec ) % oneMinuteInSec;
+		final int year = (int) timeInSeconds / oneYearInSec;
+		final int week = (int) ((timeInSeconds % oneYearInSec) / oneWeekInSec);  //Let op een int rond af op hele getallen!
+		final long day = ((timeInSeconds % oneWeekInSec ) / oneDayInSec); 
+		final long hours = (timeInSeconds % oneDayInSec ) / oneHourInSec;
+		final long minute = ((timeInSeconds % oneDayInSec ) % oneHourInSec ) / oneMinuteInSec; 
+		final long second = ((timeInSeconds % oneDayInSec ) % oneHourInSec ) % oneMinuteInSec;
 		
 		//System.out.println("In calc: Year " + year + " Week " + week + " Day " + day + " Hour " + hours + " Minute " + minute + " Seconds " + second);
         return year+"j "+ week+"w "+ day+"d "+ hours+"h "+ minute+"m "+ second+"s ";
     }
 	
 	public String convertCurrentSqlDateToString() {
-		DateFormat df = new SimpleDateFormat("dd MMMM yyyy");
-		String text = df.format(getCurrentSqlDate());
+		final DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+		String text = dateFormat.format(getCurrentSqlDate());
 		System.out.println(text);
 		return text;
 	}
@@ -105,13 +104,13 @@ public class DateUtils {
 	 * @return
 	 */
 	public java.sql.Date getCurrentSqlDate() {
-		java.util.Date date = Calendar.getInstance().getTime();
-		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+		final java.util.Date date = Calendar.getInstance().getTime();
+		final java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		return sqlDate;
 	}
 	public java.sql.Time getCurrentSqlTime() {
-		java.util.Date date = new java.util.Date();
-		Time sqlTime = new Time(date.getTime());
+		final java.util.Date date = new java.util.Date();
+		final Time sqlTime = new Time(date.getTime());
 		return sqlTime;
 	}
 	public Date getCurrentDate() {
@@ -124,7 +123,7 @@ public class DateUtils {
 	 * @param datum
 	 * @return String "dd-MM-yyyy"
 	 */
-	public String format(Date datum) {
+	public String format(final Date datum) {
 	    return datum != null ? new SimpleDateFormat(DATE_FORMAT).format(datum) : "onbekend";
 	 }
 	
@@ -134,7 +133,7 @@ public class DateUtils {
 	 * @param datum
 	 * @return String "dd MMMMM"
 	 */
-	public String format2(Date datum) {
+	public String format2(final Date datum) {
 	    return datum != null ? new SimpleDateFormat(DATE_FORMAT2).format(datum) : "onbekend";
 	 }
 	
@@ -144,7 +143,7 @@ public class DateUtils {
 	 * @param date
 	 * @return String "yyyy-dd-MM"
 	 */
-	public String format3(Date date) {
+	public String format3(final Date date) {
 	    return date != null ? new SimpleDateFormat(DATE_FORMAT3, Locale.FRANCE).format(date) : "onbekend";
 	 }
 	
@@ -154,7 +153,7 @@ public class DateUtils {
 	 * @param date
 	 * @return String "yyyy-MM-dd"
 	 */
-	public String sqlDatabaseFormat(Date date) {
+	public String sqlDatabaseFormat(final Date date) {
 	    return date != null ? new SimpleDateFormat(DATE_FORMAT_SQL, Locale.FRANCE).format(date) : "onbekend";
 	 }
 	
@@ -164,7 +163,7 @@ public class DateUtils {
 	 * @param time
 	 * @return String "HH:mm:ss"
 	 */
-	public String timeFormat(Date time) {
+	public String timeFormat(final Date time) {
 	    return time != null ? new SimpleDateFormat(TIME_FORMAT).format(time) : "onbekend";
 	 }
 	
@@ -174,7 +173,7 @@ public class DateUtils {
 	 * @param time
 	 * @return String "yyyy-MM-dd hh:mm:ss"
 	 */
-	public String formatDatumEnTijd(Date time) {
+	public String formatDatumEnTijd(final Date time) {
 	    return time != null ? new SimpleDateFormat(DATETIME_FORMAT).format(time) : "onbekend";
 	 }
 	public String getDate() {

@@ -16,84 +16,97 @@ import nl.cerios.cerioscoop.util.DateUtils;
 
 public class ShowingService {
 
-	private static Connection con = DatabaseConnection.connectionDatabase();
-	private static Statement stmt = null;
-	private static ResultSet rs = null;
-	private static DateUtils DU = new DateUtils();
+	private static final  Connection CONNECTION = DatabaseConnection.connectionDatabase();
+	
+	/*TODO rename the SQL field names to full caps names
+	 * Example:
+	 * film_id 
+	 * 
+	 * should be:
+	 * FILM_ID
+	 * 
+	 * But the names in the database have to match the new full-caps names to work.
+	 * 
+	 * 
+	 * TODO replace the "System.out.println" with an other alternative.
+	 * Once this application is on a server there is no way the client could see those comments
+	 * since those will be printed on the server not the client side.
+	 * */
 	
 	public List<Film> getFilms(){
-		List<Film> items = new ArrayList<>();
-		try {stmt = con.createStatement();
-			rs = stmt.executeQuery("select film_id, name, minutes, type, language from film"); { 
-			
-				while (rs.next()) {
-	        	int filmID = rs.getInt("film_id");
-	        	String name = rs.getString("name");
-	        	int minutes = rs.getInt("minutes");
-	        	int type = rs.getInt("type");
-	        	String language = rs.getString("language");
-	        	items.add(new Film(filmID, name, minutes, type, language));
-	        	}
-	        return items;
-	      }
-	    }catch (SQLException e) {
-	    	throw new ShowingServiceException("Something went terribly wrong while retrieving the first date.", e);
-	    }
-	}
-	
-	public List<Showing> getShowing(){
-		List<Showing> items = new ArrayList<>();
-		try {stmt = con.createStatement();
-			rs = stmt.executeQuery("select showing_id, film_id, room_id, premiere_date, premiere_time, last_showing_date, last_showing_time from showing"); { 
-			
-				while (rs.next()) {
-				int showingID = rs.getInt("showing_id");
-	        	int filmID = rs.getInt("film_id");
-	        	int roomID = rs.getInt("room_id");
-	        	Date sqlPD = rs.getDate("premiere_date");
-	        	Time sqlPT = rs.getTime("premiere_time");
-	        	Date sqlLSD = rs.getDate("last_showing_date");
-	        	Time sqlLST = rs.getTime("last_showing_time");
+		try {
+			final List<Film> films = new ArrayList<>();
+			final Statement statement = CONNECTION.createStatement();
+			final ResultSet resultSet = statement.executeQuery("select film_id, name, minutes, type, language from film");
+			while (resultSet.next()) {
+	        	final int filmId = resultSet.getInt("film_id");
+	        	final int minutes = resultSet.getInt("minutes");
+	        	final int movieType = resultSet.getInt("type");
+	        	final String movieName = resultSet.getString("name");
+	        	final String language = resultSet.getString("language");
 	        	
-	        	Date premiereDate = sqlPD == null ? null : new Date(sqlPD.getTime());
-	        	Time premiereTime = sqlPT == null ? null : new Time(sqlPT.getTime());
-	        	Date lastShowingDate = sqlLSD == null ? null : new Date(sqlLSD.getTime());
-	        	Time lastShowingTime = sqlLST == null ? null : new Time(sqlLST.getTime());
-	        	items.add(new Showing(showingID, filmID, roomID, premiereDate, premiereTime, lastShowingDate, lastShowingTime));
+	        	films.add(new Film(filmId, movieName, minutes, movieType, language));
+			}
+			return films;
+	    }catch (final SQLException e) {
+	    	throw new ShowingServiceException("Something went terribly wrong while retrieving the first date.", e);
+	    }
+	}
+	
+	public List<Showing> getShowings(){
+		final List<Showing> showings = new ArrayList<>();
+		try {
+			final Statement statement = CONNECTION.createStatement();
+			final ResultSet resultSet = statement.executeQuery("select showing_id, film_id, room_id, premiere_date, premiere_time, last_showing_date, last_showing_time from showing"); { 
+			while (resultSet.next()) {
+				final int showingId = resultSet.getInt("showing_id");
+				final int filmId = resultSet.getInt("film_id");
+				final int roomId = resultSet.getInt("room_id");
+				final Date premiereDate = resultSet.getDate("premiere_date");
+				final Time premiereTime = resultSet.getTime("premiere_time");
+				final Date lastShowingDate = resultSet.getDate("last_showing_date");
+				final Time lastShowingTime = resultSet.getTime("last_showing_time");
+				
+	        	showings.add(new Showing(showingId, filmId, roomId, premiereDate, premiereTime, lastShowingDate, lastShowingTime));
 	        	}
-	        return items;
+	        return showings;
 	      }
-	    }catch (SQLException e) {
+	    }catch (final SQLException e) {
 	    	throw new ShowingServiceException("Something went terribly wrong while retrieving the first date.", e);
 	    }
 	}
 	
 	
-	public void registerFilm(String newFilmName, int minutes, int type, String language) {
-		try (PreparedStatement ps = con.prepareStatement("INSERT INTO film (name, minutes, type, language) values (?,?,?,?);")) {
-			ps.setString(1, newFilmName);
-			ps.setInt(2, minutes);
-			ps.setInt(3, type);
-			ps.setString(4, language);
-			ps.executeUpdate();
+	public void addFilm(final String newFilmName, final int minutes, final int movieType, final String language) {
+		try {
+			final PreparedStatement preparedStatement = CONNECTION.prepareStatement(
+					"INSERT INTO film (name, minutes, type, language) values (?,?,?,?);");
+			preparedStatement.setString(1, newFilmName);
+			preparedStatement.setInt(2, minutes);
+			preparedStatement.setInt(3, movieType);
+			preparedStatement.setString(4, language);
+			preparedStatement.executeUpdate();
+			
 			System.out.println("Data inserted.");
-	    }catch (SQLException e) {
+	    }catch (final SQLException e) {
 	    	throw new ShowingServiceException("Something went wrong while inserting the filmagenda items.", e);
 	    }
 	}
 	
-	public void registerShowing(int filmID, int roomID, Date premiereDate, Time premiereTime, Date last_showing_date, Time last_showing_time){		
-		try (PreparedStatement ps = con.prepareStatement("INSERT INTO showing (film_id, room_id, premiere_date, premiere_time, last_showing_date, last_showing_time) "
-														+ "values (?,?,?,?,?,?);")) {       
-        	ps.setInt(1, filmID);
-        	ps.setInt(2, roomID);
-        	ps.setDate(3, premiereDate);
-        	ps.setTime(4, premiereTime);
-        	ps.setDate(5, last_showing_date);
-        	ps.setTime(6, last_showing_time);
-        	ps.executeUpdate();
+	public void addShowing(final int filmId, final int roomId, final Date premiereDate, final Time premiereTime, final Date lastShowingDate, final Time lastShowingTime){		
+		try {
+			final PreparedStatement preparedStatement = CONNECTION.prepareStatement(
+					"INSERT INTO showing (film_id, room_id, premiere_date, premiere_time, last_showing_date, last_showing_time) values (?,?,?,?,?,?);");
+        	preparedStatement.setInt(1, filmId);
+        	preparedStatement.setInt(2, roomId);
+        	preparedStatement.setDate(3, premiereDate);
+        	preparedStatement.setTime(4, premiereTime);
+        	preparedStatement.setDate(5, lastShowingDate);
+        	preparedStatement.setTime(6, lastShowingTime);
+        	preparedStatement.executeUpdate();
+        	
         	System.out.println("Data inserted.");
-	    }catch (SQLException e) {
+	    }catch (final SQLException e) {
 	    	throw new ShowingServiceException("Something went wrong while inserting the filmagenda items.", e);
 	    }
 	}
@@ -104,31 +117,22 @@ public class ShowingService {
 	 * @return firstShowing
 	 */
 	public Showing getFirstShowingAfterCurrentDate(){
-		List<Showing> items = getShowing();
+		final List<Showing> showings = getShowings();
+		final DateUtils dateUtils = new DateUtils();
 		Showing firstShowing = null;
 		
-		for (Showing firstShowingCandidate : items) {
-			if(firstShowingCandidate.getPremiereDate().after(DU.getCurrentSqlDate())){	
+		for (final Showing showing : showings) {
+			if(showing.getPremiereDate().after(dateUtils.getCurrentSqlDate())){	
 				if(firstShowing == null){			//hier wordt voor 1x eerstVolgendeFilm gevuld					
-					firstShowing = firstShowingCandidate;
+					firstShowing = showing;
 				}
-				else if(firstShowingCandidate.getPremiereDate().before(firstShowing.getPremiereDate())){
-					firstShowing = firstShowingCandidate;			
+				else if(showing.getPremiereDate().before(firstShowing.getPremiereDate())){
+					firstShowing = showing;			
 				}
 			}
 		}
 		System.out.println(firstShowing);
 		return firstShowing;
-	}
-	
-	public static void main(String[] args) {
-		//ShowingService SS = new ShowingService();
-		//SS.registerFilm("Lion King", 90, 2, "Nederlands");
-		//SS.registerShowing(1, 2, DU.getCurrentSqlDate(), DU.getCurrentSqlTime(), DU.getCurrentSqlDate(), DU.getCurrentSqlTime());
-		//DU.convertCurrentSqlDateToString();
-		//System.out.println(SS.getFilms());
-		//System.out.println(SS.getShowing());
-		//System.out.println(SS.getFirstShowingAfterCurrentDate());
 	}
 }
 

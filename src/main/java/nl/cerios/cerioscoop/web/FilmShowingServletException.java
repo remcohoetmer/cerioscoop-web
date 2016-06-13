@@ -2,11 +2,11 @@ package nl.cerios.cerioscoop.web;
 
 public class FilmShowingServletException extends RuntimeException {
 
-	public FilmShowingServletException(String message) {
+	public FilmShowingServletException(final String message) {
 	    super(message);
 	  }
 
-	public FilmShowingServletException(String message, Throwable cause) {
+	public FilmShowingServletException(final String message, final Throwable cause) {
 	    super(message, cause);
 	  }
 }
