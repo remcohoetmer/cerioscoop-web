@@ -20,7 +20,6 @@ import nl.cerios.cerioscoop.util.DateUtils;
  * Servlet implementation class MyFirstServlet
  * 
  * http://stackoverflow.com/questions/2349633/doget-and-dopost-in-servlets
- * @Todo aparte html file maken voor de filmagenda
  */
 @WebServlet("/FilmShowingServlet")
 public class FilmShowingServlet extends HttpServlet {
