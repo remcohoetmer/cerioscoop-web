@@ -30,9 +30,6 @@ public class FilmShowingServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 * 
-	 * R40><link href='/cerioscoop-web/cerioscoop.css' type='text/css' rel='stylesheet' />
-	 * LET OP:		projectNaam/cssFileNaam.css		zo verwijs je naar de juiste locatie!
-	 * 
 	 * @Todo filmnaam weergeven door koppeling met film_id o.i.d.
 	 */
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
