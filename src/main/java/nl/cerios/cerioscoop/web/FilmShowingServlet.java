@@ -17,7 +17,7 @@ import nl.cerios.cerioscoop.service.ShowingService;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 /**
- * Servlet implementation class MyFirstServlet
+ * Servlet implementation class FilmShowingServlet
  * 
  * http://stackoverflow.com/questions/2349633/doget-and-dopost-in-servlets
  */
