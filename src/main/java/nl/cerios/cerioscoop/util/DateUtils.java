@@ -10,8 +10,10 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author rsanders
- *
+ * 
+ *  Handige links voor datum en tijd:
  *	http://stackoverflow.com/questions/4216745/java-string-to-date-conversion
+ *  http://joda-time.sourceforge.net/quickstart.html
  */
 public class DateUtils {
 	private static final String DATE_FORMAT = "dd-MM-yyyy";
