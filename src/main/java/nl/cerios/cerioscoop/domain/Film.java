@@ -1,37 +1,38 @@
 package nl.cerios.cerioscoop.domain;
 
 public class Film {
-	private int filmID;
+	private int filmId;
 	private String name;
 	private int minutes;
-	private int type;
+	private int movieType;
 	private String language;
-	
+
+	// TODO this constructor is never used, do we need it?
 	public Film() {
-		
+
 	}
 
-	public Film(int filmID, String name, int minutes, int type, String language) {
-		this.filmID = filmID;
+	public Film(final int filmId, final String name, final int minutes, final int movieType, final String language) {
+		this.filmId = filmId;
 		this.name = name;
-		this.minutes = minutes; 
-		this.type = type;
+		this.minutes = minutes;
+		this.movieType = movieType;
 		this.language = language;
 	}
-	
-	public int getFilmID() {
-		return filmID;
+
+	public int getFilmId() {
+		return filmId;
 	}
 
-	public void setFilmID(int filmID) {
-		this.filmID = filmID;
+	public void setFilmId(final int filmId) {
+		this.filmId = filmId;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -39,23 +40,23 @@ public class Film {
 		return minutes;
 	}
 
-	public void setMinutes(int minutes) {
+	public void setMinutes(final int minutes) {
 		this.minutes = minutes;
 	}
 
 	public int getType() {
-		return type;
+		return movieType;
 	}
 
-	public void setType(int type) {
-		this.type = type;
+	public void setType(final int movieType) {
+		this.movieType = movieType;
 	}
 
 	public String getLanguage() {
 		return language;
 	}
 
-	public void setLanguage(String language) {
+	public void setLanguage(final String language) {
 		this.language = language;
 	}
 }

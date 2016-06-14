@@ -4,70 +4,68 @@ import java.sql.Date;
 import java.sql.Time;
 
 public class Showing {
-	private int showingID;
-	private int filmID;
-	private int roomID;
+	private int showingId;
+	private int filmId;
+	private int roomId;
 	private Date premiereDate;
 	private Time premiereTime;
 	private Date lastShowingDate;
 	private Time lastShowingTime;
 	
+	// TODO this constructor is never used, do we need it?
 	public Showing() {
 		
 	}
-	public Showing(int showingID, int filmID, int roomID, Date premiereDate, Time premiereTime, Date lastShowingDate, Time lastShowingTime) {
-		this.showingID = showingID;
-		this.filmID = filmID;
-		this.roomID = roomID; 
+	public Showing(final int showingId, final int filmId, final int roomId, final Date premiereDate, final Time premiereTime, final Date lastShowingDate, final  Time lastShowingTime) {
+		this.showingId = showingId;
+		this.filmId = filmId;
+		this.roomId = roomId; 
 		this.premiereDate = premiereDate;
 		this.premiereTime = premiereTime;
 		this.lastShowingDate = lastShowingDate;
 		this.lastShowingTime = lastShowingTime;
 		
 	}
-	public int getShowingID() {
-		return showingID;
+	public int getShowingId() {
+		return showingId;
 	}
-	public void setShowingID(int showingID) {
-		this.showingID = showingID;
+	public void setShowingId(final int showingId) {
+		this.showingId = showingId;
 	}
-	public int getFilmID() {
-		return filmID;
+	public int getFilmId() {
+		return filmId;
 	}
-	public void setFilmID(int filmID) {
-		this.filmID = filmID;
+	public void setFilmId(final int filmId) {
+		this.filmId = filmId;
 	}
-	public int getRoomID() {
-		return roomID;
+	public int getRoomId() {
+		return roomId;
 	}
-	public void setRoomID(int roomID) {
-		this.roomID = roomID;
+	public void setRoomId(final int roomId) {
+		this.roomId = roomId;
 	}
 	public Date getPremiereDate() {
 		return premiereDate;
 	}
-	public void setPremiereDate(Date premiereDate) {
+	public void setPremiereDate(final Date premiereDate) {
 		this.premiereDate = premiereDate;
 	}
 	public Time getPremiereTime() {
 		return premiereTime;
 	}
-	public void setPremiereTime(Time premiereTime) {
+	public void setPremiereTime(final Time premiereTime) {
 		this.premiereTime = premiereTime;
 	}
 	public Date getLastShowingDate() {
 		return lastShowingDate;
 	}
-	public void setLastShowingDate(Date lastShowingDate) {
+	public void setLastShowingDate(final Date lastShowingDate) {
 		this.lastShowingDate = lastShowingDate;
 	}
 	public Time getLastShowingTime() {
 		return lastShowingTime;
 	}
-	public void setLastShowingTime(Time lastShowingTime) {
+	public void setLastShowingTime(final Time lastShowingTime) {
 		this.lastShowingTime = lastShowingTime;
 	}
-	
-	
-	
 }

@@ -15,7 +15,7 @@ import nl.cerios.cerioscoop.service.ShowingService;
 @WebServlet("/AddFilmServlet")
 public class AddFilmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static ShowingService SS = new ShowingService();
+	private static final ShowingService SHOWINGSERVICE = new ShowingService();
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -28,7 +28,7 @@ public class AddFilmServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -36,15 +36,15 @@ public class AddFilmServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("submitit").equals("Submit")) {
-			String filmname = (request.getParameter("filmname"));
-			int minutes = Integer.parseInt(request.getParameter("minutes"));
-			int type = Integer.parseInt(request.getParameter("type"));
-			String language = request.getParameter("language");		
-			SS.registerFilm(filmname, minutes, type, language);
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		if ("Submit".equals(request.getParameter("submitit"))) {
+			final int minutes = Integer.parseInt(request.getParameter("minutes"));
+			final int movieType = Integer.parseInt(request.getParameter("type"));
+			final String filmname = (request.getParameter("filmname"));
+			final String language = request.getParameter("language");		
+			
+			SHOWINGSERVICE.addFilm(filmname, minutes, movieType, language);
 		}
 		doGet(request, response);
 	}
-
 }

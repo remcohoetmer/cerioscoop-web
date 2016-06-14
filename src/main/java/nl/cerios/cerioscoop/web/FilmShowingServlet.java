@@ -24,8 +24,8 @@ import nl.cerios.cerioscoop.util.DateUtils;
 @WebServlet("/FilmShowingServlet")
 public class FilmShowingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static DateUtils DU = new DateUtils();
-	private static ShowingService SS = new ShowingService();
+	private static DateUtils dateUtils = new DateUtils();
+	private static ShowingService showingService = new ShowingService();
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,18 +35,18 @@ public class FilmShowingServlet extends HttpServlet {
 	 * 
 	 * @Todo filmnaam weergeven door koppeling met film_id o.i.d.
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		
-		//List<Film> films = SS.getFilms(); 
-		List<Showing> showings = SS.getShowing();
-		Showing firstShowing = SS.getFirstShowingAfterCurrentDate();
+		//List<Film> films = showingService.getFilms(); 
+		final List<Showing> showings = showingService.getShowings();
+		final Showing firstShowing = showingService.getFirstShowingAfterCurrentDate();
 		java.util.Date showingPremiere = null;
 		String showingPremiereSqlDatabase = null;
 		
 		showings.sort(new Comparator<Showing>() {
 
 			@Override
-			public int compare(Showing itemL, Showing itemR) {  //is itemL groter dan itemR? anders bovenaan
+			public int compare(final Showing itemL, final Showing itemR) {  //is itemL groter dan itemR? anders bovenaan
 				if (itemL.getPremiereDate().before(itemR.getPremiereDate())) {
 					return -1;
 				} else if (itemL.getPremiereDate().after(itemR.getPremiereDate())) {
@@ -57,7 +57,7 @@ public class FilmShowingServlet extends HttpServlet {
 			}
 		});
 		
-		StringBuilder html = new StringBuilder("<!DOCTYPE html>")
+		final StringBuilder html = new StringBuilder("<!DOCTYPE html>")
 			        .append("<html>")
 			        .append("<head><title>Filmagenda</title><link href='/cerioscoop-web/cerioscoop.css' type='text/css' rel='stylesheet' /></head>")
 			        .append("<body><h1>Now Showing</h1>")
@@ -66,16 +66,16 @@ public class FilmShowingServlet extends HttpServlet {
 			        .append("<tbody>");
 			    for (Showing item : showings) {
 				html.append("<tr><td>")
-					.append(item.getFilmID())
+					.append(item.getFilmId())
 					.append("</td><td>")
-					.append(DU.format(item.getPremiereDate()))
+					.append(dateUtils.format(item.getPremiereDate()))
 					.append("</td><td>")
-					.append(DU.timeFormat(item.getPremiereTime()))
+					.append(dateUtils.timeFormat(item.getPremiereTime()))
 					.append("</td></tr>");
 					}
 			    html.append("</tbody>")
 					.append("</table>");
-			    	showingPremiereSqlDatabase = DU.sqlDatabaseFormat(firstShowing.getPremiereDate())+" "+DU.timeFormat(firstShowing.getPremiereTime());
+			    	showingPremiereSqlDatabase = dateUtils.sqlDatabaseFormat(firstShowing.getPremiereDate())+" "+dateUtils.timeFormat(firstShowing.getPremiereTime());
 					try {
 						showingPremiere = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(showingPremiereSqlDatabase);
 					} catch (ParseException e) {
@@ -84,11 +84,10 @@ public class FilmShowingServlet extends HttpServlet {
 			    html.append("</tbody>")
 					.append("</table>")
 					.append("<h1></h1>")
-					.append("<p>Today it is " +DU.getDate())
-					.append("<br />The first upcoming film: "+firstShowing.getFilmID() +" is on "+DU.format2(firstShowing.getPremiereDate())+" at "+DU.timeFormat(firstShowing.getPremiereTime()))
-					.append("<br />That's in "+ DU.calculateTime(DU.getSecondsBetween(showingPremiere, DU.getCurrentDate())) +"</p>");
-			//    	}
-			    html.append("</body>")
+					.append("<p>Today it is " +dateUtils.getDate())
+					.append("<br />The first upcoming film: "+firstShowing.getFilmId() +" is on "+dateUtils.format2(firstShowing.getPremiereDate())+" at "+dateUtils.timeFormat(firstShowing.getPremiereTime()))
+					.append("<br />That's in "+ dateUtils.calculateTime(dateUtils.getSecondsBetween(showingPremiere, dateUtils.getCurrentDate())) +"</p>")
+					.append("</body>")
 			        .append("</html>");
 
 			    response.setContentType("text/html;charset=UTF-8");
@@ -100,8 +99,7 @@ public class FilmShowingServlet extends HttpServlet {
 	 *
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 }
