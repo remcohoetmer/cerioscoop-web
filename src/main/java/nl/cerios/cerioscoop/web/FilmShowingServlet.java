@@ -40,6 +40,14 @@ public class FilmShowingServlet extends HttpServlet {
 		java.util.Date showingPremiere = null;
 		String showingPremiereSqlDatabase = null;
 		
+		showingPremiereSqlDatabase = dateUtils.sqlDatabaseFormat(firstShowing.getPremiereDate())+" "+dateUtils.timeFormat(firstShowing.getPremiereTime());
+		try {
+			showingPremiere = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(showingPremiereSqlDatabase);
+		} catch (ParseException e) {
+			throw new FilmShowingServletException("Something went wrong while parsing premiere datum.", e);
+		}
+		
+		
 		showings.sort(new Comparator<Showing>() {
 
 			@Override
@@ -71,17 +79,8 @@ public class FilmShowingServlet extends HttpServlet {
 					.append("</td></tr>");
 					}
 			    html.append("</tbody>")
-					.append("</table>");
-			    	showingPremiereSqlDatabase = dateUtils.sqlDatabaseFormat(firstShowing.getPremiereDate())+" "+dateUtils.timeFormat(firstShowing.getPremiereTime());
-					try {
-						showingPremiere = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(showingPremiereSqlDatabase);
-					} catch (ParseException e) {
-						throw new FilmShowingServletException("Something went wrong while parsing premiere datum.", e);
-					}
-			    html.append("</tbody>")
 					.append("</table>")
-					.append("<h1></h1>")
-					.append("<p>Today it is " +dateUtils.getDate())
+			    	.append("<p>Today it is " +dateUtils.getDate())
 					.append("<br />The first upcoming film: "+firstShowing.getFilmId() +" is on "+dateUtils.format2(firstShowing.getPremiereDate())+" at "+dateUtils.timeFormat(firstShowing.getPremiereTime()))
 					.append("<br />That's in "+ dateUtils.calculateTime(dateUtils.getSecondsBetween(showingPremiere, dateUtils.getCurrentDate())) +"</p>")
 					.append("</body>")
