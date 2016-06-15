@@ -31,20 +31,20 @@ public class DateUtilsTest {
 	@Test
 	public void testCalculateTime() {
         String calculateTime = dateUtils.calculateTime(1500000);
-		Assert.assertEquals("Year "+ 0 + " Week " + 2 + " Day " + 3 + " Hour " + 8 + " Minute " + 40 + " Seconds " + 0, calculateTime);
+		Assert.assertEquals(0+"j "+ 2+"w "+ 3+"d "+ 8+"h "+ 40+"m "+ 0+"s ", calculateTime);
 		calculateTime = dateUtils.calculateTime(100000000);			//0,915343915343915
-		Assert.assertEquals("Year "+ 3 + " Week " + 8 + " Day " + 2 + " Hour " + 9 + " Minute " + 46 + " Seconds " + 40, calculateTime);
+		Assert.assertEquals(3+"j "+ 8+"w "+ 2+"d "+ 9+"h "+ 46+"m "+ 40+"s ", calculateTime);
 		calculateTime = dateUtils.calculateTime(167245806);
-		Assert.assertEquals("Year "+ 5 + " Week " + 15 + " Day " + 3 + " Hour " + 17 + " Minute " + 10 + " Seconds " + 6, calculateTime);
+		Assert.assertEquals(5+"j "+ 15+"w "+ 3+"d "+ 17+"h "+ 10+"m "+ 6+"s ", calculateTime);
 		calculateTime = dateUtils.calculateTime(2000000);
-		Assert.assertEquals("Year "+ 0 + " Week " + 3 + " Day " + 2 + " Hour " + 3 + " Minute " + 33 + " Seconds " + 20, calculateTime);
+		Assert.assertEquals(0+"j "+ 3+"w "+ 2+"d "+ 3+"h "+ 33+"m "+ 20+"s ", calculateTime);
 		calculateTime = dateUtils.calculateTime(5000000);
-		Assert.assertEquals("Year "+ 0 + " Week " + 8 + " Day " + 1 + " Hour " + 20 + " Minute " + 53 + " Seconds " + 20, calculateTime);
+		Assert.assertEquals(0+"j "+ 8+"w "+ 1+"d "+ 20+"h "+ 53+"m "+ 20+"s ", calculateTime);
 		calculateTime = dateUtils.calculateTime(22);
-		Assert.assertEquals("Year "+ 0 + " Week " + 0 + " Day " + 0 + " Hour " + 0 + " Minute " + 0 + " Seconds " + 22, calculateTime);
+		Assert.assertEquals(0+"j "+ 0+"w "+ 0+"d "+ 0+"h "+ 0+"m "+ 22+"s ", calculateTime);
 		calculateTime = dateUtils.calculateTime(50000000);
-		Assert.assertEquals("Year "+ 1 + " Week " + 30 + " Day " + 4 + " Hour " + 16 + " Minute " + 53 + " Seconds " + 20, calculateTime);
+		Assert.assertEquals(1+"j "+ 30+"w "+ 4+"d "+ 16+"h "+ 53+"m "+ 20+"s ", calculateTime);
 		calculateTime = dateUtils.calculateTime(90000000);
-		Assert.assertEquals("Year "+ 2 + " Week " + 44 + " Day " + 5 + " Hour " + 16 + " Minute " + 0 + " Seconds " + 0, calculateTime);
-    }
+		Assert.assertEquals(2+"j "+ 44+"w "+ 5+"d "+ 16+"h "+ 0+"m "+ 0+"s ", calculateTime);
+	}	
 }
