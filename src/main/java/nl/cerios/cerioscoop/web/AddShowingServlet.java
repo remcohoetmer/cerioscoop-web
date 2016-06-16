@@ -67,7 +67,7 @@ public class AddShowingServlet extends HttpServlet {
 				premiereDate = new java.sql.Date(date.getTime());  //Maak methode in DateUtils!
 				lastShowingDate = new java.sql.Date(date2.getTime());	//Maak methode in DateUtils!
 			} catch (final ParseException e) {
-				throw new FilmShowingServletException("Something went wrong while parsing premiere datum.", e);
+				throw new ShowingException("Something went wrong while parsing premiere datum.", e);
 				}
 			showingService.addShowing(filmID, roomID, premiereDate, premiereTime, lastShowingDate, lastShowingTime);
 		}

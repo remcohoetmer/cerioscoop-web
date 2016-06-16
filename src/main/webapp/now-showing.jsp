@@ -1,5 +1,5 @@
 <%@page import="java.util.Comparator"%>
-<%@page import="nl.cerios.cerioscoop.web.FilmShowingServletException"%>
+<%@page import="nl.cerios.cerioscoop.web.ShowingException"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.ParseException"%>
 <%@page import="java.util.List"%>
@@ -78,9 +78,21 @@ showingPremiereSqlDatabase = dateUtils.sqlDatabaseFormat(firstShowing.getPremier
 try {
 	showingPremiere = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(showingPremiereSqlDatabase);
 } catch (ParseException e) {
-	throw new FilmShowingServletException("Something went wrong while parsing premiere datum.", e);
+	throw new ShowingException("Something went wrong while parsing premiere datum.", e);
 }
-		
+
+showings.sort(new Comparator<Showing>() {
+
+	public int compare(final Showing itemL, final Showing itemR) {  //is itemL groter dan itemR? anders bovenaan
+		if (itemL.getPremiereDate().before(itemR.getPremiereDate())) {
+			return -1;
+		} else if (itemL.getPremiereDate().after(itemR.getPremiereDate())) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+});		
 
  %>
 <table>
