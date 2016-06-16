@@ -14,7 +14,6 @@
 	<li>https://github.com/RonSanders/cerioscoop-web.git</li>
 	<li>‘Configure’ > ‘convert to maven project’</li>
 	<li>‘Properties’ > ‘project facets’ and add ‘dynamic web module’</li>
-	<li>‘Build path’ > ‘configure buildpath’ > ‘libraries’ > ‘add external JARs’ and add 'mysql-connector-java-5.1.36-bin (located in project folder cerioscoop-web\src\main\webapp\WEB-INF\lib)</li>
 	<li>‘Build path’ > ‘configure buildpath’ > ‘add external JARs’ > ‘JRE system library’ or make sure it is present (for example C:\Program Files\Java\jdk1.8.0_71)</li>
 	<li>Install and setup ‘Liberty Profile Server’ (https://developer.ibm.com/wasdev/getstarted/)</li>
 	<li>https://developer.ibm.com/wasdev/docs/developing-applications-wdt-liberty-profile/ (for more information about liberty)</li>
