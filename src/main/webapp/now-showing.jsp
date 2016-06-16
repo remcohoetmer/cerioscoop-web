@@ -6,7 +6,6 @@
 <%@page import="nl.cerios.cerioscoop.domain.Showing"%>
 <%@page import="nl.cerios.cerioscoop.service.ShowingService"%>
 <%@page import="nl.cerios.cerioscoop.util.DateUtils"%>
-<%@ page import= "nl.cerios.cerioscoop.web.FilmShowingServlet" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
