@@ -1,3 +1,4 @@
+<%@page import="nl.cerios.cerioscoop.domain.Film"%>
 <%@page import="java.util.Comparator"%>
 <%@page import="nl.cerios.cerioscoop.web.ShowingException"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -69,6 +70,7 @@
 final DateUtils dateUtils = new DateUtils();
 final ShowingService showingService = new ShowingService();
 final List<Showing> showings = showingService.getShowings();
+final List<Film> films = showingService.getFilms();
 final Showing firstShowing = showingService.getFirstShowingAfterCurrentDate();
 java.util.Date showingPremiere = null;
 String showingPremiereSqlDatabase = null;
@@ -92,18 +94,23 @@ showings.sort(new Comparator<Showing>() {
 		}
 	}
 });		
+	
+
 
  %>
 <table>
 <thead><th>Filmtitle</th><th>plays on:</th><th>time</th></thead>
 <tbody>
-<% for (Showing item : showings) {%>
+<% for (Showing item : showings) {
+
+if (item.getPremiereDate().after(dateUtils.getCurrentDate())){
+%>
 <tr>
 	<td><%=item.getFilmId()%></td>
-	<td><%=dateUtils.format(item.getPremiereDate())%></td>
+	<td><%=dateUtils.format(item.getPremiereDate())%> </td>
 	<td><%=dateUtils.timeFormat(item.getPremiereTime())%></td>
 </tr>
-<% } %>
+<% }} %>
 </tbody>
 </table>
 <p>Today it is <%= dateUtils.getDate()%>
