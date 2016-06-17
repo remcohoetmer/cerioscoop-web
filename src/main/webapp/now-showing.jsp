@@ -70,7 +70,6 @@
 final DateUtils dateUtils = new DateUtils();
 final ShowingService showingService = new ShowingService();
 final List<Showing> showings = showingService.getShowings();
-final List<Film> films = showingService.getFilms();
 final Showing firstShowing = showingService.getFirstShowingAfterCurrentDate();
 java.util.Date showingPremiere = null;
 String showingPremiereSqlDatabase = null;
@@ -94,9 +93,6 @@ showings.sort(new Comparator<Showing>() {
 		}
 	}
 });		
-	
-
-
  %>
 <table>
 <thead><th>Filmtitle</th><th>plays on:</th><th>time</th></thead>
@@ -106,7 +102,7 @@ showings.sort(new Comparator<Showing>() {
 if (item.getPremiereDate().after(dateUtils.getCurrentDate())){
 %>
 <tr>
-	<td><%=item.getFilmId()%></td>
+	<td><%=showingService.getFilmByFilmId(item.getFilmId()).getName()%></td>
 	<td><%=dateUtils.format(item.getPremiereDate())%> </td>
 	<td><%=dateUtils.timeFormat(item.getPremiereTime())%></td>
 </tr>
@@ -114,7 +110,7 @@ if (item.getPremiereDate().after(dateUtils.getCurrentDate())){
 </tbody>
 </table>
 <p>Today it is <%= dateUtils.getDate()%>
-<br />The first upcoming film: <%=firstShowing.getFilmId() %> is on <%=dateUtils.format2(firstShowing.getPremiereDate())%> at <%=dateUtils.timeFormat(firstShowing.getPremiereTime())%>
+<br />The first upcoming film: <%=showingService.getFilmByFilmId(firstShowing.getFilmId()).getName()%> on <%=dateUtils.format2(firstShowing.getPremiereDate())%> at <%=dateUtils.timeFormat(firstShowing.getPremiereTime())%>
 <br />That's in <%= dateUtils.calculateTime(dateUtils.getSecondsBetween(showingPremiere, dateUtils.getCurrentDate())) %></p>
 
 </body>
