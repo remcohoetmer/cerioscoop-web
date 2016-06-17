@@ -7,7 +7,6 @@ public class Showing {
 	private int showingId;
 	private int filmId;
 	private int roomId;
-	private String filmName;
 	private Date premiereDate;
 	private Time premiereTime;
 	private Date lastShowingDate;
@@ -64,11 +63,5 @@ public class Showing {
 	}
 	public void setLastShowingTime(final Time lastShowingTime) {
 		this.lastShowingTime = lastShowingTime;
-	}
-	public String getFilmName() {
-		return filmName;
-	}
-	public void setFilmName(String filmName) {
-		this.filmName = filmName;
 	}
 }
