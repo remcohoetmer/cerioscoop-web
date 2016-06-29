@@ -37,19 +37,19 @@ public class ShowService {
 		try {
 			final List<Movie> movies = new ArrayList<>();
 			final Statement statement = CONNECTION.createStatement();
-			final ResultSet resultSet = statement.executeQuery("select film_id, name, minutes, type, language from film");
+			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, title, minutes, movie_type, language FROM movie");
 			while (resultSet.next()) {
-	        	final int movieId = resultSet.getInt("film_id");
+	        	final int movieId = resultSet.getInt("movie_id");
+	        	final String movieTitle = resultSet.getString("title");
 	        	final int minutes = resultSet.getInt("minutes");
-	        	final int movieType = resultSet.getInt("type");
-	        	final String movieName = resultSet.getString("name");
+	        	final int movieType = resultSet.getInt("movie_type");
 	        	final String language = resultSet.getString("language");
 	        	
-	        	movies.add(new Movie(movieId, movieName, minutes, movieType, language));
+	        	movies.add(new Movie(movieId, movieTitle, minutes, movieType, language));
 			}
 			return movies;
 	    }catch (final SQLException e) {
-	    	throw new ShowServiceException("Something went terribly wrong while retrieving the first date.", e);
+	    	throw new ShowServiceException("Something went terribly wrong while retrieving the movie.", e);
 	    }
 	}
 	
@@ -57,7 +57,7 @@ public class ShowService {
 		final List<Show> shows = new ArrayList<>();
 		try {
 			final Statement statement = CONNECTION.createStatement();
-			final ResultSet resultSet = statement.executeQuery("select show_id, movie_id, room_id, show_date, show_time from show"); { 
+			final ResultSet resultSet = statement.executeQuery("SELECT show_id, movie_id, room_id, show_date, show_time FROM `show`"); { 
 			while (resultSet.next()) {
 				final int showId = resultSet.getInt("show_id");
 				final int movieId = resultSet.getInt("movie_id");
@@ -144,6 +144,11 @@ public class ShowService {
 	    }catch (final SQLException e) {
 	    	throw new ShowServiceException("Something went wrong while inserting the filmagenda items.", e);
 	    }
+	}
+	public static void main(String[] args) {
+		ShowService SS = new ShowService();
+		SS.getShows();
+		SS.getMovies();
 	}
 }
 
