@@ -6,7 +6,7 @@
 <%@page import="java.text.ParseException"%>
 <%@page import="java.util.List"%>
 <%@page import="nl.cerios.cerioscoop.domain.Show"%>
-<%@page import="nl.cerios.cerioscoop.service.ShowService"%>
+<%@page import="nl.cerios.cerioscoop.service.GeneralService"%>
 <%@page import="nl.cerios.cerioscoop.util.DateUtils"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -69,11 +69,11 @@
 <h1>Now Showing</h1>
 <%
 // TODO EJB-calls vanuit servlets, niet vanuit een JSP! Dit willen we niet meer zien!
-final ShowService showService = (ShowService) new InitialContext().lookup("java:module/ShowService");
+final GeneralService generalService = (GeneralService) new InitialContext().lookup("java:module/GeneralService");
 
 final DateUtils dateUtils = new DateUtils();
-final List<Show> shows = showService.getShows();
-final Show firstShowing = showService.getFirstShowingAfterCurrentDate();
+final List<Show> shows = generalService.getShows();
+final Show firstShowing = generalService.getFirstShowAfterCurrentDate();
 java.util.Date showingPremiere = null;
 String showingPremiereSqlDatabase = null;
  
@@ -105,7 +105,7 @@ shows.sort(new Comparator<Show>() {
 if (item.getShowDate().after(dateUtils.getCurrentDate())){
 %>
 <tr>
-	<td><%=showService.getMovieByMovieId(item.getMovieId()).getTitle()%></td>
+	<td><%=generalService.getMovieByMovieId(item.getMovieId()).getTitle()%></td>
 	<td><%=dateUtils.format(item.getShowDate())%> </td>
 	<td><%=dateUtils.timeFormat(item.getShowTime())%></td>
 </tr>
@@ -113,7 +113,7 @@ if (item.getShowDate().after(dateUtils.getCurrentDate())){
 </tbody>
 </table>
 <p>Today it is <%= dateUtils.getDate()%>
-<br />The first upcoming film: <%=showService.getMovieByMovieId(firstShowing.getMovieId()).getTitle()%> on <%=dateUtils.format2(firstShowing.getShowDate())%> at <%=dateUtils.timeFormat(firstShowing.getShowTime())%>
+<br />The first upcoming film: <%=generalService.getMovieByMovieId(firstShowing.getMovieId()).getTitle()%> on <%=dateUtils.format2(firstShowing.getShowDate())%> at <%=dateUtils.timeFormat(firstShowing.getShowTime())%>
 <br />That's in <%= dateUtils.calculateTime(dateUtils.getSecondsBetween(showingPremiere, dateUtils.getCurrentDate())) %></p>
 
 </body>

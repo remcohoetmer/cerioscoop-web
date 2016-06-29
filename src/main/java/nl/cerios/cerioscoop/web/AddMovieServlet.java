@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import nl.cerios.cerioscoop.domain.Movie;
-import nl.cerios.cerioscoop.service.ShowService;
+import nl.cerios.cerioscoop.service.EmployeeService;
 
 /**
  * Servlet implementation class AddFilmServlet
@@ -20,7 +20,7 @@ public class AddMovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	private ShowService showservice;
+	private EmployeeService employeeService;
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -43,7 +43,7 @@ public class AddMovieServlet extends HttpServlet {
 			movie.setLanguage(request.getParameter("language"));
 			movie.setDescription(request.getParameter("description"));
 			
-			showservice.addMovie(movie);
+			employeeService.addMovie(movie);
 		}
 		doGet(request, response);
 	}

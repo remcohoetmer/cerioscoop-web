@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import nl.cerios.cerioscoop.domain.Show;
-import nl.cerios.cerioscoop.service.ShowService;
+import nl.cerios.cerioscoop.service.EmployeeService;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 /**
@@ -25,7 +25,7 @@ public class AddShowServlet extends HttpServlet {
 	private static DateUtils dateUtils = new DateUtils();
 	
 	@EJB
-	private ShowService showService;   
+	private EmployeeService employeeService;   
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -52,7 +52,7 @@ public class AddShowServlet extends HttpServlet {
 			} catch (ParseException e) {
 				throw new ShowException("Something went wrong while parsing premiere date.", e);
 			}
-			showService.addShow(show);
+			employeeService.addShow(show);
 		}
 		doGet(request, response);
 	}

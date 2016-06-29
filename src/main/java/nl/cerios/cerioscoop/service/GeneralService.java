@@ -2,7 +2,6 @@ package nl.cerios.cerioscoop.service;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,25 +18,10 @@ import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 @Stateless										//Stateless is de status van de gevulde opjecten. Best Practice is stateless.
-public class ShowService {
+public class GeneralService {
 
 	@Resource(name = "jdbc/cerioscoop")			//Content Dependency Injection techniek
 	private DataSource dataSource;
-	
-	/*TODO rename the SQL field names to full caps names
-	 * Example:
-	 * film_id 
-	 * 
-	 * should be:
-	 * FILM_ID
-	 * 
-	 * But the names in the database have to match the new full-caps names to work.
-	 * 
-	 * 
-	 * TODO replace the "System.out.println" with an other alternative.
-	 * Once this application is on a server there is no way the client could see those comments
-	 * since those will be printed on the server not the client side.
-	 * */
 	
 	public List<Movie> getMovies(){
 		try (final Connection connection = dataSource.getConnection()) {			//AutoCloseable
@@ -85,23 +69,22 @@ public class ShowService {
 	 * 
 	 * @return firstShowing
 	 */
-	public Show getFirstShowingAfterCurrentDate(){
+	public Show getFirstShowAfterCurrentDate(){
 		final List<Show> shows = getShows();
 		final DateUtils dateUtils = new DateUtils();
-		Show firstShowing = null;
+		Show firstShow = null;
 		
 		for (final Show show : shows) {
 			if(show.getShowDate().after(dateUtils.getCurrentSqlDate())){	
-				if(firstShowing == null){			//hier wordt voor 1x eerstVolgendeFilm gevuld					
-					firstShowing = show;
+				if(firstShow == null){			//hier wordt voor 1x eerstVolgendeFilm gevuld					
+					firstShow = show;
 				}
-				else if(show.getShowDate().before(firstShowing.getShowDate())){
-					firstShowing = show;			
+				else if(show.getShowDate().before(firstShow.getShowDate())){
+					firstShow = show;			
 				}
 			}
 		}
-		System.out.println(firstShowing);
-		return firstShowing;
+		return firstShow;
 	}
 		
 	public Movie getMovieByMovieId(final int movieId) throws FilmNotFoundException {
@@ -114,41 +97,6 @@ public class ShowService {
 			}
 		}
 		return movieByMovieId;
-	}
-	
-	public void addMovie(final Movie newMovie) {
-		try (final Connection connection = dataSource.getConnection()){
-			final PreparedStatement preparedStatement = connection.prepareStatement(
-					"INSERT INTO movie (category_id, title, minutes, movie_type, language, description) VALUES (?,?,?,?,?,?);");
-			preparedStatement.setInt(1, newMovie.getCategoryId());
-			preparedStatement.setString(2, newMovie.getTitle());
-			preparedStatement.setInt(3, newMovie.getMinutes());
-			preparedStatement.setInt(4, newMovie.getMovieType());
-			preparedStatement.setString(5, newMovie.getLanguage());
-			preparedStatement.setString(6, newMovie.getDescription());
-			preparedStatement.executeUpdate();
-			
-			System.out.println("Data inserted.");
-	    }catch (final SQLException e) {
-	    	throw new ShowServiceException("Something went wrong while inserting the movie items.", e);
-	    }
-	}
-	
-	public void addShow(final Show show){		
-		try (final Connection connection = dataSource.getConnection();
-			final PreparedStatement preparedStatement = connection.prepareStatement(
-					"INSERT INTO `show` (movie_id, room_id, show_date, show_time) VALUES (?,?,?,?);")) {
-			
-        	preparedStatement.setInt(1, show.getMovieId());
-        	preparedStatement.setInt(2, show.getRoomId());
-        	preparedStatement.setDate(3, show.getShowDate());
-        	preparedStatement.setTime(4, show.getShowTime());
-        	preparedStatement.executeUpdate();
-        	
-        	System.out.println("Data inserted.");
-	    }catch (final SQLException e) {
-	    	throw new ShowServiceException("Something went wrong while inserting the filmagenda items.", e);
-	    }
 	}
 }
 
