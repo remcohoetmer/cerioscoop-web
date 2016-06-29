@@ -57,17 +57,15 @@ public class ShowService {
 		final List<Show> shows = new ArrayList<>();
 		try {
 			final Statement statement = CONNECTION.createStatement();
-			final ResultSet resultSet = statement.executeQuery("select showing_id, film_id, room_id, premiere_date, premiere_time, last_showing_date, last_showing_time from showing"); { 
+			final ResultSet resultSet = statement.executeQuery("select show_id, movie_id, room_id, show_date, show_time from show"); { 
 			while (resultSet.next()) {
-				final int showingId = resultSet.getInt("showing_id");
-				final int filmId = resultSet.getInt("film_id");
+				final int showId = resultSet.getInt("show_id");
+				final int movieId = resultSet.getInt("movie_id");
 				final int roomId = resultSet.getInt("room_id");
-				final Date premiereDate = resultSet.getDate("premiere_date");
-				final Time premiereTime = resultSet.getTime("premiere_time");
-				final Date lastShowingDate = resultSet.getDate("last_showing_date");
-				final Time lastShowingTime = resultSet.getTime("last_showing_time");
+				final Date showDate = resultSet.getDate("show_date");
+				final Time showTime = resultSet.getTime("show_time");
 				
-	        	shows.add(new Show(showingId, filmId, roomId, premiereDate, premiereTime, lastShowingDate, lastShowingTime));
+	        	shows.add(new Show(showId, movieId, roomId, showDate, showTime));
 	        	}
 	        return shows;
 	      }
@@ -87,11 +85,11 @@ public class ShowService {
 		Show firstShowing = null;
 		
 		for (final Show show : shows) {
-			if(show.getPremiereDate().after(dateUtils.getCurrentSqlDate())){	
+			if(show.getShowDate().after(dateUtils.getCurrentSqlDate())){	
 				if(firstShowing == null){			//hier wordt voor 1x eerstVolgendeFilm gevuld					
 					firstShowing = show;
 				}
-				else if(show.getPremiereDate().before(firstShowing.getPremiereDate())){
+				else if(show.getShowDate().before(firstShowing.getShowDate())){
 					firstShowing = show;			
 				}
 			}
@@ -114,14 +112,16 @@ public class ShowService {
 	
 	
 	
-	public void addMovie(final String newMovieName, final int minutes, final int movieType, final String language) {
+	public void addMovie(final Movie newMovie) {
 		try {
 			final PreparedStatement preparedStatement = CONNECTION.prepareStatement(
-					"INSERT INTO film (name, minutes, type, language) values (?,?,?,?);");
-			preparedStatement.setString(1, newMovieName);
-			preparedStatement.setInt(2, minutes);
-			preparedStatement.setInt(3, movieType);
-			preparedStatement.setString(4, language);
+					"INSERT INTO movie (category_id, title, minutes, movie_type, language, description) values (?,?,?,?,?,?);");
+			preparedStatement.setInt(1, newMovie.getCategoryId());
+			preparedStatement.setString(2, newMovie.getTitle());
+			preparedStatement.setInt(3, newMovie.getMinutes());
+			preparedStatement.setInt(4, newMovie.getMovieType());
+			preparedStatement.setString(5, newMovie.getLanguage());
+			preparedStatement.setString(6, newMovie.getDescription());
 			preparedStatement.executeUpdate();
 			
 			System.out.println("Data inserted.");
@@ -130,16 +130,14 @@ public class ShowService {
 	    }
 	}
 	
-	public void addShow(Show show){		
+	public void addShow(final Show show){		
 		try {
 			final PreparedStatement preparedStatement = CONNECTION.prepareStatement(
-					"INSERT INTO showing (film_id, room_id, premiere_date, premiere_time, last_showing_date, last_showing_time) values (?,?,?,?,?,?);");
+					"INSERT INTO show (movie_id, room_id, show_date, show_time) values (?,?,?,?);");
         	preparedStatement.setInt(1, show.getMovieId());
         	preparedStatement.setInt(2, show.getRoomId());
-        	preparedStatement.setDate(3, show.getPremiereDate());
-        	preparedStatement.setTime(4, show.getPremiereTime());
-        	preparedStatement.setDate(5, show.getLastShowingDate());
-        	preparedStatement.setTime(6, show.getLastShowingTime());
+        	preparedStatement.setDate(3, show.getShowDate());
+        	preparedStatement.setTime(4, show.getShowTime());
         	preparedStatement.executeUpdate();
         	
         	System.out.println("Data inserted.");

@@ -20,11 +20,11 @@
  $(function() {
  $( "#datepicker" ).datepicker();});
 </script>
- <script>
- $(function() {
- $( "#datepicker2" ).datepicker();});
+<script>
+$(document).ready(function(){
+            $('input.timepicker').timepicker({});
+        });
 </script>
-
 
 </head>
 <body>
@@ -63,13 +63,13 @@
 <form name="add-showing" method="post" action="/cerioscoop-web/AddShowServlet">
 Movie ID:<br>
 <input type="text" name="movieID"><br>
-Room ID:<br>
+<br>Room ID:<br>
 <input type="radio" name="roomID" value="1"> Red room<br>
 <input type="radio" name="roomID" value="2"> Blue room<br>
-Premiere date:<br>
+<br>Premiere date:<br>
 <input type="text" id="datepicker" name="premieredate"><br>
-Last showing date:<br>
- <input type="text" id="datepicker2" name="lastshowingdate"><br>
+<br>Time:<br>
+ <input type="text" id="timepicker" name="lastshowingdate"><br>
  <input type="submit" name="submitit" value="Submit"/>
  <input type="reset" value="cancel" />
  </form>

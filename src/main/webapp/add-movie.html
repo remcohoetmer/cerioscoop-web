@@ -51,21 +51,32 @@
   Movie title:<br>
   <input type="text" name="moviename">
   <br>
-  Minutes:<br>
+  <br>Category:<br>
+  <select name="category">
+  <option value="1">Action</option>
+  <option value="2">Comedy</option>
+  <option value="3">Kids</option>
+  <option value="4">Horror</option>
+  </select>
+  <br>
+  <br>Minutes:<br>
   <input type="text" name="minutes">
   <br>
-  Movie type 2D of 3D:<br>
-  <input type="radio" name="type" value="2"> 2D<br>
-  <input type="radio" name="type" value="3"> 3D<br>
-  Language:<br>
+  <br>Movie type 2D of 3D:<br>
+  <input type="radio" name="movietype" value="2"> 2D<br>
+  <input type="radio" name="movietype" value="3"> 3D<br>
+  <br>Language:<br>
   <select name="language">
   <option value="English">English</option>
   <option value="German">German</option>
   <option value="Dutch">Dutch</option>
   <option value="French">French</option>
   </select>
-  <br><br>
-  <input type="submit" name="submitit" value="Submit">
+  <br>
+  <br>Description:<br>
+  <input type="text" name="description"/>
+  <br>
+  <br><input type="submit" name="submitit" value="Submit">
 </form> 
 </body>
 </html>

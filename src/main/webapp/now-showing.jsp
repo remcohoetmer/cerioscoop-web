@@ -74,7 +74,7 @@ final Show firstShowing = showService.getFirstShowingAfterCurrentDate();
 java.util.Date showingPremiere = null;
 String showingPremiereSqlDatabase = null;
  
-showingPremiereSqlDatabase = dateUtils.sqlDatabaseFormat(firstShowing.getPremiereDate())+" "+dateUtils.timeFormat(firstShowing.getPremiereTime());
+showingPremiereSqlDatabase = dateUtils.sqlDatabaseFormat(firstShowing.getShowDate())+" "+dateUtils.timeFormat(firstShowing.getShowTime());
 try {
 	showingPremiere = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(showingPremiereSqlDatabase);
 } catch (ParseException e) {
@@ -84,9 +84,9 @@ try {
 shows.sort(new Comparator<Show>() {
 
 	public int compare(final Show itemL, final Show itemR) {  //is itemL groter dan itemR? anders bovenaan
-		if (itemL.getPremiereDate().before(itemR.getPremiereDate())) {
+		if (itemL.getShowDate().before(itemR.getShowDate())) {
 			return -1;
-		} else if (itemL.getPremiereDate().after(itemR.getPremiereDate())) {
+		} else if (itemL.getShowDate().after(itemR.getShowDate())) {
 			return 1;
 		} else {
 			return 0;
@@ -99,18 +99,18 @@ shows.sort(new Comparator<Show>() {
 <tbody>
 <% for (Show item : shows) {
 
-if (item.getPremiereDate().after(dateUtils.getCurrentDate())){
+if (item.getShowDate().after(dateUtils.getCurrentDate())){
 %>
 <tr>
 	<td><%=showService.getMovieByMovieId(item.getMovieId()).getTitle()%></td>
-	<td><%=dateUtils.format(item.getPremiereDate())%> </td>
-	<td><%=dateUtils.timeFormat(item.getPremiereTime())%></td>
+	<td><%=dateUtils.format(item.getShowDate())%> </td>
+	<td><%=dateUtils.timeFormat(item.getShowTime())%></td>
 </tr>
 <% }} %>
 </tbody>
 </table>
 <p>Today it is <%= dateUtils.getDate()%>
-<br />The first upcoming film: <%=showService.getMovieByMovieId(firstShowing.getMovieId()).getTitle()%> on <%=dateUtils.format2(firstShowing.getPremiereDate())%> at <%=dateUtils.timeFormat(firstShowing.getPremiereTime())%>
+<br />The first upcoming film: <%=showService.getMovieByMovieId(firstShowing.getMovieId()).getTitle()%> on <%=dateUtils.format2(firstShowing.getShowDate())%> at <%=dateUtils.timeFormat(firstShowing.getShowTime())%>
 <br />That's in <%= dateUtils.calculateTime(dateUtils.getSecondsBetween(showingPremiere, dateUtils.getCurrentDate())) %></p>
 
 </body>
