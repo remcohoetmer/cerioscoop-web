@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Save Film</title>
+<title>Add Movie</title>
 
    	<!-- Main CSS
    	================================================== -->
@@ -37,8 +37,8 @@
 				<li><a href="now-showing.jsp" class="smoothScroll">NOW SHOWING</a></li>
 				<li><a href="/cerioscoop-web/index.html" class="smoothScroll">ABOUT</a></li>
 				<li><a href="/cerioscoop-web/index.html" class="smoothScroll">TEAM</a></li>
-				<li><a href="add-show.html" class="smoothScroll">ADD SHOWING</a></li>
-				<li><a href="add-film.html" class="smoothScroll">ADD FILM</a></li>
+				<li><a href="add-show.html" class="smoothScroll">ADD SHOW</a></li>
+				<li><a href="add-movie.html" class="smoothScroll">ADD MOVIE</a></li>
 				<li><a href="/cerioscoop-web/index.html" class="smoothScroll">TRAILERS</a></li>
 			</ul>
 		</div>
@@ -46,26 +46,37 @@
 	</div>
 </section>
 
-<h1>Add film</h1>
-<form method="POST" action="http://localhost:9080/cerioscoop-web/AddFilmServlet"> 
-  Film name:<br>
-  <input type="text" name="filmname">
+<h1>Add Movie</h1>
+<form method="POST" action="/cerioscoop-web/AddMovieServlet"> 
+  Movie title:<br>
+  <input type="text" name="moviename">
   <br>
-  Minutes:<br>
+  <br>Category:<br>
+  <select name="category">
+  <option value="1">Action</option>
+  <option value="2">Comedy</option>
+  <option value="3">Kids</option>
+  <option value="4">Horror</option>
+  </select>
+  <br>
+  <br>Minutes:<br>
   <input type="text" name="minutes">
   <br>
-  Film type 2D of 3D:<br>
-  <input type="radio" name="type" value="2"> 2D<br>
-  <input type="radio" name="type" value="3"> 3D<br>
-  Language:<br>
+  <br>Movie type 2D of 3D:<br>
+  <input type="radio" name="movietype" value="2"> 2D<br>
+  <input type="radio" name="movietype" value="3"> 3D<br>
+  <br>Language:<br>
   <select name="language">
   <option value="English">English</option>
   <option value="German">German</option>
   <option value="Dutch">Dutch</option>
   <option value="French">French</option>
   </select>
-  <br><br>
-  <input type="submit" name="submitit" value="Submit">
+  <br>
+  <br>Description:<br>
+  <input type="text" name="description"/>
+  <br>
+  <br><input type="submit" name="submitit" value="Submit">
 </form> 
 </body>
 </html>

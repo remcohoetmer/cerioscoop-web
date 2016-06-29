@@ -5,36 +5,32 @@ import java.sql.Time;
 
 public class Show {
 	private int showId;
-	private int filmId;
+	private int movieId;
 	private int roomId;
-	private Date premiereDate;
-	private Time premiereTime;
-	private Date lastShowingDate;
-	private Time lastShowingTime;
+	private Date showDate;
+	private Time showTime;
 	
 	public Show() {
 	}
-	public Show(final int showId, final int filmId, final int roomId, final Date premiereDate, final Time premiereTime, final Date lastShowingDate, final  Time lastShowingTime) {
+	public Show(final int showId, final int movieId, final int roomId, final Date showDate, final Time showTime) {
 		this.showId = showId;
-		this.filmId = filmId;
+		this.movieId = movieId;
 		this.roomId = roomId; 
-		this.premiereDate = premiereDate;
-		this.premiereTime = premiereTime;
-		this.lastShowingDate = lastShowingDate;
-		this.lastShowingTime = lastShowingTime;
+		this.showDate = showDate;
+		this.showTime = showTime;
 		
 	}
 	public int getShowId() {
 		return showId;
 	}
-	public void setShowId(final int showingId) {
-		this.showId = showingId;
+	public void setShowId(final int showId) {
+		this.showId = showId;
 	}
-	public int getFilmId() {
-		return filmId;
+	public int getMovieId() {
+		return movieId;
 	}
-	public void setFilmId(final int filmId) {
-		this.filmId = filmId;
+	public void setMovieId(final int movieId) {
+		this.movieId = movieId;
 	}
 	public int getRoomId() {
 		return roomId;
@@ -42,28 +38,16 @@ public class Show {
 	public void setRoomId(final int roomId) {
 		this.roomId = roomId;
 	}
-	public Date getPremiereDate() {
-		return premiereDate;
+	public Date getShowDate() {
+		return showDate;
 	}
-	public void setPremiereDate(final Date premiereDate) {
-		this.premiereDate = premiereDate;
+	public void setShowDate(final Date showDate) {
+		this.showDate = showDate;
 	}
-	public Time getPremiereTime() {
-		return premiereTime;
+	public Time getShowTime() {
+		return showTime;
 	}
-	public void setPremiereTime(final Time premiereTime) {
-		this.premiereTime = premiereTime;
-	}
-	public Date getLastShowingDate() {
-		return lastShowingDate;
-	}
-	public void setLastShowingDate(final Date lastShowingDate) {
-		this.lastShowingDate = lastShowingDate;
-	}
-	public Time getLastShowingTime() {
-		return lastShowingTime;
-	}
-	public void setLastShowingTime(final Time lastShowingTime) {
-		this.lastShowingTime = lastShowingTime;
+	public void setShowTime(final Time showTime) {
+		this.showTime = showTime;
 	}
 }
