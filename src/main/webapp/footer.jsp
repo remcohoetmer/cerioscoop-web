@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Footer</title>
 <style>
 html, body, #container { height: 100%; }
 body > #container { height: auto; min-height: 100%; }
