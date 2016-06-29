@@ -3,32 +3,27 @@ We're Cerios! A young company with about 60 employees that helps organisations t
 
 ## Installation
 * Download eclipse from https://eclipse.org
-* Install and setup [Liberty Profile Server](https://developer.ibm.com/wasdev/getstarted/)
-click [here](https://developer.ibm.com/wasdev/docs/developing-applications-wdt-liberty-profile/) for more information about Liberty Profile. 
-* Make sure you have installed the eclipse tools for websphere liberty (https://developer.ibm.com/wasdev/downloads/)!!  This will also incluse the maven plugin etc.
-* 'Import' > 'projects from git' > 'clone url' (use [this link](https://github.com/RonSanders/cerioscoop-web.git)) > 'import as general project' > 'finish'
-* 'Configure' > 'convert to maven project'
-* Instead of the previous two steps: Import > Maven > Checkout Maven Projects from SCM and select git and the git link https://github.com/RonSanders/cerioscoop-web.git. (if necessary install the egit m2e connector from the link in the lower right corner)
-* 'Properties' > 'project facets' and add 'dynamic web module'
-* ~~'Build path' > 'configure buildpath' > 'add external JARs' > 'JRE system library' or make sure it is present (for example C:\Program Files\Java\jdk1.8.0_71)~~
-Eclipse maven plugin is smart enough to extract correct settings for the pom.xml (and if you change your pom.xml file, just do a rightclick>maven->update project)
-
+* Install and setup [Liberty Profile Server](https://developer.ibm.com/wasdev/getstarted/), click [here](https://developer.ibm.com/wasdev/docs/developing-applications-wdt-liberty-profile/) for more information about Liberty Profile.
+* Instal the Eclipse tools for [WebSphere Liberty](https://developer.ibm.com/wasdev/downloads/)
+* '_Import_' > '_Maven_' > '_Checkout Maven Projects from SCM_' and select git with [this](https://github.com/RonSanders/cerioscoop-web.git) URL
+* '_Properties_' > '_Project facets_', check option '_Dynamic Web Module_' __and then__ click '_Further configuration available..._' to set _Content directory_ to `src/main/webapp`.
 * Install and setup [MySQL Community Server](https://dev.mysql.com/downloads/mysql/)
-* Install and setup [HeidiSQL](http://www.heidisql.com/download.php), useful and reliable tool designed for web developers using the popular MySQL server
-* Visualize and manage your repositories through [SourceTree](https://www.atlassian.com/software/sourcetree)'s simple interface or simply use github's own visualisation tool [Github Desktop](https://desktop.github.com)
-* Make sure you have the Maven plugin for Eclipse installed (this comes with the wasdev plugin)
+* Run the script `src/main/scripts/mysql-schema.sql`
+* Run the script `src/main/scripts/mysql-testdata.sql`
+* Manage your database with [HeidiSQL](http://www.heidisql.com/download.php)
+* Visualize and manage your repositories with [SourceTree](https://www.atlassian.com/software/sourcetree) or use [Github Desktop](https://desktop.github.com)
 
-## Configure server.xml
-
+##### Configure DataSource
+In WebSphere Liberty Profile `server.xml` add this (chck and adjust properties!):
 ```xml
-<dataSource id="MySQL" jndiName="jdbc/cerioscoop" type="javax.sql.DataSource">
-	    <jdbcDriver libraryRef="MySQLLib"/>
-	    <properties password="{xor}MjcnaW9vZmY=" portNumber="3306" serverName="localhost" user="root" databaseName="cerioscoop_db"/>
-	</dataSource>
-
-<library id="MySQLLib">
-	   <fileset dir="C:/" includes="mysql-connector-java-5.1.36-bin.jar" id="MySQL_jar"/>
+<library id="MySQL_lib">
+  <fileset dir="C:/" includes="mysql-connector-java-5.1.39-bin.jar"/>
 </library>
+
+<dataSource jndiName="jdbc/cerioscoop" type="javax.sql.DataSource">
+  <jdbcDriver libraryRef="MySQL_lib"/>
+  <properties serverName="localhost" portNumber="3306" databaseName="cerioscoop_db" user="root" password="{xor}MjcnaW9vZmY="/>
+</dataSource>
 ```
 
 ## Contributors
