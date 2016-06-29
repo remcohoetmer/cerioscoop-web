@@ -110,8 +110,6 @@ public class ShowService {
 		return movieByMovieId;
 	}
 	
-	
-	
 	public void addMovie(final Movie newMovie) {
 		try {
 			final PreparedStatement preparedStatement = CONNECTION.prepareStatement(
@@ -144,11 +142,6 @@ public class ShowService {
 	    }catch (final SQLException e) {
 	    	throw new ShowServiceException("Something went wrong while inserting the filmagenda items.", e);
 	    }
-	}
-	public static void main(String[] args) {
-		ShowService SS = new ShowService();
-		SS.getShows();
-		SS.getMovies();
 	}
 }
 
