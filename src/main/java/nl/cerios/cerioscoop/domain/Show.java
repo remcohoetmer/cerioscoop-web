@@ -5,7 +5,7 @@ import java.sql.Time;
 
 public class Show {
 	private int showId;
-	private int filmId;
+	private int movieId;
 	private int roomId;
 	private Date premiereDate;
 	private Time premiereTime;
@@ -14,9 +14,9 @@ public class Show {
 	
 	public Show() {
 	}
-	public Show(final int showId, final int filmId, final int roomId, final Date premiereDate, final Time premiereTime, final Date lastShowingDate, final  Time lastShowingTime) {
+	public Show(final int showId, final int movieId, final int roomId, final Date premiereDate, final Time premiereTime, final Date lastShowingDate, final  Time lastShowingTime) {
 		this.showId = showId;
-		this.filmId = filmId;
+		this.movieId = movieId;
 		this.roomId = roomId; 
 		this.premiereDate = premiereDate;
 		this.premiereTime = premiereTime;
@@ -30,11 +30,11 @@ public class Show {
 	public void setShowId(final int showingId) {
 		this.showId = showingId;
 	}
-	public int getFilmId() {
-		return filmId;
+	public int getMovieId() {
+		return movieId;
 	}
-	public void setFilmId(final int filmId) {
-		this.filmId = filmId;
+	public void setMovieId(final int movieId) {
+		this.movieId = movieId;
 	}
 	public int getRoomId() {
 		return roomId;

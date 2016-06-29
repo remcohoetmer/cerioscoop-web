@@ -10,7 +10,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.cerios.cerioscoop.domain.Film;
+import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.util.DateUtils;
 
@@ -33,21 +33,21 @@ public class ShowService {
 	 * since those will be printed on the server not the client side.
 	 * */
 	
-	public List<Film> getFilms(){
+	public List<Movie> getMovies(){
 		try {
-			final List<Film> films = new ArrayList<>();
+			final List<Movie> movies = new ArrayList<>();
 			final Statement statement = CONNECTION.createStatement();
 			final ResultSet resultSet = statement.executeQuery("select film_id, name, minutes, type, language from film");
 			while (resultSet.next()) {
-	        	final int filmId = resultSet.getInt("film_id");
+	        	final int movieId = resultSet.getInt("film_id");
 	        	final int minutes = resultSet.getInt("minutes");
 	        	final int movieType = resultSet.getInt("type");
 	        	final String movieName = resultSet.getString("name");
 	        	final String language = resultSet.getString("language");
 	        	
-	        	films.add(new Film(filmId, movieName, minutes, movieType, language));
+	        	movies.add(new Movie(movieId, movieName, minutes, movieType, language));
 			}
-			return films;
+			return movies;
 	    }catch (final SQLException e) {
 	    	throw new ShowServiceException("Something went terribly wrong while retrieving the first date.", e);
 	    }
@@ -100,25 +100,25 @@ public class ShowService {
 		return firstShowing;
 	}
 		
-	public Film getFilmByFilmId(final int filmId) throws FilmNotFoundException {
-		final List<Film> films = getFilms();
-		Film filmByFilmId = null;
+	public Movie getMovieByMovieId(final int movieId) throws FilmNotFoundException {
+		final List<Movie> movies = getMovies();
+		Movie movieByMovieId = null;
 		
-		for (final Film filmItem : films){
-			if(filmItem.getFilmId() == filmId){
-				filmByFilmId = filmItem;
+		for (final Movie movieItem : movies){
+			if(movieItem.getMovieId() == movieId){
+				movieByMovieId = movieItem;
 			}
 		}
-		return filmByFilmId;
+		return movieByMovieId;
 	}
 	
 	
 	
-	public void addFilm(final String newFilmName, final int minutes, final int movieType, final String language) {
+	public void addMovie(final String newMovieName, final int minutes, final int movieType, final String language) {
 		try {
 			final PreparedStatement preparedStatement = CONNECTION.prepareStatement(
 					"INSERT INTO film (name, minutes, type, language) values (?,?,?,?);");
-			preparedStatement.setString(1, newFilmName);
+			preparedStatement.setString(1, newMovieName);
 			preparedStatement.setInt(2, minutes);
 			preparedStatement.setInt(3, movieType);
 			preparedStatement.setString(4, language);
@@ -126,7 +126,7 @@ public class ShowService {
 			
 			System.out.println("Data inserted.");
 	    }catch (final SQLException e) {
-	    	throw new ShowServiceException("Something went wrong while inserting the filmagenda items.", e);
+	    	throw new ShowServiceException("Something went wrong while inserting the movie items.", e);
 	    }
 	}
 	
@@ -134,7 +134,7 @@ public class ShowService {
 		try {
 			final PreparedStatement preparedStatement = CONNECTION.prepareStatement(
 					"INSERT INTO showing (film_id, room_id, premiere_date, premiere_time, last_showing_date, last_showing_time) values (?,?,?,?,?,?);");
-        	preparedStatement.setInt(1, show.getFilmId());
+        	preparedStatement.setInt(1, show.getMovieId());
         	preparedStatement.setInt(2, show.getRoomId());
         	preparedStatement.setDate(3, show.getPremiereDate());
         	preparedStatement.setTime(4, show.getPremiereTime());

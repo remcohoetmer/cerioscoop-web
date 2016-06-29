@@ -12,19 +12,11 @@ import nl.cerios.cerioscoop.service.ShowService;
 /**
  * Servlet implementation class AddFilmServlet
  */
-@WebServlet("/AddFilmServlet")
-public class AddFilmServlet extends HttpServlet {
+@WebServlet("/AddMovieServlet")
+public class AddMovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final ShowService SHOWINGSERVICE = new ShowService();
 	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddFilmServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -40,10 +32,10 @@ public class AddFilmServlet extends HttpServlet {
 		if ("Submit".equals(request.getParameter("submitit"))) {
 			final int minutes = Integer.parseInt(request.getParameter("minutes"));
 			final int movieType = Integer.parseInt(request.getParameter("type"));
-			final String filmname = (request.getParameter("filmname"));
+			final String movieName = (request.getParameter("moviename"));
 			final String language = request.getParameter("language");		
 			
-			SHOWINGSERVICE.addFilm(filmname, minutes, movieType, language);
+			SHOWINGSERVICE.addMovie(movieName, minutes, movieType, language);
 		}
 		doGet(request, response);
 	}

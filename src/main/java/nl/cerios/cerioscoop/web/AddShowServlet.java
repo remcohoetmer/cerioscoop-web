@@ -23,12 +23,6 @@ public class AddShowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static DateUtils dateUtils = new DateUtils();
 	private static ShowService showService = new ShowService();   
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddShowServlet() {
-        super();
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -46,7 +40,7 @@ public class AddShowServlet extends HttpServlet {
 		final DateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy"); 					// current format
 
 		if ("Submit".equals(request.getParameter("submitit"))) {
-			show.setFilmId(Integer.parseInt(request.getParameter("filmID")));
+			show.setMovieId(Integer.parseInt(request.getParameter("movieID")));
 			show.setRoomId(Integer.parseInt(request.getParameter("roomID")));	
 			show.setPremiereTime(dateUtils.getCurrentSqlTime());							//TODO remove and input timepicker
 			show.setLastShowingTime(dateUtils.getCurrentSqlTime());							//TODO remove and input timepicker
@@ -56,7 +50,7 @@ public class AddShowServlet extends HttpServlet {
 				show.setLastShowingDate(new java.sql.Date(dateformat.parse(request.getParameter("lastshowingdate")).getTime()));
 //				showing.setLastShowingTime(new java.sql.Time(dateformat.parse(request.getParameter("lastshowingdate")).getTime()));
 			} catch (ParseException e) {
-				throw new ShowException("Something went wrong while parsing premiere datum.", e);
+				throw new ShowException("Something went wrong while parsing premiere date.", e);
 			}
 			showService.addShow(show);
 		}
