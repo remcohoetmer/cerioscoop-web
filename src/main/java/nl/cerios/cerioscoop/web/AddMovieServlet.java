@@ -2,6 +2,7 @@ package nl.cerios.cerioscoop.web;
 
 import java.io.IOException;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +18,9 @@ import nl.cerios.cerioscoop.service.ShowService;
 @WebServlet("/AddMovieServlet")
 public class AddMovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final ShowService SHOWSERVICE = new ShowService();
+	
+	@EJB
+	private ShowService showservice;
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,7 +43,7 @@ public class AddMovieServlet extends HttpServlet {
 			movie.setLanguage(request.getParameter("language"));
 			movie.setDescription(request.getParameter("description"));
 			
-			SHOWSERVICE.addMovie(movie);
+			showservice.addMovie(movie);
 		}
 		doGet(request, response);
 	}

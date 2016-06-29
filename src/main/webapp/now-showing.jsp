@@ -1,3 +1,4 @@
+<%@page import="javax.naming.InitialContext"%>
 <%@page import="nl.cerios.cerioscoop.domain.Movie"%>
 <%@page import="java.util.Comparator"%>
 <%@page import="nl.cerios.cerioscoop.web.ShowException"%>
@@ -67,8 +68,10 @@
 
 <h1>Now Showing</h1>
 <%
+// TODO EJB-calls vanuit servlets, niet vanuit een JSP! Dit willen we niet meer zien!
+final ShowService showService = (ShowService) new InitialContext().lookup("java:module/ShowService");
+
 final DateUtils dateUtils = new DateUtils();
-final ShowService showService = new ShowService();
 final List<Show> shows = showService.getShows();
 final Show firstShowing = showService.getFirstShowingAfterCurrentDate();
 java.util.Date showingPremiere = null;

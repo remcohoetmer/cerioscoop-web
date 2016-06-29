@@ -10,13 +10,19 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.ejb.Stateless;
+import javax.sql.DataSource;
+
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.util.DateUtils;
 
+@Stateless										//Stateless is de status van de gevulde opjecten. Best Practice is stateless.
 public class ShowService {
 
-	private static final  Connection CONNECTION = DatabaseConnection.connectionDatabase();
+	@Resource(name = "jdbc/cerioscoop")			//Content Dependency Injection techniek
+	private DataSource dataSource;
 	
 	/*TODO rename the SQL field names to full caps names
 	 * Example:
@@ -34,9 +40,9 @@ public class ShowService {
 	 * */
 	
 	public List<Movie> getMovies(){
-		try {
+		try (final Connection connection = dataSource.getConnection()) {			//AutoCloseable
 			final List<Movie> movies = new ArrayList<>();
-			final Statement statement = CONNECTION.createStatement();
+			final Statement statement = connection.createStatement();
 			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, title, minutes, movie_type, language FROM movie");
 			while (resultSet.next()) {
 	        	final int movieId = resultSet.getInt("movie_id");
@@ -55,8 +61,8 @@ public class ShowService {
 	
 	public List<Show> getShows(){
 		final List<Show> shows = new ArrayList<>();
-		try {
-			final Statement statement = CONNECTION.createStatement();
+		try (final Connection connection = dataSource.getConnection()){
+			final Statement statement = connection.createStatement();
 			final ResultSet resultSet = statement.executeQuery("SELECT show_id, movie_id, room_id, show_date, show_time FROM `show`"); { 
 			while (resultSet.next()) {
 				final int showId = resultSet.getInt("show_id");
@@ -111,9 +117,9 @@ public class ShowService {
 	}
 	
 	public void addMovie(final Movie newMovie) {
-		try {
-			final PreparedStatement preparedStatement = CONNECTION.prepareStatement(
-					"INSERT INTO movie (category_id, title, minutes, movie_type, language, description) values (?,?,?,?,?,?);");
+		try (final Connection connection = dataSource.getConnection()){
+			final PreparedStatement preparedStatement = connection.prepareStatement(
+					"INSERT INTO movie (category_id, title, minutes, movie_type, language, description) VALUES (?,?,?,?,?,?);");
 			preparedStatement.setInt(1, newMovie.getCategoryId());
 			preparedStatement.setString(2, newMovie.getTitle());
 			preparedStatement.setInt(3, newMovie.getMinutes());
@@ -129,9 +135,10 @@ public class ShowService {
 	}
 	
 	public void addShow(final Show show){		
-		try {
-			final PreparedStatement preparedStatement = CONNECTION.prepareStatement(
-					"INSERT INTO show (movie_id, room_id, show_date, show_time) values (?,?,?,?);");
+		try (final Connection connection = dataSource.getConnection();
+			final PreparedStatement preparedStatement = connection.prepareStatement(
+					"INSERT INTO `show` (movie_id, room_id, show_date, show_time) VALUES (?,?,?,?);")) {
+			
         	preparedStatement.setInt(1, show.getMovieId());
         	preparedStatement.setInt(2, show.getRoomId());
         	preparedStatement.setDate(3, show.getShowDate());

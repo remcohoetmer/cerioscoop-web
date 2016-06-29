@@ -18,6 +18,18 @@ Eclipse maven plugin is smart enough to extract correct settings for the pom.xml
 * Visualize and manage your repositories through [SourceTree](https://www.atlassian.com/software/sourcetree)'s simple interface or simply use github's own visualisation tool [Github Desktop](https://desktop.github.com)
 * Make sure you have the Maven plugin for Eclipse installed (this comes with the wasdev plugin)
 
+## Configure server.xml
+
+```xml
+<dataSource id="MySQL" jndiName="jdbc/cerioscoop" type="javax.sql.DataSource">
+	    <jdbcDriver libraryRef="MySQLLib"/>
+	    <properties password="{xor}MjcnaW9vZmY=" portNumber="3306" serverName="localhost" user="root" databaseName="cerioscoop_db"/>
+	</dataSource>
+
+<library id="MySQLLib">
+	   <fileset dir="C:/" includes="mysql-connector-java-5.1.36-bin.jar" id="MySQL_jar"/>
+</library>
+```
 
 ## Contributors
 * Ron Sanders
