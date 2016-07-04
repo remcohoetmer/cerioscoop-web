@@ -1,33 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Add show</title>
+<title>Register customer</title>
 
    	<!-- Main CSS
    	================================================== -->
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="/cerioscoop-web/css/style.css">
 
 	<!-- Google web font
    ================================================== -->
 	<link href='https://fonts.googleapis.com/css?family=Raleway:700' rel='stylesheet' type='text/css'>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script>
- $(function() {
- $( "#datepicker" ).datepicker();});
-</script>
-<script>
-$(document).ready(function(){
-            $('input.timepicker').timepicker({});
-        });
-</script>
-
 </head>
 <body>
+
 
 <!-- Navigation section
 ================================================== -->
@@ -47,31 +34,32 @@ $(document).ready(function(){
             
 				<!-- <li><a href="#home" class="smoothScroll">HOME</a></li> -->
                 
-				<li><a href="now-showing.jsp" class="smoothScroll">NOW SHOWING</a></li>
+				<li><a href="/cerioscoop-web/jsp/now-showing.jsp" class="smoothScroll">NOW SHOWING</a></li>
 				<li><a href="/cerioscoop-web/index.html" class="smoothScroll">ABOUT</a></li>
 				<li><a href="/cerioscoop-web/index.html" class="smoothScroll">TEAM</a></li>
-				<li><a href="add-show.html" class="smoothScroll">ADD SHOW</a></li>
-				<li><a href="add-movie.html" class="smoothScroll">ADD MOVIE</a></li>
+				<li><a href="/cerioscoop-web/html/add-show.html" class="smoothScroll">ADD SHOW</a></li>
+				<li><a href="/cerioscoop-web/html/add-movie.html" class="smoothScroll">ADD MOVIE</a></li>
+				<li><a href="/cerioscoop-web/html/register.html" class="smoothScroll">REGISTER</a></li>
 				<li><a href="/cerioscoop-web/index.html" class="smoothScroll">TRAILERS</a></li>
 			</ul>
 		</div>
 
 	</div>
 </section>
-
-<h1>Add show</h1>
-<form name="add-showing" method="post" action="/cerioscoop-web/AddShowServlet">
-Movie ID:<br>
-<input type="text" name="movieID"><br>
-<br>Room ID:<br>
-<input type="radio" name="roomID" value="1"> Red room<br>
-<input type="radio" name="roomID" value="2"> Blue room<br>
-<br>Premiere date:<br>
-<input type="text" id="datepicker" name="premieredate"><br>
-<br>Time:<br>
- <input type="text" id="timepicker" name="lastshowingdate"><br>
- <input type="submit" name="submitit" value="Submit"/>
- <input type="reset" value="cancel" />
- </form>
- </body>
+<h1>Register new customer</h1>
+<form method="POST" action="/cerioscoop-web/RegisterServlet"> 
+  First name:<br>
+  <input type="text" name="firstname">
+  <br>Last name:<br>
+  <input type="text" name="lastname">
+  <br>Username:<br>
+  <input type="text" name="username">
+  <br>Password:<br>
+  <input type="text" name="password">
+  <br>E-mail:<br>
+  <input type="text" name="email">
+  <br>
+  <br><input type="submit" name="submitit" value="Submit">
+</form> 
+</body>
 </html>

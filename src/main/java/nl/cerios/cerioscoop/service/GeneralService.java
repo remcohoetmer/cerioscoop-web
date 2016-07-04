@@ -2,6 +2,7 @@ package nl.cerios.cerioscoop.service;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,6 +14,7 @@ import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.sql.DataSource;
 
+import nl.cerios.cerioscoop.domain.Customer;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.util.DateUtils;
@@ -97,6 +99,25 @@ public class GeneralService {
 			}
 		}
 		return movieByMovieId;
+	}
+	public void registerCustomer(final Customer customer){
+		try (final Connection connection = dataSource.getConnection();
+				final PreparedStatement preparedStatement = connection.prepareStatement(
+						"INSERT INTO customer (first_name, last_name, username, password, email, customer_create_date, customer_create_time) VALUES (?,?,?,?,?,?,?);")) {
+				
+	        	preparedStatement.setString(1, customer.getFirstName());
+	        	preparedStatement.setString(2, customer.getLastName());
+	        	preparedStatement.setString(3, customer.getUsername());
+	        	preparedStatement.setString(4, customer.getPassword());
+	        	preparedStatement.setString(5, customer.getEmail());
+	        	preparedStatement.setDate(6, customer.getCustomerCreateDate()); 
+	        	preparedStatement.setTime(7,customer.getCustomerCreateTime());
+	        	preparedStatement.executeUpdate();
+	        	
+	        	System.out.println("Data inserted.");
+		    }catch (final SQLException e) {
+		    	throw new ShowServiceException("Something went wrong while inserting the filmagenda items.", e);
+		    }
 	}
 }
 
