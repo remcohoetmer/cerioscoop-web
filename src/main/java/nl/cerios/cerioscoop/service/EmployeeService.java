@@ -69,4 +69,20 @@ public class EmployeeService {
 		    	throw new ShowServiceException("Something went wrong while inserting the room items.", e);
 		    }
 	}
+	
+	public void deleteMovieFromDatabase(int movie_id) {
+		
+		String deleteSQL = "DELETE FROM movie WHERE movie_id = ?";
+		
+		try {
+			final Connection connection = dataSource.getConnection();
+			final PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, movie_id);
+			preparedStatement.executeUpdate();
+	        	
+			System.out.println("Record is deleted.");
+		    }catch (final SQLException e) {
+		    	throw new ShowServiceException("Something went wrong while deleting the movie items.", e);
+		    }
+	}
 }
