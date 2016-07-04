@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.sql.DataSource;
 
 import nl.cerios.cerioscoop.domain.Movie;
+import nl.cerios.cerioscoop.domain.Room;
 import nl.cerios.cerioscoop.domain.Show;
 
 @Stateless
@@ -50,5 +51,22 @@ public class EmployeeService {
 	    }catch (final SQLException e) {
 	    	throw new ShowServiceException("Something went wrong while inserting the filmagenda items.", e);
 	    }
+	}
+
+	public void addRoom(final Room room) {
+		try (final Connection connection = dataSource.getConnection();
+				final PreparedStatement preparedStatement = connection.prepareStatement(
+						"INSERT INTO room (room_id, name, chair_amount, room_type) VALUES (?,?,?,?);")) {
+				
+	        	preparedStatement.setInt(1, room.getRoomId());
+	        	preparedStatement.setString(2, room.getName());
+	        	preparedStatement.setInt(3, room.getChairAmount());
+	        	preparedStatement.setInt(4, room.getRoomType());
+	        	preparedStatement.executeUpdate();
+	        	
+	        	System.out.println("Data inserted.");
+		    }catch (final SQLException e) {
+		    	throw new ShowServiceException("Something went wrong while inserting the room items.", e);
+		    }
 	}
 }
