@@ -103,7 +103,7 @@ public class GeneralService {
 	public void registerCustomer(final Customer customer){
 		try (final Connection connection = dataSource.getConnection();
 				final PreparedStatement preparedStatement = connection.prepareStatement(
-						"INSERT INTO customer (first_name, last_name, username, password, email, customer_create_date, customer_create_time) VALUES (?,?,?,?,?,?,?);")) {
+						"INSERT INTO customer (first_name, last_name, username, password, `e-mail`, customer_create_date, customer_create_time) VALUES (?,?,?,?,?,?,?);")) {
 				
 	        	preparedStatement.setString(1, customer.getFirstName());
 	        	preparedStatement.setString(2, customer.getLastName());
