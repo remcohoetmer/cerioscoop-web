@@ -25,13 +25,6 @@ public class RegisterServlet extends HttpServlet {
 	private GeneralService generalService;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,7 +40,8 @@ public class RegisterServlet extends HttpServlet {
 			customer.setCustomerCreateTime(dateUtils.getCurrentSqlTime());
 			generalService.registerCustomer(customer);
 		}
-		doGet(request, response);
+		request.getRequestDispatcher("/jsp/register.jsp").
+        forward(request,response);
 	}
 
 }

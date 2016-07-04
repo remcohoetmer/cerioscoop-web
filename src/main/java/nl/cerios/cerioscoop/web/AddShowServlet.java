@@ -28,13 +28,6 @@ public class AddShowServlet extends HttpServlet {
 	private EmployeeService employeeService;   
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
@@ -53,7 +46,8 @@ public class AddShowServlet extends HttpServlet {
 			}
 			employeeService.addShow(show);
 		}
-		doGet(request, response);
+		request.getRequestDispatcher("/html/add-show.html").
+        forward(request,response);
 	}
 
 }

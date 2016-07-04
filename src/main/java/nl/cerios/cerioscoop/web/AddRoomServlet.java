@@ -21,13 +21,6 @@ public class AddRoomServlet extends HttpServlet {
 	
 	@EJB
 	private EmployeeService employeeService;
-       
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Room room = new Room();
@@ -41,7 +34,8 @@ public class AddRoomServlet extends HttpServlet {
 			employeeService.addRoom(room);
 		
 		}
-		doGet(request, response);
+		request.getRequestDispatcher("/jsp/add-room.jsp").
+        forward(request,response);
 	}
 	
 }
