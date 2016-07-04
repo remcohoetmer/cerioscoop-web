@@ -13,16 +13,6 @@
 
 USE `cerioscoop_db`;
 
--- Dumpen data van tabel cerioscoop.category: ~4 rows (ongeveer)
-DELETE FROM `category`;
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` (`category_id`, `name`) VALUES
-	(1, 'Action'),
-	(2, 'Comedy'),
-	(3, 'Kids'),
-	(4, 'Horror');
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
-
 -- Dumpen data van tabel cerioscoop.chair: ~4 rows (ongeveer)
 DELETE FROM `chair`;
 /*!40000 ALTER TABLE `chair` DISABLE KEYS */;
@@ -64,10 +54,10 @@ INSERT INTO `language` (`language_id`, `name`) VALUES
 -- Dumpen data van tabel cerioscoop.movie: ~3 rows (ongeveer)
 DELETE FROM `movie`;
 /*!40000 ALTER TABLE `movie` DISABLE KEYS */;
-INSERT INTO `movie` (`movie_id`, `category_id`, `title`, `minutes`, `movie_type`, `language`, `description`) VALUES
-	(1, 1, 'The Legend of Tarzan (2016)', 90, 3, 'Dutch', 'A story about a boy that survived in the jungle.'),
-	(2, 1, 'Tarzan the Ape Man (1932)', 90, 2, 'English', 'A story about a boy that survived in the jungle.'),
-	(3, 3, 'Tarzan (1999)', 120, 2, 'English', 'A story about a boy that survived in the jungle.');
+INSERT INTO `movie` (`movie_id`, `category`, `title`, `minutes`, `movie_type`, `language`, `description`) VALUES
+	(1, 'ACTION', 'The Legend of Tarzan (2016)', 90, 3, 'Dutch', 'A story about a boy that survived in the jungle.'),
+	(2, 'ACTION', 'Tarzan the Ape Man (1932)', 90, 2, 'English', 'A story about a boy that survived in the jungle.'),
+	(3, 'KIDS', 'Tarzan (1999)', 120, 2, 'English', 'A story about a boy that survived in the jungle.');
 /*!40000 ALTER TABLE `movie` ENABLE KEYS */;
 
 -- Dumpen data van tabel cerioscoop.payment: ~3 rows (ongeveer)

@@ -21,8 +21,8 @@ public class EmployeeService {
 	public void addMovie(final Movie newMovie) {
 		try (final Connection connection = dataSource.getConnection()){
 			final PreparedStatement preparedStatement = connection.prepareStatement(
-					"INSERT INTO movie (category_id, title, minutes, movie_type, language, description) VALUES (?,?,?,?,?,?);");
-			preparedStatement.setInt(1, newMovie.getCategoryId());
+					"INSERT INTO movie (category, title, minutes, movie_type, language, description) VALUES (?,?,?,?,?,?);");
+			preparedStatement.setString(1, newMovie.getCategory().name());
 			preparedStatement.setString(2, newMovie.getTitle());
 			preparedStatement.setInt(3, newMovie.getMinutes());
 			preparedStatement.setInt(4, newMovie.getMovieType());
