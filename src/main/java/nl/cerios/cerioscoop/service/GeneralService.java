@@ -26,8 +26,8 @@ public class GeneralService {
 	private DataSource dataSource;
 	
 	public List<Movie> getMovies(){
+		final List<Movie> movies = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()) {			//AutoCloseable
-			final List<Movie> movies = new ArrayList<>();
 			final Statement statement = connection.createStatement();
 			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, title, minutes, movie_type, language FROM movie");
 			while (resultSet.next()) {
@@ -41,7 +41,7 @@ public class GeneralService {
 			}
 			return movies;
 	    }catch (final SQLException e) {
-	    	throw new ShowServiceException("Something went terribly wrong while retrieving the movie.", e);
+	    	throw new ServiceException("Something went terribly wrong while retrieving the movie.", e);
 	    }
 	}
 	
@@ -62,7 +62,32 @@ public class GeneralService {
 	        return shows;
 	      }
 	    }catch (final SQLException e) {
-	    	throw new ShowServiceException("Something went terribly wrong while retrieving the first date.", e);
+	    	throw new ServiceException("Something went terribly wrong while retrieving the first date.", e);
+	    }
+	}
+	
+	public List<Customer> getCustomers(){
+		final List<Customer> customers = new ArrayList<>();
+		try (final Connection connection = dataSource.getConnection()){
+			final Statement statement = connection.createStatement();
+			final ResultSet resultSet = statement.executeQuery("SELECT customer_id, first_name, last_name, username, password, email, customer_create_date, customer_create_time FROM customer"); { 
+
+			while (resultSet.next()) {
+				final int customerId = resultSet.getInt("customer_id");
+				final String firstName = resultSet.getString("first_name");
+				final String lastName = resultSet.getString("last_name");
+				final String username = resultSet.getString("username");
+				final String password = resultSet.getString("password");
+				final String email = resultSet.getString("email");
+				final Date createDate = resultSet.getDate("customer_create_date");
+				final Time createTime = resultSet.getTime("customer_create_time");
+				
+				customers.add(new Customer(customerId, firstName, lastName, username, password, email, createDate, createTime));
+	        	}
+	        return customers;
+	      }
+	    }catch (final SQLException e) {
+	    	throw new ServiceException("Something went terribly wrong while retrieving the customers.", e);
 	    }
 	}
 	
@@ -100,10 +125,11 @@ public class GeneralService {
 		}
 		return movieByMovieId;
 	}
+	
 	public void registerCustomer(final Customer customer){
 		try (final Connection connection = dataSource.getConnection();
 				final PreparedStatement preparedStatement = connection.prepareStatement(
-						"INSERT INTO customer (first_name, last_name, username, password, `e-mail`, customer_create_date, customer_create_time) VALUES (?,?,?,?,?,?,?);")) {
+						"INSERT INTO customer (first_name, last_name, username, password, email, customer_create_date, customer_create_time) VALUES (?,?,?,?,?,?,?);")) {
 				
 	        	preparedStatement.setString(1, customer.getFirstName());
 	        	preparedStatement.setString(2, customer.getLastName());
@@ -116,8 +142,28 @@ public class GeneralService {
 	        	
 	        	System.out.println("Data inserted.");
 		    }catch (final SQLException e) {
-		    	throw new ShowServiceException("Something went wrong while inserting the filmagenda items.", e);
+		    	throw new ServiceException("Something went wrong while inserting the customer items.", e);
 		    }
+	}
+	/**
+	 * @param customer
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * TODO Includeer de employee door het gebruik van een hashmap!
+	 */
+	public Customer authenticateUser(Customer customer){
+		final List<Customer> dbCustomers = getCustomers();	
+		final String username = customer.getUsername();
+		final String password = customer.getPassword();
+		Customer authenticatedUser = null;
+		
+		for (final Customer customerItem : dbCustomers){
+			if(customerItem.getUsername().equals(username) && customerItem.getPassword().equals(password)){
+			authenticatedUser = customerItem;
+			}
+		}
+		return authenticatedUser;
 	}
 }
 

@@ -16,6 +16,18 @@ public class Customer {
 	public Customer() {
 	}
 
+	public Customer(int customerId, String firstName, String lastName, String username, String password,
+			String email, Date createDate, Time createTime) {
+		this.customerId = customerId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.Username = username;
+		this.Password = password;
+		this.email = email;
+		this.customerCreateDate = createDate;
+		this.customerCreateTime = createTime;
+	}
+
 	public int getCustomerId() {
 		return customerId;
 	}

@@ -32,7 +32,7 @@ public class EmployeeService {
 			
 			System.out.println("Data inserted.");
 	    }catch (final SQLException e) {
-	    	throw new ShowServiceException("Something went wrong while inserting the movie items.", e);
+	    	throw new ServiceException("Something went wrong while inserting the movie items.", e);
 	    }
 	}
 	
@@ -49,7 +49,7 @@ public class EmployeeService {
         	
         	System.out.println("Data inserted.");
 	    }catch (final SQLException e) {
-	    	throw new ShowServiceException("Something went wrong while inserting the filmagenda items.", e);
+	    	throw new ServiceException("Something went wrong while inserting the filmagenda items.", e);
 	    }
 	}
 
@@ -66,7 +66,7 @@ public class EmployeeService {
 	        	
 	        	System.out.println("Data inserted.");
 		    }catch (final SQLException e) {
-		    	throw new ShowServiceException("Something went wrong while inserting the room items.", e);
+		    	throw new ServiceException("Something went wrong while inserting the room items.", e);
 		    }
 	}
 }

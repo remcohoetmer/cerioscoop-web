@@ -22,6 +22,9 @@ public class AddRoomServlet extends HttpServlet {
 	@EJB
 	private EmployeeService employeeService;
 	
+	/*
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Room room = new Room();
 		
