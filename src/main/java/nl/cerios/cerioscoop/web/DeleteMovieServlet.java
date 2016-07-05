@@ -23,9 +23,6 @@ public class DeleteMovieServlet extends HttpServlet {
 	@EJB
 	private EmployeeService employeeService;
 	
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 				
 		if ("Submit".equals(request.getParameter("submitit"))) {

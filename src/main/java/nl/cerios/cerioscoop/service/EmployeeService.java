@@ -80,9 +80,34 @@ public class EmployeeService {
 			preparedStatement.setInt(1, movie_id);
 			preparedStatement.executeUpdate();
 	        	
-			System.out.println("Record is deleted.");
+			System.out.println("Movie is deleted.");
 		    }catch (final SQLException e) {
 		    	throw new ServiceException("Something went wrong while deleting the movie items.", e);
 		    }
 	}
+	
+	      public void updateMovieFromDatabase(int movieId, int category_id, String title, int minutes, int movie_type, String language, String description) {
+		          
+		try {
+	        final Connection connection = dataSource.getConnection();
+	        final PreparedStatement preparedStatement = 
+	        connection.prepareStatement("UPDATE movie SET category_id = ?, title = ?, minutes = ?, movie_type = ?, language = ?, description = ? WHERE movie_id = ?");
+		            
+		              
+	        preparedStatement.setInt(1, category_id);
+	        preparedStatement.setString(2, title);
+	        preparedStatement.setInt(3, minutes);
+		    preparedStatement.setInt(4, movie_type);
+		    preparedStatement.setString(5, language);
+		    preparedStatement.setString(6, description);
+		    preparedStatement.setInt(7, movieId);
+		  
+		    preparedStatement.executeUpdate();
+		              
+		    System.out.println("Movie is updated.");
+		      }catch (final SQLException e) {
+		          throw new ServiceException("Something went wrong while updating the movie items.", e);
+
+		 }
+    }
 }
