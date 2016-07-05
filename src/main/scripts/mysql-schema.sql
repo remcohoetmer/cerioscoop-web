@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `last_name` varchar(255) COLLATE utf8_bin NOT NULL,
   `username` varchar(255) COLLATE utf8_bin NOT NULL,
   `password` varchar(255) COLLATE utf8_bin NOT NULL,
-  `e-mail` varchar(255) COLLATE utf8_bin NOT NULL,
+  `email` varchar(255) COLLATE utf8_bin NOT NULL,
   `customer_create_date` date NOT NULL,
   `customer_create_time` time NOT NULL,
   PRIMARY KEY (`customer_id`)
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `last_name` varchar(255) COLLATE utf8_bin NOT NULL,
   `username` varchar(255) COLLATE utf8_bin NOT NULL,
   `password` varchar(255) COLLATE utf8_bin NOT NULL,
-  `e-mail` varchar(255) COLLATE utf8_bin NOT NULL,
+  `email` varchar(255) COLLATE utf8_bin NOT NULL,
   `employee_create_date` date NOT NULL,
   `employee_create_time` time NOT NULL,
   PRIMARY KEY (`employee_id`)

@@ -26,7 +26,7 @@ INSERT INTO `chair` (`chair_id`, `nummer`) VALUES
 -- Dumpen data van tabel cerioscoop.customer: ~3 rows (ongeveer)
 DELETE FROM `customer`;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` (`customer_id`, `first_name`, `last_name`, `username`, `password`, `e-mail`, `customer_create_date`, `customer_create_time`) VALUES
+INSERT INTO `customer` (`customer_id`, `first_name`, `last_name`, `username`, `password`, `email`, `customer_create_date`, `customer_create_time`) VALUES
 	(1, 'Rutger', 'van Velzen', 'faust', 'Fausttothemax', 'rutger.van.velzen@cerios.nl', '2016-07-01', '21:00:00'),
 	(2, 'Marcel', 'Groothuis', 'marcel', 'HeerserMarcel', 'marcel.groothuis@cerios.nl', '2016-07-01', '21:00:00'),
 	(3, 'Ron', 'Sanders', 'ron', 'SuperRon', 'ron.sanders@cerios.nl', '2016-07-01', '21:00:00');
@@ -35,7 +35,7 @@ INSERT INTO `customer` (`customer_id`, `first_name`, `last_name`, `username`, `p
 -- Dumpen data van tabel cerioscoop.employee: ~3 rows (ongeveer)
 DELETE FROM `employee`;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `username`, `password`, `e-mail`, `employee_create_date`, `employee_create_time`) VALUES
+INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `username`, `password`, `email`, `employee_create_date`, `employee_create_time`) VALUES
 	(1, 'Rutger', 'van Velzen', 'faust', 'Fausttothemax', 'rutger.van.velzen@cerios.nl', '2016-07-01', '21:00:00'),
 	(2, 'Marcel', 'Groothuis', 'marcel', 'HeerserMarcel', 'marcel.groothuis@cerios.nl', '2016-07-01', '21:00:00'),
 	(3, 'Ron', 'Sanders', 'ron', 'SuperRon', 'ron.sanders@cerios.nl', '2016-07-01', '21:00:00');
