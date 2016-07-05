@@ -17,14 +17,6 @@ DROP DATABASE IF EXISTS `cerioscoop_db`;
 CREATE DATABASE IF NOT EXISTS `cerioscoop_db` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */;
 USE `cerioscoop_db`;
 
--- Structuur van  tabel cerioscoop.category wordt geschreven
-DROP TABLE IF EXISTS `category`;
-CREATE TABLE IF NOT EXISTS `category` (
-  `category_id` int(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
 -- Data exporteren was gedeselecteerd
 -- Structuur van  tabel cerioscoop.chair wordt geschreven
 DROP TABLE IF EXISTS `chair`;
@@ -78,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `language` (
 DROP TABLE IF EXISTS `movie`;
 CREATE TABLE IF NOT EXISTS `movie` (
   `movie_id` int(20) unsigned NOT NULL AUTO_INCREMENT,
-  `category_id` int(20) unsigned NOT NULL,
+  `category` varchar(50) COLLATE utf8_bin NOT NULL,
   `title` varchar(255) COLLATE utf8_bin NOT NULL,
   `minutes` int(3) unsigned DEFAULT NULL,
   `movie_type` int(1) unsigned DEFAULT NULL,

@@ -9,32 +9,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import nl.cerios.cerioscoop.domain.Category;
 import nl.cerios.cerioscoop.domain.Movie;
+import nl.cerios.cerioscoop.domain.Room;
 import nl.cerios.cerioscoop.service.EmployeeService;
 
 /**
- * Servlet implementation class AddFilmServlet
+ * Servlet implementation class DeleteMovieServlet
  */
-@WebServlet("/AddMovieServlet")
-public class AddMovieServlet extends HttpServlet {
+@WebServlet("/DeleteMovieServlet")
+public class DeleteMovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
 	private EmployeeService employeeService;
 	
-	@Override
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		final Movie movie = new Movie(null,
-				request.getParameter("moviename"),
-				Category.valueOf(request.getParameter("category")),
-				Integer.parseInt(request.getParameter("minutes")),
-				Integer.parseInt(request.getParameter("movietype")),
-				request.getParameter("language"),
-				request.getParameter("description"));
-		employeeService.addMovie(movie);
-
-		request.getRequestDispatcher("/html/add-movie.html").
+				
+		if ("Submit".equals(request.getParameter("submitit"))) {
+			int MovieId = (Integer.parseInt(request.getParameter("movie_id")));
+			
+					
+			employeeService.deleteMovieFromDatabase(MovieId);
+		
+		}
+		request.getRequestDispatcher("/jsp/delete-movie.jsp").
         forward(request,response);
 	}
+	
 }

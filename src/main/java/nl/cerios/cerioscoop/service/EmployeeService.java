@@ -21,8 +21,8 @@ public class EmployeeService {
 	public void addMovie(final Movie newMovie) {
 		try (final Connection connection = dataSource.getConnection()){
 			final PreparedStatement preparedStatement = connection.prepareStatement(
-					"INSERT INTO movie (category_id, title, minutes, movie_type, language, description) VALUES (?,?,?,?,?,?);");
-			preparedStatement.setInt(1, newMovie.getCategoryId());
+					"INSERT INTO movie (category, title, minutes, movie_type, language, description) VALUES (?,?,?,?,?,?);");
+			preparedStatement.setString(1, newMovie.getCategory().name());
 			preparedStatement.setString(2, newMovie.getTitle());
 			preparedStatement.setInt(3, newMovie.getMinutes());
 			preparedStatement.setInt(4, newMovie.getMovieType());
@@ -67,6 +67,22 @@ public class EmployeeService {
 	        	System.out.println("Data inserted.");
 		    }catch (final SQLException e) {
 		    	throw new ServiceException("Something went wrong while inserting the room items.", e);
+		    }
+	}
+	
+	public void deleteMovieFromDatabase(int movie_id) {
+		
+		String deleteSQL = "DELETE FROM movie WHERE movie_id = ?";
+		
+		try {
+			final Connection connection = dataSource.getConnection();
+			final PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, movie_id);
+			preparedStatement.executeUpdate();
+	        	
+			System.out.println("Record is deleted.");
+		    }catch (final SQLException e) {
+		    	throw new ShowServiceException("Something went wrong while deleting the movie items.", e);
 		    }
 	}
 }
