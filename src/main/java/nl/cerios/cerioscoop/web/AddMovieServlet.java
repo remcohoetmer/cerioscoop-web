@@ -35,6 +35,6 @@ public class AddMovieServlet extends HttpServlet {
 				.withDescription(request.getParameter("description"))
 				.build();
 		employeeService.addMovie(movie);
-		response.sendRedirect(request.getContextPath() + "/html/add-movie.html");
+		response.sendRedirect(request.getContextPath() + "/jsp/add-movie.jsp");
 	}
 }

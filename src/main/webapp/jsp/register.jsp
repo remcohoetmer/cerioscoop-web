@@ -5,27 +5,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Register</title>
-
-
 </head>
 <body>
-
-
-
+	<div id="navbar">
+ 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+ 	</div>
+ 	
 <h1>Register</h1>
-<form method="POST" action="/cerioscoop-web/RegisterServlet"> 
-  First name:<br>
-  <input type="text" name="firstname">
-  <br>Last name:<br>
-  <input type="text" name="lastname">
-  <br>Username:<br>
-  <input type="text" name="username">
-  <br>Password:<br>
-  <input type="text" name="password">
-  <br>E-mail:<br>
-  <input type="text" name="email">
-  <br>
-  <br><input type="submit" name="submitit" value="Submit">
-</form> 
+
+	<div>
+	<form method="POST" action="/cerioscoop-web/RegisterServlet"> 
+	  First name:<br>
+	  <input type="text" name="firstname">
+	  <br>Last name:<br>
+	  <input type="text" name="lastname">
+	  <br>Username:<br>
+	  <input type="text" name="username">
+	  <br>Password:<br>
+	  <input type="text" name="password">
+	  <br>E-mail:<br>
+	  <input type="text" name="email">
+	  <br>
+	  <br><input type="submit" name="submitit" value="Submit">
+	</form> 
+	</div>
 </body>
 </html>

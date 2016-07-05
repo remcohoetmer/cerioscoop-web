@@ -4,25 +4,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Navigation</title>
-	
+<title>Navigation Employee</title>
+
 	<!-- Navigation CSS
    	================================================== -->
-	<link rel="stylesheet" href="/cerioscoop-web/css/navbar.css">
-	
+	<link rel="stylesheet" href="/cerioscoop-web/css/navbar-employee.css">
+
 </head>
 <body>
-
 <div class="menu">
 	<ul>
-		<li><a href="/cerioscoop-web/index.jsp">CERIOSCOOP</a></li>
-		<li><a href="/cerioscoop-web/jsp/now-showing.jsp">NOW SHOWING</a></li>
-		<li><a href="../#movies">MOVIES</a></li>
-		<li><a href="../#about">ABOUT</a></li>
-		<li><a href="../#team">TEAM</a></li>
-		<li><a href="/cerioscoop-web/jsp/register.jsp">REGISTER</a></li>
+		<li><a href="../jsp/add-movie.jsp">ADD MOVIE</a></li>
+		<li><a href="../jsp/add-show.jsp">ADD SHOW</a></li>
+		<li><a href="../jsp/add-room.jsp">ADD MOVIE</a></li>
+		<li><a href="../jsp/new-employee.jsp">NEW EMPLOYEE</a></li>
 	</ul>
 </div>
-
 </body>
 </html>

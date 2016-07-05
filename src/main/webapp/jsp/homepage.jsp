@@ -4,17 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width = device-width, initial-scale = 1">
-    <title>Home Page</title>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<title>Home Page</title>
     
 <style>
 body {opacity: 0.2;}
 h1   {color:#FF0000;}
 p    {color:#008000;}
 html {
-background: url(images/slider/slide1.jpg) no-repeat center center fixed; 
+background: url(/slide1.jpg) no-repeat center center fixed; 
 -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -30,8 +27,6 @@ hight:50px;
 <body>
 <div class="container">
 <span><h1>The Legend of Tarzan</h1></span>
-
-
 </div>
  
 </body>

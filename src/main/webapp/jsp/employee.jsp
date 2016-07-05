@@ -7,6 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-Welkom Employee.
+	<div id="navbar">
+ 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+ 	</div>
+
+	<div>
+		Welkom Employee.
+	</div>
+
+	<div id="navbar-employee">
+ 	<jsp:include page="/jsp/navbar-employee.jsp"></jsp:include>
+ 	</div>
 </body>
 </html>

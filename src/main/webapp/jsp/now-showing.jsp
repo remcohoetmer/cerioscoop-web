@@ -17,55 +17,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Now Showing</title>
 
-
-   	<!-- Main CSS
-   	================================================== -->
-	<link rel="stylesheet" href="/cerioscoop-web/css/style.css">
-
-	<!-- Google web font
-   ================================================== -->
-	<link href='https://fonts.googleapis.com/css?family=Raleway:700' rel='stylesheet' type='text/css'>
-
 	<!-- Cerioscoop CSS
    ================================================== -->
-	<link href='/cerioscoop-web/cerioscoop.css' type='text/css' rel='stylesheet' />
+	<link href='/cerioscoop-web/css/now-showing.css' type='text/css' rel='stylesheet' />
 	
 </head>
 
 
 
 <body>
-
-<!-- Navigation section
-================================================== -->
-<section class="navbar navbar-fixed-top custom-navbar" role="navigation">
-	<div class="container">
-
-		<div class="navbar-header">
-			<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="icon icon-bar"></span>
-				<span class="icon icon-bar"></span>
-				<span class="icon icon-bar"></span>
-			</button>
-			<a href="/cerioscoop-web/index.html" class="smoothScroll navbar-brand">CERIOSCOOP</a>
-		</div>
-		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav navbar-right">
-            
-				<!-- <li><a href="#home" class="smoothScroll">HOME</a></li> -->
-                
-				<li><a href="/cerioscoop-web/jsp/now-showing.jsp" class="smoothScroll">NOW SHOWING</a></li>
-				<li><a href="/cerioscoop-web/index.html" class="smoothScroll">ABOUT</a></li>
-				<li><a href="/cerioscoop-web/index.html" class="smoothScroll">TEAM</a></li>
-				<li><a href="/cerioscoop-web/html/add-show.html" class="smoothScroll">ADD SHOW</a></li>
-				<li><a href="/cerioscoop-web/html/add-movie.html" class="smoothScroll">ADD MOVIE</a></li>
-				<li><a href="/cerioscoop-web/html/register.html" class="smoothScroll">REGISTER</a></li>
-				<li><a href="/cerioscoop-web/index.html" class="smoothScroll">TRAILERS</a></li>
-			</ul>
-		</div>
-
-	</div>
-</section>
+	<div id="navbar">
+ 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+ 	</div>
 
 <h1>Now Showing</h1>
 <%

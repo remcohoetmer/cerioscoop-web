@@ -46,7 +46,7 @@ public class AddShowServlet extends HttpServlet {
 			}
 			employeeService.addShow(show);
 		}
-		request.getRequestDispatcher("/html/add-show.html").
+		request.getRequestDispatcher("/jsp/add-show.jsp").
         forward(request,response);
 	}
 

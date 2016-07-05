@@ -7,14 +7,18 @@
 <title>Success</title>
 </head>
 <body>
+	<div id="navbar">
+ 	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+ 	</div>
 
-<h3>Login Successful!</h3>
-
-<% 
-Customer customer = (Customer) session.getAttribute("user"); 
-%>
-
-Hello <%=customer.getUsername()%>!
-
+	<div>	
+	<h3>Login Successful!</h3>
+		<% Customer customer = (Customer) session.getAttribute("user"); %>
+		Hello <%=customer.getUsername()%>!
+	</div> 
+	
+	<div id="navbar-customer">
+ 	<jsp:include page="/jsp/navbar-customer.jsp"></jsp:include>
+ 	</div>
 </body>
 </html>
