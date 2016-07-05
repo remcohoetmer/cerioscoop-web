@@ -82,7 +82,7 @@ public class EmployeeService {
 	        	
 			System.out.println("Record is deleted.");
 		    }catch (final SQLException e) {
-		    	throw new ShowServiceException("Something went wrong while deleting the movie items.", e);
+		    	throw new ServiceException("Something went wrong while deleting the movie items.", e);
 		    }
 	}
 }
