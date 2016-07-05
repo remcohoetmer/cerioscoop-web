@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import nl.cerios.cerioscoop.domain.Category;
 import nl.cerios.cerioscoop.domain.Movie;
+import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.service.EmployeeService;
 
 /**
@@ -25,16 +26,15 @@ public class AddMovieServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		final Movie movie = new Movie(null,
-				request.getParameter("moviename"),
-				Category.valueOf(request.getParameter("category")),
-				Integer.parseInt(request.getParameter("minutes")),
-				Integer.parseInt(request.getParameter("movietype")),
-				request.getParameter("language"),
-				request.getParameter("description"));
+		final Movie movie = new MovieBuilder()
+				.withTitle(request.getParameter("moviename"))
+				.withCategory(Category.valueOf(request.getParameter("category")))
+				.withMinutes(Integer.parseInt(request.getParameter("minutes")))
+				.withType(Integer.parseInt(request.getParameter("movietype")))
+				.withLanguage(request.getParameter("language"))
+				.withDescription(request.getParameter("description"))
+				.build();
 		employeeService.addMovie(movie);
-
-		request.getRequestDispatcher("/html/add-movie.html").
-        forward(request,response);
+		response.sendRedirect(request.getContextPath() + "/html/add-movie.html");
 	}
 }

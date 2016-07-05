@@ -12,7 +12,7 @@ public final class Movie {
 	private String language;
 	private String description;
 
-	public Movie(final BigDecimal movieId, final String title, final Category category, final int minutes, final int movieType, final String language, final String description) {
+	Movie(final BigDecimal movieId, final String title, final Category category, final int minutes, final int movieType, final String language, final String description) {
 		this.movieId = movieId;
 		this.title = title;
 		this.category = category;

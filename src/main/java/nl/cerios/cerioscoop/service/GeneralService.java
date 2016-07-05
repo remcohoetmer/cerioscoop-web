@@ -1,6 +1,5 @@
 package nl.cerios.cerioscoop.service;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -18,6 +17,7 @@ import javax.sql.DataSource;
 import nl.cerios.cerioscoop.domain.Category;
 import nl.cerios.cerioscoop.domain.Customer;
 import nl.cerios.cerioscoop.domain.Movie;
+import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.util.DateUtils;
 
@@ -33,15 +33,16 @@ public class GeneralService {
 			final Statement statement = connection.createStatement();
 			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, title, category, minutes, movie_type, language, description FROM movie");
 			while (resultSet.next()) {
-	        	final BigDecimal movieId = resultSet.getBigDecimal("movie_id");
-	        	final String movieTitle = resultSet.getString("title");
-	        	final Category category = Category.valueOf(resultSet.getString("category"));
-	        	final int minutes = resultSet.getInt("minutes");
-	        	final int movieType = resultSet.getInt("movie_type");
-	        	final String language = resultSet.getString("language");
-	        	final String description = resultSet.getString("description");
-	        	
-	        	movies.add(new Movie(movieId, movieTitle, category, minutes, movieType, language, description));
+				final Movie movie = new MovieBuilder()
+						.withMovieId(resultSet.getBigDecimal("movie_id"))
+						.withTitle(resultSet.getString("title"))
+						.withCategory(Category.valueOf(resultSet.getString("category")))
+						.withMinutes(resultSet.getInt("minutes"))
+						.withType(resultSet.getInt("movie_type"))
+						.withLanguage(resultSet.getString("language"))
+						.withDescription(resultSet.getString("description"))
+						.build();
+				movies.add(movie);
 			}
 			return movies;
 	    }catch (final SQLException e) {
