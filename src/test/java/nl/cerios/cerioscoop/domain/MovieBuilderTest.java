@@ -1,4 +1,4 @@
-package nl.cerios.cerioscoop.domein;
+package nl.cerios.cerioscoop.domain;
 
 import java.math.BigDecimal;
 
