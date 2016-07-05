@@ -110,4 +110,20 @@ public class EmployeeService {
 
 		 }
     }
+
+		public void deleteShowFromDatabase(int showId) {
+			
+			String deleteSQL = "DELETE FROM `show` WHERE show_id = ?";
+			
+			try {
+				final Connection connection = dataSource.getConnection();
+				final PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL);
+				preparedStatement.setInt(1, showId);
+				preparedStatement.executeUpdate();
+		        	
+				System.out.println("Show is deleted.");
+			    }catch (final SQLException e) {
+			    	throw new ServiceException("Something went wrong while deleting the show items.", e);
+			    }
+		}
 }
