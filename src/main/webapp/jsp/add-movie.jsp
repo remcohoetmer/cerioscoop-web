@@ -17,7 +17,7 @@
 	<div>
 		<form method="POST" action="../AddMovieServlet"> 
 		  Title:<br>
-		  <input type="text" name="moviename">
+		  <input type="text" name="moviename" required>
 		  <br>
 		  <br>Category:<br>
 		  <select name="category">
@@ -28,7 +28,7 @@
 		  </select>
 		  <br>
 		  <br>Duration in minutes:<br>
-		  <input type="text" name="minutes">
+		  <input type="text" name="minutes" required>
 		  <br>
 		  <br>Movie type:<br>
 		  <input type="radio" name="movietype" value="2" checked> 2D<br>
@@ -42,7 +42,7 @@
 		  </select>
 		  <br>
 		  <br>Description:<br>
-		  <input type="text" name="description"/>
+		  <input type="text" name="description" required>
 		  <br>
 		  <br><input type="submit" value="Submit">
 		</form> 
