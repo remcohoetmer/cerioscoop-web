@@ -106,7 +106,7 @@ public class EmployeeService {
 		 }
     }
 
-		public void deleteShowFromDatabase(int showId) {
+	public void deleteShowFromDatabase(int showId) {
 			String deleteSQL = "DELETE FROM `show` WHERE show_id = ?";
 			
 			try {
@@ -120,4 +120,27 @@ public class EmployeeService {
 		    	throw new ServiceException("Something went wrong while deleting the show items.", e);
 		    }
 		}
+	
+	public void updateShowFromDatabase(final Show show){
+			              
+	          String updateSQL = "UPDATE `show` SET movie_id = ?, room_id = ?, show_date = ?, show_time = ? WHERE show_id = ?";
+			              
+	          try {
+		           final Connection connection = dataSource.getConnection();
+		           final PreparedStatement preparedStatement = connection.prepareStatement(updateSQL);
+			                  
+		           preparedStatement.setInt(1, show.getMovieId());
+			       preparedStatement.setInt(2, show.getRoomId());
+			       preparedStatement.setDate(3, show.getShowDate());
+			       preparedStatement.setTime(4, show.getShowTime());
+			       preparedStatement.setInt(5, show.getShowId());
+			       preparedStatement.executeUpdate();
+			                      
+		           System.out.println("Show is updated.");
+		       }catch (final SQLException e) {
+		           throw new ServiceException("Something went wrong while updating the show items.", e);
+		       }
+			              
+	    }
+
 }
