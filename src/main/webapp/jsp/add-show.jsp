@@ -33,7 +33,7 @@ $(document).ready(function(){
 		<form name="add-showing" method="post" action="/cerioscoop-web/AddShowServlet">
 		Movie ID:<br>
 		<input type="text" name="movieID"><br>
-		<br>Room ID:<br>
+		<br>Room name:<br>
 		<input type="radio" name="roomID" value="1"> Red room<br>
 		<input type="radio" name="roomID" value="2"> Blue room<br>
 		<br>Premiere date:<br>

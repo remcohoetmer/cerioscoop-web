@@ -9,8 +9,10 @@
 <body>
 <h1>Delete movie</h1>
 <form method="POST" action="/cerioscoop-web/DeleteMovieServlet"> 
- Movie ID:<br>
-<input type="text" name="movie_id"><br>
+<br>Movie:<br>
+<input type="radio" name="movie_id" value="1">The Legend of Tarzan (2016)<br>
+<input type="radio" name="movie_id" value="2">Tarzan the Ape Man (1932)<br>
+<input type="radio" name="movie_id" value="3">Tarzan (1999)<br>
 <br><input type="submit" name="submitit" value="Submit">
 </form> 
 </body>

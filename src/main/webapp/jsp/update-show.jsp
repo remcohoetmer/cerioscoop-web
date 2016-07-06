@@ -32,16 +32,18 @@ $(document).ready(function(){
     <div>
         <form name="update-showing" method="post" action="/cerioscoop-web/UpdateShowServlet">
         Show ID:<br>
-        <input type="text" name="show_id"><br>
-        Movie ID:<br>
-        <input type="text" name="movie_id"><br>
-        <br>Room ID:<br>
-        <input type="radio" name="room_id" value="1"> Red room<br>
-        <input type="radio" name="room_id" value="2"> Blue room<br>
+        <input type="text" name="show_id" required><br>
+        <br>Movie:<br>
+        <input type="radio" name="movie_id" value="1">The Legend of Tarzan (2016)<br>
+	    <input type="radio" name="movie_id" value="2">Tarzan the Ape Man (1932)<br>
+	    <input type="radio" name="movie_id" value="3">Tarzan (1999)<br>
+        <br>Room Type:<br>
+        <input type="radio" name="room_id" value="2"> 2D<br>
+	    <input type="radio" name="room_id" value="3"> 3D<br>
         <br>Premiere date:<br>
-        <input type="text" id="datepicker" name="premieredate"><br>
+        <input type="text" id="datepicker" name="premieredate" required><br>
         <br>Time:<br>
-        <input type="text" id="timepicker" name="lastshowingdate"><br>
+        <input type="text" id="timepicker" name="lastshowingdate" required><br>
         <input type="submit" name="submitit" value="Submit"/>
         <input type="reset" value="cancel" />
         </form>
