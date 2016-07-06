@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div id="navbar">
- 	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+ 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
  	</div>
    	
    	<div id="login">

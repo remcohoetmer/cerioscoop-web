@@ -20,7 +20,7 @@
     background-color:#ffa500;
     color:black;
     overflow: hidden;
-    text-align:center;
+
     white-space: nowrap;
 }
     </style>

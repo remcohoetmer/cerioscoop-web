@@ -13,11 +13,18 @@
 </head>
 <body>
 
-<div class="menu">
+<div class="navbar">
 	<ul>
 		<li><a href="/cerioscoop-web/index.jsp">CERIOSCOOP</a></li>
-		<li><a href="/cerioscoop-web/jsp/now-showing.jsp">NOW SHOWING</a></li>
-		<li><a href="../#movies">MOVIES</a></li>
+		<li class="dropdown">
+			<a  href="../#movies">MOVIES</a>
+  			<div class="dropdown-content">
+			    <a href="/cerioscoop-web/jsp/trailers.jsp">TRAILERS</a>
+			    <a href="/cerioscoop-web/jsp/now-showing.jsp">NOW SHOWING</a>
+			    <a href="#">COMING SOON</a>
+			    <a href="#">CATEGORY</a>
+		  	</div>
+		</li>
 		<li><a href="../#about">ABOUT</a></li>
 		<li><a href="../#team">TEAM</a></li>
 		<li><a href="/cerioscoop-web/jsp/register.jsp">REGISTER</a></li>

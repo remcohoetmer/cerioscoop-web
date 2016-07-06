@@ -15,7 +15,9 @@ body > #container { height: auto; min-height: 100%; }
  height: 3em;
  margin-top: 10em;
 }
-#content { padding-bottom: 3em; }
+#content {
+text-align:center; 
+padding-bottom: 3em; }
 </style>
 </head>
 <body>
