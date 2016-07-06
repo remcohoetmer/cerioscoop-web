@@ -12,8 +12,8 @@
   Movie id:<br>
   <input type="text" name="movie_id">
   <br>
-  Update category id:<br>
-  <input type="text" name="category_id">
+  Update category:<br>
+  <input type="text" name="category">
   <br>
   Update title:<br>
   <input type="text" name="title">

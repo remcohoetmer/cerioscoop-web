@@ -58,20 +58,19 @@ public class EmployeeService {
 				final PreparedStatement preparedStatement = connection.prepareStatement(
 						"INSERT INTO room (room_id, name, chair_amount, room_type) VALUES (?,?,?,?);")) {
 				
-	        	preparedStatement.setInt(1, room.getRoomId());
-	        	preparedStatement.setString(2, room.getName());
-	        	preparedStatement.setInt(3, room.getChairAmount());
-	        	preparedStatement.setInt(4, room.getRoomType());
-	        	preparedStatement.executeUpdate();
-	        	
-	        	System.out.println("Data inserted.");
-		    }catch (final SQLException e) {
-		    	throw new ServiceException("Something went wrong while inserting the room items.", e);
-		    }
+        	preparedStatement.setInt(1, room.getRoomId());
+        	preparedStatement.setString(2, room.getName());
+        	preparedStatement.setInt(3, room.getChairAmount());
+        	preparedStatement.setInt(4, room.getRoomType());
+        	preparedStatement.executeUpdate();
+        	
+        	System.out.println("Data inserted.");
+	    }catch (final SQLException e) {
+	    	throw new ServiceException("Something went wrong while inserting the room items.", e);
+	    }
 	}
 	
 	public void deleteMovieFromDatabase(int movie_id) {
-		
 		String deleteSQL = "DELETE FROM movie WHERE movie_id = ?";
 		
 		try {
@@ -81,38 +80,33 @@ public class EmployeeService {
 			preparedStatement.executeUpdate();
 	        	
 			System.out.println("Movie is deleted.");
-		    }catch (final SQLException e) {
-		    	throw new ServiceException("Something went wrong while deleting the movie items.", e);
-		    }
+	    }catch (final SQLException e) {
+	    	throw new ServiceException("Something went wrong while deleting the movie items.", e);
+	    }
 	}
 	
-	      public void updateMovieFromDatabase(int movieId, int category_id, String title, int minutes, int movie_type, String language, String description) {
-		          
+	public void updateMovieFromDatabase(Movie updateMovie) {         
 		try {
 	        final Connection connection = dataSource.getConnection();
 	        final PreparedStatement preparedStatement = 
-	        connection.prepareStatement("UPDATE movie SET category_id = ?, title = ?, minutes = ?, movie_type = ?, language = ?, description = ? WHERE movie_id = ?");
-		            
-		              
-	        preparedStatement.setInt(1, category_id);
-	        preparedStatement.setString(2, title);
-	        preparedStatement.setInt(3, minutes);
-		    preparedStatement.setInt(4, movie_type);
-		    preparedStatement.setString(5, language);
-		    preparedStatement.setString(6, description);
-		    preparedStatement.setInt(7, movieId);
-		  
+	        connection.prepareStatement("UPDATE movie SET category = ?, title = ?, minutes = ?, movie_type = ?, language = ?, description = ? WHERE movie_id = ?");
+		                  
+	        preparedStatement.setString(1, updateMovie.getCategory().name());
+	        preparedStatement.setString(2, updateMovie.getTitle());
+	        preparedStatement.setInt(3, updateMovie.getMinutes());
+		    preparedStatement.setInt(4, updateMovie.getMovieType());
+		    preparedStatement.setString(5, updateMovie.getLanguage());
+		    preparedStatement.setString(6, updateMovie.getDescription());
+		    preparedStatement.setInt(7, updateMovie.getMovieId().intValue());
 		    preparedStatement.executeUpdate();
 		              
 		    System.out.println("Movie is updated.");
-		      }catch (final SQLException e) {
-		          throw new ServiceException("Something went wrong while updating the movie items.", e);
-
+		 }catch (final SQLException e) {
+			 throw new ServiceException("Something went wrong while updating the movie items.", e);
 		 }
     }
 
 		public void deleteShowFromDatabase(int showId) {
-			
 			String deleteSQL = "DELETE FROM `show` WHERE show_id = ?";
 			
 			try {
@@ -122,8 +116,8 @@ public class EmployeeService {
 				preparedStatement.executeUpdate();
 		        	
 				System.out.println("Show is deleted.");
-			    }catch (final SQLException e) {
-			    	throw new ServiceException("Something went wrong while deleting the show items.", e);
-			    }
+		    }catch (final SQLException e) {
+		    	throw new ServiceException("Something went wrong while deleting the show items.", e);
+		    }
 		}
 }
