@@ -1,6 +1,6 @@
 package nl.cerios.cerioscoop.domain;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,9 +12,9 @@ import nl.cerios.cerioscoop.domain.MovieBuilder;
 public class MovieBuilderTest {
 
 	@Test
-	public void test() {
+	public void testInstantiateMovie() {
 		final Movie movie = new MovieBuilder()
-			.withMovieId(BigDecimal.valueOf(12.55))
+			.withMovieId(BigInteger.valueOf(1255))
 			.withTitle("kansloze titel")
 			.withMinutes(12)
 			.withType(3) // 3D
@@ -25,7 +25,7 @@ public class MovieBuilderTest {
 
 		Assert.assertNotNull(movie);
 		Assert.assertEquals("kansloze titel", movie.getTitle());
-		Assert.assertEquals("12.55", movie.getMovieId().toString());
+		Assert.assertEquals("1255", movie.getMovieId().toString());
 		Assert.assertEquals(Category.COMEDY, movie.getCategory());
 		Assert.assertEquals("Fries", movie.getLanguage());
 		Assert.assertEquals(12, movie.getMinutes());

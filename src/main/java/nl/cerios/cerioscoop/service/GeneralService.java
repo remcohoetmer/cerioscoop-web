@@ -34,7 +34,7 @@ public class GeneralService {
 			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, title, category, minutes, movie_type, language, description FROM movie");
 			while (resultSet.next()) {
 				final Movie movie = new MovieBuilder()
-						.withMovieId(resultSet.getBigDecimal("movie_id"))
+						.withMovieId(resultSet.getBigDecimal("movie_id").toBigInteger())
 						.withTitle(resultSet.getString("title"))
 						.withCategory(Category.valueOf(resultSet.getString("category")))
 						.withMinutes(resultSet.getInt("minutes"))

@@ -1,10 +1,10 @@
 package nl.cerios.cerioscoop.domain;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 public final class Movie {
 	
-	private BigDecimal movieId;
+	private BigInteger movieId;
 	private Category category;
 	private String title;
 	private int minutes;
@@ -12,7 +12,7 @@ public final class Movie {
 	private String language;
 	private String description;
 
-	Movie(final BigDecimal movieId, final String title, final Category category, final int minutes, final int movieType, final String language, final String description) {
+	Movie(final BigInteger movieId, final String title, final Category category, final int minutes, final int movieType, final String language, final String description) {
 		this.movieId = movieId;
 		this.title = title;
 		this.category = category;
@@ -22,7 +22,7 @@ public final class Movie {
 		this.description = description;
 	}
 
-	public BigDecimal getMovieId() {
+	public BigInteger getMovieId() {
 		return movieId;
 	}
 	
