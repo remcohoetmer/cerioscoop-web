@@ -21,11 +21,9 @@
 		<jsp:include page="/jsp/login.jsp" />
 	</div>
 	
-	<div id="div4">
+	<div id="footer">
 		<jsp:include page="/jsp/footer.jsp" />
 	</div>
-
-<jsp:include page="/jsp/footer.jsp" />
 
 </body>
 </html>

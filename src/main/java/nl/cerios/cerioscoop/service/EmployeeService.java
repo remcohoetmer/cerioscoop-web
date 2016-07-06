@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.sql.DataSource;
 
+import nl.cerios.cerioscoop.domain.Employee;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.Room;
 import nl.cerios.cerioscoop.domain.Show;
@@ -141,6 +142,25 @@ public class EmployeeService {
 		           throw new ServiceException("Something went wrong while updating the show items.", e);
 		       }
 			              
-	    }
-
+	}
+	
+	public void newEmployee(final Employee customer){
+		try (final Connection connection = dataSource.getConnection();
+				final PreparedStatement preparedStatement = connection.prepareStatement(
+						"INSERT INTO employee (first_name, last_name, username, password, email, employee_create_date, employee_create_time) VALUES (?,?,?,?,?,?,?);")) {
+				
+	        	preparedStatement.setString(1, customer.getFirstName());
+	        	preparedStatement.setString(2, customer.getLastName());
+	        	preparedStatement.setString(3, customer.getUsername());
+	        	preparedStatement.setString(4, customer.getPassword());
+	        	preparedStatement.setString(5, customer.getEmail());
+	        	preparedStatement.setDate(6, customer.getEmployeeCreateDate()); 
+	        	preparedStatement.setTime(7,customer.getEmployeeCreateTime());
+	        	preparedStatement.executeUpdate();
+	        	
+	        	System.out.println("Data inserted.");
+		    }catch (final SQLException e) {
+		    	throw new ServiceException("Something went wrong while inserting the employee items.", e);
+			    }
+		}
 }

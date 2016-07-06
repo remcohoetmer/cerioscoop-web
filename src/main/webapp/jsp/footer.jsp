@@ -13,36 +13,32 @@ body > #container { height: auto; min-height: 100%; }
  position: relative;
  z-index: 10;
  height: 3em;
- margin-top: -3em;
- background-color:#FFA500;
+ margin-top: 10em;
 }
 #content { padding-bottom: 3em; }
 </style>
 </head>
 <body>
 
-<div id="container">
- <div id="content"></div>
-</div>
-<div class="footer-social">
+<div id="content" class="footer-social">
     <h1><span>Connect with us:</span></h1>
 <a href="https://www.facebook.com/pages/Cerios/204066526290221">
-	<img src="images/facebook2.png"/>
+	<img src="/cerioscoop-web/images/facebook2.png"/>
 </a>
 <a href="https://plus.google.com/108139549084511264357/about">
-	<img src="images/google-circle2.png">
+	<img src="/cerioscoop-web/images/google-circle2.png">
 </a>
 <a href="https://twitter.com/ceriosbaarn">
-    <img src="images/twitter2.png"/>
+    <img src="/cerioscoop-web/images/twitter2.png"/>
 </a>
 <a href="https://www.linkedin.com/company/cerios?trk=top_nav_home">
-	<img src="images/linkedin2.png">
+	<img src="/cerioscoop-web/images/linkedin2.png">
 </a>
 <a href="http://www.cerios.nl/">
-    <img src="images/cerios-bee.png"/>
+    <img src="/cerioscoop-web/images/cerios-bee.png"/>
 </a>
 <a href="https://github.com/RonSanders/cerioscoop-web">
-    <img src="images/github.png"/>
+    <img src="/cerioscoop-web/images/github.png"/>
 </a>
 </div>
 </body>

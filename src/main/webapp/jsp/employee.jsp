@@ -16,7 +16,12 @@
 	</div>
 
 	<div id="navbar-employee">
- 	<jsp:include page="/jsp/navbar-employee.jsp"></jsp:include>
+ 		<jsp:include page="/jsp/navbar-employee.jsp"></jsp:include>
  	</div>
+ 	
+ 	<div id="footer">
+		<jsp:include page="/jsp/footer.jsp" />
+	</div>
+ 	
 </body>
 </html>

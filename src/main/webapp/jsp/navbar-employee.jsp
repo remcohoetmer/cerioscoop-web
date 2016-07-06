@@ -16,8 +16,9 @@
 	<ul>
 		<li><a href="../jsp/add-movie.jsp">ADD MOVIE</a></li>
 		<li><a href="../jsp/add-show.jsp">ADD SHOW</a></li>
-		<li><a href="../jsp/add-room.jsp">ADD MOVIE</a></li>
+		<li><a href="../jsp/add-room.jsp">ADD ROOM</a></li>
 		<li><a href="../jsp/update-movie.jsp">UPDATE MOVIE</a></li>
+		<li><a href="../jsp/update-movie.jsp">UPDATE SHOW</a></li>
 		<li><a href="../jsp/new-employee.jsp">NEW EMPLOYEE</a></li>
 	</ul>
 </div>
