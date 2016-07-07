@@ -154,8 +154,8 @@ public class EmployeeService {
 	        	preparedStatement.setString(3, customer.getUsername());
 	        	preparedStatement.setString(4, customer.getPassword());
 	        	preparedStatement.setString(5, customer.getEmail());
-	        	preparedStatement.setDate(6, customer.getEmployeeCreateDate()); 
-	        	preparedStatement.setTime(7,customer.getEmployeeCreateTime());
+	        	preparedStatement.setDate(6, customer.getCreateDate()); 
+	        	preparedStatement.setTime(7,customer.getCreateTime());
 	        	preparedStatement.executeUpdate();
 	        	
 	        	System.out.println("Data inserted.");

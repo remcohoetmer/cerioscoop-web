@@ -16,9 +16,11 @@ import javax.sql.DataSource;
 
 import nl.cerios.cerioscoop.domain.Category;
 import nl.cerios.cerioscoop.domain.Customer;
+import nl.cerios.cerioscoop.domain.Employee;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
+import nl.cerios.cerioscoop.domain.User;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 @Stateless										//Stateless is de status van de gevulde opjecten. Best Practice is stateless.
@@ -96,6 +98,31 @@ public class GeneralService {
 	    }
 	}
 	
+	public List<Employee> getEmployees(){
+		final List<Employee> employees = new ArrayList<>();
+		try (final Connection connection = dataSource.getConnection()){
+			final Statement statement = connection.createStatement();
+			final ResultSet resultSet = statement.executeQuery("SELECT employee_id, first_name, last_name, username, password, email, employee_create_date, employee_create_time FROM employee"); { 
+
+			while (resultSet.next()) {
+				final int employeeId = resultSet.getInt("employee_id");
+				final String firstName = resultSet.getString("first_name");
+				final String lastName = resultSet.getString("last_name");
+				final String username = resultSet.getString("username");
+				final String password = resultSet.getString("password");
+				final String email = resultSet.getString("email");
+				final Date createDate = resultSet.getDate("employee_create_date");
+				final Time createTime = resultSet.getTime("employee_create_time");
+				
+				employees.add(new Employee(employeeId, firstName, lastName, username, password, email, createDate, createTime));
+	        	}
+	        return employees;
+	      }
+	    }catch (final SQLException e) {
+	    	throw new ServiceException("Something went terribly wrong while retrieving the employees.", e);
+	    }
+	}
+	
 	/**
 	 * Returns a first showing record.
 	 * 
@@ -141,8 +168,8 @@ public class GeneralService {
 	        	preparedStatement.setString(3, customer.getUsername());
 	        	preparedStatement.setString(4, customer.getPassword());
 	        	preparedStatement.setString(5, customer.getEmail());
-	        	preparedStatement.setDate(6, customer.getCustomerCreateDate()); 
-	        	preparedStatement.setTime(7,customer.getCustomerCreateTime());
+	        	preparedStatement.setDate(6, customer.getCreateDate()); 
+	        	preparedStatement.setTime(7,customer.getCreateTime());
 	        	preparedStatement.executeUpdate();
 	        	
 	        	System.out.println("Data inserted.");
@@ -150,25 +177,46 @@ public class GeneralService {
 		    	throw new ServiceException("Something went wrong while inserting the customer items.", e);
 		    }
 	}
-	/**
-	 * @param customer
-	 * @return
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 * TODO Includeer de employee door het gebruik van een hashmap!
-	 */
-	public Customer authenticateUser(Customer customer){
-		final List<Customer> dbCustomers = getCustomers();	
-		final String username = customer.getUsername();
-		final String password = customer.getPassword();
-		Customer authenticatedUser = null;
+	
+	public User authenticateCustomer(User customer){
+		final List<Customer> dbCustomers = getCustomers();		
+		final String usernameCustomer = customer.getUsername();
+		final String passwordCustomer = customer.getPassword();
+		User authenticatedCustomer = null;
 		
 		for (final Customer customerItem : dbCustomers){
-			if(customerItem.getUsername().equals(username) && customerItem.getPassword().equals(password)){
-			authenticatedUser = customerItem;
-			}
+			if(customerItem.getUsername().equals(usernameCustomer) && customerItem.getPassword().equals(passwordCustomer)){
+				authenticatedCustomer = customerItem;
+				}
 		}
-		return authenticatedUser;
+		if(authenticatedCustomer == null){
+			User noCustomer = new Customer();
+			noCustomer.setUsername("No customer");
+			noCustomer.setPassword("No customer");
+			return noCustomer;
+		}
+		return authenticatedCustomer;
+	}
+	
+	
+	public User authenticateEmployee(User employee){
+		final List<Employee> dbEmployees = getEmployees();	
+		final String usernameEmployee = employee.getUsername();
+		final String passwordEmployee = employee.getPassword();
+		User authenticatedEmployee = null;
+		
+		for (final Employee employeeItem : dbEmployees){
+			if(employeeItem.getUsername().equals(usernameEmployee) && employeeItem.getPassword().equals(passwordEmployee)){
+				authenticatedEmployee = employeeItem;
+				}
+		}
+		if(authenticatedEmployee == null){
+			User noEmployee = new Employee();
+			noEmployee.setUsername("No employee");
+			noEmployee.setPassword("No employee");
+			return noEmployee;
+		}
+		return authenticatedEmployee;
 	}
 }
 

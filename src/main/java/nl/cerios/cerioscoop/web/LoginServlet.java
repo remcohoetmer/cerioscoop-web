@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import nl.cerios.cerioscoop.domain.Customer;
+import nl.cerios.cerioscoop.domain.Employee;
+import nl.cerios.cerioscoop.domain.User;
 import nl.cerios.cerioscoop.service.GeneralService;
 
 /**
@@ -26,19 +28,34 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Customer customer = new Customer();
+		final User customer = new Customer();
+		final User employee = new Employee();
+		User authenticatedCustomer = new Customer();
+		User authenticatedEmployee = new Employee();
+		
 		customer.setUsername(request.getParameter("txtUserName"));			
 		customer.setPassword(request.getParameter("txtPassword"));
+		employee.setUsername(request.getParameter("txtUserName"));			
+		employee.setPassword(request.getParameter("txtPassword"));
 		
-		Customer result = generalService.authenticateUser(customer);
+		authenticatedCustomer = generalService.authenticateCustomer(customer);
+		authenticatedEmployee = generalService.authenticateEmployee(employee);
 		
-		if(result.getUsername() != null && result.getPassword() != null){
-			request.getSession().setAttribute("user", result);
+ 
+		if(authenticatedCustomer.getUsername() != "No customer" && authenticatedCustomer.getPassword() != "No customer"){
+			request.getSession().setAttribute("user", authenticatedCustomer);
 			response.sendRedirect("/cerioscoop-web/jsp/customer.jsp");
 			return;
-		}else{
-			response.sendRedirect("/cerioscoop-web/jsp/login.jsp");
+			}else{
+				authenticatedCustomer = authenticatedEmployee;
+			}
+
+		if(authenticatedEmployee.getUsername() != "No employee" && authenticatedEmployee.getPassword() != "No employee"){
+			request.getSession().setAttribute("user", authenticatedEmployee);
+			response.sendRedirect("/cerioscoop-web/jsp/employee.jsp");
 			return;
-		}
-	}
+			}
+			
+	}	
 }
+

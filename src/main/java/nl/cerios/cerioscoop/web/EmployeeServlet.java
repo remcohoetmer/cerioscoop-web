@@ -36,8 +36,8 @@ public class EmployeeServlet extends HttpServlet {
 			employee.setUsername(request.getParameter("username"));
 			employee.setPassword(request.getParameter("password"));
 			employee.setEmail(request.getParameter("email"));
-			employee.setEmployeeCreateDate(dateUtils.getCurrentSqlDate());
-			employee.setEmployeeCreateTime(dateUtils.getCurrentSqlTime());
+			employee.setCreateDate(dateUtils.getCurrentSqlDate());
+			employee.setCreateTime(dateUtils.getCurrentSqlTime());
 			employeeService.newEmployee(employee);
 		}
 		request.getRequestDispatcher("/jsp/new-employee.jsp").

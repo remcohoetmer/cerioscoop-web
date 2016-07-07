@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="nl.cerios.cerioscoop.domain.Employee"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,7 +12,9 @@
  	</div>
 
 	<div>
-		Welkom Employee.
+		<h3>Login Successful!</h3>
+		<% Employee employee = (Employee) session.getAttribute("user"); %>
+		Hello <%=employee.getUsername()%>!
 	</div>
 
 	<div id="navbar-employee">
