@@ -40,11 +40,10 @@ public class AddShowServlet extends HttpServlet {
 			show.setRoomId(Integer.parseInt(request.getParameter("roomID")));	
 		//	show.setShowTime(dateUtils.getCurrentSqlTime());							//TODO remove and input timepicker
 			try {
-				String a = request.getParameter("show_time");
-				String b = a+":00";
-			
+				String showTime = (request.getParameter("show_time")+ ":00");
+							
 				show.setShowDate(new java.sql.Date(dateformat.parse(request.getParameter("premieredate")).getTime()));
-				show.setShowTime(new java.sql.Time(timeFormat.parse(b).getTime()));
+				show.setShowTime(new java.sql.Time(timeFormat.parse(showTime).getTime()));
 			} catch (ParseException e) {
 				throw new ShowException("Something went wrong while parsing premiere date.", e);
 			}
