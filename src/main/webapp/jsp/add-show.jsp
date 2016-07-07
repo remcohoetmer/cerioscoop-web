@@ -7,17 +7,13 @@
 <title>Add Show</title>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.4/jquery.timepicker.min.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
 <script>
  $(function() {
  $( "#datepicker" ).datepicker();});
-</script>
-<script>
-$(document).ready(function(){
-            $('input.timepicker').timepicker({});
-        });
 </script>
 
 </head>
@@ -39,7 +35,7 @@ $(document).ready(function(){
 		<br>Premiere date:<br>
 		<input type="text" id="datepicker" name="premieredate"><br>
 		<br>Time:<br>
-		<input type="text" id="timepicker" name="lastshowingdate"><br>
+		<input type="time" name="show_time"><br>
 		<input type="submit" name="submitit" value="Submit"/>
 		<input type="reset" value="cancel" />
 		</form>

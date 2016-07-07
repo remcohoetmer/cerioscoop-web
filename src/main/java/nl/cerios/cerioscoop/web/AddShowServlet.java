@@ -32,15 +32,19 @@ public class AddShowServlet extends HttpServlet {
 	 */
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		Show show = new Show();
-		final DateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy"); 					// current format
+		final DateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy"); 	
+		final DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
 		if ("Submit".equals(request.getParameter("submitit"))) {
 			show.setMovieId(Integer.parseInt(request.getParameter("movieID")));
 			show.setRoomId(Integer.parseInt(request.getParameter("roomID")));	
-			show.setShowTime(dateUtils.getCurrentSqlTime());							//TODO remove and input timepicker
+		//	show.setShowTime(dateUtils.getCurrentSqlTime());							//TODO remove and input timepicker
 			try {
+				String a = request.getParameter("show_time");
+				String b = a+":00";
+			
 				show.setShowDate(new java.sql.Date(dateformat.parse(request.getParameter("premieredate")).getTime()));
-//				showing.setPremiereTime(new java.sql.Time(dateformat.parse(request.getParameter("premieredate")).getTime()));
+				show.setShowTime(new java.sql.Time(timeFormat.parse(b).getTime()));
 			} catch (ParseException e) {
 				throw new ShowException("Something went wrong while parsing premiere date.", e);
 			}
