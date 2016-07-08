@@ -11,14 +11,14 @@
  		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
  	</div>
 <h2>Contributors:</h2>
-
-<li>Ron Sanders</li>
-<li>Rutger van Velzen</li>
-<li>Friso Schutte</li>
-<li>Remco Hoetner</li>
-<li>Gijsbert Peijs</li>
-<li>Rob Bosman</li>
-<li>Bob van Zeist</li>
-
+<ul>
+	<li>Ron Sanders</li>
+	<li>Rutger van Velzen</li>
+	<li>Friso Schutte</li>
+	<li>Remco Hoetner</li>
+	<li>Gijsbert Peijs</li>
+	<li>Rob Bosman</li>
+	<li>Bob van Zeist</li>
+</ul>
 </body>
 </html>
