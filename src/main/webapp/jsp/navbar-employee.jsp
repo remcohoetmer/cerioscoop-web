@@ -20,7 +20,7 @@
 		<li><a href="../jsp/delete-show.jsp">DELETE SHOW</a></li>
 		<li><a href="../jsp/add-room.jsp">ADD ROOM</a></li>
 		<li><a href="../jsp/update-movie.jsp">UPDATE MOVIE</a></li>
-		<li><a href="../jsp/update-movie.jsp">UPDATE SHOW</a></li>
+		<li><a href="../jsp/update-show.jsp">UPDATE SHOW</a></li>
 		<li><a href="../jsp/new-employee.jsp">NEW EMPLOYEE</a></li>
 	</ul>
 </div>
