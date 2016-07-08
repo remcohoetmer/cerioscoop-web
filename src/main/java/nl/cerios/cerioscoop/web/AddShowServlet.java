@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.service.EmployeeService;
-import nl.cerios.cerioscoop.util.DateUtils;
 
 /**
  * Servlet implementation class AddShowServlet
@@ -22,7 +21,6 @@ import nl.cerios.cerioscoop.util.DateUtils;
 @WebServlet("/AddShowServlet")
 public class AddShowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static DateUtils dateUtils = new DateUtils();
 	
 	@EJB
 	private EmployeeService employeeService;   
