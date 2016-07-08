@@ -81,10 +81,10 @@ INSERT INTO `room` (`room_id`, `name`, `chair_amount`, `room_type`) VALUES
 DELETE FROM `show`;
 /*!40000 ALTER TABLE `show` DISABLE KEYS */;
 INSERT INTO `show` (`show_id`, `movie_id`, `room_id`, `show_date`, `show_time`) VALUES
-	(1, 1, 1, '2016-07-01', '21:00:00'),
-	(2, 2, 1, '2016-07-01', '21:00:00'),
-	(3, 2, 2, '2016-07-01', '21:00:00'),
-	(4, 3, 1, '2016-07-01', '21:00:00');
+	(1, 1, 1, '2016-12-01', '21:00:00'),
+	(2, 2, 1, '2016-12-01', '21:00:00'),
+	(3, 2, 2, '2016-12-01', '21:00:00'),
+	(4, 3, 1, '2016-12-01', '21:00:00');
 /*!40000 ALTER TABLE `show` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
