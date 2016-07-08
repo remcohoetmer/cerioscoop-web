@@ -7,6 +7,9 @@
 <title>Delete show</title>
 </head>
 <body>
+<div id="navbar">
+ 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+ 	</div>
 <h1>Delete show</h1>
 <form method="POST" action="/cerioscoop-web/DeleteShowServlet"> 
  Show ID:<br>

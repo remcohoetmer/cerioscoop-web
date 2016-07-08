@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div id="navbar">
+ 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+ 	</div>
 <h1>Update movie</h1>
 <form method="POST" action="/cerioscoop-web/UpdateMovieServlet"> 
 <br>Select Movie:<br>

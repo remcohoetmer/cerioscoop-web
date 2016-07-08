@@ -14,11 +14,8 @@
 <body>
 <div class="menu">
 	<ul>
-		<li><a href="../jsp/add-movie.jsp">ADD MOVIE</a></li>
-		<li><a href="../jsp/update-movie.jsp">UPDATE MOVIE</a></li>
-		<li><a href="../jsp/add-show.jsp">ADD SHOW</a></li>
 		<li><a href="../jsp/add-room.jsp">LOG OUT</a></li>
-		<li><a href="../jsp/new-employee.jsp">EDIT CUSTOMER</a></li>
+		<li><a href="#editcustomer">EDIT CUSTOMER</a></li>
 	</ul>
 </div>
 </body>

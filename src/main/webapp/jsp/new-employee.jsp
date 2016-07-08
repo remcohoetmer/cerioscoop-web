@@ -16,15 +16,15 @@
 	<div>
 	<form method="POST" action="/cerioscoop-web/EmployeeServlet"> 
 	  First name:<br>
-	  <input type="text" name="firstname">
+	  <input type="text" name="firstname" placeholder="Enter your first name" required>
 	  <br>Last name:<br>
-	  <input type="text" name="lastname">
+	  <input type="text" name="lastname" placeholder="Enter your last name" required>
 	  <br>Username:<br>
-	  <input type="text" name="username">
+	  <input type="text" name="username" placeholder="Enter your username" required>
 	  <br>Password:<br>
-	  <input type="text" name="password">
+	  <input type="text" name="password" placeholder="Enter your password" required>
 	  <br>E-mail:<br>
-	  <input type="text" name="email">
+	  <input type="email" name="email" placeholder="Enter your email address" required>
 	  <br>
 	  <br><input type="submit" name="submitit" value="Submit">
 	</form> 
