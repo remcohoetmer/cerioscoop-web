@@ -25,8 +25,8 @@
 			    <a href="#">CATEGORY</a>
 		  	</div>
 		</li>
-		<li><a href="../#about">ABOUT</a></li>
-		<li><a href="../#team">TEAM</a></li>
+		<li><a href="/cerioscoop-web/jsp/about.jsp">ABOUT</a></li>
+		<li><a href="/cerioscoop-web/jsp/team.jsp">TEAM</a></li>
 		<li><a href="/cerioscoop-web/jsp/register.jsp">REGISTER</a></li>
 	</ul>
 </div>
