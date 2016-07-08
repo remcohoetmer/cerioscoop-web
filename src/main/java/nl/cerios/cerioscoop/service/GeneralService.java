@@ -189,12 +189,6 @@ public class GeneralService {
 				authenticatedCustomer = customerItem;
 				}
 		}
-		if(authenticatedCustomer == null){
-			User noCustomer = new Customer();
-			noCustomer.setUsername("No customer");
-			noCustomer.setPassword("No customer");
-			return noCustomer;
-		}
 		return authenticatedCustomer;
 	}
 	
@@ -210,13 +204,14 @@ public class GeneralService {
 				authenticatedEmployee = employeeItem;
 				}
 		}
-		if(authenticatedEmployee == null){
-			User noEmployee = new Employee();
-			noEmployee.setUsername("No employee");
-			noEmployee.setPassword("No employee");
-			return noEmployee;
-		}
 		return authenticatedEmployee;
+	}
+	
+	public Boolean authenticateUser(User authenticatedUser){
+		if(authenticatedUser == null){
+			return false;
+		}
+		return true;
 	}
 }
 

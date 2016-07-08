@@ -30,25 +30,26 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		final User customer = new Customer();
 		final User employee = new Employee();
-		User authenticatedCustomer = new Customer();
-		User authenticatedEmployee = new Employee();
+		final User authenticatedCustomer;
+		final User authenticatedEmployee;
 		
+		//input
 		customer.setUsername(request.getParameter("txtUserName"));			
 		customer.setPassword(request.getParameter("txtPassword"));
 		employee.setUsername(request.getParameter("txtUserName"));			
 		employee.setPassword(request.getParameter("txtPassword"));
 		
+		//output
 		authenticatedCustomer = generalService.authenticateCustomer(customer);
 		authenticatedEmployee = generalService.authenticateEmployee(employee);
 		
- 
-		if(authenticatedCustomer.getUsername().equals("No customer") && authenticatedCustomer.getPassword().equals("No customer")){
+ 		if(generalService.authenticateUser(authenticatedCustomer)){
 			request.getSession().setAttribute("user", authenticatedCustomer);
 			response.sendRedirect("/cerioscoop-web/jsp/customer.jsp");
 			return;
 			}
 
-		if(authenticatedEmployee.getUsername().equals("No employee") && authenticatedEmployee.getPassword().equals("No employee")){
+		if(generalService.authenticateUser(authenticatedEmployee)){
 			request.getSession().setAttribute("user", authenticatedEmployee);
 			response.sendRedirect("/cerioscoop-web/jsp/employee.jsp");
 			return;
