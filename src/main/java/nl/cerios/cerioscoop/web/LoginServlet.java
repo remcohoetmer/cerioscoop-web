@@ -46,8 +46,6 @@ public class LoginServlet extends HttpServlet {
 			request.getSession().setAttribute("user", authenticatedCustomer);
 			response.sendRedirect("/cerioscoop-web/jsp/customer.jsp");
 			return;
-			}else{
-				authenticatedCustomer = authenticatedEmployee;
 			}
 
 		if(authenticatedEmployee.getUsername() != "No employee" && authenticatedEmployee.getPassword() != "No employee"){
@@ -55,7 +53,6 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("/cerioscoop-web/jsp/employee.jsp");
 			return;
 			}
-			
 	}	
 }
 

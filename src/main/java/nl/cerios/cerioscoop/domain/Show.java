@@ -18,7 +18,6 @@ public class Show {
 		this.roomId = roomId; 
 		this.showDate = showDate;
 		this.showTime = showTime;
-		
 	}
 	public int getShowId() {
 		return showId;

@@ -146,7 +146,7 @@ public class GeneralService {
 		return firstShow;
 	}
 		
-	public Movie getMovieByMovieId(final int movieId) throws FilmNotFoundException {
+	public Movie getMovieByMovieId(final int movieId) throws MovieNotFoundException {
 		final List<Movie> movies = getMovies();
 		Movie movieByMovieId = null;
 		

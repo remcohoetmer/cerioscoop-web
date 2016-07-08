@@ -3,20 +3,19 @@
 /* http://www.w3schools.com/css/tryit.asp?filename=trycss_dropdown_navbar */
 
 .navbar {
-	margin: auto;
 	text-align: center;
 }
 
 ul {
     list-style-type: none;
-    margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
 }
 
 li {
-    float: left;
+    float: center;
+    display: inline-block;
 }
 
 li a, .dropbtn {
@@ -51,7 +50,10 @@ li.dropdown {
     text-align: left;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:hover {
+	background-color: #f1f1f1
+}
+
 
 .dropdown:hover .dropdown-content {
     display: block;
