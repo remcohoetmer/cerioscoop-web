@@ -42,13 +42,13 @@ public class LoginServlet extends HttpServlet {
 		authenticatedEmployee = generalService.authenticateEmployee(employee);
 		
  
-		if(authenticatedCustomer.getUsername() != "No customer" && authenticatedCustomer.getPassword() != "No customer"){
+		if(authenticatedCustomer.getUsername().equals("No customer") && authenticatedCustomer.getPassword().equals("No customer")){
 			request.getSession().setAttribute("user", authenticatedCustomer);
 			response.sendRedirect("/cerioscoop-web/jsp/customer.jsp");
 			return;
 			}
 
-		if(authenticatedEmployee.getUsername() != "No employee" && authenticatedEmployee.getPassword() != "No employee"){
+		if(authenticatedEmployee.getUsername().equals("No employee") && authenticatedEmployee.getPassword().equals("No employee")){
 			request.getSession().setAttribute("user", authenticatedEmployee);
 			response.sendRedirect("/cerioscoop-web/jsp/employee.jsp");
 			return;
