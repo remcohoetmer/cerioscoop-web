@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import nl.cerios.cerioscoop.domain.Movie;
-import nl.cerios.cerioscoop.domain.Room;
 import nl.cerios.cerioscoop.service.EmployeeService;
 
 /**
