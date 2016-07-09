@@ -1,3 +1,8 @@
+[![Build Status](https://travis-ci.org/Cerios/cerioscoop-web.svg?branch=develop)](https://travis-ci.org/Cerios/cerioscoop-web)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4e4dbb7c808b49ae83ab0ba8d45bc96c)](https://www.codacy.com/app/Cerios/cerioscoop-web?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CeriosDev/cerioscoop-web&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/4e4dbb7c808b49ae83ab0ba8d45bc96c)](https://www.codacy.com/app/Cerios/cerioscoop-web?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CeriosDev/cerioscoop-web&amp;utm_campaign=Badge_Coverage)
+
+
 # cerioscoop-web
 We're Cerios! A young company with about 60 employees that helps organisations to successfully realize complex IT project. Cerios started educating Java software developers and came up with the idea for them to create a cinema web application. It is intended that the web application will be gradually expanded further over time. In the near future there will also be testers participating in this project to optimally stimulate the learning curve and collaboration.
 
