@@ -4,6 +4,9 @@ jdk:
 
 sudo: required
 
+before_install:
+ - chmod +x publish-codacy-coverage
+ 
 script:
   - mvn package jacoco:report
 
