@@ -41,11 +41,15 @@ final Show firstShowing = generalService.getFirstShowAfterCurrentDate();
 java.util.Date showingPremiere = null;
 String showingPremiereSqlDatabase = null;
  
-showingPremiereSqlDatabase = dateUtils.sqlDatabaseFormat(firstShowing.getShowDate())+" "+dateUtils.timeFormat(firstShowing.getShowTime());
-try {
-	showingPremiere = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(showingPremiereSqlDatabase);
-} catch (ParseException e) {
+if(firstShowing == null) {
+	return;
+}
+ else{showingPremiereSqlDatabase = dateUtils.sqlDatabaseFormat(firstShowing.getShowDate())+" "+dateUtils.timeFormat(firstShowing.getShowTime());
+	try {
+		showingPremiere = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(showingPremiereSqlDatabase);
+	}catch (ParseException e) {
 	throw new ShowException("Something went wrong while parsing premiere datum.", e);
+	}
 }
 
 shows.sort(new Comparator<Show>() {
