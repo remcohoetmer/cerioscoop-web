@@ -122,21 +122,21 @@ public class DateUtils {
 	/**
 	 * It returns a date object converted into a string with format "dd-MM-yyyy".
 	 * 
-	 * @param datum
+	 * @param date
 	 * @return String "dd-MM-yyyy"
 	 */
-	public String format(final Date datum) {
-	    return datum != null ? new SimpleDateFormat(DATE_FORMAT).format(datum) : "onbekend";
+	public String format(final Date date) {
+	    return date != null ? new SimpleDateFormat(DATE_FORMAT).format(date) : "unknown";
 	 }
 	
 	/**
 	 * It returns a date object converted into a string with format "dd MMMMM".
 	 * 
-	 * @param datum
+	 * @param date
 	 * @return String "dd MMMMM"
 	 */
-	public String format2(final Date datum) {
-	    return datum != null ? new SimpleDateFormat(DATE_FORMAT2).format(datum) : "onbekend";
+	public String format2(final Date date) {
+	    return date != null ? new SimpleDateFormat(DATE_FORMAT2).format(date) : "unknown";
 	 }
 	
 	/**
@@ -146,7 +146,7 @@ public class DateUtils {
 	 * @return String "yyyy-dd-MM"
 	 */
 	public String format3(final Date date) {
-	    return date != null ? new SimpleDateFormat(DATE_FORMAT3, Locale.FRANCE).format(date) : "onbekend";
+	    return date != null ? new SimpleDateFormat(DATE_FORMAT3, Locale.FRANCE).format(date) : "unknown";
 	 }
 	
 	/**
@@ -156,7 +156,7 @@ public class DateUtils {
 	 * @return String "yyyy-MM-dd"
 	 */
 	public String sqlDatabaseFormat(final Date date) {
-	    return date != null ? new SimpleDateFormat(DATE_FORMAT_SQL, Locale.FRANCE).format(date) : "onbekend";
+	    return date != null ? new SimpleDateFormat(DATE_FORMAT_SQL, Locale.FRANCE).format(date) : "unknown";
 	 }
 	
 	/**
@@ -166,7 +166,7 @@ public class DateUtils {
 	 * @return String "HH:mm:ss"
 	 */
 	public String timeFormat(final Date time) {
-	    return time != null ? new SimpleDateFormat(TIME_FORMAT).format(time) : "onbekend";
+	    return time != null ? new SimpleDateFormat(TIME_FORMAT).format(time) : "unknown";
 	 }
 	
 	/**
@@ -176,7 +176,7 @@ public class DateUtils {
 	 * @return String "yyyy-MM-dd hh:mm:ss"
 	 */
 	public String formatDatumEnTijd(final Date time) {
-	    return time != null ? new SimpleDateFormat(DATETIME_FORMAT).format(time) : "onbekend";
+	    return time != null ? new SimpleDateFormat(DATETIME_FORMAT).format(time) : "unknown";
 	 }
 	public String getDate() {
 		return new SimpleDateFormat("d MMMM, HH:mm").format(new Date());
