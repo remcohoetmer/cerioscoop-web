@@ -17,7 +17,7 @@ We're Cerios! A young company with about 60 employees that helps organisations t
 * Run the script `src/main/scripts/mysql-testdata.sql`
 * Manage your database with [HeidiSQL](http://www.heidisql.com/download.php)
 * Visualize and manage your repositories with [SourceTree](https://www.atlassian.com/software/sourcetree) or use [Github Desktop](https://desktop.github.com)
-* Run automated browser testscenario's with [Selenium Client & Webdriver](http://www.seleniumhq.org/download/) or add [Selenium Maven dependency](Maven dependency) and check the specific "third party" browser drivers for [Google Chrome](http://chromedriver.storage.googleapis.com/index.html?path=2.22/)
+* Run automated browser testscenario's with [Selenium Client & Webdriver](http://www.seleniumhq.org/download/) or add [Selenium Maven dependency](http://www.seleniumhq.org/download/maven.jsp) and check the specific "third party" browser drivers for [Google Chrome](http://chromedriver.storage.googleapis.com/index.html?path=2.22/)
 
 ##### Configure DataSource
 In WebSphere Liberty Profile `server.xml` add this (chck and adjust properties!):
