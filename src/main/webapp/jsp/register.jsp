@@ -16,17 +16,17 @@
 	<div>
 	<form method="POST" action="/cerioscoop-web/RegisterServlet"> 
 	  First name:<br>
-	  <input type="text" name="firstname" placeholder="Enter your first name" required>
+	  <input id="firstname" type="text" name="firstname" placeholder="Enter your first name" required>
 	  <br>Last name:<br>
-	  <input type="text" name="lastname" placeholder="Enter your last name" required>
+	  <input id="lastname" type="text" name="lastname" placeholder="Enter your last name" required>
 	  <br>Username:<br>
-	  <input type="text" name="username" placeholder="Enter your username" required>
+	  <input id="username" type="text" name="username" placeholder="Enter your username" required>
 	  <br>Password:<br>
-	  <input type="text" name="password" placeholder="Enter your password" required>
+	  <input id="password" type="text" name="password" placeholder="Enter your password" required>
 	  <br>E-mail:<br>
-	  <input type="email" name="email" placeholder="Enter your email address" required>
+	  <input id="email" type="email" name="email" placeholder="Enter your email address" required>
 	  <br>
-	  <br><input type="submit" name="submitit" value="Submit">
+	  <br><input id="submit" type="submit" name="submitit" value="Submit">
 	</form> 
 	</div>
 </body>
