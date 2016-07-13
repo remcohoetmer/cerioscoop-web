@@ -11,7 +11,7 @@
  	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
  	</div>
 
-	<div>	
+	<div id="helloCustomer">	
 	<h3>Login Successful!</h3>
 		<% Customer customer = (Customer) session.getAttribute("user"); %>
 		Hello <%=customer.getUsername()%>!
