@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import nl.cerios.cerioscoop.domain.Movie;
-import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.service.GeneralService;
 import nl.cerios.cerioscoop.util.DateUtils;
@@ -40,7 +38,7 @@ public class NowShowingServlet extends HttpServlet {
 		final DateUtils dateUtils = new DateUtils();
 		final List<Show> shows = generalService.getShows();
 		final Show firstShowing = generalService.getFirstShowAfterCurrentDate();
-		java.util.Date showingPremiere = null;
+		java.util.Date showDate = null;
 		String showingPremiereSqlDatabase = null;
 		 
 		if(firstShowing == null) {
@@ -48,7 +46,7 @@ public class NowShowingServlet extends HttpServlet {
 		}
 		 else{showingPremiereSqlDatabase = dateUtils.sqlDatabaseFormat(firstShowing.getShowDate())+" "+dateUtils.timeFormat(firstShowing.getShowTime());
 			try {
-				showingPremiere = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(showingPremiereSqlDatabase);
+				showDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(showingPremiereSqlDatabase);
 			}catch (ParseException e) {
 			throw new ShowException("Something went wrong while parsing premiere datum.", e);
 			}
