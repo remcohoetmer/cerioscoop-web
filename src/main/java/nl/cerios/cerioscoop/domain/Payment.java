@@ -12,9 +12,6 @@ public class Payment {
 	private double amount;
 	private Date paymentDate;
 	private Time paymentTime;
-	
-	public Payment() {
-	}
 
 	public int getPaymentId() {
 		return paymentId;
