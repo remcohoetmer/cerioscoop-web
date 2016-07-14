@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.service.GeneralService;
+import nl.cerios.cerioscoop.service.MovieNotFoundException;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 /**
@@ -63,11 +65,37 @@ public class NowShowingServlet extends HttpServlet {
 					return 0;
 				}
 			}
-		});		
+		});	
+		
+		// First object in red box
+				String todaysDate = dateUtils.getDate();
+				System.out.println(todaysDate);
+				
+				String firstUpcomingMovie = null;
+				// Second object in red box
+				try {
+					firstUpcomingMovie = generalService.getMovieByMovieId(firstShowing.getMovieId()).getTitle() + " on " + dateUtils.format2(firstShowing.getShowDate())+" at "+ dateUtils.timeFormat(firstShowing.getShowTime());
+					System.out.println(firstUpcomingMovie);
+				} catch (MovieNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				}
+				
+				// Third object in red box
+				String countdown = dateUtils.calculateTime(dateUtils.getSecondsBetween(showDate, dateUtils.getCurrentDate()));
+				System.out.println(countdown);
+				
+				// Objects to sent to the now-showing.jsp
+				request.setAttribute("todays_date", todaysDate);
+				request.setAttribute("first_upcoming_movie", firstUpcomingMovie);
+				request.setAttribute("countdown", countdown);
+				request.setAttribute("shows", shows);
 		//send model
 		
 		
-		request.setAttribute("shows", shows);
+		
+
 		// routate to jsp
 		getServletContext().getRequestDispatcher("/jsp/now-showing.jsp").forward(request, response);
 	}

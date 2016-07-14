@@ -38,26 +38,19 @@
 
 <c:forEach items="${shows}" var="show">
   
-
-<%-- 
-if (item.getShowDate().after(dateUtils.getCurrentDate())){
---%>
 <tr>
-	<%-- <td>${show.movie.title}</td>
-	<td><%=generalService.getMovieByMovieId(item.getMovieId()).getTitle()%></td>
-	--%>
 	<td>${show.movieId}</td>
 	<td>${show.showDate}</td>
 	<td>${show.showTime}</td>
-
 </tr>
-<%-- } --%>
 
 </c:forEach>
 
 </tbody>
 </table>
-
-
+<p>Today it is ${todays_date}
+<br />The first upcoming film: ${first_upcoming_movie}
+<br />That's in ${countdown}
+</p>
 </body>
 </html>
