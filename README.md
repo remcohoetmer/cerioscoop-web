@@ -2,7 +2,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4e4dbb7c808b49ae83ab0ba8d45bc96c)](https://www.codacy.com/app/Cerios/cerioscoop-web?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CeriosDev/cerioscoop-web&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/4e4dbb7c808b49ae83ab0ba8d45bc96c)](https://www.codacy.com/app/Cerios/cerioscoop-web?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CeriosDev/cerioscoop-web&amp;utm_campaign=Badge_Coverage)
 
-
 # cerioscoop-web
 We're Cerios! A young company with about 60 employees that helps organisations to successfully realize complex IT project. Cerios started educating Java software developers and came up with the idea for them to create a cinema web application. It is intended that the web application will be gradually expanded further over time. In the near future there will also be testers participating in this project to optimally stimulate the learning curve and collaboration.
 
@@ -30,6 +29,32 @@ In WebSphere Liberty Profile `server.xml` add this (chck and adjust properties!)
   <jdbcDriver libraryRef="MySQL_lib"/>
   <properties serverName="localhost" portNumber="3306" databaseName="cerioscoop_db" user="root" password="{xor}MjcnaW9vZmY="/>
 </dataSource>
+```
+
+##### Configure Selenium
+* Download and install the [Selenium webdriver](http://www.seleniumhq.org/download/)
+* To run Selenium tests from Eclipse, edit the '_Run Configuration_' of the unit test(s), open tab '_Arguments_' and add a system property in the  '_VM Arguments_' field:
+
+  `-Dwebdriver.chrome.driver=$path_to_chromedriver.exe`
+
+* Create/edit your Maven [`settings.xml`](http://stackoverflow.com/questions/2941605/sample-settings-xml-for-maven) file and add a property in an activated profile, like this:
+```xml
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <profiles>
+        <profile>
+            <id>default</id>
+            <properties>
+                <webdriver.chrome.driver>$path_to_chromedriver.exe</webdriver.chrome.driver>
+            </properties>
+        </profile>
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>default</activeProfile>
+    </activeProfiles>
+</settings>
 ```
 
 ## Contributors
