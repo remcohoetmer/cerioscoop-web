@@ -9,7 +9,7 @@ public class RegisterCustomerTest {
 	public static void main(String[] args) throws InterruptedException {
 	//Create chrome driver to drive the browser
 	System.setProperty("webdriver.chrome.driver", 
-	"C:\\Users\\rsanders\\Documents\\Documentatie cerioscoop-web\\Bestanden\\chromedriver.exe");	
+	"C:\\LocalDevelopment\\dev\\ChromeDriver\\chromedriver.exe");	
 	WebDriver driver = new ChromeDriver();
 	
 	//Open index.jsp

@@ -10,7 +10,7 @@
 	<div id="navbar">
  		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
  	</div>
- 	
+ 	<a href="/cerioscoop-web/RegisterServlet">Klik hier</a>
 <h1>Register</h1>
 
 	<div>
