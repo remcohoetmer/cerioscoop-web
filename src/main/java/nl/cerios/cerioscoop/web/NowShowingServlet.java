@@ -91,12 +91,8 @@ public class NowShowingServlet extends HttpServlet {
 				request.setAttribute("first_upcoming_movie", firstUpcomingMovie);
 				request.setAttribute("countdown", countdown);
 				request.setAttribute("shows", shows);
-		//send model
-		
-		
-		
-
-		// routate to jsp
+	
+		// route to jsp
 		getServletContext().getRequestDispatcher("/jsp/now-showing.jsp").forward(request, response);
 	}
 
