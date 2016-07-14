@@ -16,12 +16,9 @@ import java.util.concurrent.TimeUnit;
  *  http://joda-time.sourceforge.net/quickstart.html
  */
 public class DateUtils {
-	private static final String DATE_FORMAT = "dd-MM-yyyy";
-	private static final String DATE_FORMAT2 = "dd MMMMM";
-	private static final String DATE_FORMAT3 = "yyyy-dd-MM";
-	private static final String DATE_FORMAT_SQL = "yyyy-MM-dd";
-	private static final String TIME_FORMAT = "HH:mm:ss";
-	private static final String DATETIME_FORMAT = "yyyy-MM-dd hh:mm:ss";
+	private final String dateMonthFormat = "dd MMMMM";
+	private final String dateFormatSql = "yyyy-MM-dd";
+	private final String timeFormat = "HH:mm:ss";
 	
 	public long getDaysBetween(final Date startDate, final Date endDate) {
 		long diff = Math.abs(endDate.getTime() - startDate.getTime());
@@ -120,33 +117,13 @@ public class DateUtils {
 	}
 	
 	/**
-	 * It returns a date object converted into a string with format "dd-MM-yyyy".
-	 * 
-	 * @param date
-	 * @return String "dd-MM-yyyy"
-	 */
-	public String format(final Date date) {
-	    return date != null ? new SimpleDateFormat(DATE_FORMAT).format(date) : "unknown";
-	 }
-	
-	/**
 	 * It returns a date object converted into a string with format "dd MMMMM".
 	 * 
 	 * @param date
 	 * @return String "dd MMMMM"
 	 */
 	public String format2(final Date date) {
-	    return date != null ? new SimpleDateFormat(DATE_FORMAT2).format(date) : "unknown";
-	 }
-	
-	/**
-	 * It returns a date object converted into a string with format "yyyy-dd-MM".
-	 * 
-	 * @param date
-	 * @return String "yyyy-dd-MM"
-	 */
-	public String format3(final Date date) {
-	    return date != null ? new SimpleDateFormat(DATE_FORMAT3, Locale.FRANCE).format(date) : "unknown";
+	    return date != null ? new SimpleDateFormat(dateMonthFormat).format(date) : "unknown";
 	 }
 	
 	/**
@@ -156,7 +133,7 @@ public class DateUtils {
 	 * @return String "yyyy-MM-dd"
 	 */
 	public String sqlDatabaseFormat(final Date date) {
-	    return date != null ? new SimpleDateFormat(DATE_FORMAT_SQL, Locale.FRANCE).format(date) : "unknown";
+	    return date != null ? new SimpleDateFormat(dateFormatSql, Locale.FRANCE).format(date) : "unknown";
 	 }
 	
 	/**
@@ -166,18 +143,9 @@ public class DateUtils {
 	 * @return String "HH:mm:ss"
 	 */
 	public String timeFormat(final Date time) {
-	    return time != null ? new SimpleDateFormat(TIME_FORMAT).format(time) : "unknown";
-	 }
+	    return time != null ? new SimpleDateFormat(timeFormat).format(time) : "unknown";
+	}
 	
-	/**
-	 * It returns a time object converted into a string with format "yyyy-MM-dd hh:mm:ss".
-	 * 
-	 * @param time
-	 * @return String "yyyy-MM-dd hh:mm:ss"
-	 */
-	public String formatDatumEnTijd(final Date time) {
-	    return time != null ? new SimpleDateFormat(DATETIME_FORMAT).format(time) : "unknown";
-	 }
 	public String getDate() {
 		return new SimpleDateFormat("d MMMM, HH:mm").format(new Date());
 	}
