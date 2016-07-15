@@ -33,7 +33,7 @@ In WebSphere Liberty Profile `server.xml` add this (chck and adjust properties!)
 
 ##### Configure Selenium
 * Download and install the [Selenium webdriver](http://www.seleniumhq.org/download/)
-* To run Selenium tests from Eclipse, edit the '_Run Configuration_' of the unit test(s), open tab '_Arguments_' and add a system property in the  '_VM Arguments_' field:
+* To run Selenium tests from Eclipse, open _Window_ > _Preferences_ > _Java_ > _Installed JRE's_, edit the (default) JRE and add a system property to the '_Default VM arguments_' field:
 
   `-Dwebdriver.chrome.driver=$path_to_chromedriver.exe`
 
