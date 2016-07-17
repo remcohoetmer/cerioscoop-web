@@ -20,7 +20,7 @@
 			<a  id="movies" href="../#movies">MOVIES</a>
   			<div class="dropdown-content">
 			    <a id="trailers" href="/cerioscoop-web/jsp/trailers.jsp">TRAILERS</a>
-			    <a id="nowshowing" href="/cerioscoop-web/jsp/now-showing.jsp">NOW SHOWING</a>
+			    <a id="nowshowing" href="/cerioscoop-web/NowShowingServlet">NOW SHOWING</a>
 			    <a id="comingsoon" href="#">COMING SOON</a>
 			    <a id="category" href="#">CATEGORY</a>
 		  	</div>

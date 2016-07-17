@@ -149,5 +149,16 @@ public class DateUtils {
 	public String getDate() {
 		return new SimpleDateFormat("d MMMM, HH:mm").format(new Date());
 	}
-  
+
+	public static Date toDateTime(final Date date, final Time time) {
+		final Calendar timeCal = Calendar.getInstance();
+		timeCal.setTime(time);
+		final Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.HOUR_OF_DAY, timeCal.get(Calendar.HOUR_OF_DAY));
+		cal.set(Calendar.MINUTE, timeCal.get(Calendar.MINUTE));
+		cal.set(Calendar.SECOND, timeCal.get(Calendar.SECOND));
+		cal.set(Calendar.MILLISECOND, timeCal.get(Calendar.MILLISECOND));
+		return cal.getTime();
+	}
 }
