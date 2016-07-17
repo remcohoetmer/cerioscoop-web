@@ -21,7 +21,8 @@ public abstract class SeleniumTest {
 		try {
 			new URL(BASE_URL).openConnection().connect();
 		} catch (IOException e) {
-			throw new RuntimeException("Please check if the web server is running at '" + BASE_URL + "'.", e);
+			throw new IllegalStateException("The URL '" + BASE_URL + "' cannot be accessed."
+					+ " Please check if the web server is running.", e);
 		}
 	}
 
