@@ -34,13 +34,6 @@ public class NowShowingServlet extends HttpServlet {
 	private GeneralService generalService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		try {
-			generalService = (GeneralService) new InitialContext().lookup("java:module/GeneralService");
-		} catch (NamingException ne) {
-			throw new ServletException(ne);
-		}
-
 		final DateUtils dateUtils = new DateUtils();
 		final List<Show> shows = generalService.getShows();
 		final Show firstShowing = generalService.getFirstShowAfterCurrentDate();
