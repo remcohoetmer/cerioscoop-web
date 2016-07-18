@@ -8,6 +8,10 @@ public class RegisterCustomerTest extends SeleniumTest {
 
 	@Test
 	public void test() throws InterruptedException {
+		if (driver == null) {
+			return;
+		}
+		
 		// Open index.jsp
 		driver.get(BASE_URL + "/index.jsp");
 
