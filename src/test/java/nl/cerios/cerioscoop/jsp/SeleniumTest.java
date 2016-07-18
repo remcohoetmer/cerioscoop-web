@@ -16,27 +16,32 @@ public abstract class SeleniumTest {
 	protected static WebDriver driver;
 
 	@BeforeClass
-	public static void checkHttpServer() {
-		// Test if the web server is running and the home page can be reached.
+	public static void initWebDriver() {
 		try {
+			// Create driver to communicate with the (Chrome!) browser
+			driver = new ChromeDriver();
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		} catch (IllegalStateException e) {
+			System.err.println(e.getMessage());
+			quitWebDriver();
+			return;
+		}
+		
+		try {
+			// Test if the web server is running and the home page can be reached.
 			new URL(BASE_URL).openConnection().connect();
 		} catch (IOException e) {
-			throw new IllegalStateException("The URL '" + BASE_URL + "' cannot be accessed."
-					+ " Please check if the web server is running.", e);
+			System.err.println("The URL '" + BASE_URL + "' cannot be accessed."
+					+ " Please check if the web server is running.");
+			quitWebDriver();
 		}
 	}
 
-	@BeforeClass
-	public static void openBrowser() {
-		// Create driver to communicate with the (Chrome!) browser
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-	}
-
 	@AfterClass
-	public static void closeBrowser() {
+	public static void quitWebDriver() {
 		if (driver != null) {
 			driver.quit();
+			driver = null;
 		}
 	}
 }
