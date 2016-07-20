@@ -7,9 +7,9 @@ services:
   - docker
   
 env:
-  - DOCKER_IMAGE=fschutte/cerioscoop
+  - IMAGE=fschutte/cerioscoop
   - COMMIT=${TRAVIS_COMMIT::8}
-  - IMAGE_VERSION=$DOCKER_IMAGE:$COMMIT
+  - IMAGE_VERSION=$IMAGE:$COMMIT
   
 # Cache our Gcloud SDK between commands
 cache:
@@ -23,13 +23,14 @@ script:
 env: 
 after_success: 
 - ./publish-codacy-coverage
-- docker build -t $DOCKER_IMAGE app
-- docker tag $DOCKER_IMAGE $IMAGE_VERSION
+- docker build -t $IMAGE:$COMMIT app
+- docker tag $IMAGE:$COMMIT $IMAGE:latest
+- docker tag $IMAGE:$COMMIT $IMAGE:travis-$TRAVIS_BUILD_NUMBER
 - docker login --email=$DOCKER_HUB_EMAIL --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PASSWORD
-- docker push $IMAGE_VERSION
-- if [ ! -d ${HOME}/google-cloud-sdk ]; then
-     curl https://sdk.cloud.google.com | bash;
-  fi
+- docker push $IMAGE
+- curl https://sdk.cloud.google.com | bash
+- source /home/travis/.bashrc
+- gcloud components update kubectl
 - gcloud auth activate-service-account --key-file $GCLOUD_KEYFILE
 - gcloud components update kubectl
 - gcloud config set core/project cerioscoop-project
