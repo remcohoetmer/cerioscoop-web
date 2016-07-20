@@ -23,6 +23,8 @@ script:
 env: 
 after_success: 
 - ./publish-codacy-coverage
+- openssl aes-256-cbc -K $encrypted_418a88f24735_key -iv $encrypted_418a88f24735_iv
+  -in client-secret.json.enc -out client-secret.json -d
 - docker build -t $IMAGE:$COMMIT .
 - docker tag $IMAGE:$COMMIT $IMAGE:latest
 - docker tag $IMAGE:$COMMIT $IMAGE:travis-$TRAVIS_BUILD_NUMBER
@@ -31,7 +33,7 @@ after_success:
 - curl https://sdk.cloud.google.com | bash
 - source /home/travis/.bashrc
 - gcloud components update kubectl
-- gcloud auth activate-service-account --key-file $GCLOUD_KEYFILE
+- gcloud auth activate-service-account --key-file client-secret.json
 - gcloud components update kubectl
 - gcloud config set core/project cerioscoop-project
 # - kubectl run hello-cerioscoop --image=$DOCKER_IMAGE_NAME:latest --port=80
