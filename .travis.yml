@@ -1,15 +1,16 @@
 language: java
 jdk:
-- oraclejdk8
+  - oraclejdk8
 sudo: required
 
 services:
   - docker
   
 env:
-  - IMAGE=fschutte/cerioscoop
-  - COMMIT=${TRAVIS_COMMIT::8}
-  - IMAGE_VERSION=$IMAGE:$COMMIT
+  global:
+    - IMAGE=fschutte/cerioscoop
+    - COMMIT=${TRAVIS_COMMIT::8}
+    - IMAGE_VERSION=$IMAGE:$COMMIT
   
 # Cache our Gcloud SDK between commands
 cache:
@@ -23,6 +24,7 @@ script:
 env: 
 after_success: 
 - ./publish-codacy-coverage
+- echo $IMAGE:$COMMIT
 - openssl aes-256-cbc -K $encrypted_418a88f24735_key -iv $encrypted_418a88f24735_iv
   -in client-secret.json.enc -out client-secret.json -d
 - docker build -t $IMAGE:$COMMIT .
