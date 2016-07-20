@@ -45,6 +45,9 @@ after_success:
 - gcloud auth activate-service-account --key-file client-secret.json
 - gcloud components update kubectl
 - gcloud config set core/project cerioscoop-project
+# deze stap is om kubernetes goed te laten connecten
+# want anders probeert hij localhost
+- gcloud container clusters get-credentials cerioscoop-cluster
 # - kubectl run hello-cerioscoop --image=$DOCKER_IMAGE_NAME:latest --port=80
 # we gaan uit van een al draaiende omgeving en hoeven dan alleen een patch te doen
 - kubectl patch deployment cerioscoop-deployment -p   '{"spec":{"template":{"spec":{"containers":[{"name":"cerioscoop-deployment","image":"'"$IMAGE_VERSION"'"}]}}}}'
