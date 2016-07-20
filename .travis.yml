@@ -1,35 +1,28 @@
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
 sudo: required
-
 services:
-  - docker
-  
+- docker
 env:
   global:
-    - IMAGE=fschutte/cerioscoop
-    - COMMIT=${TRAVIS_COMMIT::8}
-    - IMAGE_VERSION=$IMAGE:$COMMIT
-    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
-    - CLOUDSDK_INSTALL_DIR=googlestuff
-  
-# Cache our Gcloud SDK between commands
+  - IMAGE=fschutte/cerioscoop
+  - COMMIT=${TRAVIS_COMMIT::8}
+  - IMAGE_VERSION=$IMAGE:$COMMIT
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+  - CLOUDSDK_INSTALL_DIR=googlestuff
 cache:
   directories:
-  - "$HOME/google-cloud-sdk/"
-  
+  - $HOME/google-cloud-sdk/
 before_install:
-  - chmod +x publish-codacy-coverage
-
-script:
-  - mvn package jacoco:report
-
-after_success: 
-- ./publish-codacy-coverage
-- echo $IMAGE:$COMMIT
 - openssl aes-256-cbc -K $encrypted_418a88f24735_key -iv $encrypted_418a88f24735_iv
   -in client-secret.json.enc -out client-secret.json -d
+- chmod +x publish-codacy-coverage
+script:
+- mvn package jacoco:report
+after_success:
+- ./publish-codacy-coverage
+- echo $IMAGE:$COMMIT
 - docker build -t $IMAGE:$COMMIT .
 - docker tag $IMAGE:$COMMIT $IMAGE:latest
 - docker tag $IMAGE:$COMMIT $IMAGE:travis-$TRAVIS_BUILD_NUMBER
@@ -46,9 +39,5 @@ after_success:
 - gcloud components update kubectl
 - gcloud config set compute/zone europe-west1-b
 - gcloud config set core/project cerioscoop-project
-# deze stap is om kubernetes goed te laten connecten
-# want anders probeert hij localhost
 - gcloud container clusters get-credentials cerioscoop-cluster
-# - kubectl run hello-cerioscoop --image=$DOCKER_IMAGE_NAME:latest --port=80
-# we gaan uit van een al draaiende omgeving en hoeven dan alleen een patch te doen
 - kubectl patch deployment cerioscoop-deployment -p   '{"spec":{"template":{"spec":{"containers":[{"name":"cerioscoop-deployment","image":"'"$IMAGE_VERSION"'"}]}}}}'
