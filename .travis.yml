@@ -44,6 +44,7 @@ after_success:
 - gcloud components install kubectl
 - gcloud auth activate-service-account --key-file client-secret.json
 - gcloud components update kubectl
+- gcloud config set compute/zone europe-west1-b
 - gcloud config set core/project cerioscoop-project
 # deze stap is om kubernetes goed te laten connecten
 # want anders probeert hij localhost
