@@ -23,7 +23,7 @@ script:
 env: 
 after_success: 
 - ./publish-codacy-coverage
-- docker build -t $IMAGE:$COMMIT app
+- docker build -t $IMAGE:$COMMIT .
 - docker tag $IMAGE:$COMMIT $IMAGE:latest
 - docker tag $IMAGE:$COMMIT $IMAGE:travis-$TRAVIS_BUILD_NUMBER
 - docker login --email=$DOCKER_HUB_EMAIL --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PASSWORD
