@@ -18,10 +18,16 @@ cache:
   - "$HOME/google-cloud-sdk/"
   
 before_install:
-- chmod +x publish-codacy-coverage
+  - chmod +x publish-codacy-coverage
+  - gcloud version
+  - gcloud components update kubectl || true
+  - curl https://sdk.cloud.google.com | bash
+  - bash -l ./gcloud.sh version
+  - bash -l ./gcloud.sh components update kubectl
+
 script:
-- mvn package jacoco:report
-env: 
+  - mvn package jacoco:report
+
 after_success: 
 - ./publish-codacy-coverage
 - echo $IMAGE:$COMMIT
@@ -32,8 +38,12 @@ after_success:
 - docker tag $IMAGE:$COMMIT $IMAGE:travis-$TRAVIS_BUILD_NUMBER
 - docker login --email=$DOCKER_HUB_EMAIL --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PASSWORD
 - docker push $IMAGE
+- gcloud version
 - curl https://sdk.cloud.google.com | bash
+- echo "klaar met gcloud installeren"
 - source /home/travis/.bashrc
+- gcloud version
+- bash -l ./gcloud.sh version
 - gcloud components update kubectl
 - gcloud auth activate-service-account --key-file client-secret.json
 - gcloud components update kubectl
