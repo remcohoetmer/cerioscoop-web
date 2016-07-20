@@ -11,6 +11,7 @@ env:
     - IMAGE=fschutte/cerioscoop
     - COMMIT=${TRAVIS_COMMIT::8}
     - IMAGE_VERSION=$IMAGE:$COMMIT
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
   
 # Cache our Gcloud SDK between commands
 cache:
@@ -34,12 +35,12 @@ after_success:
 - docker login --email=$DOCKER_HUB_EMAIL --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PASSWORD
 - docker push $IMAGE
 - gcloud version
-- travis_wait curl https://sdk.cloud.google.com | bash
+- curl https://sdk.cloud.google.com | bash
 - echo "klaar met gcloud installeren"
 - source /home/travis/.bashrc
 - gcloud version
 - bash -l ./gcloud.sh version
-- gcloud components update kubectl
+- gcloud components install kubectl
 - gcloud auth activate-service-account --key-file client-secret.json
 - gcloud components update kubectl
 - gcloud config set core/project cerioscoop-project
