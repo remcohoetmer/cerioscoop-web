@@ -1,0 +1,29 @@
+<server description="new server">
+
+    <!-- Enable features -->
+    <featureManager>
+    	<feature>localConnector-1.0</feature>
+	<feature>webProfile-7.0</feature>
+    </featureManager>
+
+    <!-- To access this server from a remote client add a host attribute to the following element, e.g. host="*" -->
+    <httpEndpoint host="*" httpPort="80" httpsPort="9443" id="defaultHttpEndpoint"/>
+
+    <applicationMonitor updateTrigger="mbean"/>
+
+	
+	<library id="MySQL_lib">
+		<fileset dir="${server.config.dir}/resources" includes="mysql-connector-java-5.1.39-bin.jar" />
+  	</library>
+  	<dataSource jndiName="jdbc/cerioscoop" type="javax.sql.DataSource">
+	  <jdbcDriver libraryRef="MySQL_lib"/>
+	  <properties
+                  serverName="${env.DB_SERVER}"
+                  portNumber="${env.DB_PORT}"
+                  user="${env.DB_USER}"
+                  password="${env.DB_PASSWORD}" 
+                  databaseName="${env.DB_DATABASENAME}"/>
+	</dataSource>
+  
+    <webApplication id="cerioscoop-web" location="cerioscoop-web.war" name="cerioscoop-web"/>
+</server>

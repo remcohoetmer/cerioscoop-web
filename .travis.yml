@@ -1,15 +1,38 @@
 language: java
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 sudo: required
 
-before_install:
- - chmod +x publish-codacy-coverage
- 
-script:
-  - mvn package jacoco:report
-
+services:
+  - docker
+  
 env:
-
-after_success: ./publish-codacy-coverage
+  - DOCKER_IMAGE=fschutte/cerioscoop
+  - COMMIT=${TRAVIS_COMMIT::8}
+  - IMAGE_VERSION=$DOCKER_IMAGE:$COMMIT
+  
+# Cache our Gcloud SDK between commands
+cache:
+  directories:
+  - "$HOME/google-cloud-sdk/"
+  
+before_install:
+- chmod +x publish-codacy-coverage
+script:
+- mvn package jacoco:report
+env: 
+after_success: 
+- ./publish-codacy-coverage
+- docker build -t $DOCKER_IMAGE app
+- docker tag $DOCKER_IMAGE $IMAGE_VERSION
+- docker login --email=$DOCKER_HUB_EMAIL --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PASSWORD
+- docker push $IMAGE_VERSION
+- if [ ! -d ${HOME}/google-cloud-sdk ]; then
+     curl https://sdk.cloud.google.com | bash;
+  fi
+- gcloud auth activate-service-account --key-file $GCLOUD_KEYFILE
+- gcloud components update kubectl
+- gcloud config set core/project cerioscoop-project
+# - kubectl run hello-cerioscoop --image=$DOCKER_IMAGE_NAME:latest --port=80
+# we gaan uit van een al draaiende omgeving en hoeven dan alleen een patch te doen
+- kubectl patch deployment cerioscoop-deployment -p   '{"spec":{"template":{"spec":{"containers":[{"name":"cerioscoop-deployment","image":"'"$IMAGE_VERSION"'"}]}}}}'
