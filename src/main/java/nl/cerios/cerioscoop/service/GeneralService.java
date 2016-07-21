@@ -178,8 +178,8 @@ public class GeneralService {
 		    }
 	}
 	
-	public User authenticateCustomer(User customer){
-		final List<Customer> dbCustomers = getCustomers();		
+	public User authenticateCustomer(User customer, List<Customer> listOfCustomers){
+		final List<Customer> dbCustomers = listOfCustomers;		
 		final String usernameCustomer = customer.getUsername();
 		final String passwordCustomer = customer.getPassword();
 		User authenticatedCustomer = null;
@@ -193,8 +193,8 @@ public class GeneralService {
 	}
 	
 	
-	public User authenticateEmployee(User employee){
-		final List<Employee> dbEmployees = getEmployees();	
+	public User authenticateEmployee(User employee, List<Employee> listOfEmployees){
+		final List<Employee> dbEmployees = listOfEmployees;	
 		final String usernameEmployee = employee.getUsername();
 		final String passwordEmployee = employee.getPassword();
 		User authenticatedEmployee = null;
