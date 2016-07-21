@@ -128,8 +128,8 @@ public class GeneralService {
 	 * 
 	 * @return firstShowing
 	 */
-	public Show getFirstShowAfterCurrentDate(){
-		final List<Show> shows = getShows();
+	public Show getFirstShowAfterCurrentDate(final List<Show> listOfShows){
+		final List<Show> shows = listOfShows;
 		final DateUtils dateUtils = new DateUtils();
 		Show firstShow = null;
 		
@@ -146,8 +146,8 @@ public class GeneralService {
 		return firstShow;
 	}
 		
-	public Movie getMovieByMovieId(final int movieId) throws MovieNotFoundException {
-		final List<Movie> movies = getMovies();
+	public Movie getMovieByMovieId(final int movieId, final List<Movie> listOfMovies) throws MovieNotFoundException {
+		final List<Movie> movies = listOfMovies;
 		Movie movieByMovieId = null;
 		
 		for (final Movie movieItem : movies){

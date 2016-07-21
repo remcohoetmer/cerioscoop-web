@@ -14,9 +14,9 @@ public class AuthenticateUserTest {
 	public void testAuthenticateUser() {
 		final GeneralService generalService = new GeneralService();
 		final DateUtils dateUtils = new DateUtils();
-		Employee testUser = null;
+		final Employee testUser = null;
 		Assert.assertEquals(false, generalService.authenticateUser(testUser));
-		Customer testCustomer = new Customer(1, "Marcel", "Groothuis", "Manollo7G", "secret", "mjg@cerios.nl", dateUtils.getCurrentSqlDate(), dateUtils.getCurrentSqlTime());
+		final Customer testCustomer = new Customer(1, "Marcel", "Groothuis", "Manollo7G", "secret", "mjg@cerios.nl", dateUtils.getCurrentSqlDate(), dateUtils.getCurrentSqlTime());
 		Assert.assertEquals(true, generalService.authenticateUser(testCustomer));
 	}
 
