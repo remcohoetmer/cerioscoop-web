@@ -2,6 +2,7 @@ package nl.cerios.cerioscoop.util;
 
 import java.sql.Time;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class DateUtils {
 	private final String dateMonthFormat = "dd MMMMM";
 	private final String dateFormatSql = "yyyy-MM-dd";
+	private final String toDateFormat = "MM-dd-yyyy";
 	private final String timeFormat = "HH:mm:ss";
 	
 	public long getDaysBetween(final Date startDate, final Date endDate) {
@@ -97,6 +99,18 @@ public class DateUtils {
 		System.out.println(text);
 		return text;
 	}
+	
+	public java.sql.Date convertUtilDateToSqlDate(Date date){
+		final Date utilDate = toDate(date);
+		final java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		return sqlDate;
+	}
+	
+	public Time convertUtilDateToSqlTime(Date time){
+		final Date utilTime = toTime(time);
+		final Time sqlTime = new Time(utilTime.getTime());
+		return sqlTime;
+	}
 	/**
 	 * http://www.java2s.com/Code/JavaAPI/java.sql/PreparedStatementsetTimeintparameterIndexTimex.htm
 	 * 
@@ -137,6 +151,32 @@ public class DateUtils {
 	 }
 	
 	/**
+	 * It returns a date object converted into a string with format "yyyy-MM-dd".
+	 * 
+	 * @param date
+	 * @return String "MM-dd-yyyy"
+	 * @throws ParseException 
+	 */
+	public Date toDateFormat(final String date) throws ParseException {
+		DateFormat format = new SimpleDateFormat(toDateFormat, Locale.FRANCE);
+		Date dateType = format.parse(date);
+	    return dateType;
+	 }
+	
+	/**
+	 * It returns a date object converted into a string with format "yyyy-MM-dd".
+	 * 
+	 * @param date
+	 * @return String "MM-dd-yyyy"
+	 * @throws ParseException 
+	 */
+	public Date toTimeFormat(final String time) throws ParseException {
+		DateFormat format = new SimpleDateFormat(timeFormat, Locale.FRANCE);
+		Date timeType = format.parse(time);
+	    return timeType;
+	 }
+	
+	/**
 	 * It returns a time object converted into a string with format "HH:mm:ss".
 	 * 
 	 * @param time
@@ -155,6 +195,23 @@ public class DateUtils {
 		timeCal.setTime(time);
 		final Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
+		cal.set(Calendar.HOUR_OF_DAY, timeCal.get(Calendar.HOUR_OF_DAY));
+		cal.set(Calendar.MINUTE, timeCal.get(Calendar.MINUTE));
+		cal.set(Calendar.SECOND, timeCal.get(Calendar.SECOND));
+		cal.set(Calendar.MILLISECOND, timeCal.get(Calendar.MILLISECOND));
+		return cal.getTime();
+	}
+	
+	public Date toDate(final Date date) {
+		final Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		return cal.getTime();
+	}
+	
+	public Date toTime(final Date time) {
+		final Calendar timeCal = Calendar.getInstance();
+		timeCal.setTime(time);
+		final Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.HOUR_OF_DAY, timeCal.get(Calendar.HOUR_OF_DAY));
 		cal.set(Calendar.MINUTE, timeCal.get(Calendar.MINUTE));
 		cal.set(Calendar.SECOND, timeCal.get(Calendar.SECOND));
