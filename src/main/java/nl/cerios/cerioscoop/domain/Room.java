@@ -6,9 +6,6 @@ public class Room {
 	private int chairAmount;
 	private int roomType;
 	
-	public Room(){
-	}
-	
 	public int getRoomId() {
 		return roomId;
 	}
