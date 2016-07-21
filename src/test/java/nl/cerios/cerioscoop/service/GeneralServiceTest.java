@@ -17,8 +17,8 @@ import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 public class GeneralServiceTest {
-	final GeneralService generalService = new GeneralService();
-	final DateUtils dateUtils = new DateUtils();
+	private final GeneralService generalService = new GeneralService();
+	private final DateUtils dateUtils = new DateUtils();
 	
 	@Test
 	public void testGetFirstShowAfterCurrentDate() throws ParseException{
