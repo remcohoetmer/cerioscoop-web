@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.service.GeneralService;
 import nl.cerios.cerioscoop.service.MovieNotFoundException;
@@ -30,9 +31,9 @@ public class NowShowingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		final DateUtils dateUtils = new DateUtils();
-
+		final List<Movie> listOfMovies = generalService.getMovies();
 		final List<Show> shows = generalService.getShows();
-		final Show firstShowing = generalService.getFirstShowAfterCurrentDate();
+		final Show firstShowing = generalService.getFirstShowAfterCurrentDate(shows);
 
 		// Sort the shows by their showDate/showTime, oldest first.
 		shows.sort((itemL, itemR) -> {
@@ -47,7 +48,7 @@ public class NowShowingServlet extends HttpServlet {
 			// Second object in red box
 			final String firstUpcomingMovie;
 			try {
-				firstUpcomingMovie = generalService.getMovieByMovieId(firstShowing.getMovieId()).getTitle() + " on "
+				firstUpcomingMovie = generalService.getMovieByMovieId(firstShowing.getMovieId(), listOfMovies).getTitle() + " on "
 						+ dateUtils.format2(firstShowing.getShowDate()) + " at "
 						+ dateUtils.timeFormat(firstShowing.getShowTime());
 			} catch (MovieNotFoundException e) {
