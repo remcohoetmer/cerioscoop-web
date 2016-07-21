@@ -1,6 +1,7 @@
 package nl.cerios.cerioscoop.web;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -28,6 +29,8 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		final List<Employee> dbEmployees = generalService.getEmployees();	
+		final List<Customer> dbCustomers = generalService.getCustomers();	
 		final User customer = new Customer();
 		final User employee = new Employee();
 		final User authenticatedCustomer;
@@ -40,8 +43,8 @@ public class LoginServlet extends HttpServlet {
 		employee.setPassword(request.getParameter("txtPassword"));
 		
 		//output
-		authenticatedCustomer = generalService.authenticateCustomer(customer);
-		authenticatedEmployee = generalService.authenticateEmployee(employee);
+		authenticatedCustomer = generalService.authenticateCustomer(customer, dbCustomers);
+		authenticatedEmployee = generalService.authenticateEmployee(employee, dbEmployees);
 		
  		if(generalService.authenticateUser(authenticatedCustomer)){
 			request.getSession().setAttribute("user", authenticatedCustomer);
