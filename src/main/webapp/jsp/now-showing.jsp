@@ -33,7 +33,7 @@
 
  
 <table>
-<thead><th>Movietitle</th><th>plays on:</th><th>time</th></thead>
+<thead><th>Movietitle</th><th>plays on</th><th>time</th></thead>
 <tbody>
 
 <c:forEach items="${shows}" var="show">
