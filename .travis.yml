@@ -6,7 +6,7 @@ services:
 - docker
 env:
   global:
-  - IMAGE=fschutte/cerioscoop
+  - IMAGE=cerios/cerioscoop
   - COMMIT=${TRAVIS_COMMIT::8}
   - IMAGE_VERSION=$IMAGE:travis-$TRAVIS_BUILD_NUMBER
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
