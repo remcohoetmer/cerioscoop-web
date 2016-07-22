@@ -5,9 +5,6 @@ public class Room {
 	private String name;
 	private int chairAmount;
 	private int roomType;
-
-	public Room() {
-	}
 	
 	public int getRoomId() {
 		return roomId;

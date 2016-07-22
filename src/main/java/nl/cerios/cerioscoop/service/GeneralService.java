@@ -128,8 +128,8 @@ public class GeneralService {
 	 * 
 	 * @return firstShowing
 	 */
-	public Show getFirstShowAfterCurrentDate(){
-		final List<Show> shows = getShows();
+	public Show getFirstShowAfterCurrentDate(final List<Show> listOfShows){
+		final List<Show> shows = listOfShows;
 		final DateUtils dateUtils = new DateUtils();
 		Show firstShow = null;
 		
@@ -146,8 +146,8 @@ public class GeneralService {
 		return firstShow;
 	}
 		
-	public Movie getMovieByMovieId(final int movieId) throws MovieNotFoundException {
-		final List<Movie> movies = getMovies();
+	public Movie getMovieByMovieId(final int movieId, final List<Movie> listOfMovies) throws MovieNotFoundException {
+		final List<Movie> movies = listOfMovies;
 		Movie movieByMovieId = null;
 		
 		for (final Movie movieItem : movies){
@@ -178,8 +178,8 @@ public class GeneralService {
 		    }
 	}
 	
-	public User authenticateCustomer(User customer){
-		final List<Customer> dbCustomers = getCustomers();		
+	public User authenticateCustomer(User customer, List<Customer> listOfCustomers){
+		final List<Customer> dbCustomers = listOfCustomers;		
 		final String usernameCustomer = customer.getUsername();
 		final String passwordCustomer = customer.getPassword();
 		User authenticatedCustomer = null;
@@ -193,8 +193,8 @@ public class GeneralService {
 	}
 	
 	
-	public User authenticateEmployee(User employee){
-		final List<Employee> dbEmployees = getEmployees();	
+	public User authenticateEmployee(User employee, List<Employee> listOfEmployees){
+		final List<Employee> dbEmployees = listOfEmployees;	
 		final String usernameEmployee = employee.getUsername();
 		final String passwordEmployee = employee.getPassword();
 		User authenticatedEmployee = null;
