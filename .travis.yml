@@ -21,14 +21,36 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_418a88f24735_key -iv $encrypted_418a88f24735_iv
   -in client-secret.json.enc -out client-secret.json -d
 - chmod +x publish-codacy-coverage.sh
-- chmod +x deploy-to-gcloud.sh
 
 script:
 - mvn package jacoco:report
 
+# travis komt met een verouderde gcloud versie en we hebben een nieuwe nodig
+# want anders kunnen we kubectl niet installeren
+# If the SDK is not already cached, download it and unpack it
+# met het patch commando kunnen we de image in een deployment updaten
 after_success:
 - ./publish-codacy-coverage.sh
 - if [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "travis" ]; then
-    ./deploy-to-gcloud.sh;
+    echo "Creating docker image $IMAGE_VERSION"
+    docker build -t $IMAGE_VERSION .
+    docker tag $IMAGE_VERSION $IMAGE:latest
+    docker login --email=$DOCKER_HUB_EMAIL --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PASSWORD
+    docker push $IMAGE
+    
+    gcloud version
+    if [ ! -d $HOME/$CLOUDSDK_INSTALL_DIR ]; then
+      curl https://sdk.cloud.google.com | bash;
+    fi
+    source /home/travis/.bashrc
+    gcloud version
+    gcloud components install kubectl
+    gcloud auth activate-service-account --key-file client-secret.json
+    gcloud components update kubectl
+    gcloud config set compute/zone europe-west1-b
+    gcloud config set core/project cerioscoop-project
+    gcloud container clusters get-credentials cerioscoop-cluster
+    
+    kubectl patch deployment cerioscoop-deployment -p   '{"spec":{"template":{"spec":{"containers":[{"name":"cerioscoop-deployment","image":"'"$IMAGE_VERSION"'"}]}}}}'
   fi
 
