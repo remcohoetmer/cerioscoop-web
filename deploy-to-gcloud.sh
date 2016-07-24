@@ -13,7 +13,7 @@ gcloud version
 if [ ! -d $HOME/$CLOUDSDK_INSTALL_DIR ]; then
   curl https://sdk.cloud.google.com | bash;
 fi
-source /home/travis/.bashrc
+. /home/travis/.bashrc
 gcloud version
 gcloud components install kubectl
 gcloud auth activate-service-account --key-file client-secret.json
