@@ -27,8 +27,8 @@ script:
 - mvn package jacoco:report
 
 after_success:
-- ./publish-codacy-coverage
+- ./publish-codacy-coverage.sh
 - if [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "travis" ]; then
-    deploy-to-gcloud.sh;
+    ./deploy-to-gcloud.sh;
   fi
 
