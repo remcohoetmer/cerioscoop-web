@@ -129,15 +129,15 @@ public class GeneralService {
 		final List<ShowingList> showingList = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()){
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT showing_list_Id, movie_title, room_name, showing_list_date, showing_list_time FROM showing_list"); { 
+			final ResultSet resultSet = statement.executeQuery("SELECT show_id, title, room_name, show_date, show_time FROM showing_list"); { 
 
 			while (resultSet.next()) {
 				final ShowingList showing = new ShowingListBuilder()
-						.withShowingListId(resultSet.getBigDecimal("showing_list_Id").toBigInteger())
-						.withMovieTitle(resultSet.getString("movie_title"))
+						.withShowingListId(resultSet.getBigDecimal("show_id").toBigInteger())
+						.withMovieTitle(resultSet.getString("title"))
 						.withRoomName(resultSet.getString("room_name"))
-						.withShowingListDate(resultSet.getDate("showing_list_date"))
-						.withShowingListTime(resultSet.getTime("showing_list_time"))
+						.withShowingListDate(resultSet.getDate("show_date"))
+						.withShowingListTime(resultSet.getTime("show_time"))
 						.build();			
 				showingList.add(showing);
 	        	}
