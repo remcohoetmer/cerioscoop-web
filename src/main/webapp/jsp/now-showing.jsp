@@ -25,28 +25,33 @@
 
 
 <body>
- 	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+	<div id="navbar">
+ 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+ 	</div>
 
 <h1>Now Showing</h1>
 
+ 
 <table>
-<thead><th>Movietitle</th><th>plays on</th><th>time</th><th>Room</th></thead>
+<thead><th>Movietitle</th><th>plays on</th><th>time</th><th>room</th></thead>
 <tbody>
-	<c:forEach items="${shows}" var="show">
-		<tr>
-			<td>${show.movieId}</td>
-			<td>${show.showDate}</td>
-			<td>${show.showTime}</td>
-			<td>${show.showTime}</td>
-		</tr>
-	</c:forEach>
-	</tbody>
-</table>
 
+<c:forEach items="${shows}" var="show">
+  
+<tr>
+	<td>${show.movieTitle}</td>
+	<td>${show.showingListDate}</td>
+	<td>${show.showingListTime}</td>
+	<td>${show.roomName}</td>
+</tr>
+
+</c:forEach>
+
+</tbody>
+</table>
 <p>Today it is ${todays_date}
 <br />The first upcoming film: ${first_upcoming_movie}
-<br />That's in ${countdown}</p>
-
-	<jsp:include page="/jsp/footer.jsp" />
+<br />That's in ${countdown}
+</p>
 </body>
 </html>

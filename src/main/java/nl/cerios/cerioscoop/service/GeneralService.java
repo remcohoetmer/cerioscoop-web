@@ -152,17 +152,17 @@ public class GeneralService {
 	 * 
 	 * @return firstShowing
 	 */
-	public Show getFirstShowAfterCurrentDate(final List<Show> listOfShows){
-		final List<Show> shows = listOfShows;
+	public ShowingList getFirstShowAfterCurrentDate(final List<ShowingList> listOfShows){
+		final List<ShowingList> shows = listOfShows;
 		final DateUtils dateUtils = new DateUtils();
-		Show firstShow = null;
+		ShowingList firstShow = null;
 		
-		for (final Show show : shows) {
-			if(show.getShowDate().after(dateUtils.getCurrentSqlDate())){	
+		for (final ShowingList show : shows) {
+			if(show.getShowingListDate().after(dateUtils.getCurrentSqlDate())){	
 				if(firstShow == null){			//hier wordt voor 1x eerstVolgendeFilm gevuld					
 					firstShow = show;
 				}
-				else if(show.getShowDate().before(firstShow.getShowDate())){
+				else if(show.getShowingListDate().before(firstShow.getShowingListDate())){
 					firstShow = show;			
 				}
 			}
