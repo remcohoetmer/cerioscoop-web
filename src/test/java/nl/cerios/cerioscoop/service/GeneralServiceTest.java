@@ -13,7 +13,8 @@ import nl.cerios.cerioscoop.domain.Customer;
 import nl.cerios.cerioscoop.domain.Employee;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
-import nl.cerios.cerioscoop.domain.Show;
+import nl.cerios.cerioscoop.domain.ShowingList;
+import nl.cerios.cerioscoop.domain.ShowingListBuilder;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 public class GeneralServiceTest {
@@ -23,26 +24,41 @@ public class GeneralServiceTest {
 	@Test
 	public void testGetFirstShowAfterCurrentDate() throws ParseException{
 	//Shows	
-		final Show showOne = new Show(0,2,1,											  //MM-dd-yyyy
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("08-01-2020"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
-		final Show showTwo = new Show(1,5,2,
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("07-23-2020"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
-		final Show showThree = new Show(2,7,1,
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-03-2020"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
+		final ShowingList showOne = new ShowingListBuilder()
+				.withShowingListId(BigInteger.valueOf(1))
+				.withMovieTitle("showOne")
+				.withRoomName("Yellow room")
+				.withShowingListDate(dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("08-01-2020"))))
+				.withShowingListTime(dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))))
+				.build();	
+		
+		final ShowingList showTwo = new ShowingListBuilder()
+				.withShowingListId(BigInteger.valueOf(2))
+				.withMovieTitle("showTwo")
+				.withRoomName("Yellow room")
+				.withShowingListDate(dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("08-01-2020"))))
+				.withShowingListTime(dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))))
+				.build();	
+				
+		final ShowingList showThree = new ShowingListBuilder()
+				.withShowingListId(BigInteger.valueOf(3))
+				.withMovieTitle("showThree")
+				.withRoomName("Yellow room")
+				.withShowingListDate(dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("08-01-2020"))))
+				.withShowingListTime(dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))))
+				.build();	
+		
 		
 	//Putting all movies in a list
-		final List<Show> listOfShows = new ArrayList<>();
+		final List<ShowingList> listOfShows = new ArrayList<>();
 		listOfShows.add(0, showOne);
 		listOfShows.add(1, showTwo);
 		listOfShows.add(2, showThree);
 		
 	//First show after the current date control 
-		Assert.assertNotEquals(showOne.getShowDate() ,generalService.getFirstShowAfterCurrentDate(listOfShows).getShowDate());
-		Assert.assertEquals(showTwo.getShowDate() ,generalService.getFirstShowAfterCurrentDate(listOfShows).getShowDate());
-		Assert.assertNotEquals(showThree.getShowDate() ,generalService.getFirstShowAfterCurrentDate(listOfShows).getShowDate());
+		Assert.assertNotEquals(showOne.getShowingListDate() ,generalService.getFirstShowAfterCurrentDate(listOfShows).getShowingListDate());
+		Assert.assertEquals(showTwo.getShowingListDate() ,generalService.getFirstShowAfterCurrentDate(listOfShows).getShowingListDate());
+		Assert.assertNotEquals(showThree.getShowingListDate() ,generalService.getFirstShowAfterCurrentDate(listOfShows).getShowingListDate());
 	}
 	@Test
 	public void testGetMovieByMovieId() throws MovieNotFoundException{
