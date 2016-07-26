@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import nl.cerios.cerioscoop.domain.ShowingList;
-import nl.cerios.cerioscoop.domain.ShowingListBuilder;
+import nl.cerios.cerioscoop.domain.Showing;
+import nl.cerios.cerioscoop.domain.ShowingBuilder;
 import nl.cerios.cerioscoop.service.GeneralService;
 import nl.cerios.cerioscoop.util.DateUtils;
 
@@ -30,37 +30,37 @@ public class NowShowingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		final DateUtils dateUtils = new DateUtils();
-		final List<ShowingList> showingList = generalService.getShowingList();
-		final List<ShowingList> NowShowingList = new ArrayList<ShowingList>();
-		final ShowingList firstShowing = generalService.getFirstShowAfterCurrentDate(showingList);
+		final List<Showing> showing = generalService.getShowings();
+		final List<Showing> nowShowing = new ArrayList<Showing>();
+		final Showing firstShowing = generalService.getFirstShowAfterCurrentDate(showing);
 
 		// Sort the shows by their showDate/showTime, oldest first.
-		showingList.sort((itemL, itemR) -> {
-			int compare = itemL.getShowingListDate().compareTo(itemR.getShowingListDate());
+		showing.sort((itemL, itemR) -> {
+			int compare = itemL.getShowingDate().compareTo(itemR.getShowingDate());
 			if (compare == 0) {
-				compare = itemL.getShowingListTime().compareTo(itemR.getShowingListTime());
+				compare = itemL.getShowingTime().compareTo(itemR.getShowingTime());
 			}
 			return compare;
 		});
 		
 		//Building the actualShowingList to show only the shows after the current date
-		for (ShowingList show : showingList){
-			if (show.getShowingListDate().after(dateUtils.getCurrentDate())){
-				show = new ShowingListBuilder()
-					.withShowingListId(show.getShowingListId())
+		for (Showing show : showing){
+			if (show.getShowingDate().after(dateUtils.getCurrentDate())){
+				show = new ShowingBuilder()
+					.withShowingId(show.getShowingId())
 					.withMovieTitle(show.getMovieTitle())
 					.withRoomName(show.getRoomName())
-					.withShowingListDate(show.getShowingListDate())
-					.withShowingListTime(show.getShowingListTime())
+					.withShowingDate(show.getShowingDate())
+					.withShowingTime(show.getShowingTime())
 					.build();			
-				NowShowingList.add(show);
+				nowShowing.add(show);
 			}
 		}
-		request.setAttribute("actualShows", NowShowingList);
+		request.setAttribute("nowShowing", nowShowing);
 		
 		// Third object in red box
-		final Date showDateTime = DateUtils.toDateTime(firstShowing.getShowingListDate(),
-				firstShowing.getShowingListTime());
+		final Date showDateTime = DateUtils.toDateTime(firstShowing.getShowingDate(),
+				firstShowing.getShowingTime());
 		final String countdown = dateUtils
 				.calculateTime(dateUtils.getSecondsBetween(showDateTime, dateUtils.getCurrentDate()));
 
