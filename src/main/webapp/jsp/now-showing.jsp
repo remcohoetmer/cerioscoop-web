@@ -36,12 +36,12 @@
 <thead><th>Movietitle</th><th>plays on</th><th>time</th><th>room</th></thead>
 <tbody>
 
-<c:forEach items="${actualShows}" var="show">
+<c:forEach items="${nowShowing}" var="show">
   
 <tr>
 	<td>${show.movieTitle}</td>
-	<td>${show.showingListDate}</td>
-	<td>${show.showingListTime}</td>
+	<td>${show.showingDate}</td>
+	<td>${show.showingTime}</td>
 	<td>${show.roomName}</td>
 </tr>
 

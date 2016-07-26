@@ -20,8 +20,8 @@ import nl.cerios.cerioscoop.domain.Employee;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
-import nl.cerios.cerioscoop.domain.ShowingList;
-import nl.cerios.cerioscoop.domain.ShowingListBuilder;
+import nl.cerios.cerioscoop.domain.Showing;
+import nl.cerios.cerioscoop.domain.ShowingBuilder;
 import nl.cerios.cerioscoop.domain.User;
 import nl.cerios.cerioscoop.util.DateUtils;
 
@@ -125,23 +125,23 @@ public class GeneralService {
 	    }
 	}
 	
-	public List<ShowingList> getShowingList(){
-		final List<ShowingList> showingList = new ArrayList<>();
+	public List<Showing> getShowings(){
+		final List<Showing> showings = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()){
 			final Statement statement = connection.createStatement();
 			final ResultSet resultSet = statement.executeQuery("SELECT show_id, title, room_name, show_date, show_time FROM showing_list"); { 
 
 			while (resultSet.next()) {
-				final ShowingList showing = new ShowingListBuilder()
-						.withShowingListId(resultSet.getBigDecimal("show_id").toBigInteger())
+				final Showing show = new ShowingBuilder()
+						.withShowingId(resultSet.getBigDecimal("show_id").toBigInteger())
 						.withMovieTitle(resultSet.getString("title"))
 						.withRoomName(resultSet.getString("room_name"))
-						.withShowingListDate(resultSet.getDate("show_date"))
-						.withShowingListTime(resultSet.getTime("show_time"))
+						.withShowingDate(resultSet.getDate("show_date"))
+						.withShowingTime(resultSet.getTime("show_time"))
 						.build();			
-				showingList.add(showing);
+				showings.add(show);
 	        	}
-	        return showingList;
+	        return showings;
 	      }
 	    }catch (final SQLException e) {
 	    	throw new ServiceException("Something went terribly wrong while retrieving the ShowingList.", e);
@@ -152,17 +152,17 @@ public class GeneralService {
 	 * 
 	 * @return firstShowing
 	 */
-	public ShowingList getFirstShowAfterCurrentDate(final List<ShowingList> listOfShows){
-		final List<ShowingList> shows = listOfShows;
+	public Showing getFirstShowAfterCurrentDate(final List<Showing> listOfShows){
+		final List<Showing> shows = listOfShows;
 		final DateUtils dateUtils = new DateUtils();
-		ShowingList firstShow = null;
+		Showing firstShow = null;
 		
-		for (final ShowingList show : shows) {
-			if(show.getShowingListDate().after(dateUtils.getCurrentSqlDate())){	
+		for (final Showing show : shows) {
+			if(show.getShowingDate().after(dateUtils.getCurrentSqlDate())){	
 				if(firstShow == null){			//hier wordt voor 1x eerstVolgendeFilm gevuld					
 					firstShow = show;
 				}
-				else if(show.getShowingListDate().before(firstShow.getShowingListDate())){
+				else if(show.getShowingDate().before(firstShow.getShowingDate())){
 					firstShow = show;			
 				}
 			}
