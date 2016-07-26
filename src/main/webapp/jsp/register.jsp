@@ -7,9 +7,8 @@
 <title>Register</title>
 </head>
 <body>
-	<div id="navbar">
- 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
- 	</div>
+ 	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+ 
  	<a href="/cerioscoop-web/RegisterServlet">Klik hier</a>
 <h1>Register</h1>
 
@@ -29,5 +28,7 @@
 	  <br><input id="submit" type="submit" name="submitit" value="Submit">
 	</form> 
 	</div>
+	
+	<jsp:include page="/jsp/footer.jsp" />
 </body>
 </html>

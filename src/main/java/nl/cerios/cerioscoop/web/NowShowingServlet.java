@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.Show;
+import nl.cerios.cerioscoop.domain.ShowingList;
 import nl.cerios.cerioscoop.service.GeneralService;
 import nl.cerios.cerioscoop.service.MovieNotFoundException;
 import nl.cerios.cerioscoop.service.ServiceException;
@@ -33,6 +34,7 @@ public class NowShowingServlet extends HttpServlet {
 		final DateUtils dateUtils = new DateUtils();
 		final List<Movie> listOfMovies = generalService.getMovies();
 		final List<Show> shows = generalService.getShows();
+//		final List<ShowingList> showingList = generalService.getShowingList();
 		final Show firstShowing = generalService.getFirstShowAfterCurrentDate(shows);
 
 		// Sort the shows by their showDate/showTime, oldest first.

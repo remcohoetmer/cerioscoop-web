@@ -48,5 +48,7 @@ $(document).ready(function(){
         <input type="reset" value="cancel" />
         </form>
      </div>
+     
+     <jsp:include page="/jsp/footer.jsp" />
 </body>
 </html>

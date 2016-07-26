@@ -1,38 +1,41 @@
 @CHARSET "ISO-8859-1";
 
-body {max-width: 750px;}
+body {max-width: 100%;}
 
 table {
-	box-sizing: border-box;
-	width: 100px;
-	padding: 5px; 
-	text-align: left; 
-	margin-left: auto; 
-	margin-right: auto; 
-	border: 2px solid #0080ff;
+ box-sizing: border-box;
+ width: 90%;
+ padding: 5px; 
+ text-align: left; 
+ margin-left: auto; 
+ margin-right: auto; 
+ border: 2px solid #0080ff;
 }
 
 th {
-	text-align: left; 
-	border: 2px solid #00ff00; 
-	padding: 1px; 
-	background-color: #CCCC00;
+ text-align: left; 
+ border: 2px solid #00ff00; 
+ padding: 1px; 
+ background-color: #CCCC00;
 }
 
 td {
-	border: 2px solid #FFFFFF; 
-	padding: 1px;
+ border: 2px solid #FFFFFF; 
+ padding: 1px;
 }
 
 tr:nth-child(even){
-	background-color: #D3D3D3
+ background-color: #D3D3D3
 }
 
 tr:nth-child(odd){
-	background-color: #F0F0F0
+ background-color: #F0F0F0
 }
 
 p {
-	border: 2px solid #A52A2A; 
-	padding: 1px;
+ margin-left: auto; 
+ margin-right: auto;
+ width: 90%;
+ border: 2px solid #A52A2A; 
+ padding: 1px;
 }
