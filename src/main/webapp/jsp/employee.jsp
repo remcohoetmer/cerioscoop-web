@@ -7,9 +7,7 @@
 <title>Hello employee!</title>
 </head>
 <body>
-	<div id="navbar">
  		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
- 	</div>
 
 	<div>
 		<h3>Login Successful!</h3>
@@ -21,9 +19,6 @@
  		<jsp:include page="/jsp/navbar-employee.jsp"></jsp:include>
  	</div>
  	
- 	<div id="footer">
 		<jsp:include page="/jsp/footer.jsp" />
-	</div>
- 	
 </body>
 </html>

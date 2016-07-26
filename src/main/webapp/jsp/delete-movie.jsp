@@ -7,9 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div id="navbar">
- 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
- 	</div>
+ 	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+ 
 <h1>Delete movie</h1>
 <form method="POST" action="/cerioscoop-web/DeleteMovieServlet"> 
 <br>Movie:<br>
@@ -18,5 +17,7 @@
 <input type="radio" name="movie_id" value="3">Tarzan (1999)<br>
 <br><input type="submit" name="submitit" value="Submit">
 </form> 
+
+	<jsp:include page="/jsp/footer.jsp" />
 </body>
 </html>

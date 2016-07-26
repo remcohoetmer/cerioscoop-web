@@ -18,10 +18,7 @@
 
 </head>
 <body>
-
-	<div id="navbar">
- 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
- 	</div>
+ 	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
 
 <h1>Add show</h1>
 
@@ -40,5 +37,7 @@
 		<input type="reset" value="cancel" />
 		</form>
 	</div>
+	
+	<jsp:include page="/jsp/footer.jsp" />
 </body>
 </html>

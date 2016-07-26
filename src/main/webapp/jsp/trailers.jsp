@@ -28,5 +28,7 @@
 		data="http://www.youtube.com/embed/qYr4zKmTTcY">
 	</object>
 </div>
+
+	<jsp:include page="/jsp/footer.jsp" />
 </body>
 </html>
