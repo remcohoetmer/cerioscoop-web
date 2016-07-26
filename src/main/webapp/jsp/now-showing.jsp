@@ -53,5 +53,7 @@
 <br />The first upcoming film: ${first_upcoming_movie}
 <br />That's in ${countdown}
 </p>
+
+	<jsp:include page="/jsp/footer.jsp" />
 </body>
 </html>
