@@ -11,12 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import nl.cerios.cerioscoop.domain.Movie;
-import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.domain.ShowingList;
 import nl.cerios.cerioscoop.service.GeneralService;
-import nl.cerios.cerioscoop.service.MovieNotFoundException;
-import nl.cerios.cerioscoop.service.ServiceException;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 /**
@@ -32,44 +28,32 @@ public class NowShowingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		final DateUtils dateUtils = new DateUtils();
-		final List<Movie> listOfMovies = generalService.getMovies();
-		final List<Show> shows = generalService.getShows();
-//		final List<ShowingList> showingList = generalService.getShowingList();
-		final Show firstShowing = generalService.getFirstShowAfterCurrentDate(shows);
+		final List<ShowingList> showingList = generalService.getShowingList();
+		final ShowingList firstShowing = generalService.getFirstShowAfterCurrentDate(showingList);
 
 		// Sort the shows by their showDate/showTime, oldest first.
-		shows.sort((itemL, itemR) -> {
-			int compare = itemL.getShowDate().compareTo(itemR.getShowDate());
+		showingList.sort((itemL, itemR) -> {
+			int compare = itemL.getShowingListDate().compareTo(itemR.getShowingListDate());
 			if (compare == 0) {
-				compare = itemL.getShowTime().compareTo(itemR.getShowTime());
+				compare = itemL.getShowingListTime().compareTo(itemR.getShowingListTime());
 			}
 			return compare;
 		});
 
-		if (firstShowing != null) {
-			// Second object in red box
-			final String firstUpcomingMovie;
-			try {
-				firstUpcomingMovie = generalService.getMovieByMovieId(firstShowing.getMovieId(), listOfMovies).getTitle() + " on "
-						+ dateUtils.format2(firstShowing.getShowDate()) + " at "
-						+ dateUtils.timeFormat(firstShowing.getShowTime());
-			} catch (MovieNotFoundException e) {
-				throw new ServiceException("Something went terribly wrong while finding the movie.", e);
-			}
+		// Third object in red box
+		final Date showDateTime = DateUtils.toDateTime(firstShowing.getShowingListDate(),
+				firstShowing.getShowingListTime());
+		final String countdown = dateUtils
+				.calculateTime(dateUtils.getSecondsBetween(showDateTime, dateUtils.getCurrentDate()));
 
-			// Third object in red box
-			final Date showDateTime = DateUtils.toDateTime(firstShowing.getShowDate(), firstShowing.getShowTime());
-			final String countdown = dateUtils
-					.calculateTime(dateUtils.getSecondsBetween(showDateTime, dateUtils.getCurrentDate()));
-
-			// Objects to sent to the now-showing.jsp
-			request.setAttribute("first_upcoming_movie", firstUpcomingMovie);
-			request.setAttribute("countdown", countdown);
-		}
+		// // Objects to sent to the now-showing.jsp
+		request.setAttribute("first_upcoming_movie", firstShowing.getMovieTitle());
+		request.setAttribute("countdown", countdown);
 
 		// Objects to sent to the now-showing.jsp
 		request.setAttribute("todays_date", dateUtils.getDate());
-		request.setAttribute("shows", shows);
+
+		request.setAttribute("shows", showingList);
 
 		// route to jsp
 		getServletContext().getRequestDispatcher("/jsp/now-showing.jsp").forward(request, response);
