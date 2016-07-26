@@ -36,7 +36,7 @@ public class GeneralServiceTest {
 				.withShowingListId(BigInteger.valueOf(2))
 				.withMovieTitle("showTwo")
 				.withRoomName("Yellow room")
-				.withShowingListDate(dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("08-01-2020"))))
+				.withShowingListDate(dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("07-23-2020"))))
 				.withShowingListTime(dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))))
 				.build();	
 				
@@ -44,7 +44,7 @@ public class GeneralServiceTest {
 				.withShowingListId(BigInteger.valueOf(3))
 				.withMovieTitle("showThree")
 				.withRoomName("Yellow room")
-				.withShowingListDate(dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("08-01-2020"))))
+				.withShowingListDate(dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-03-2020"))))
 				.withShowingListTime(dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))))
 				.build();	
 		
