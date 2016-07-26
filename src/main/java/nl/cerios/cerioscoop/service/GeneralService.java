@@ -20,6 +20,8 @@ import nl.cerios.cerioscoop.domain.Employee;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
+import nl.cerios.cerioscoop.domain.ShowingList;
+import nl.cerios.cerioscoop.domain.ShowingListBuilder;
 import nl.cerios.cerioscoop.domain.User;
 import nl.cerios.cerioscoop.util.DateUtils;
 
@@ -123,6 +125,28 @@ public class GeneralService {
 	    }
 	}
 	
+	public List<ShowingList> getShowingList(){
+		final List<ShowingList> showingList = new ArrayList<>();
+		try (final Connection connection = dataSource.getConnection()){
+			final Statement statement = connection.createStatement();
+			final ResultSet resultSet = statement.executeQuery("SELECT showing_list_Id, movie_title, room_name, showing_list_date, showing_list_time FROM showing_list"); { 
+
+			while (resultSet.next()) {
+				final ShowingList showing = new ShowingListBuilder()
+						.withShowingListId(resultSet.getBigDecimal("showing_list_Id").toBigInteger())
+						.withMovieTitle(resultSet.getString("movie_title"))
+						.withRoomName(resultSet.getString("room_name"))
+						.withShowingListDate(resultSet.getDate("showing_list_date"))
+						.withShowingListTime(resultSet.getTime("showing_list_time"))
+						.build();			
+				showingList.add(showing);
+	        	}
+	        return showingList;
+	      }
+	    }catch (final SQLException e) {
+	    	throw new ServiceException("Something went terribly wrong while retrieving the ShowingList.", e);
+	    }
+	}
 	/**
 	 * Returns a first showing record.
 	 * 
