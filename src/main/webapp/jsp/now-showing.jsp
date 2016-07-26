@@ -36,7 +36,7 @@
 <thead><th>Movietitle</th><th>plays on</th><th>time</th><th>room</th></thead>
 <tbody>
 
-<c:forEach items="${shows}" var="show">
+<c:forEach items="${actualShows}" var="show">
   
 <tr>
 	<td>${show.movieTitle}</td>
