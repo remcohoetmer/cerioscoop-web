@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
 DROP TABLE IF EXISTS `language`;
 CREATE TABLE IF NOT EXISTS `language` (
   `language_id` int(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_bin NOT NULL,
+  `language_name` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`language_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS `movie` (
   `movie_type` int(1) unsigned DEFAULT NULL,
   `language` varchar(50) COLLATE utf8_bin NOT NULL,
   `description` varchar(255) COLLATE utf8_bin NOT NULL,
+  `trailer` varchar(50) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`movie_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -99,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
 DROP TABLE IF EXISTS `room`;
 CREATE TABLE IF NOT EXISTS `room` (
   `room_id` int(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_bin NOT NULL,
+  `room_name` varchar(255) COLLATE utf8_bin NOT NULL,
   `chair_amount` int(50) unsigned DEFAULT NULL,
   `room_type` int(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`room_id`)

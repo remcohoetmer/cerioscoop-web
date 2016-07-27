@@ -33,7 +33,10 @@
 
  
 <table>
-<thead><th>Movietitle</th><th>plays on</th><th>time</th><th>room</th><th>chairs</th></thead>
+<thead><th>Movietitle</th><th>plays on</th><th>time</th><th>room</th><th>chairs</th>
+			<th>trailer</th>
+			
+		</thead>
 <tbody>
 
 <c:forEach items="${nowShowing}" var="show">
@@ -44,6 +47,7 @@
 	<td>${show.showingTime}</td>
 	<td>${show.roomName}</td>
 	<td>${show.chairAmount}</td>
+	<td><a class="button" href= "${show.trailer}">trailer</a></td>
 </tr>
 
 </c:forEach>

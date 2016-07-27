@@ -33,6 +33,7 @@ public class AddMovieServlet extends HttpServlet {
 				.withType(Integer.parseInt(request.getParameter("movietype")))
 				.withLanguage(request.getParameter("language"))
 				.withDescription(request.getParameter("description"))
+				.withTrailer(request.getParameter("trailer"))
 				.build();
 		employeeService.addMovie(movie);
 		response.sendRedirect(request.getContextPath() + "/jsp/add-movie.jsp");

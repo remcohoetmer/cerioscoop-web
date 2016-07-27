@@ -42,6 +42,9 @@
 		  <br>Description:<br>
 		  <input type="text" name="description" required>
 		  <br>
+		  <br>Trailer:<br>
+		  <input type="text" name="trailer" required>
+		  <br>
 		  <br><input type="submit" value="Submit">
 		</form> 
 	</div>
