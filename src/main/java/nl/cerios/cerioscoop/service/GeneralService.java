@@ -20,8 +20,8 @@ import nl.cerios.cerioscoop.domain.Employee;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
-import nl.cerios.cerioscoop.domain.Showing;
-import nl.cerios.cerioscoop.domain.ShowingBuilder;
+import nl.cerios.cerioscoop.domain.ShowPresentation;
+import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
 import nl.cerios.cerioscoop.domain.User;
 import nl.cerios.cerioscoop.util.DateUtils;
 
@@ -125,14 +125,14 @@ public class GeneralService {
 	    }
 	}
 	
-	public List<Showing> getShowings(){
-		final List<Showing> showings = new ArrayList<>();
+	public List<ShowPresentation> getShowings(){
+		final List<ShowPresentation> showings = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()){
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT show_id, title, room_name, show_date, show_time FROM showing_list"); { 
+			final ResultSet resultSet = statement.executeQuery("SELECT show_id, title, room_name, show_date, show_time FROM show_presentation"); { 
 
 			while (resultSet.next()) {
-				final Showing show = new ShowingBuilder()
+				final ShowPresentation show = new ShowPresentationBuilder()
 						.withShowingId(resultSet.getBigDecimal("show_id").toBigInteger())
 						.withMovieTitle(resultSet.getString("title"))
 						.withRoomName(resultSet.getString("room_name"))
@@ -152,12 +152,12 @@ public class GeneralService {
 	 * 
 	 * @return firstShowing
 	 */
-	public Showing getFirstShowAfterCurrentDate(final List<Showing> listOfShows){
-		final List<Showing> shows = listOfShows;
+	public ShowPresentation getFirstShowAfterCurrentDate(final List<ShowPresentation> listOfShows){
+		final List<ShowPresentation> shows = listOfShows;
 		final DateUtils dateUtils = new DateUtils();
-		Showing firstShow = null;
+		ShowPresentation firstShow = null;
 		
-		for (final Showing show : shows) {
+		for (final ShowPresentation show : shows) {
 			if(show.getShowingDate().after(dateUtils.getCurrentSqlDate())){	
 				if(firstShow == null){			//hier wordt voor 1x eerstVolgendeFilm gevuld					
 					firstShow = show;
