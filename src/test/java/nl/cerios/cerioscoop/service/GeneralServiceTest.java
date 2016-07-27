@@ -13,8 +13,8 @@ import nl.cerios.cerioscoop.domain.Customer;
 import nl.cerios.cerioscoop.domain.Employee;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
-import nl.cerios.cerioscoop.domain.Showing;
-import nl.cerios.cerioscoop.domain.ShowingBuilder;
+import nl.cerios.cerioscoop.domain.ShowPresentation;
+import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 public class GeneralServiceTest {
@@ -24,7 +24,7 @@ public class GeneralServiceTest {
 	@Test
 	public void testGetFirstShowAfterCurrentDate() throws ParseException{
 	//Shows	
-		final Showing showOne = new ShowingBuilder()
+		final ShowPresentation showOne = new ShowPresentationBuilder()
 				.withShowingId(BigInteger.valueOf(1))
 				.withMovieTitle("showOne")
 				.withRoomName("Yellow room")
@@ -32,7 +32,7 @@ public class GeneralServiceTest {
 				.withShowingTime(dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))))
 				.build();	
 		
-		final Showing showTwo = new ShowingBuilder()
+		final ShowPresentation showTwo = new ShowPresentationBuilder()
 				.withShowingId(BigInteger.valueOf(2))
 				.withMovieTitle("showTwo")
 				.withRoomName("Yellow room")
@@ -40,7 +40,7 @@ public class GeneralServiceTest {
 				.withShowingTime(dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))))
 				.build();	
 				
-		final Showing showThree = new ShowingBuilder()
+		final ShowPresentation showThree = new ShowPresentationBuilder()
 				.withShowingId(BigInteger.valueOf(3))
 				.withMovieTitle("showThree")
 				.withRoomName("Yellow room")
@@ -50,7 +50,7 @@ public class GeneralServiceTest {
 		
 		
 	//Putting all movies in a list
-		final List<Showing> listOfShows = new ArrayList<>();
+		final List<ShowPresentation> listOfShows = new ArrayList<>();
 		listOfShows.add(0, showOne);
 		listOfShows.add(1, showTwo);
 		listOfShows.add(2, showThree);

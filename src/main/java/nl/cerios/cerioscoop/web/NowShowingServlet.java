@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import nl.cerios.cerioscoop.domain.Showing;
-import nl.cerios.cerioscoop.domain.ShowingBuilder;
+import nl.cerios.cerioscoop.domain.ShowPresentation;
+import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
 import nl.cerios.cerioscoop.service.GeneralService;
 import nl.cerios.cerioscoop.util.DateUtils;
 
@@ -30,9 +30,9 @@ public class NowShowingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		final DateUtils dateUtils = new DateUtils();
-		final List<Showing> showing = generalService.getShowings();
-		final List<Showing> nowShowing = new ArrayList<Showing>();
-		final Showing firstShowing = generalService.getFirstShowAfterCurrentDate(showing);
+		final List<ShowPresentation> showing = generalService.getShowings();
+		final List<ShowPresentation> nowShowing = new ArrayList<ShowPresentation>();
+		final ShowPresentation firstShowing = generalService.getFirstShowAfterCurrentDate(showing);
 
 		// Sort the shows by their showDate/showTime, oldest first.
 		showing.sort((itemL, itemR) -> {
@@ -44,9 +44,9 @@ public class NowShowingServlet extends HttpServlet {
 		});
 		
 		//Building the actualShowingList to show only the shows after the current date
-		for (Showing show : showing){
+		for (ShowPresentation show : showing){
 			if (show.getShowingDate().after(dateUtils.getCurrentDate())){
-				show = new ShowingBuilder()
+				show = new ShowPresentationBuilder()
 					.withShowingId(show.getShowingId())
 					.withMovieTitle(show.getMovieTitle())
 					.withRoomName(show.getRoomName())

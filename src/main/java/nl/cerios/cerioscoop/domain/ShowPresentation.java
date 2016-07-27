@@ -4,14 +4,14 @@ import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.Time;
 
-public class Showing {
+public class ShowPresentation {
 	private BigInteger showingId;
 	private String movieTitle;
 	private String roomName;
 	private Date showingDate;
 	private Time showingTime;
 	
-	Showing(final BigInteger showingId, final String movieTitle, final String roomName, final Date showingDate, final Time showingTime) {
+	ShowPresentation(final BigInteger showingId, final String movieTitle, final String roomName, final Date showingDate, final Time showingTime) {
 		this.showingId = showingId;
 		this.movieTitle = movieTitle;
 		this.roomName = roomName;
