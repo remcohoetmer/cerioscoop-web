@@ -50,6 +50,7 @@ public class NowShowingServlet extends HttpServlet {
 					.withShowingId(show.getShowingId())
 					.withMovieTitle(show.getMovieTitle())
 					.withRoomName(show.getRoomName())
+					.withChairAmount(show.getChairAmount())
 					.withShowingDate(show.getShowingDate())
 					.withShowingTime(show.getShowingTime())
 					.build();			
