@@ -11,19 +11,19 @@ table {
  text-align: left; 
  margin-left: auto; 
  margin-right: auto; 
- border: 2px solid #0080ff;
+ border: 2px solid #ffa500;
 }
 
 th {
- text-align: left; 
- border: 2px solid #00ff00; 
- padding: 1px; 
- background-color: #CCCC00;
+ text-align: left;  
+ padding: 3px; 
+ color: white;
+ background-color: #333;
 }
 
 td {
  border: 2px solid #FFFFFF; 
- padding: 1px;
+ padding: 2px;
 }
 
 tr:nth-child(even){
@@ -41,4 +41,16 @@ p {
  width: 90%;
  border: 2px solid #A52A2A; 
  padding: 1px;
+}
+
+.button {
+    display: block;
+    width: 100px;
+    height: 20px;
+    background: #ffa500;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
 }

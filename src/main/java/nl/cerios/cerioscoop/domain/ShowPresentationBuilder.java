@@ -11,6 +11,7 @@ public class ShowPresentationBuilder {
 	private Date showingDate;
 	private Time showingTime;
 	private BigInteger chairAmount;
+	private String trailer;
 	
 	public ShowPresentationBuilder withShowingId(final BigInteger value) {
 		showingId = value;
@@ -36,7 +37,11 @@ public class ShowPresentationBuilder {
 		chairAmount = value;
 		return this;
 	}
+	public ShowPresentationBuilder withTrailer(final String value) {
+		trailer = value;
+		return this;
+	}
 	public ShowPresentation build() {
-		return new ShowPresentation(showingId, movieTitle, roomName, showingDate, showingTime, chairAmount);
+		return new ShowPresentation(showingId, movieTitle, roomName, showingDate, showingTime, chairAmount, trailer);
 	}
 }
