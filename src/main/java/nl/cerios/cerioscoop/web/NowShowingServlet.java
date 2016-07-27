@@ -43,7 +43,7 @@ public class NowShowingServlet extends HttpServlet {
 			return compare;
 		});
 		
-		//Building the actualShowingList to show only the shows after the current date
+		//Building the NowShowingList to show only the shows after the current date
 		for (ShowPresentation show : showing){
 			if (show.getShowingDate().after(dateUtils.getCurrentDate())){
 				show = new ShowPresentationBuilder()
