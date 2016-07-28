@@ -14,7 +14,7 @@
 <body>
 <div class="menu">
 	<ul>
-		<li><a href="../jsp/add-movie.jsp">ADD MOVIE</a></li>
+		<li><a href="../AddMovieServlet">ADD MOVIE</a></li>
 		<li><a href="../jsp/delete-movie.jsp">DELETE MOVIE</a></li>
 		<li><a href="../jsp/add-show.jsp">ADD SHOW</a></li>
 		<li><a href="../jsp/delete-show.jsp">DELETE SHOW</a></li>
