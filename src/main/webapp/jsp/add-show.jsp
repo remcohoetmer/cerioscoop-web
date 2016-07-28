@@ -37,7 +37,28 @@
 		<input type="reset" value="cancel" />
 		</form>
 	</div>
-	
+	<div>
+	    <table>
+<thead><th>MovieId</th><th>Category</th><th>Title</th><th>Duration</th><th>Type</th><th>Language</th><th>Description</th></thead>
+<tbody>
+
+<c:forEach items="${currentMovies}" var="currentMovies">
+  
+<tr>
+    <td>${currentMovies.movieId}</td>
+    <td>${currentMovies.category}</td>
+    <td>${currentMovies.title}</td>
+    <td>${currentMovies.minutes}</td>
+    <td>${currentMovies.movieType}</td>
+    <td>${currentMovies.language}</td>
+    <td>${currentMovies.description}</td>
+    </tr>
+
+</c:forEach>
+
+</tbody>
+</table>
+	</div>
 	<jsp:include page="/jsp/footer.jsp" />
 </body>
 </html>
