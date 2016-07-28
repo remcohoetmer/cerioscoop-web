@@ -39,6 +39,9 @@
   Update description:
   <br>
   <input type="text" name="description">
+  <br>Trailer:<br>
+  <input type="text" name="trailer">
+  <br>
   <br><input type="submit" name="submitit" value="Submit">
 </form> 
 

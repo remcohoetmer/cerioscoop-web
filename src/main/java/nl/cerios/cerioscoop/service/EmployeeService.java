@@ -91,7 +91,7 @@ public class EmployeeService {
 		try {
 	        final Connection connection = dataSource.getConnection();
 	        final PreparedStatement preparedStatement = 
-	        connection.prepareStatement("UPDATE movie SET category = ?, title = ?, minutes = ?, movie_type = ?, language = ?, description = ? WHERE movie_id = ?");
+	        connection.prepareStatement("UPDATE movie SET category = ?, title = ?, minutes = ?, movie_type = ?, language = ?, description = ?, trailer = ? WHERE movie_id = ?");
 		                  
 	        preparedStatement.setString(1, updateMovie.getCategory().name());
 	        preparedStatement.setString(2, updateMovie.getTitle());
@@ -99,7 +99,8 @@ public class EmployeeService {
 		    preparedStatement.setInt(4, updateMovie.getMovieType());
 		    preparedStatement.setString(5, updateMovie.getLanguage());
 		    preparedStatement.setString(6, updateMovie.getDescription());
-		    preparedStatement.setInt(7, updateMovie.getMovieId().intValue());
+			preparedStatement.setString(7, updateMovie.getTrailer());
+		    preparedStatement.setInt(8, updateMovie.getMovieId().intValue());
 		    preparedStatement.executeUpdate();
 		              
 		    System.out.println("Movie is updated.");
