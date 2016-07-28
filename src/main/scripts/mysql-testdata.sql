@@ -36,9 +36,7 @@ INSERT INTO `customer` (`customer_id`, `first_name`, `last_name`, `username`, `p
 DELETE FROM `employee`;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
 INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `username`, `password`, `email`, `employee_create_date`, `employee_create_time`) VALUES
-	(1, 'Rutger', 'van Velzen', 'faust', 'Fausttothemax', 'rutger.van.velzen@cerios.nl', '2016-07-01', '21:00:00'),
-	(2, 'Marcel', 'Groothuis', 'marcel', 'HeerserMarcel', 'marcel.groothuis@cerios.nl', '2016-07-01', '21:00:00'),
-	(3, 'Ron', 'Sanders', 'ron', 'SuperRon', 'ron.sanders@cerios.nl', '2016-07-01', '21:00:00');
+	(1, 'Administrator', 'A', 'A', 'A', 'A@cerios.nl', '2016-07-01', '21:00:00');
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 
 -- Dumpen data van tabel cerioscoop.language: ~4 rows (ongeveer)
