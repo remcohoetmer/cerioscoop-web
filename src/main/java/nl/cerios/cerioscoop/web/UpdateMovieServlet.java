@@ -39,6 +39,7 @@ public class UpdateMovieServlet extends HttpServlet {
 				.withType(Integer.parseInt(request.getParameter("movie_type")))
 				.withLanguage(request.getParameter("language"))
 				.withDescription(request.getParameter("description"))
+				.withTrailer(request.getParameter("trailer"))
 				.build();		
 					
 			employeeService.updateMovieFromDatabase(movie);
