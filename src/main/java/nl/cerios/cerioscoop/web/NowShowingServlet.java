@@ -27,8 +27,7 @@ public class NowShowingServlet extends HttpServlet {
 	@EJB // call DB
 	private GeneralService generalService;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		final DateUtils dateUtils = new DateUtils();
 		final List<ShowPresentation> showing = generalService.getShowings();
 		final List<ShowPresentation> nowShowing = new ArrayList<ShowPresentation>();
@@ -60,15 +59,15 @@ public class NowShowingServlet extends HttpServlet {
 		}
 		request.setAttribute("nowShowing", nowShowing);
 		
-		// Third object in red box
-		final Date showDateTime = DateUtils.toDateTime(firstShowing.getShowingDate(),
-				firstShowing.getShowingTime());
-		final String countdown = dateUtils
-				.calculateTime(dateUtils.getSecondsBetween(showDateTime, dateUtils.getCurrentDate()));
+		if(firstShowing != null){
+			// Third object in red box
+			final Date showDateTime = DateUtils.toDateTime(firstShowing.getShowingDate(), firstShowing.getShowingTime());
+			final String countdown = dateUtils.calculateTime(dateUtils.getSecondsBetween(showDateTime, dateUtils.getCurrentDate()));
 
-		// Objects to sent to the now-showing.jsp
-		request.setAttribute("first_upcoming_movie", firstShowing.getMovieTitle());
-		request.setAttribute("countdown", countdown);
+			// Objects to sent to the now-showing.jsp
+			request.setAttribute("first_upcoming_movie", firstShowing.getMovieTitle());
+			request.setAttribute("countdown", countdown);
+		}
 		request.setAttribute("todays_date", dateUtils.getDate());
 
 		// route to jsp
