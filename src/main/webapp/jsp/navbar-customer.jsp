@@ -14,7 +14,7 @@
 <body>
 <div class="menu">
 	<ul>
-		<li><a href="../jsp/add-room.jsp">LOG OUT</a></li>
+		<li><a href="../index.jsp">LOG OUT</a></li>
 		<li><a href="#editcustomer">EDIT CUSTOMER</a></li>
 	</ul>
 </div>
