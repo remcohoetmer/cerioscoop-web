@@ -13,11 +13,17 @@
 
 </head>
 <body>
-	
- 	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
- 	<jsp:include page="/jsp/login.jsp" />
-	<jsp:include page="/jsp/footer.jsp" />
-
-
+	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+ 	<div class="body-footer-wrapper">
+	 	<div class="login-wrapper">
+	 		<jsp:include page="/jsp/login.jsp" />
+	 	</div>
+		<div class="footer">
+			<div class="footer-center">
+				<jsp:include page="/jsp/footer.jsp" />
+			</div>
+			
+		</div>
+	</div>
 </body>
 </html>
