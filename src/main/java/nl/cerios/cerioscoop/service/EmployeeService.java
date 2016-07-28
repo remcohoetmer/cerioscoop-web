@@ -58,7 +58,7 @@ public class EmployeeService {
 	public void addRoom(final Room room) {
 		try (final Connection connection = dataSource.getConnection();
 				final PreparedStatement preparedStatement = connection.prepareStatement(
-						"INSERT INTO room (room_id, name, chair_amount, room_type) VALUES (?,?,?,?);")) {
+						"INSERT INTO room (room_id, room_name, chair_amount, room_type) VALUES (?,?,?,?);")) {
 				
         	preparedStatement.setInt(1, room.getRoomId());
         	preparedStatement.setString(2, room.getName());
