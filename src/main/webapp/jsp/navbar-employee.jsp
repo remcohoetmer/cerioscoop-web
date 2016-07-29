@@ -16,7 +16,7 @@
 	<ul>
 		<li><a href="../AddMovieServlet">ADD MOVIE</a></li>
 		<li><a href="../DeleteMovieServlet">DELETE MOVIE</a></li>
-		<li><a href="../jsp/add-show.jsp">ADD SHOW</a></li>
+		<li><a href="../AddShowServlet">ADD SHOW</a></li>
 		<li><a href="../jsp/delete-show.jsp">DELETE SHOW</a></li>
 		<li><a href="../jsp/add-room.jsp">ADD ROOM</a></li>
 		<li><a href="../UpdateMovieServlet">UPDATE MOVIE</a></li>
