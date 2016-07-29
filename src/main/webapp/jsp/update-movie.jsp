@@ -14,9 +14,7 @@
 <h1>Update movie</h1>
 <form method="POST" action="/cerioscoop-web/UpdateMovieServlet"> 
 <br>Select Movie:<br>
-<input type="radio" name="movie_id" value="1">The Legend of Tarzan (2016)<br>
-<input type="radio" name="movie_id" value="2">Tarzan the Ape Man (1932)<br>
-<input type="radio" name="movie_id" value="3">Tarzan (1999)<br>
+ <input type="text" name="movie_id" required><br>
   <br>
   Update category:<br>
   <input type="radio" name="category" value="ACTION">Action<br>
