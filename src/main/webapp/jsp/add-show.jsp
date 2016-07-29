@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,10 +26,10 @@
 	<div>
 		<form name="add-showing" method="post" action="/cerioscoop-web/AddShowServlet">
 		Movie ID:<br>
-		<input type="text" name="movieID"><br>
+		<input type="text" name="movie_id"><br>
 		<br>Room name:<br>
-		<input type="radio" name="roomID" value="1"> Red room<br>
-		<input type="radio" name="roomID" value="2"> Blue room<br>
+		<input type="radio" name="room_id" value="1"> Red room<br>
+		<input type="radio" name="room_id" value="2"> Blue room<br>
 		<br>Premiere date:<br>
 		<input type="text" id="datepicker" name="premieredate"><br>
 		<br>Time:<br>
@@ -39,20 +40,15 @@
 	</div>
 	<div>
 	    <table>
-<thead><th>MovieId</th><th>Category</th><th>Title</th><th>Duration</th><th>Type</th><th>Language</th><th>Description</th></thead>
+<thead><th>MovieId</th><th>Title</th></thead>
 <tbody>
 
 <c:forEach items="${currentMovies}" var="currentMovies">
   
 <tr>
     <td>${currentMovies.movieId}</td>
-    <td>${currentMovies.category}</td>
     <td>${currentMovies.title}</td>
-    <td>${currentMovies.minutes}</td>
-    <td>${currentMovies.movieType}</td>
-    <td>${currentMovies.language}</td>
-    <td>${currentMovies.description}</td>
-    </tr>
+</tr>
 
 </c:forEach>
 

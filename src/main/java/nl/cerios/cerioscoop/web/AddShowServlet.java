@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -12,8 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.service.EmployeeService;
+import nl.cerios.cerioscoop.service.GeneralService;
 
 /**
  * Servlet implementation class AddShowServlet
@@ -25,17 +28,25 @@ public class AddShowServlet extends HttpServlet {
 	@EJB
 	private EmployeeService employeeService;   
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@EJB
+	private GeneralService generalService;
+	
+	
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		final List<Movie> currentMovies = generalService.getMovies();
+		request.setAttribute("currentMovies", currentMovies);
+		getServletContext().getRequestDispatcher("/jsp/add-show.jsp").forward(request, response);
+	}
+	
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		Show show = new Show();
 		final DateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy"); 	
 		final DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
 		if ("Submit".equals(request.getParameter("submitit"))) {
-			show.setMovieId(Integer.parseInt(request.getParameter("movieID")));
-			show.setRoomId(Integer.parseInt(request.getParameter("roomID")));	
+			show.setMovieId(Integer.parseInt(request.getParameter("movie_id")));
+			show.setRoomId(Integer.parseInt(request.getParameter("room_id")));	
 		//	show.setShowTime(dateUtils.getCurrentSqlTime());							//TODO remove and input timepicker
 			try {
 				String showTime = (request.getParameter("show_time")+ ":00");
@@ -47,8 +58,7 @@ public class AddShowServlet extends HttpServlet {
 			}
 			employeeService.addShow(show);
 		}
-		request.getRequestDispatcher("/jsp/add-show.jsp").
-        forward(request,response);
+		doGet(request, response);
 	}
 
 }
