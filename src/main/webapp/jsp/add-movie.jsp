@@ -60,7 +60,7 @@
 		</form> 
 	</div>
 	<table>
-<thead><th>MovieId</th><th>Category</th><th>Title</th><th>Duration</th><th>Type</th><th>Language</th><th>Description</th></thead>
+<thead><th>MovieId</th><th>Category</th><th>Title</th><th>Duration</th><th>Type</th><th>Language</th><th>Description</th><th>Trailer</th></thead>
 <tbody>
 
 <c:forEach items="${currentMovies}" var="currentMovies">
@@ -73,6 +73,7 @@
 	<td>${currentMovies.movieType}</td>
 	<td>${currentMovies.language}</td>
 	<td>${currentMovies.description}</td>
+	<td>${currentMovies.trailer}</td>
 	</tr>
 
 </c:forEach>

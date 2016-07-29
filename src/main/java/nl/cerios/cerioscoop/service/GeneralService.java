@@ -35,7 +35,7 @@ public class GeneralService {
 		final List<Movie> movies = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()) {			//AutoCloseable
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, title, category, minutes, movie_type, language, description FROM movie");
+			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, title, category, minutes, movie_type, language, description, trailer FROM movie");
 			while (resultSet.next()) {
 				final Movie movie = new MovieBuilder()
 						.withMovieId(resultSet.getBigDecimal("movie_id").toBigInteger())
@@ -45,6 +45,7 @@ public class GeneralService {
 						.withType(resultSet.getInt("movie_type"))
 						.withLanguage(resultSet.getString("language"))
 						.withDescription(resultSet.getString("description"))
+						.withTrailer(resultSet.getString("trailer"))
 						.build();
 				movies.add(movie);
 			}
