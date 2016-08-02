@@ -22,7 +22,8 @@ public class RegisterCustomerTest extends SeleniumTest {
 		driver.get(BASE_URL + "/index.jsp");
 
 		// Find the register button and click it
-		driver.findElement(By.id("register")).click();
+		driver.findElement(By.id("navbar-login")).click();
+		driver.findElement(By.id("register-button")).click();
 
 		// Fill the register form
 		driver.findElement(By.id("firstname")).sendKeys("Selenium");
@@ -41,7 +42,7 @@ public class RegisterCustomerTest extends SeleniumTest {
 		driver.findElement(By.className("login-menu")).findElement(By.id("loginUsername")).sendKeys("Sel");
 		driver.findElement(By.className("login-menu")).findElement(By.id("loginPassword")).sendKeys("london");
 		// Click Login
-		driver.findElement(By.id("login")).click();
+		driver.findElement(By.id("login-button")).click();
 
 		// Check username Sel in the page
 		Assert.assertEquals("Hello customer!", driver.getTitle());
