@@ -35,7 +35,6 @@
          </div>
        
   </li>
-  <li><a id="register" href="/cerioscoop-web/jsp/register.jsp">REGISTER</a></li>
  </ul>
 </div>
 
