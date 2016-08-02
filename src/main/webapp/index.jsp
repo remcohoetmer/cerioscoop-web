@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Home</title>
+<title>Index</title>
 
 	<!-- Index CSS
    	================================================== -->
@@ -13,16 +13,16 @@
 
 </head>
 <body>
-	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+	<div class="body-navbar-wrapper">
+		<div class="navbar">
+	 	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+		</div>
+	</div>
+	
+	 
  	<div class="body-footer-wrapper">
-	 	<div class="login-wrapper">
-	 		<jsp:include page="/jsp/login.jsp" />
-	 	</div>
 		<div class="footer">
-			<div class="footer-center">
-				<jsp:include page="/jsp/footer.jsp" />
-			</div>
-			
+			<jsp:include page="/jsp/footer.jsp" />		
 		</div>
 	</div>
 </body>

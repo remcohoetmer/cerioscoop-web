@@ -6,6 +6,12 @@ import org.openqa.selenium.By;
 
 public class RegisterCustomerTest extends SeleniumTest {
 
+	/**
+	 * @throws InterruptedException
+	 * 
+	 * TODO
+	 * -
+	 */
 	@Test
 	public void test() throws InterruptedException {
 		if (driver == null) {
@@ -31,8 +37,9 @@ public class RegisterCustomerTest extends SeleniumTest {
 		driver.get(BASE_URL + "/index.jsp");
 
 		// Fill the username and password of the registered customer
-		driver.findElement(By.id("loginUsername")).sendKeys("Sel");
-		driver.findElement(By.id("loginPassword")).sendKeys("london");
+		driver.findElement(By.id("navbar-login")).click();
+		driver.findElement(By.className("login-menu")).findElement(By.id("loginUsername")).sendKeys("Sel");
+		driver.findElement(By.className("login-menu")).findElement(By.id("loginPassword")).sendKeys("london");
 		// Click Login
 		driver.findElement(By.id("login")).click();
 

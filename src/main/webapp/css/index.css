@@ -1,5 +1,9 @@
 @CHARSET "ISO-8859-1";
 
+body {
+	margin: auto;
+}
+
 .body-footer-wrapper {
 	width: 100%;
 	height: 100%;
@@ -15,10 +19,5 @@
 .footer {
 	position: absolute;
     bottom: 0;
-    width: 98%
-}
-
-.footer-center {
-	margin: auto;
-	width: 50%
+    width: 99%
 }
