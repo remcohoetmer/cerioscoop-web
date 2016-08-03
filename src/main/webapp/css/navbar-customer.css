@@ -1,1 +1,33 @@
 @CHARSET "ISO-8859-1";
+
+.navbar-customer {
+	float: right;
+}
+
+#nav-cust ul, .navbar-customer {
+    border: 15px solid #333;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #ff4045;
+}
+
+#nav-cust li {
+	border: 1px solid #333;
+}
+
+#nav-cust li a, .navbar-customer {
+    display: block;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+   
+}
+
+/* Change the link color on hover */
+#nav-cust li a:hover {
+    
+    background-color: #555;
+    color: white;
+}
