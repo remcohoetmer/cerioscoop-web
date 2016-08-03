@@ -14,7 +14,7 @@
 <body>
 
 <div class="navbar">
- <ul>
+ <ul id="nav">
   <li><a id="cerioscoop" href="/cerioscoop-web/index.jsp">CERIOSCOOP</a></li>
   <li class="dropdown-movies">
    <a  id="movies" class="dropbtn" href="#movies">MOVIES</a>

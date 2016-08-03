@@ -12,8 +12,8 @@
 
 </head>
 <body>
-<div class="menu">
-	<ul>
+<div class="navbar-employee">
+	<ul id="nav-empl">
 		<li><a href="../AddMovieServlet">ADD MOVIE</a></li>
 		<li><a href="../DeleteMovieServlet">DELETE MOVIE</a></li>
 		<li><a href="../AddShowServlet">ADD SHOW</a></li>

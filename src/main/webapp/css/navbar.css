@@ -11,18 +11,19 @@ body {
  
 }
 
-ul {
+#nav {
     list-style-type: none;
     padding: 0;
     overflow: hidden;
     background-color: #333;
+    margin: auto;
 }
 
-li {
+#nav li {
     display: inline-block;
 }
 
-li a, .dropbtn {
+#nav li a, .dropbtn {
     display: inline-block;
     color: white;
     text-align: center;
@@ -30,56 +31,56 @@ li a, .dropbtn {
     text-decoration: none;
 }
 
-li a:hover, .dropdown-movies:hover .dropbtn .dropdown-login:hover {
+#nav li a:hover, .dropdown-movies:hover .dropbtn .dropdown-login:hover {
     background-color: #ffa500;
 }
 
-li.dropdown-movies {
+#nav li.dropdown-movies {
     display: inline-block;
 }
 
-li.dropdown-login {
+#nav li.dropdown-login {
     display: inline-block;
 }
 
-.movies-content {
+#nav .movies-content {
     display: none;
     position: absolute;
     background-color: #333;
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
-.movies-content a {
+#nav .movies-content a {
     color: white;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     text-align: left;
 }
-.movies-content a:hover {
+#nav .movies-content a:hover {
  background-color: #ffa500
 }
-.dropdown-movies:hover .movies-content {
+#nav .dropdown-movies:hover .movies-content {
     display: block;
 }
 
-.login-menu {
+#nav .login-menu {
     display: none;
     position: absolute;
     background-color: #333;
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
-.login-menu a {
+#nav .login-menu a {
     color: white;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     text-align: left;
 }
-.login-menu a:hover {
+#nav .login-menu a:hover {
 background-color: #ffa500
 }
-.dropdown-login:hover .login-menu {
+#nav .dropdown-login:hover .login-menu {
     display: block;
 }

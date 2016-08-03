@@ -12,8 +12,8 @@
 
 </head>
 <body>
-<div class="menu">
-	<ul>
+<div class="navbar-customer">
+	<ul id="nav-cust">
 		<li><a href="../index.jsp">LOG OUT</a></li>
 		<li><a href="#editcustomer">EDIT CUSTOMER</a></li>
 	</ul>
