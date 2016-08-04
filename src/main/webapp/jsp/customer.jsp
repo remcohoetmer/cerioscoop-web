@@ -19,15 +19,14 @@
 		</div>
 	</div>
 
- 	<div class="login-message">
+	<div id="navbar-customer">
+ 		<jsp:include page="/jsp/navbar-customer.jsp"></jsp:include>
+ 	</div>
+	<div class="login-message">
 	<h3>Login Successful!</h3>
 		<% Customer customer = (Customer) session.getAttribute("user"); %>
 		Hello <%=customer.getUsername()%>!
 	</div> 
-	<div id="navbar-customer">
- 		<jsp:include page="/jsp/navbar-customer.jsp"></jsp:include>
- 	</div>
-
  	
  	<div class="body-footer-wrapper">
 		<div class="footer">

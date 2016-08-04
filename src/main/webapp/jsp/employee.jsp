@@ -17,16 +17,16 @@
 	 	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
 		</div>
 	</div>
-
+	
+	<div id="navbar-employee">
+ 		<jsp:include page="/jsp/navbar-employee.jsp"></jsp:include>
+ 	</div>
 	<div class="home-employee">	
 		<h3>Login Successful!</h3>
 		<% Employee employee = (Employee) session.getAttribute("user"); %>
 		Hello <%=employee.getUsername()%>!
 	</div>
 
-	<div id="navbar-employee">
- 		<jsp:include page="/jsp/navbar-employee.jsp"></jsp:include>
- 	</div>
  	<div class="body-footer-wrapper">
 		<div class="footer">
 			<jsp:include page="/jsp/footer.jsp" />		
