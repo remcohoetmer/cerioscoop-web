@@ -1,6 +1,15 @@
 @CHARSET "ISO-8859-1";
 
+body {
+	background-color: #ff8040;
+}
 
+.home-employee {
+	margin: auto;
+	width: 1200px;
+	height: 800px;
+	background-color: white;
+}
 
 .body-footer-wrapper {
 	width: 100%;
