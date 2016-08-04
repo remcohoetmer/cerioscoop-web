@@ -13,10 +13,10 @@
 </head>
 <body>
 <div class="navbar-customer">
-	<ul id="nav-cust">
-		<li><a href="../index.jsp">LOG OUT</a></li>
-		<li><a href="#editcustomer">EDIT CUSTOMER</a></li>
-	</ul>
+	
+		<div class="nav-customer-button"><a href="../index.jsp"><span class="nav-customer-button-text">LOG OUT</span></a></div>
+		<div class="nav-customer-button"><a href="#editcustomer"><span class="nav-customer-button-text">EDIT CUSTOMER</span></a></div>
+	
 </div>
 </body>
 </html>
