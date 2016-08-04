@@ -3,5 +3,9 @@
 .footer-social {
  text-align:center;  
  }
+ 
+.body-footer-wrapper span {
+	color: black;
+}
 
  
