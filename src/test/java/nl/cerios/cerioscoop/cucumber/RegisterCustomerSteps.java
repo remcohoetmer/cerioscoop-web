@@ -1,30 +1,30 @@
-package nl.cerios.cerioscoop.jsp;
+package nl.cerios.cerioscoop.cucumber;
 
 import org.junit.Assert;
-import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class RegisterCustomerTest extends SeleniumTest {
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import nl.cerios.cerioscoop.jsp.SeleniumTest;
 
-	/**
-	 * @throws InterruptedException
-	 * 
-	 * TODO
-	 * -
-	 */
-	@Test
-	public void test() throws InterruptedException {
-		if (driver == null) {
-			return;
-		}
-		
+public class RegisterCustomerSteps extends SeleniumTest {
+
+	@Given("^I am on the cerioscoop site$")
+	public void navigateToCerioscoopSite() throws InterruptedException {
 		// Open index.jsp
-		driver.get(BASE_URL + "/index.jsp");
+		driver.navigate().to(BASE_URL + "/index.jsp");
+	}
 
+	@When("^I navigate to register$")
+	public void clickOnRegisterButton() throws InterruptedException {
 		// Find the register button and click it
 		driver.findElement(By.id("navbar-login")).click();
 		driver.findElement(By.id("register-button")).click();
+	}
 
+	@When("^I fill in the registerform with valid data and submit it$")
+	public void fillInRegisterFormAndSubmit() throws InterruptedException {
 		// Fill the register form
 		driver.findElement(By.id("firstname")).sendKeys("Selenium");
 		driver.findElement(By.id("lastname")).sendKeys("London");
@@ -33,18 +33,31 @@ public class RegisterCustomerTest extends SeleniumTest {
 		driver.findElement(By.id("email")).sendKeys("selenium@london.com");
 		// Submit registration
 		driver.findElement(By.id("submit")).click();
+	}
 
+	@When("^I navigate to the cerioscoop site$")
+	public void navigateToCerioscoopPage() throws InterruptedException {
 		// Goto index.jsp
-		driver.get(BASE_URL + "/index.jsp");
+		driver.navigate().to(BASE_URL + "/index.jsp");
+	}
 
+	@When("^I click on login$")
+	public void clickOnLoginButton() throws InterruptedException {
 		// Fill the username and password of the registered customer
 		driver.findElement(By.id("navbar-login")).click();
+				
+	}
+
+	@When("^I fill in the username and password$")
+	public void loginWithUsernamePassword() throws InterruptedException {
 		driver.findElement(By.className("login-menu")).findElement(By.id("loginUsername")).sendKeys("Sel");
 		driver.findElement(By.className("login-menu")).findElement(By.id("loginPassword")).sendKeys("london");
 		// Click Login
 		driver.findElement(By.id("login-button")).click();
+	}
 
-		// Check username Sel in the page
+	@Then("^I check that the customer has been registered$")
+	public void checkIfCustomerIsRegistered() throws InterruptedException {
 		Assert.assertEquals("Hello customer!", driver.getTitle());
 		Assert.assertEquals("Login Successful!\nHello Sel!", driver.findElement(By.className("login-message")).getText());
 	}

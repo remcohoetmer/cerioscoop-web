@@ -25,7 +25,7 @@ a {
 
 .navbar-buttons-wrapper {
 	width: 50%;
-    margin: 0 auto;
+    margin: auto;
 }
 .navbar-button {
 	float: left;
@@ -36,7 +36,7 @@ a {
 	background-color: #ffa500;
 }
 
-.navbar-dropdown-button-item a, .navbar-dropdown-button-movies {
+.navbar-dropdown-button-item a {
     display: inline-block;
     color: white;
     text-align: center;

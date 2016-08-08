@@ -36,8 +36,7 @@
 						</a>
 					</div>
 					<div class="navbar-dropdown-button-item">
-						<a href="#"> <span class="navbar-button-text">COMING
-								SOON</span>
+						<a href="#"> <span class="navbar-button-text">COMING SOON</span>
 						</a>
 					</div>
 					<div class="navbar-dropdown-button-item">
@@ -58,7 +57,7 @@
 			</div>
 	
 			<div class="navbar-button">
-				<a href="#Login"> <span class="navbar-button-text">LOGIN</span>
+				<a id="navbar-login" href="#Login"> <span class="navbar-button-text">LOGIN</span>
 				</a>
 				<div class="login-menu">
 					<jsp:include page="/jsp/login.jsp" />
