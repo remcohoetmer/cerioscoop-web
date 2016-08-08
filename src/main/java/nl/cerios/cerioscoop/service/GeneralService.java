@@ -29,7 +29,7 @@ import nl.cerios.cerioscoop.util.DateUtils;
 public class GeneralService {
 
 	@Resource(name = "jdbc/cerioscoop")			//Content Dependency Injection techniek
-	private DataSource dataSource;
+	protected DataSource dataSource;
 	
 	public List<Movie> getMovies(){
 		final List<Movie> movies = new ArrayList<>();
