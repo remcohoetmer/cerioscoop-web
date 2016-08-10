@@ -17,6 +17,8 @@
  $( "#datepicker" ).datepicker();});
 </script>
 
+		<link href='/cerioscoop-web/css/masterdetail.css' type='text/css' rel='stylesheet' />
+
 </head>
 <body>
  	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
