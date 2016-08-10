@@ -16,6 +16,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Add-Movie</title>
+
+		<link href='/cerioscoop-web/css/masterdetail.css' type='text/css' rel='stylesheet' />
+
 </head>
 <body>
  		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
