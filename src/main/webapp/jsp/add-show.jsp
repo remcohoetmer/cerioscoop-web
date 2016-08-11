@@ -41,7 +41,26 @@
 		</form>
 	</div>
 	<div>
-	    <table>
+	
+	<table>
+<thead><th>Movietitle</th><th>plays on</th><th>time</th><th>room</th></thead>
+<tbody>
+
+<c:forEach items="${showing}" var="show">
+  
+<tr>
+	<td>${show.movieTitle}</td>
+	<td>${show.showingDate}</td>
+	<td>${show.showingTime}</td>
+	<td>${show.roomName}</td>
+</tr>
+
+</c:forEach>
+
+</tbody>
+</table>
+
+<table>
 <thead><th>MovieId</th><th>Title</th></thead>
 <tbody>
 

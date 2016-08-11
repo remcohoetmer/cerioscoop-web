@@ -6,10 +6,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+	<link href='/cerioscoop-web/css/masterdetail.css' type='text/css' rel='stylesheet' />
+	
 </head>
 <body>
  	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
- 
+ <div>
 <h1>Delete movie</h1>
 <form method="POST" action="/cerioscoop-web/DeleteMovieServlet"> 
 <br>Select Movie:<br>
@@ -38,7 +41,7 @@
 
 </tbody>
 </table>
-
+</div>
 	<jsp:include page="/jsp/footer.jsp" />
 </body>
 </html>
