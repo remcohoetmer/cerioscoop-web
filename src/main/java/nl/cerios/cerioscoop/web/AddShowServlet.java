@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -19,7 +18,6 @@ import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.domain.ShowPresentation;
 import nl.cerios.cerioscoop.service.EmployeeService;
 import nl.cerios.cerioscoop.service.GeneralService;
-import nl.cerios.cerioscoop.util.DateUtils;
 
 /**
  * Servlet implementation class AddShowServlet
