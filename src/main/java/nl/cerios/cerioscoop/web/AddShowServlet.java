@@ -53,6 +53,7 @@ public class AddShowServlet extends HttpServlet {
 
 		if ("Submit".equals(request.getParameter("submitit"))) {
 			show.setMovieId(Integer.parseInt(request.getParameter("movie_id")));
+			show.setRoomId(Integer.parseInt(request.getParameter("room_id")));
 			try {
 				String showTime = (request.getParameter("show_time")+ ":00");
 							
