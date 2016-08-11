@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -15,8 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.Show;
+import nl.cerios.cerioscoop.domain.ShowPresentation;
 import nl.cerios.cerioscoop.service.EmployeeService;
 import nl.cerios.cerioscoop.service.GeneralService;
+import nl.cerios.cerioscoop.util.DateUtils;
 
 /**
  * Servlet implementation class AddShowServlet
@@ -35,7 +38,11 @@ public class AddShowServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		final List<Movie> currentMovies = generalService.getMovies();
+		final List<ShowPresentation> showing = generalService.getShowings();
+	
+				
 		request.setAttribute("currentMovies", currentMovies);
+		request.setAttribute("showing", showing);
 		getServletContext().getRequestDispatcher("/jsp/add-show.jsp").forward(request, response);
 	}
 	
@@ -46,8 +53,6 @@ public class AddShowServlet extends HttpServlet {
 
 		if ("Submit".equals(request.getParameter("submitit"))) {
 			show.setMovieId(Integer.parseInt(request.getParameter("movie_id")));
-			show.setRoomId(Integer.parseInt(request.getParameter("room_id")));	
-		//	show.setShowTime(dateUtils.getCurrentSqlTime());							//TODO remove and input timepicker
 			try {
 				String showTime = (request.getParameter("show_time")+ ":00");
 							

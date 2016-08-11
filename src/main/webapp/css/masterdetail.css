@@ -42,3 +42,10 @@ p {
  border: 2px solid #A52A2A; 
  padding: 1px;
 }
+
+form {
+	margin: 0 auto;
+	width: 300px;
+	border: 2px solid #ffa500;
+	background-color: #F0F0F0
+  }
