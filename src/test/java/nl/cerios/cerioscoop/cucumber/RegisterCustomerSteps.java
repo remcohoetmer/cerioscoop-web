@@ -2,6 +2,7 @@ package nl.cerios.cerioscoop.cucumber;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -12,6 +13,7 @@ public class RegisterCustomerSteps extends SeleniumTest {
 
 	@Given("^I am on the cerioscoop site$")
 	public void navigateToCerioscoopSite() throws InterruptedException {
+		driver = new ChromeDriver();
 		driver.navigate().to(BASE_URL + "/index.jsp");
 	}
 
@@ -53,5 +55,6 @@ public class RegisterCustomerSteps extends SeleniumTest {
 	public void checkIfCustomerIsRegistered() throws InterruptedException {
 		Assert.assertEquals("Hello customer!", driver.getTitle());
 		Assert.assertEquals("Login Successful!\nHello Sel!", driver.findElement(By.className("login-message")).getText());
+		driver.quit();
 	}
 }
