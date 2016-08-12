@@ -12,38 +12,32 @@ public class RegisterCustomerSteps extends SeleniumTest {
 
 	@Given("^I am on the cerioscoop site$")
 	public void navigateToCerioscoopSite() throws InterruptedException {
-		// Open index.jsp
 		driver.navigate().to(BASE_URL + "/index.jsp");
 	}
 
 	@When("^I navigate to register$")
 	public void clickOnRegisterButton() throws InterruptedException {
-		// Find the register button and click it
 		driver.findElement(By.id("navbar-login")).click();
 		driver.findElement(By.id("register-button")).click();
 	}
 
 	@When("^I fill in the registerform with valid data and submit it$")
 	public void fillInRegisterFormAndSubmit() throws InterruptedException {
-		// Fill the register form
 		driver.findElement(By.id("firstname")).sendKeys("Selenium");
 		driver.findElement(By.id("lastname")).sendKeys("London");
 		driver.findElement(By.id("username")).sendKeys("Sel");
 		driver.findElement(By.id("password")).sendKeys("london");
 		driver.findElement(By.id("email")).sendKeys("selenium@london.com");
-		// Submit registration
 		driver.findElement(By.id("submit")).click();
 	}
 
 	@When("^I navigate to the cerioscoop site$")
 	public void navigateToCerioscoopPage() throws InterruptedException {
-		// Goto index.jsp
 		driver.navigate().to(BASE_URL + "/index.jsp");
 	}
 
 	@When("^I click on login$")
 	public void clickOnLoginButton() throws InterruptedException {
-		// Fill the username and password of the registered customer
 		driver.findElement(By.id("navbar-login")).click();
 				
 	}
@@ -52,7 +46,6 @@ public class RegisterCustomerSteps extends SeleniumTest {
 	public void loginWithUsernamePassword() throws InterruptedException {
 		driver.findElement(By.className("login-menu")).findElement(By.id("loginUsername")).sendKeys("Sel");
 		driver.findElement(By.className("login-menu")).findElement(By.id("loginPassword")).sendKeys("london");
-		// Click Login
 		driver.findElement(By.id("login-button")).click();
 	}
 
