@@ -44,6 +44,7 @@ p {
 }
 
 form {
+	box-sizing: border-box;
 	margin: 0 auto;
 	width: 300px;
 	border: 2px solid #ffa500;
