@@ -41,7 +41,6 @@ public class RegisterCustomerSteps extends SeleniumTest {
 	@When("^I click on login$")
 	public void clickOnLoginButton() throws InterruptedException {
 		driver.findElement(By.id("navbar-login")).click();
-				
 	}
 
 	@When("^I fill in the username and password$")
@@ -54,7 +53,8 @@ public class RegisterCustomerSteps extends SeleniumTest {
 	@Then("^I check that the customer has been registered$")
 	public void checkIfCustomerIsRegistered() throws InterruptedException {
 		Assert.assertEquals("Hello customer!", driver.getTitle());
-		Assert.assertEquals("Login Successful!\nHello Sel!", driver.findElement(By.className("login-message")).getText());
+		Assert.assertEquals("Login Successful!\nHello Sel!",
+				driver.findElement(By.className("login-message")).getText());
 		driver.quit();
 	}
 }
