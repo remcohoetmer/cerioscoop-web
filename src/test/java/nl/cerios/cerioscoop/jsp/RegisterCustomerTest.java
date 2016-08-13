@@ -4,48 +4,44 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
+import nl.cerios.testutil.SeleniumTest;
+
 public class RegisterCustomerTest extends SeleniumTest {
 
 	/**
-	 * @throws InterruptedException
-	 * 
-	 * TODO
-	 * -
+	 *             TODO -
 	 */
 	@Test
-	public void test() throws InterruptedException {
-		if (driver == null) {
-			return;
-		}
-		
+	public void test() {
 		// Open index.jsp
-		driver.get(BASE_URL + "/index.jsp");
+		getWebDriver().get(BASE_URL + "/index.jsp");
 
 		// Find the register button and click it
-		driver.findElement(By.id("navbar-login")).click();
-		driver.findElement(By.id("register-button")).click();
+		getWebDriver().findElement(By.id("navbar-login")).click();
+		getWebDriver().findElement(By.id("register-button")).click();
 
 		// Fill the register form
-		driver.findElement(By.id("firstname")).sendKeys("Selenium");
-		driver.findElement(By.id("lastname")).sendKeys("London");
-		driver.findElement(By.id("username")).sendKeys("Sel");
-		driver.findElement(By.id("password")).sendKeys("london");
-		driver.findElement(By.id("email")).sendKeys("selenium@london.com");
+		getWebDriver().findElement(By.id("firstname")).sendKeys("Selenium");
+		getWebDriver().findElement(By.id("lastname")).sendKeys("London");
+		getWebDriver().findElement(By.id("username")).sendKeys("Sel");
+		getWebDriver().findElement(By.id("password")).sendKeys("london");
+		getWebDriver().findElement(By.id("email")).sendKeys("selenium@london.com");
 		// Submit registration
-		driver.findElement(By.id("submit")).click();
+		getWebDriver().findElement(By.id("submit")).click();
 
 		// Goto index.jsp
-		driver.get(BASE_URL + "/index.jsp");
+		getWebDriver().get(BASE_URL + "/index.jsp");
 
 		// Fill the username and password of the registered customer
-		driver.findElement(By.id("navbar-login")).click();
-		driver.findElement(By.className("login-menu")).findElement(By.id("loginUsername")).sendKeys("Sel");
-		driver.findElement(By.className("login-menu")).findElement(By.id("loginPassword")).sendKeys("london");
+		getWebDriver().findElement(By.id("navbar-login")).click();
+		getWebDriver().findElement(By.className("login-menu")).findElement(By.id("loginUsername")).sendKeys("Sel");
+		getWebDriver().findElement(By.className("login-menu")).findElement(By.id("loginPassword")).sendKeys("london");
 		// Click Login
-		driver.findElement(By.id("login-button")).click();
+		getWebDriver().findElement(By.id("login-button")).click();
 
 		// Check username Sel in the page
-		Assert.assertEquals("Hello customer!", driver.getTitle());
-		Assert.assertEquals("Login Successful!\nHello Sel!", driver.findElement(By.className("login-message")).getText());
+		Assert.assertEquals("Hello customer!", getWebDriver().getTitle());
+		final String loginMessage = getWebDriver().findElement(By.className("login-message")).getText();
+		Assert.assertEquals("Login Successful!\nHello Sel!", loginMessage);
 	}
 }
