@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 
 import nl.cerios.cerioscoop.domain.Category;
 import nl.cerios.cerioscoop.domain.Customer;
@@ -16,10 +19,26 @@ import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.ShowPresentation;
 import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
 import nl.cerios.cerioscoop.util.DateUtils;
+import nl.cerios.testutil.DatabaseTest;
 
-public class GeneralServiceTest {
-	private final GeneralService generalService = new GeneralService();
+public class GeneralServiceTest extends DatabaseTest {
+
+	@InjectMocks
+	private GeneralService generalService;
 	private final DateUtils dateUtils = new DateUtils();
+
+	@Before
+	public void initMocks() {
+		MockitoAnnotations.initMocks(this);
+	}
+
+	@Test
+	public void testGetMovies() {
+		final List<Movie> movies = generalService.getMovies();
+
+		Assert.assertNotNull(movies);
+		Assert.assertEquals(3, movies.size());
+	}
 	
 	@Test
 	public void testGetFirstShowAfterCurrentDate() throws ParseException{
