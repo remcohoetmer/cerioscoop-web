@@ -31,7 +31,7 @@ public class GeneralServiceTest extends DatabaseTest {
 	public void initMocks() {
 		MockitoAnnotations.initMocks(this);
 	}
-
+	
 	@Test
 	public void testGetMovies() {
 		final List<Movie> movies = generalService.getMovies();
@@ -39,6 +39,31 @@ public class GeneralServiceTest extends DatabaseTest {
 		Assert.assertNotNull(movies);
 		Assert.assertEquals(3, movies.size());
 	}
+		
+	@Test
+	public void testGetCustomers() {
+		final List<Customer> customers = generalService.getCustomers();
+
+		Assert.assertNotNull(customers);
+		Assert.assertEquals(3, customers.size());
+	}
+	
+	@Test
+	public void testGetEmployees() {
+		final List<Employee> employees = generalService.getEmployees();
+
+		Assert.assertNotNull(employees);
+		Assert.assertEquals(1, employees.size());
+	}
+	
+	@Test
+	public void testGetShowings() {
+		final List<ShowPresentation> showings = generalService.getShowings();
+
+		Assert.assertNotNull(showings);
+		Assert.assertEquals(4, showings.size());
+	}
+	
 	
 	@Test
 	public void testGetFirstShowAfterCurrentDate() throws ParseException{
