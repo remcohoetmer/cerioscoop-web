@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.SQLNonTransientConnectionException;
 import java.sql.Statement;
 import java.util.Properties;
 import java.util.Scanner;
@@ -14,6 +13,7 @@ import javax.sql.DataSource;
 
 import org.apache.derby.jdbc.EmbeddedDataSource40;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.mockito.Spy;
 
@@ -37,27 +37,40 @@ public class DatabaseTest {
 	@Spy
 	private DataSource dataSource = getDataSource();
 
-	private static DataSource getDataSource(final String... dbOptions) {
-		String dbName = "memory:" + PROPS.getProperty("db.name");
-		for (final String dbOption : dbOptions) {
-			dbName += ";" + dbOption + "=true";
-		}
-
+	private static DataSource getDataSource() {
 		final EmbeddedDataSource40 derbyDS = new EmbeddedDataSource40();
-		derbyDS.setDatabaseName(dbName);
+		derbyDS.setDatabaseName("memory:" + PROPS.getProperty("db.name"));
 		derbyDS.setUser(PROPS.getProperty("db.user"));
 		derbyDS.setPassword(PROPS.getProperty("db.password"));
 		return derbyDS;
 	}
 
-	@BeforeClass
-	public static void initDatabase() throws IOException, SQLException {
-		// tell Derby to create the schema
-		final DataSource ds = getDataSource(OPTION_CREATE);
-		try (final Connection connection = ds.getConnection();
+	private static void applyDatabaseOption(final String dbOption) throws SQLException {
+		try {
+			final EmbeddedDataSource40 derbyDS = (EmbeddedDataSource40) getDataSource();
+			derbyDS.setDatabaseName(derbyDS.getDatabaseName() + ";" + dbOption + "=true");
+			derbyDS.getConnection();
+		} catch (SQLException e) {
+			// Wow, this is a dirty tricky piece of code! See
+			// http://stackoverflow.com/questions/2307788/how-to-shutdown-derby-in-memory-database-properly
+			final String dbState = e.getSQLState();
+			if (!dbState.equals("XJ004") && !dbState.equals("XJ015") && !dbState.equals("08006")) {
+				throw e;
+			}
+		}
+	}
+
+	@Before
+	public void initDatabase() throws IOException, SQLException {
+		// Remove any existing database schema.
+		applyDatabaseOption(OPTION_DROP);
+
+		// Tell Derby to create the schema...
+		applyDatabaseOption(OPTION_CREATE);
+		// ...and run SQL scripts
+		try (final Connection connection = getDataSource().getConnection();
 				final Statement sqlStatement = connection.createStatement()) {
 
-			// run SQL scripts
 			final String[] scriptResourceNames = new String[] { PROPS.getProperty("db.script.create"),
 					PROPS.getProperty("db.script.testData") };
 
@@ -84,23 +97,7 @@ public class DatabaseTest {
 
 	@AfterClass
 	public static void shutdownDatabase() throws SQLException {
-		try {
-			// Remove the database schema from memory...
-			getDataSource(OPTION_DROP).getConnection();
-			// ...and stop the database instance.
-			getDataSource(OPTION_SHUTDOWN).getConnection();
-		} catch (SQLNonTransientConnectionException e) {
-			// Wow, this is a dirty tricky piece of code! See
-			// http://stackoverflow.com/questions/2307788/how-to-shutdown-derby-in-memory-database-properly
-			final String dbState = e.getSQLState();
-			if (!dbState.equals("XJ015") && !dbState.equals("08006")) {
-				throw e;
-			}
-		} catch (SQLException e) {
-			// Database was already shut down.
-			if (!e.getSQLState().equals("XJ004")) {
-				throw e;
-			}
-		}
+		// Stop the database instance.
+		applyDatabaseOption(OPTION_SHUTDOWN);
 	}
 }
