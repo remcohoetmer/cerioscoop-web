@@ -214,4 +214,12 @@ public class GeneralServiceTest extends DatabaseTest {
 		Assert.assertEquals(employeeThree ,generalService.authenticateEmployee(employeeThree, dbEmployees));
 		Assert.assertNotEquals(noEmployee ,generalService.authenticateEmployee(noEmployee, dbEmployees));
 	}
+	
+	@Test
+	public void testAuthenticateUser() {
+		final Employee testUser = null;
+		Assert.assertEquals(false, generalService.authenticateUser(testUser));
+		final Customer testCustomer = new Customer(1, "Marcel", "Groothuis", "Manollo7G", "secret", "mjg@cerios.nl", dateUtils.getCurrentSqlDate(), dateUtils.getCurrentSqlTime());
+		Assert.assertEquals(true, generalService.authenticateUser(testCustomer));
+	}
 }
