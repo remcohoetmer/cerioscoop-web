@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -36,7 +37,7 @@
 					<form method="POST" action="PaymentServlet">
 						<input type="hidden" name="showid" value=${showingId } /> 
 						<input type="hidden" name="chairAmount" value=${chairAmount } /> 
-						<input type="hidden" name="movieTitle" value=${movieTitle } /> 
+						<input type="hidden" name="movieTitle" value="${fn:escapeXml(movieTitle)}">
 						<select name="ticketamount">
 							<option value="1">1 Ticket</option>
 							<option value="2">2 Tickets</option>
