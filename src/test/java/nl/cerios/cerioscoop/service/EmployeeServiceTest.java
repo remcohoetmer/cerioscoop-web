@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.math.BigInteger;
 import java.text.ParseException;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -23,6 +24,9 @@ public class EmployeeServiceTest extends DatabaseTest {
 
 	@InjectMocks
 	private EmployeeService employeeService;
+	
+	@InjectMocks
+	private GeneralService generalService;
 
 	private final DateUtils dateUtils = new DateUtils();
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -87,7 +91,10 @@ public class EmployeeServiceTest extends DatabaseTest {
 
 	@Test
 	public void testDeleteMovieFromDatabase() {
-		employeeService.deleteMovieFromDatabase(updatedTestMovie.getMovieId().intValue());
+		employeeService.deleteMovieFromDatabase(1);
+		final List<Movie> movies = generalService.getMovies();
+		
+		Assert.assertEquals(2, movies.size());
 		Assert.assertNotNull(updatedTestMovie);
 		Assert.assertEquals("Movie is deleted.", outContent.toString().trim());
 	}
