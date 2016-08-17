@@ -34,7 +34,7 @@ public class EmployeeServiceTest extends DatabaseTest {
 	private PrintStream sysOut;
 	private PrintStream sysErr;
 	private final Movie updatedTestMovie = new MovieBuilder()
-			.withMovieId(BigInteger.valueOf(4))				//bij het updaten van de movie heb je WEL dezelfde movieId nodig als de testMovie!!
+			.withMovieId(BigInteger.valueOf(1))				//bij het updaten van de movie heb je WEL dezelfde movieId nodig als de testMovie!!
 			.withCategory(Category.ACTION)
 			.withTitle("Aangepast in DB")
 			.withMinutes(100)
@@ -84,7 +84,11 @@ public class EmployeeServiceTest extends DatabaseTest {
 
 	@Test
 	public void testUpdateMovieFromDatabase() {
+		final List<Movie> movies = generalService.getMovies();
+		Assert.assertNotEquals(movies.get(0).getTitle(), updatedTestMovie.getTitle());
 		employeeService.updateMovieFromDatabase(updatedTestMovie);
+		final List<Movie> updatedMovies = generalService.getMovies();
+		Assert.assertEquals(updatedMovies.get(0).getTitle(), updatedTestMovie.getTitle());
 		Assert.assertNotNull(updatedTestMovie);
 		Assert.assertEquals("Movie is updated.", outContent.toString().trim());
 	}
@@ -93,7 +97,6 @@ public class EmployeeServiceTest extends DatabaseTest {
 	public void testDeleteMovieFromDatabase() {
 		employeeService.deleteMovieFromDatabase(1);
 		final List<Movie> movies = generalService.getMovies();
-		
 		Assert.assertEquals(2, movies.size());
 		Assert.assertNotNull(updatedTestMovie);
 		Assert.assertEquals("Movie is deleted.", outContent.toString().trim());
