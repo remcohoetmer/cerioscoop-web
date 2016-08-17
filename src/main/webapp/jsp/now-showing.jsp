@@ -11,6 +11,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +61,7 @@
 					<td>
 						<form method="post" action="TicketServlet">
 							<input type="hidden" name="showid" value=${show.showingId} />
-							<input type="hidden" name="movieTitle" value=${show.movieTitle} />
+							<input type="hidden" name="movieTitle" value="${fn:escapeXml(show.movieTitle)}">
 							<input type="hidden" name="showingDate" value=${show.showingDate} />
 							<input type="hidden" name="showingTime" value=${show.showingTime} />
 							<input type="hidden" name="roomName" value=${show.roomName} />
