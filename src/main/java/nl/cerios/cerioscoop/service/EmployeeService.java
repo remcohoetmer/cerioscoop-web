@@ -22,7 +22,7 @@ public class EmployeeService {
 	public void addMovie(final Movie newMovie) {
 		try (final Connection connection = dataSource.getConnection()){
 			final PreparedStatement preparedStatement = connection.prepareStatement(
-					"INSERT INTO movie (category, title, minutes, movie_type, language, description, trailer) VALUES (?,?,?,?,?,?,?);");
+					"INSERT INTO movie (category, title, minutes, movie_type, language, description, trailer) VALUES (?,?,?,?,?,?,?)");
 			preparedStatement.setString(1, newMovie.getCategory().name());
 			preparedStatement.setString(2, newMovie.getTitle());
 			preparedStatement.setInt(3, newMovie.getMinutes());
@@ -41,7 +41,7 @@ public class EmployeeService {
 	public void addShow(final Show show){		
 		try (final Connection connection = dataSource.getConnection();
 			final PreparedStatement preparedStatement = connection.prepareStatement(
-					"INSERT INTO `show` (movie_id, room_id, show_date, show_time) VALUES (?,?,?,?);")) {
+					"INSERT INTO show_table (movie_id, room_id, show_date, show_time) VALUES (?,?,?,?)")) {
 			
         	preparedStatement.setInt(1, show.getMovieId());
         	preparedStatement.setInt(2, show.getRoomId());
@@ -58,7 +58,7 @@ public class EmployeeService {
 	public void addRoom(final Room room) {
 		try (final Connection connection = dataSource.getConnection();
 				final PreparedStatement preparedStatement = connection.prepareStatement(
-						"INSERT INTO room (room_id, room_name, chair_amount, room_type) VALUES (?,?,?,?);")) {
+						"INSERT INTO room (room_id, room_name, chair_amount, room_type) VALUES (?,?,?,?)")) {
 				
         	preparedStatement.setInt(1, room.getRoomId());
         	preparedStatement.setString(2, room.getName());
@@ -110,7 +110,7 @@ public class EmployeeService {
     }
 
 	public void deleteShowFromDatabase(int showId) {
-			String deleteSQL = "DELETE FROM `show` WHERE show_id = ?";
+			String deleteSQL = "DELETE FROM show_table WHERE show_id = ?";
 			
 			try {
 				final Connection connection = dataSource.getConnection();
@@ -126,7 +126,7 @@ public class EmployeeService {
 	
 	public void updateShowFromDatabase(final Show show){
 			              
-	          String updateSQL = "UPDATE `show` SET movie_id = ?, room_id = ?, show_date = ?, show_time = ? WHERE show_id = ?";
+	          String updateSQL = "UPDATE show_table SET movie_id = ?, room_id = ?, show_date = ?, show_time = ? WHERE show_id = ?";
 			              
 	          try {
 		           final Connection connection = dataSource.getConnection();
@@ -149,7 +149,7 @@ public class EmployeeService {
 	public void newEmployee(final Employee customer){
 		try (final Connection connection = dataSource.getConnection();
 				final PreparedStatement preparedStatement = connection.prepareStatement(
-						"INSERT INTO employee (first_name, last_name, username, password, email, employee_create_date, employee_create_time) VALUES (?,?,?,?,?,?,?);")) {
+						"INSERT INTO employee (first_name, last_name, username, password, email, employee_create_date, employee_create_time) VALUES (?,?,?,?,?,?,?)")) {
 				
 	        	preparedStatement.setString(1, customer.getFirstName());
 	        	preparedStatement.setString(2, customer.getLastName());

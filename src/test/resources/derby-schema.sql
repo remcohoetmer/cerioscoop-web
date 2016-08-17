@@ -66,7 +66,7 @@ CREATE TABLE room (
   PRIMARY KEY (room_id)
 );
 
-CREATE TABLE show (
+CREATE TABLE show_table (
   show_id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
   movie_id INTEGER NOT NULL,
   room_id INTEGER NOT NULL,
@@ -77,6 +77,6 @@ CREATE TABLE show (
 
 CREATE VIEW show_presentation AS 
 	SELECT S.show_id, M.title, R.room_name, S.show_date, S.show_time, R.chair_amount, M.trailer
-		FROM show S 
+		FROM show_table S 
 		JOIN movie M ON S.movie_id = M.movie_id
 		JOIN room R ON R.room_id = S.room_id;

@@ -1,4 +1,4 @@
-package nl.cerios.cerioscoop.jsp;
+package nl.cerios.cerioscoop.selenium;
 
 import org.junit.Assert;
 import org.junit.Test;
