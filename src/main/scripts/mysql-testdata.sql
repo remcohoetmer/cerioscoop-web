@@ -76,9 +76,9 @@ INSERT INTO `room` (`room_id`, `room_name`, `chair_amount`, `room_type`) VALUES
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 
 -- Dumpen data van tabel cerioscoop.show: ~4 rows (ongeveer)
-DELETE FROM `show`;
+DELETE FROM `show_table`;
 /*!40000 ALTER TABLE `show` DISABLE KEYS */;
-INSERT INTO `show` (`show_id`, `movie_id`, `room_id`, `show_date`, `show_time`) VALUES
+INSERT INTO `show_table` (`show_id`, `movie_id`, `room_id`, `show_date`, `show_time`) VALUES
 	(1, 1, 1, '2016-12-01', '20:00:00'),
 	(2, 2, 1, '2016-12-01', '21:00:00'),
 	(3, 2, 2, '2016-12-01', '22:00:00'),

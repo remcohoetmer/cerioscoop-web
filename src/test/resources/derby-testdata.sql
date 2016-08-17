@@ -32,7 +32,7 @@ INSERT INTO room (room_name, chair_amount, room_type) VALUES
 	('red room', 50, 2),
 	('blue room', 20, 3);
 
-INSERT INTO show (movie_id, room_id, show_date, show_time) VALUES
+INSERT INTO show_table (movie_id, room_id, show_date, show_time) VALUES
 	(1, 1, '2016-12-01', '20:00:00'),
 	(2, 1, '2016-12-01', '21:00:00'),
 	(2, 2, '2016-12-01', '22:00:00'),

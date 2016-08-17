@@ -14,7 +14,6 @@ import javax.sql.DataSource;
 import org.apache.derby.jdbc.EmbeddedDataSource40;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.mockito.Spy;
 
 public class DatabaseTest {

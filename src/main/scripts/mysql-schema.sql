@@ -108,8 +108,8 @@ CREATE TABLE IF NOT EXISTS `room` (
 
 -- Data exporteren was gedeselecteerd
 -- Structuur van  tabel cerioscoop.show wordt geschreven
-DROP TABLE IF EXISTS `show`;
-CREATE TABLE IF NOT EXISTS `show` (
+DROP TABLE IF EXISTS `show_table`;
+CREATE TABLE IF NOT EXISTS `show_table` (
   `show_id` int(20) unsigned NOT NULL AUTO_INCREMENT,
   `movie_id` int(20) unsigned NOT NULL,
   `room_id` int(20) unsigned NOT NULL,
