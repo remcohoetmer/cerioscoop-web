@@ -19,7 +19,6 @@
 	</div>
 
 	<div class="body-home-image-content">
-		<script src="js/ImageSlider.js"></script>
 
 		<!--w3schools code http://www.w3schools.com/howto/howto_js_slideshow.asp-->
 		<div class="slideshow-container">
@@ -74,6 +73,43 @@
 				onclick="currentSlide(4)"></span> <span class="dot"
 				onclick="currentSlide(5)"></span>
 		</div>
+
+		<!--This should be ImageSlider.js from the folder js-->
+		<script>
+			var slideIndex = 1;
+			showSlides(slideIndex);
+
+			function plusSlides(n) {
+				showSlides(slideIndex += n);
+			}
+
+			function currentSlide(n) {
+				showSlides(slideIndex = n);
+			}
+
+			function showSlides(n) {
+				var i;
+				var slides = document.getElementsByClassName("mySlides");
+				var dots = document.getElementsByClassName("dot");
+				if (n > slides.length) {
+					slideIndex = 1
+				}
+				if (n < 1) {
+					slideIndex = slides.length
+				}
+				for (i = 0; i < slides.length; i++) {
+					slides[i].style.display = "none";
+				}
+				for (i = 0; i < dots.length; i++) {
+					dots[i].className = dots[i].className
+							.replace(" active", "");
+				}
+				slides[slideIndex - 1].style.display = "block";
+				dots[slideIndex - 1].className += " active";
+			}
+		</script>
+
+
 	</div>
 
 	<div class="body-footer-wrapper">
