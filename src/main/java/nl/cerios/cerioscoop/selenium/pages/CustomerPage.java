@@ -9,13 +9,13 @@ public class CustomerPage {
 
 	@FindBy(className = "login-message")
 	private WebElement welcomeMessageParagraph;
-	
-	public CustomerPage(WebDriver driver) {
-	    // This call sets the WebElement fields.
-	    PageFactory.initElements(driver, this);
-	  }
 
-	  public String getWelcomeMessage() {
-	    return welcomeMessageParagraph.getText();
-	  }
+	public CustomerPage(WebDriver driver) {
+		// This call sets the WebElement fields.
+		PageFactory.initElements(driver, this);
+	}
+
+	public String getWelcomeMessage() {
+		return welcomeMessageParagraph.getText();
+	}
 }
