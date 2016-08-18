@@ -60,6 +60,7 @@ body {
   bottom: 8px;
   width: 100%;
   text-align: center;
+  box-sizing: border-box;
 }
 
 /* Number text (1/5 etc) */
@@ -90,8 +91,14 @@ body {
 
 /* Fading animation */
 .fade {
-  -webkit-animation-name: fade;
+  -webkit-animation-name: fade;			/* safari/chrome */
   -webkit-animation-duration: 1.5s;
+  -moz-animation-name: fade;			/* firefox */
+  -moz-animation-duration: 1.5s;
+  -o-animation-name: fade;				/* opera */
+  -o-animation-duration: 1.5s;
+  -ms-animation-name: fade;				/* internet explorer */
+  -ms-animation-duration: 1.5s;
   animation-name: fade;
   animation-duration: 1.5s;
 }
