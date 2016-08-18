@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 public class TicketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	String showingId;
-	String movieTitle;
-	String showingDate;
-	String showingTime;
-	String roomName;
-	String chairAmount;
+	private String showingId;
+	private String movieTitle;
+	private String showingDate;
+	private String showingTime;
+	private String roomName;
+	private String chairAmount;
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
