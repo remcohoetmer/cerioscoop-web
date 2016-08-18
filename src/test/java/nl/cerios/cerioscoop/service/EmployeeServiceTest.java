@@ -86,9 +86,11 @@ public class EmployeeServiceTest extends DatabaseTest {
 	public void testUpdateMovieFromDatabase() {
 		final List<Movie> movies = generalService.getMovies();
 		Assert.assertNotEquals(movies.get(0).getTitle(), updatedTestMovie.getTitle());
+		Assert.assertEquals(updatedTestMovie.getMovieId(),movies.get(0).getMovieId());
 		employeeService.updateMovieFromDatabase(updatedTestMovie);
 		final List<Movie> updatedMovies = generalService.getMovies();
 		Assert.assertEquals(updatedMovies.get(0).getTitle(), updatedTestMovie.getTitle());
+		Assert.assertEquals(updatedTestMovie.getMovieId(),movies.get(0).getMovieId());
 		Assert.assertNotNull(updatedTestMovie);
 		Assert.assertEquals("Movie is updated.", outContent.toString().trim());
 	}
