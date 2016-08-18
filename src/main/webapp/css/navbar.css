@@ -52,6 +52,7 @@ a {
     background-color: #333;
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 999;
 }
 .navbar-dropdown-button-movie-content a, .login-menu a {
     color: white;
@@ -59,6 +60,7 @@ a {
     text-decoration: none;
     display: block;
     text-align: left;
+    z-index: 999;
 }
 
 .navbar-button:hover .navbar-dropdown-button-movie-content, .navbar-button:hover .login-menu {
