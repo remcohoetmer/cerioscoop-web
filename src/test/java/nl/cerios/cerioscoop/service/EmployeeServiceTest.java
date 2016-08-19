@@ -1,12 +1,11 @@
 package nl.cerios.cerioscoop.service;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,37 +28,6 @@ public class EmployeeServiceTest extends DatabaseTest {
 	private GeneralService generalService;
 
 	private final DateUtils dateUtils = new DateUtils();
-	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-	private PrintStream sysOut;
-	private PrintStream sysErr;
-	private final Movie updatedTestMovie = new MovieBuilder()
-			.withMovieId(BigInteger.valueOf(1))				//bij het updaten van de movie heb je WEL dezelfde movieId nodig als de testMovie!!
-			.withCategory(Category.ACTION)
-			.withTitle("Aangepast in DB")
-			.withMinutes(100)
-			.withType(2) // 3D
-			.withLanguage("SQL+")
-			.withDescription("bagger b-film")
-			.withTrailer("#")
-			.build();
-	private Show updatedTestShow;
-	
-
-	@Before
-	public void setUpStreams() {
-		sysOut = System.out;
-		sysErr = System.err;
-		System.setOut(new PrintStream(outContent));
-		System.setErr(new PrintStream(errContent));
-	}
-
-	@Before
-	public void createTestShow() throws ParseException {
-		updatedTestShow = new Show(1,1,1, 
-			dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-06-2016"))),
-			dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
-	}
 	
 	@Before
 	public void initMocks() {
@@ -68,6 +36,11 @@ public class EmployeeServiceTest extends DatabaseTest {
 
 	@Test
 	public void testAddMovie() {
+		// Get a collection of all movieID's that are currently in the database.
+		final Set<BigInteger> movieIDsBefore = generalService.getMovies().stream()
+				.map(Movie::getMovieId)
+				.collect(Collectors.toSet());
+		
 		final Movie testMovie = new MovieBuilder()		//let op bij het inserten van de movie is geen movieId nodig!!
 				.withCategory(Category.valueOf("COMEDY"))
 				.withTitle("Gaat in DB")
@@ -77,50 +50,125 @@ public class EmployeeServiceTest extends DatabaseTest {
 				.withDescription("bagger d-film")
 				.withTrailer("#")
 				.build();
-
+		
 		employeeService.addMovie(testMovie);
-		Assert.assertEquals("Data inserted.", outContent.toString().trim());
+		
+		// Get a list of movies that have just been inserted in the database.
+		final List<Movie> insertedMovies = generalService.getMovies();
+		insertedMovies.removeIf(movie -> movieIDsBefore.contains(movie.getMovieId()));
+		
+		Assert.assertEquals(1,  insertedMovies.size());
+		final Movie insertedMovie = insertedMovies.get(0);
+		Assert.assertEquals(testMovie.getCategory(), insertedMovie.getCategory());
+		Assert.assertEquals(testMovie.getTitle(), insertedMovie.getTitle());
+		Assert.assertEquals(testMovie.getMinutes(), insertedMovie.getMinutes());
+		Assert.assertEquals(testMovie.getMovieType(), insertedMovie.getMovieType());
+		Assert.assertEquals(testMovie.getLanguage(), insertedMovie.getLanguage());
+		Assert.assertEquals(testMovie.getDescription(), insertedMovie.getDescription());
+		Assert.assertEquals(testMovie.getTrailer(), insertedMovie.getTrailer());
 	}
 
 	@Test
 	public void testUpdateMovieFromDatabase() {
-		final List<Movie> movies = generalService.getMovies();
-		Assert.assertNotEquals(movies.get(0).getTitle(), updatedTestMovie.getTitle());
-		Assert.assertEquals(updatedTestMovie.getMovieId(),movies.get(0).getMovieId());
+		final BigInteger idOfMovieToBeUpdated = new BigInteger("1");
+		final Movie updatedTestMovie = new MovieBuilder()
+				.withMovieId(idOfMovieToBeUpdated)		//bij het updaten van de movie heb je WEL dezelfde movieId nodig als de testMovie!!
+				.withCategory(Category.HORROR)
+				.withTitle("Aangepast in DB")
+				.withMinutes(100)
+				.withType(2) // 3D
+				.withLanguage("SQL+")
+				.withDescription("bagger b-film")
+				.withTrailer("#")
+				.build();
+		
+		final Movie movieBefore = getMovie(idOfMovieToBeUpdated);
+		Assert.assertNotNull(movieBefore);
+		Assert.assertNotEquals(updatedTestMovie.getCategory(), movieBefore.getCategory());
+		Assert.assertNotEquals(updatedTestMovie.getTitle(), movieBefore.getTitle());
+		Assert.assertNotEquals(updatedTestMovie.getMinutes(), movieBefore.getMinutes());
+		Assert.assertNotEquals(updatedTestMovie.getMovieType(), movieBefore.getMovieType());
+		Assert.assertNotEquals(updatedTestMovie.getLanguage(), movieBefore.getLanguage());
+		Assert.assertNotEquals(updatedTestMovie.getDescription(), movieBefore.getDescription());
+		Assert.assertNotEquals(updatedTestMovie.getTrailer(), movieBefore.getTrailer());
+		
 		employeeService.updateMovieFromDatabase(updatedTestMovie);
-		final List<Movie> updatedMovies = generalService.getMovies();
-		Assert.assertEquals(updatedMovies.get(0).getTitle(), updatedTestMovie.getTitle());
-		Assert.assertEquals(updatedTestMovie.getMovieId(),movies.get(0).getMovieId());
-		Assert.assertNotNull(updatedTestMovie);
-		Assert.assertEquals("Movie is updated.", outContent.toString().trim());
+
+		final Movie movieAfter = getMovie(idOfMovieToBeUpdated);
+		Assert.assertNotNull(movieAfter);
+		Assert.assertEquals(updatedTestMovie.getCategory(), movieAfter.getCategory());
+		Assert.assertEquals(updatedTestMovie.getTitle(), movieAfter.getTitle());
+		Assert.assertEquals(updatedTestMovie.getMinutes(), movieAfter.getMinutes());
+		Assert.assertEquals(updatedTestMovie.getMovieType(), movieAfter.getMovieType());
+		Assert.assertEquals(updatedTestMovie.getLanguage(), movieAfter.getLanguage());
+		Assert.assertEquals(updatedTestMovie.getDescription(), movieAfter.getDescription());
+		Assert.assertEquals(updatedTestMovie.getTrailer(), movieAfter.getTrailer());
 	}
 
 	@Test
 	public void testDeleteMovieFromDatabase() {
-		employeeService.deleteMovieFromDatabase(1);
-		final List<Movie> movies = generalService.getMovies();
-		Assert.assertEquals(2, movies.size());
-		Assert.assertNotNull(updatedTestMovie);
-		Assert.assertEquals("Movie is deleted.", outContent.toString().trim());
+		final List<Movie> moviesBefore = generalService.getMovies();
+		Assert.assertFalse(moviesBefore.isEmpty());
+		final BigInteger idOfMovieToBeDeleted = moviesBefore.get(0).getMovieId();
+		
+		employeeService.deleteMovieFromDatabase(idOfMovieToBeDeleted.intValue());
+		
+		final List<Movie> moviesAfter = generalService.getMovies();
+		Assert.assertEquals(moviesBefore.size() - 1, moviesAfter.size());
+		
+		final Movie movieAfter = getMovie(idOfMovieToBeDeleted);
+		Assert.assertNull(movieAfter);
 	}
 	
 	@Test
-	public void testUpdateShowFromDatabase() throws ParseException{
+	public void testUpdateShowFromDatabase() throws ParseException {
+		final int idOfShowToBeUpdated = 1;
+		final Show updatedTestShow = new Show(idOfShowToBeUpdated,2,3, 
+				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-06-2016"))),
+				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("21:00:00"))));
+		
+		final Show showBefore = getShow(idOfShowToBeUpdated);
+		Assert.assertNotNull(showBefore);
+		Assert.assertNotEquals(updatedTestShow.getMovieId(), showBefore.getMovieId());
+		Assert.assertNotEquals(updatedTestShow.getRoomId(), showBefore.getRoomId());
+		Assert.assertNotEquals(updatedTestShow.getShowDate(), showBefore.getShowDate());
+		Assert.assertNotEquals(updatedTestShow.getShowTime(), showBefore.getShowTime());
+		
 		employeeService.updateShowFromDatabase(updatedTestShow);
-		Assert.assertNotNull(updatedTestShow);
-		Assert.assertEquals("Show is updated.", outContent.toString().trim());
+
+		final Show showAfter = getShow(idOfShowToBeUpdated);
+		Assert.assertNotNull(showAfter);
+		Assert.assertEquals(updatedTestShow.getMovieId(), showAfter.getMovieId());
+		Assert.assertEquals(updatedTestShow.getRoomId(), showAfter.getRoomId());
+		Assert.assertEquals(updatedTestShow.getShowDate(), showAfter.getShowDate());
+		// Compare java.sql.Time objects by their String values, to prevent differences in milliseconds from failing the test.
+		Assert.assertEquals(updatedTestShow.getShowTime().toString(), showAfter.getShowTime().toString());
 	}
 	
 	@Test
-	public void testDeleteShowFromDatabase() throws ParseException{
-		employeeService.deleteShowFromDatabase(updatedTestShow.getShowId());
-		Assert.assertNotNull(updatedTestShow);
-		Assert.assertEquals("Show is deleted.", outContent.toString().trim());
+	public void testDeleteShowFromDatabase() {
+		final int idOfShowToBeDeleted = 1;
+		
+		final Show showBefore = getShow(idOfShowToBeDeleted);
+		Assert.assertNotNull(showBefore);
+		
+		employeeService.deleteShowFromDatabase(idOfShowToBeDeleted);
+
+		final Show showAfter = getShow(idOfShowToBeDeleted);
+		Assert.assertNull(showAfter);
 	}
 
-	@After
-	public void cleanUpStreams() {
-		System.setOut(sysOut);
-		System.setErr(sysErr);
+	private Movie getMovie(final BigInteger movieID) {
+		return generalService.getMovies().stream()
+				.filter(m -> m.getMovieId().equals(movieID))
+				.findAny()
+				.orElse(null);
+	}
+
+	private Show getShow(final int showID) {
+		return generalService.getShows().stream()
+				.filter(s -> s.getShowId() == showID)
+				.findAny()
+				.orElse(null);
 	}
 }
