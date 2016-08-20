@@ -48,4 +48,5 @@ after_success:
 - gcloud container clusters get-credentials cerioscoop-cluster;
 # kijken wat er precies in de configuratie staat
 - kubectl config view;
+- export GOOGLE_APPLICATION_CREDENTIALS=client-secret.json
 - kubectl patch deployment cerioscoop-deployment -p   '{"spec":{"template":{"spec":{"containers":[{"name":"cerioscoop-deployment","image":"'"$IMAGE_VERSION"'"}]}}}}';
