@@ -65,7 +65,6 @@ after_success:
 # export var is nodig sinds gcloud 121 (zie https://github.com/kubernetes/kubernetes/issues/30617)
 # met het patch commanod kunnen we makkelijk enkel de docker image van een deployment aanpassen
 - if doDeploy; then    
-    kubectl config view;
-    export GOOGLE_APPLICATION_CREDENTIALS=client-secret.json
+    export GOOGLE_APPLICATION_CREDENTIALS=client-secret.json;
     kubectl patch deployment cerioscoop-deployment -p   '{"spec":{"template":{"spec":{"containers":[{"name":"cerioscoop-deployment","image":"'"$IMAGE_VERSION"'"}]}}}}';
   fi
