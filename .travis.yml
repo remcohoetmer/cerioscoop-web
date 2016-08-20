@@ -31,17 +31,22 @@ script:
 # met het patch commando kunnen we de image in een deployment updaten
 after_success:
 - ./publish-codacy-coverage.sh
-- if [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "travis" ]; then
+
+#definieer boolean functie voor wel/niet deployen
+- doDeploy() { if [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "travis" ]; then return 0; else return 1; fi }
+
+- if doDeploy; then
     echo "Creating docker image $IMAGE_VERSION";
     docker build -t $IMAGE_VERSION .;
     docker tag $IMAGE_VERSION $IMAGE:latest;
     docker login --email=$DOCKER_HUB_EMAIL --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PASSWORD;
     docker push $IMAGE;
+    echo "Pushed image to the docker hub";
   fi
 
 # een apart block met dezelfde if-conditie, puur omdat dit in de travis logging makkelijker is
 # in travis kun je de log namelijk per block in en uit klappen
-- if [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "travis" ]; then    
+- if doDeploy; then    
     echo "Showing default gcloud version of travis";
     gcloud version;
     curl https://sdk.cloud.google.com | bash;
@@ -59,7 +64,7 @@ after_success:
 # kijken wat er precies in de configuratie staat
 # export var is nodig sinds gcloud 121 (zie https://github.com/kubernetes/kubernetes/issues/30617)
 # met het patch commanod kunnen we makkelijk enkel de docker image van een deployment aanpassen
-- if [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "travis" ]; then    
+- if doDeploy; then    
     kubectl config view;
     export GOOGLE_APPLICATION_CREDENTIALS=client-secret.json
     kubectl patch deployment cerioscoop-deployment -p   '{"spec":{"template":{"spec":{"containers":[{"name":"cerioscoop-deployment","image":"'"$IMAGE_VERSION"'"}]}}}}';
