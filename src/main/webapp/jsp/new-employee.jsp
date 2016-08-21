@@ -29,5 +29,7 @@
 	  <br><input type="submit" name="submitit" value="Submit">
 	</form> 
 	</div>
+	
+	<jsp:include page="/jsp/footer.jsp" />
 </body>
 </html>

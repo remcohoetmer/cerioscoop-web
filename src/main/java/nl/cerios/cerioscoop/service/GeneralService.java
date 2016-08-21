@@ -20,6 +20,8 @@ import nl.cerios.cerioscoop.domain.Employee;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
+import nl.cerios.cerioscoop.domain.ShowPresentation;
+import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
 import nl.cerios.cerioscoop.domain.User;
 import nl.cerios.cerioscoop.util.DateUtils;
 
@@ -33,7 +35,7 @@ public class GeneralService {
 		final List<Movie> movies = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()) {			//AutoCloseable
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, title, category, minutes, movie_type, language, description FROM movie");
+			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, title, category, minutes, movie_type, language, description, trailer FROM movie");
 			while (resultSet.next()) {
 				final Movie movie = new MovieBuilder()
 						.withMovieId(resultSet.getBigDecimal("movie_id").toBigInteger())
@@ -43,6 +45,7 @@ public class GeneralService {
 						.withType(resultSet.getInt("movie_type"))
 						.withLanguage(resultSet.getString("language"))
 						.withDescription(resultSet.getString("description"))
+						.withTrailer(resultSet.getString("trailer"))
 						.build();
 				movies.add(movie);
 			}
@@ -56,7 +59,7 @@ public class GeneralService {
 		final List<Show> shows = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()){
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT show_id, movie_id, room_id, show_date, show_time FROM `show`"); { 
+			final ResultSet resultSet = statement.executeQuery("SELECT show_id, movie_id, room_id, show_date, show_time FROM show_table"); { 
 			while (resultSet.next()) {
 				final int showId = resultSet.getInt("show_id");
 				final int movieId = resultSet.getInt("movie_id");
@@ -123,22 +126,46 @@ public class GeneralService {
 	    }
 	}
 	
+	public List<ShowPresentation> getShowings(){
+		final List<ShowPresentation> showings = new ArrayList<>();
+		try (final Connection connection = dataSource.getConnection()){
+			final Statement statement = connection.createStatement();
+			final ResultSet resultSet = statement.executeQuery("SELECT show_id, title, room_name, show_date, show_time, chair_amount, trailer FROM show_presentation"); { 
+
+			while (resultSet.next()) {
+				final ShowPresentation show = new ShowPresentationBuilder()
+						.withShowingId(resultSet.getBigDecimal("show_id").toBigInteger())
+						.withMovieTitle(resultSet.getString("title"))
+						.withRoomName(resultSet.getString("room_name"))
+						.withShowingDate(resultSet.getDate("show_date"))
+						.withShowingTime(resultSet.getTime("show_time"))
+						.withChairAmount(resultSet.getBigDecimal("chair_amount").toBigInteger())
+						.withTrailer(resultSet.getString("trailer"))
+						.build();			
+				showings.add(show);
+	        	}
+	        return showings;
+	      }
+	    }catch (final SQLException e) {
+	    	throw new ServiceException("Something went terribly wrong while retrieving the ShowingList.", e);
+	    }
+	}
 	/**
 	 * Returns a first showing record.
 	 * 
 	 * @return firstShowing
 	 */
-	public Show getFirstShowAfterCurrentDate(final List<Show> listOfShows){
-		final List<Show> shows = listOfShows;
+	public ShowPresentation getFirstShowAfterCurrentDate(final List<ShowPresentation> listOfShows){
+		final List<ShowPresentation> shows = listOfShows;
 		final DateUtils dateUtils = new DateUtils();
-		Show firstShow = null;
+		ShowPresentation firstShow = null;
 		
-		for (final Show show : shows) {
-			if(show.getShowDate().after(dateUtils.getCurrentSqlDate())){	
+		for (final ShowPresentation show : shows) {
+			if(show.getShowingDate().after(dateUtils.getCurrentSqlDate())){	
 				if(firstShow == null){			//hier wordt voor 1x eerstVolgendeFilm gevuld					
 					firstShow = show;
 				}
-				else if(show.getShowDate().before(firstShow.getShowDate())){
+				else if(show.getShowingDate().before(firstShow.getShowingDate())){
 					firstShow = show;			
 				}
 			}

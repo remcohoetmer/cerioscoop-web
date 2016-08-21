@@ -7,14 +7,15 @@
 <title>Delete show</title>
 </head>
 <body>
-<div id="navbar">
- 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
- 	</div>
+ 	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+ 	
 <h1>Delete show</h1>
 <form method="POST" action="/cerioscoop-web/DeleteShowServlet"> 
  Show ID:<br>
 <input type="text" name="show_id"><br>
 <br><input type="submit" name="submitit" value="Submit">
-</form> 
+</form>
+
+	<jsp:include page="/jsp/footer.jsp" /> 
 </body>
 </html>

@@ -5,14 +5,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
+
+	<!-- Login CSS
+   	================================================== -->
+	<link rel="stylesheet" href="/cerioscoop-web/css/login.css">
+	
 </head>
 <body>
-<form name="login" method="post" action="/cerioscoop-web/LoginServlet">
-
-	<br>User Name: <input id="loginUsername" type="text" name="txtUserName"/>
-	<br>Password: <input id="loginPassword" type="password" name="txtPassword"/>
-	<br><button id="login" type="submit">Login</button>
-
-</form>
+<div class="login-dropdown">
+	Welcome
+	<div class="login-form">
+		<form name="login" method="post" action="/cerioscoop-web/LoginServlet">
+			User Name: 
+		<br><input id="loginUsername" type="text" name="txtUserName"/>
+		<br>Password: 
+		<br><input id="loginPassword" type="password" name="txtPassword"/>
+		<br><button id="login-button" type="submit">LOGIN</button>
+		</form>
+		<a id="forgot-password" href="#">Forgot Password?</a>
+	</div>
+	<div>
+		<br>New Customer
+		<br><a id="register-button" href="/cerioscoop-web/jsp/register.jsp" class="button">REGISTER</a>
+	</div>
+</div>
 </body>
 </html>

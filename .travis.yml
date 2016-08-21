@@ -68,3 +68,4 @@ after_success:
     export GOOGLE_APPLICATION_CREDENTIALS=client-secret.json;
     kubectl patch deployment cerioscoop-deployment -p   '{"spec":{"template":{"spec":{"containers":[{"name":"cerioscoop-deployment","image":"'"$IMAGE_VERSION"'"}]}}}}';
   fi
+

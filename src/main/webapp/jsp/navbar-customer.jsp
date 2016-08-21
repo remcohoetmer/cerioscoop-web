@@ -12,11 +12,11 @@
 
 </head>
 <body>
-<div class="menu">
-	<ul>
-		<li><a href="../jsp/add-room.jsp">LOG OUT</a></li>
-		<li><a href="#editcustomer">EDIT CUSTOMER</a></li>
-	</ul>
+<div class="navbar-customer">
+	
+		<div class="nav-customer-button"><a href="../index.jsp"><span class="nav-customer-button-text">LOG OUT</span></a></div>
+		<div class="nav-customer-button"><a href="#editcustomer"><span class="nav-customer-button-text">EDIT CUSTOMER</span></a></div>
+	
 </div>
 </body>
 </html>
