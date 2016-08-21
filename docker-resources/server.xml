@@ -25,5 +25,5 @@
                   databaseName="${env.DB_DATABASENAME}"/>
 	</dataSource>
   
-    <webApplication id="cerioscoop-web" location="cerioscoop-web.war" name="cerioscoop-web"/>
+    <application type="war" id="cerioscoop-web" location="cerioscoop-web.war" name="cerioscoop-web"/>
 </server>

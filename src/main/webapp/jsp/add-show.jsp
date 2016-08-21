@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,22 +17,21 @@
  $( "#datepicker" ).datepicker();});
 </script>
 
+		<link href='/cerioscoop-web/css/masterdetail.css' type='text/css' rel='stylesheet' />
+
 </head>
 <body>
-
-	<div id="navbar">
- 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
- 	</div>
+ 	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
 
 <h1>Add show</h1>
 
 	<div>
 		<form name="add-showing" method="post" action="/cerioscoop-web/AddShowServlet">
 		Movie ID:<br>
-		<input type="text" name="movieID"><br>
+		<input type="text" name="movie_id"><br>
 		<br>Room name:<br>
-		<input type="radio" name="roomID" value="1"> Red room<br>
-		<input type="radio" name="roomID" value="2"> Blue room<br>
+		<input type="radio" name="room_id" value="1"> Red room<br>
+		<input type="radio" name="room_id" value="2"> Blue room<br>
 		<br>Premiere date:<br>
 		<input type="text" id="datepicker" name="premieredate"><br>
 		<br>Time:<br>
@@ -40,5 +40,42 @@
 		<input type="reset" value="cancel" />
 		</form>
 	</div>
+	<div>
+	
+	<table>
+<thead><th>Movietitle</th><th>plays on</th><th>time</th><th>room</th></thead>
+<tbody>
+
+<c:forEach items="${showing}" var="show">
+  
+<tr>
+	<td>${show.movieTitle}</td>
+	<td>${show.showingDate}</td>
+	<td>${show.showingTime}</td>
+	<td>${show.roomName}</td>
+</tr>
+
+</c:forEach>
+
+</tbody>
+</table>
+
+<table>
+<thead><th>MovieId</th><th>Title</th></thead>
+<tbody>
+
+<c:forEach items="${currentMovies}" var="currentMovies">
+  
+<tr>
+    <td>${currentMovies.movieId}</td>
+    <td>${currentMovies.title}</td>
+</tr>
+
+</c:forEach>
+
+</tbody>
+</table>
+	</div>
+	<jsp:include page="/jsp/footer.jsp" />
 </body>
 </html>

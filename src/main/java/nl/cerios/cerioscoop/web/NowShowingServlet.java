@@ -1,6 +1,7 @@
 package nl.cerios.cerioscoop.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,11 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import nl.cerios.cerioscoop.domain.Movie;
-import nl.cerios.cerioscoop.domain.Show;
+import nl.cerios.cerioscoop.domain.ShowPresentation;
+import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
 import nl.cerios.cerioscoop.service.GeneralService;
-import nl.cerios.cerioscoop.service.MovieNotFoundException;
-import nl.cerios.cerioscoop.service.ServiceException;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 /**
@@ -28,46 +27,48 @@ public class NowShowingServlet extends HttpServlet {
 	@EJB // call DB
 	private GeneralService generalService;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		final DateUtils dateUtils = new DateUtils();
-		final List<Movie> listOfMovies = generalService.getMovies();
-		final List<Show> shows = generalService.getShows();
-		final Show firstShowing = generalService.getFirstShowAfterCurrentDate(shows);
+		final List<ShowPresentation> showing = generalService.getShowings();
+		final List<ShowPresentation> nowShowing = new ArrayList<ShowPresentation>();
+		final ShowPresentation firstShowing = generalService.getFirstShowAfterCurrentDate(showing);
 
 		// Sort the shows by their showDate/showTime, oldest first.
-		shows.sort((itemL, itemR) -> {
-			int compare = itemL.getShowDate().compareTo(itemR.getShowDate());
+		showing.sort((itemL, itemR) -> {
+			int compare = itemL.getShowingDate().compareTo(itemR.getShowingDate());
 			if (compare == 0) {
-				compare = itemL.getShowTime().compareTo(itemR.getShowTime());
+				compare = itemL.getShowingTime().compareTo(itemR.getShowingTime());
 			}
 			return compare;
 		});
-
-		if (firstShowing != null) {
-			// Second object in red box
-			final String firstUpcomingMovie;
-			try {
-				firstUpcomingMovie = generalService.getMovieByMovieId(firstShowing.getMovieId(), listOfMovies).getTitle() + " on "
-						+ dateUtils.format2(firstShowing.getShowDate()) + " at "
-						+ dateUtils.timeFormat(firstShowing.getShowTime());
-			} catch (MovieNotFoundException e) {
-				throw new ServiceException("Something went terribly wrong while finding the movie.", e);
+		
+		//Building the NowShowingList to show only the shows after the current date
+		for (ShowPresentation show : showing){
+			if (show.getShowingDate().after(dateUtils.getCurrentDate())){
+				show = new ShowPresentationBuilder()
+					.withShowingId(show.getShowingId())
+					.withMovieTitle(show.getMovieTitle())
+					.withRoomName(show.getRoomName())
+					.withChairAmount(show.getChairAmount())
+					.withShowingDate(show.getShowingDate())
+					.withShowingTime(show.getShowingTime())
+					.withTrailer(show.getTrailer())
+					.build();			
+				nowShowing.add(show);
 			}
-
+		}
+		request.setAttribute("nowShowing", nowShowing);
+		
+		if(firstShowing != null){
 			// Third object in red box
-			final Date showDateTime = DateUtils.toDateTime(firstShowing.getShowDate(), firstShowing.getShowTime());
-			final String countdown = dateUtils
-					.calculateTime(dateUtils.getSecondsBetween(showDateTime, dateUtils.getCurrentDate()));
+			final Date showDateTime = DateUtils.toDateTime(firstShowing.getShowingDate(), firstShowing.getShowingTime());
+			final String countdown = dateUtils.calculateTime(dateUtils.getSecondsBetween(showDateTime, dateUtils.getCurrentDate()));
 
 			// Objects to sent to the now-showing.jsp
-			request.setAttribute("first_upcoming_movie", firstUpcomingMovie);
+			request.setAttribute("first_upcoming_movie", firstShowing.getMovieTitle());
 			request.setAttribute("countdown", countdown);
 		}
-
-		// Objects to sent to the now-showing.jsp
 		request.setAttribute("todays_date", dateUtils.getDate());
-		request.setAttribute("shows", shows);
 
 		// route to jsp
 		getServletContext().getRequestDispatcher("/jsp/now-showing.jsp").forward(request, response);
