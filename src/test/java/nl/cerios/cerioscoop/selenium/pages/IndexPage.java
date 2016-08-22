@@ -1,5 +1,7 @@
 package nl.cerios.cerioscoop.selenium.pages;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,6 +36,7 @@ public class IndexPage {
 		usernameTextfield.sendKeys(username);
 		passwordTextfield.sendKeys(password);
 		loginButton.click();
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 		return new EmployeePage(driver);
 	}
 	public CustomerPage loginToCustomerPage(String username, String password) {
@@ -41,6 +44,7 @@ public class IndexPage {
 		usernameTextfield.sendKeys(username);
 		passwordTextfield.sendKeys(password);
 		loginButton.click();
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 		return new CustomerPage(driver);
 	}
 }
