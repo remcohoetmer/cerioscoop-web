@@ -2,6 +2,7 @@ package nl.cerios.cerioscoop.util;
 
 import java.sql.Time;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,12 +17,10 @@ import java.util.concurrent.TimeUnit;
  *  http://joda-time.sourceforge.net/quickstart.html
  */
 public class DateUtils {
-	private static final String DATE_FORMAT = "dd-MM-yyyy";
-	private static final String DATE_FORMAT2 = "dd MMMMM";
-	private static final String DATE_FORMAT3 = "yyyy-dd-MM";
-	private static final String DATE_FORMAT_SQL = "yyyy-MM-dd";
-	private static final String TIME_FORMAT = "HH:mm:ss";
-	private static final String DATETIME_FORMAT = "yyyy-MM-dd hh:mm:ss";
+	private final String dateMonthFormat = "dd MMMMM";
+	private final String dateFormatSql = "yyyy-MM-dd";
+	private final String toDateFormat = "MM-dd-yyyy";
+	private final String timeFormat = "HH:mm:ss";
 	
 	public long getDaysBetween(final Date startDate, final Date endDate) {
 		long diff = Math.abs(endDate.getTime() - startDate.getTime());
@@ -100,6 +99,18 @@ public class DateUtils {
 		System.out.println(text);
 		return text;
 	}
+	
+	public java.sql.Date convertUtilDateToSqlDate(Date date){
+		final Date utilDate = toDate(date);
+		final java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		return sqlDate;
+	}
+	
+	public Time convertUtilDateToSqlTime(Date time){
+		final Date utilTime = toTime(time);
+		final Time sqlTime = new Time(utilTime.getTime());
+		return sqlTime;
+	}
 	/**
 	 * http://www.java2s.com/Code/JavaAPI/java.sql/PreparedStatementsetTimeintparameterIndexTimex.htm
 	 * 
@@ -120,33 +131,13 @@ public class DateUtils {
 	}
 	
 	/**
-	 * It returns a date object converted into a string with format "dd-MM-yyyy".
-	 * 
-	 * @param datum
-	 * @return String "dd-MM-yyyy"
-	 */
-	public String format(final Date datum) {
-	    return datum != null ? new SimpleDateFormat(DATE_FORMAT).format(datum) : "onbekend";
-	 }
-	
-	/**
 	 * It returns a date object converted into a string with format "dd MMMMM".
 	 * 
-	 * @param datum
+	 * @param date
 	 * @return String "dd MMMMM"
 	 */
-	public String format2(final Date datum) {
-	    return datum != null ? new SimpleDateFormat(DATE_FORMAT2).format(datum) : "onbekend";
-	 }
-	
-	/**
-	 * It returns a date object converted into a string with format "yyyy-dd-MM".
-	 * 
-	 * @param date
-	 * @return String "yyyy-dd-MM"
-	 */
-	public String format3(final Date date) {
-	    return date != null ? new SimpleDateFormat(DATE_FORMAT3, Locale.FRANCE).format(date) : "onbekend";
+	public String format2(final Date date) {
+	    return date != null ? new SimpleDateFormat(dateMonthFormat).format(date) : "unknown";
 	 }
 	
 	/**
@@ -156,7 +147,33 @@ public class DateUtils {
 	 * @return String "yyyy-MM-dd"
 	 */
 	public String sqlDatabaseFormat(final Date date) {
-	    return date != null ? new SimpleDateFormat(DATE_FORMAT_SQL, Locale.FRANCE).format(date) : "onbekend";
+	    return date != null ? new SimpleDateFormat(dateFormatSql, Locale.FRANCE).format(date) : "unknown";
+	 }
+	
+	/**
+	 * It returns a date object converted into a string with format "yyyy-MM-dd".
+	 * 
+	 * @param date
+	 * @return String "MM-dd-yyyy"
+	 * @throws ParseException 
+	 */
+	public Date toDateFormat(final String date) throws ParseException {
+		DateFormat format = new SimpleDateFormat(toDateFormat, Locale.FRANCE);
+		Date dateType = format.parse(date);
+	    return dateType;
+	 }
+	
+	/**
+	 * It returns a date object converted into a string with format "yyyy-MM-dd".
+	 * 
+	 * @param date
+	 * @return String "MM-dd-yyyy"
+	 * @throws ParseException 
+	 */
+	public Date toTimeFormat(final String time) throws ParseException {
+		DateFormat format = new SimpleDateFormat(timeFormat, Locale.FRANCE);
+		Date timeType = format.parse(time);
+	    return timeType;
 	 }
 	
 	/**
@@ -166,20 +183,39 @@ public class DateUtils {
 	 * @return String "HH:mm:ss"
 	 */
 	public String timeFormat(final Date time) {
-	    return time != null ? new SimpleDateFormat(TIME_FORMAT).format(time) : "onbekend";
-	 }
+	    return time != null ? new SimpleDateFormat(timeFormat).format(time) : "unknown";
+	}
 	
-	/**
-	 * It returns a time object converted into a string with format "yyyy-MM-dd hh:mm:ss".
-	 * 
-	 * @param time
-	 * @return String "yyyy-MM-dd hh:mm:ss"
-	 */
-	public String formatDatumEnTijd(final Date time) {
-	    return time != null ? new SimpleDateFormat(DATETIME_FORMAT).format(time) : "onbekend";
-	 }
 	public String getDate() {
 		return new SimpleDateFormat("d MMMM, HH:mm").format(new Date());
 	}
-  
+
+	public static Date toDateTime(final Date date, final Time time) {
+		final Calendar timeCal = Calendar.getInstance();
+		timeCal.setTime(time);
+		final Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.HOUR_OF_DAY, timeCal.get(Calendar.HOUR_OF_DAY));
+		cal.set(Calendar.MINUTE, timeCal.get(Calendar.MINUTE));
+		cal.set(Calendar.SECOND, timeCal.get(Calendar.SECOND));
+		cal.set(Calendar.MILLISECOND, timeCal.get(Calendar.MILLISECOND));
+		return cal.getTime();
+	}
+	
+	public Date toDate(final Date date) {
+		final Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		return cal.getTime();
+	}
+	
+	public Date toTime(final Date time) {
+		final Calendar timeCal = Calendar.getInstance();
+		timeCal.setTime(time);
+		final Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, timeCal.get(Calendar.HOUR_OF_DAY));
+		cal.set(Calendar.MINUTE, timeCal.get(Calendar.MINUTE));
+		cal.set(Calendar.SECOND, timeCal.get(Calendar.SECOND));
+		cal.set(Calendar.MILLISECOND, timeCal.get(Calendar.MILLISECOND));
+		return cal.getTime();
+	}
 }

@@ -36,15 +36,13 @@ INSERT INTO `customer` (`customer_id`, `first_name`, `last_name`, `username`, `p
 DELETE FROM `employee`;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
 INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `username`, `password`, `email`, `employee_create_date`, `employee_create_time`) VALUES
-	(1, 'Rutger', 'van Velzen', 'faust', 'Fausttothemax', 'rutger.van.velzen@cerios.nl', '2016-07-01', '21:00:00'),
-	(2, 'Marcel', 'Groothuis', 'marcel', 'HeerserMarcel', 'marcel.groothuis@cerios.nl', '2016-07-01', '21:00:00'),
-	(3, 'Ron', 'Sanders', 'ron', 'SuperRon', 'ron.sanders@cerios.nl', '2016-07-01', '21:00:00');
+	(1, 'Administrator', 'A', 'A', 'A', 'A@cerios.nl', '2016-07-01', '21:00:00');
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 
 -- Dumpen data van tabel cerioscoop.language: ~4 rows (ongeveer)
 DELETE FROM `language`;
 /*!40000 ALTER TABLE `language` DISABLE KEYS */;
-INSERT INTO `language` (`language_id`, `name`) VALUES
+INSERT INTO `language` (`language_id`, `language_name`) VALUES
 	(1, 'English'),
 	(2, 'Dutch'),
 	(3, 'French'),
@@ -54,37 +52,37 @@ INSERT INTO `language` (`language_id`, `name`) VALUES
 -- Dumpen data van tabel cerioscoop.movie: ~3 rows (ongeveer)
 DELETE FROM `movie`;
 /*!40000 ALTER TABLE `movie` DISABLE KEYS */;
-INSERT INTO `movie` (`movie_id`, `category`, `title`, `minutes`, `movie_type`, `language`, `description`) VALUES
-	(1, 'ACTION', 'The Legend of Tarzan (2016)', 90, 3, 'Dutch', 'A story about a boy that survived in the jungle.'),
-	(2, 'ACTION', 'Tarzan the Ape Man (1932)', 90, 2, 'English', 'A story about a boy that survived in the jungle.'),
-	(3, 'KIDS', 'Tarzan (1999)', 120, 2, 'English', 'A story about a boy that survived in the jungle.');
+INSERT INTO `movie` (`movie_id`, `category`, `title`, `minutes`, `movie_type`, `language`, `description`, `trailer`) VALUES
+	(1, 'ACTION', 'The Legend of Tarzan (2016)', 90, 3, 'Dutch', 'A story about a boy that survived in the jungle.', 'http://www.youtube.com/embed/hk8QXTuO9WM'),
+	(2, 'ACTION', 'Tarzan the Ape Man (1932)', 90, 2, 'English', 'A story about a boy that survived in the jungle.', '#'),
+	(3, 'KIDS', 'Tarzan (1999)', 120, 2, 'English', 'A story about a boy that survived in the jungle.', 'http://www.youtube.com/embed/lfciC33t3M0');
 /*!40000 ALTER TABLE `movie` ENABLE KEYS */;
 
 -- Dumpen data van tabel cerioscoop.payment: ~3 rows (ongeveer)
 DELETE FROM `payment`;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */;
 INSERT INTO `payment` (`payment_id`, `customer_id`, `show_id`, `room_id`, `chair_id`, `amount`, `payment_date`, `payment_time`) VALUES
-	(1, 1, 2, 1, 1, 10, '2016-07-01', '21:00:00'),
-	(2, 2, 1, 2, 2, 10, '2016-07-01', '21:00:00'),
-	(3, 3, 1, 1, 1, 10, '2016-07-01', '21:00:00');
+	(1, 1, 2, 1, 1, 10, '2018-07-01', '21:00:00'),
+	(2, 2, 1, 2, 2, 10, '2018-07-01', '20:00:00'),
+	(3, 3, 1, 1, 1, 10, '2018-07-01', '22:00:00');
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 
 -- Dumpen data van tabel cerioscoop.room: ~2 rows (ongeveer)
 DELETE FROM `room`;
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
-INSERT INTO `room` (`room_id`, `name`, `chair_amount`, `room_type`) VALUES
+INSERT INTO `room` (`room_id`, `room_name`, `chair_amount`, `room_type`) VALUES
 	(1, 'red room', 50, 2),
 	(2, 'blue room', 20, 3);
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 
 -- Dumpen data van tabel cerioscoop.show: ~4 rows (ongeveer)
-DELETE FROM `show`;
+DELETE FROM `show_table`;
 /*!40000 ALTER TABLE `show` DISABLE KEYS */;
-INSERT INTO `show` (`show_id`, `movie_id`, `room_id`, `show_date`, `show_time`) VALUES
-	(1, 1, 1, '2016-12-01', '21:00:00'),
+INSERT INTO `show_table` (`show_id`, `movie_id`, `room_id`, `show_date`, `show_time`) VALUES
+	(1, 1, 1, '2016-12-01', '20:00:00'),
 	(2, 2, 1, '2016-12-01', '21:00:00'),
-	(3, 2, 2, '2016-12-01', '21:00:00'),
-	(4, 3, 1, '2016-12-01', '21:00:00');
+	(3, 2, 2, '2016-12-01', '22:00:00'),
+	(4, 3, 1, '2017-12-01', '21:00:00');
 /*!40000 ALTER TABLE `show` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

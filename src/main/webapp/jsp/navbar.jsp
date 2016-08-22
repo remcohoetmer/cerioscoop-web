@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -13,23 +13,58 @@
 </head>
 <body>
 
-<div class="navbar">
-	<ul>
-		<li><a href="/cerioscoop-web/index.jsp">CERIOSCOOP</a></li>
-		<li class="dropdown">
-			<a  href="../#movies">MOVIES</a>
-  			<div class="dropdown-content">
-			    <a href="/cerioscoop-web/jsp/trailers.jsp">TRAILERS</a>
-			    <a href="/cerioscoop-web/jsp/now-showing.jsp">NOW SHOWING</a>
-			    <a href="#">COMING SOON</a>
-			    <a href="#">CATEGORY</a>
-		  	</div>
-		</li>
-		<li><a href="/cerioscoop-web/jsp/about.jsp">ABOUT</a></li>
-		<li><a href="/cerioscoop-web/jsp/team.jsp">TEAM</a></li>
-		<li><a href="/cerioscoop-web/jsp/register.jsp">REGISTER</a></li>
-	</ul>
-</div>
+	<div class="navbar">
+		<div class="navbar-buttons-wrapper">
+			<div class="navbar-button">
+				<a href="/cerioscoop-web/index.jsp"> <span
+					class="navbar-button-text">CERIOSCOOP</span>
+				</a>
+			</div>
+	
+			<div class="navbar-button">
+				<a href="#movies"> <span class="navbar-button-text">MOVIES</span>
+				</a>
+				<div class="navbar-dropdown-button-movie-content">
+					<div class="navbar-dropdown-button-item">
+						<a href="/cerioscoop-web/jsp/trailers.jsp"> <span
+							class="navbar-button-text">TRAILERS</span>
+						</a>
+					</div>
+					<div class="navbar-dropdown-button-item">
+						<a href="/cerioscoop-web/NowShowingServlet"> <span
+							class="navbar-button-text">NOW SHOWING</span>
+						</a>
+					</div>
+					<div class="navbar-dropdown-button-item">
+						<a href="#"> <span class="navbar-button-text">COMING SOON</span>
+						</a>
+					</div>
+					<div class="navbar-dropdown-button-item">
+						<a href="#"> <span class="navbar-button-text">CATEGORY</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="navbar-button">
+				<a href="/cerioscoop-web/jsp/about.jsp"> <span
+					class="navbar-button-text">ABOUT</span>
+				</a>
+			</div>
+			<div class="navbar-button">
+				<a href="/cerioscoop-web/jsp/team.jsp"> <span
+					class="navbar-button-text">TEAM</span>
+				</a>
+			</div>
+	
+			<div class="navbar-button">
+				<a id="navbar-login" href="#Login"> <span class="navbar-button-text">LOGIN</span>
+				</a>
+				<div class="login-menu">
+					<jsp:include page="/jsp/login.jsp" />
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

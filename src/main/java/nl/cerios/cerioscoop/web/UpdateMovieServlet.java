@@ -2,6 +2,7 @@ package nl.cerios.cerioscoop.web;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import nl.cerios.cerioscoop.domain.Category;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.service.EmployeeService;
+import nl.cerios.cerioscoop.service.GeneralService;
 
 /**
  * Servlet implementation class UpdateMovieServlet
@@ -26,8 +28,15 @@ public class UpdateMovieServlet extends HttpServlet {
 	@EJB
 	private EmployeeService employeeService;
    
+	@EJB
+	private GeneralService generalService;
+	
+	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		final List<Movie> currentMovies = generalService.getMovies();
+		request.setAttribute("currentMovies", currentMovies);
+		getServletContext().getRequestDispatcher("/jsp/update-movie.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,12 +48,11 @@ public class UpdateMovieServlet extends HttpServlet {
 				.withType(Integer.parseInt(request.getParameter("movie_type")))
 				.withLanguage(request.getParameter("language"))
 				.withDescription(request.getParameter("description"))
+				.withTrailer(request.getParameter("trailer"))
 				.build();		
 					
 			employeeService.updateMovieFromDatabase(movie);
 		
-		
-		request.getRequestDispatcher("/jsp/update-movie.jsp").
-        forward(request,response);
+		doGet(request, response);
 	}
 }
