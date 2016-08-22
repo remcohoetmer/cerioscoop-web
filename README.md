@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/Cerios/cerioscoop-web.svg?branch=develop)](https://travis-ci.org/Cerios/cerioscoop-web)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4e4dbb7c808b49ae83ab0ba8d45bc96c)](https://www.codacy.com/app/Cerios/cerioscoop-web?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CeriosDev/cerioscoop-web&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/4e4dbb7c808b49ae83ab0ba8d45bc96c)](https://www.codacy.com/app/Cerios/cerioscoop-web?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CeriosDev/cerioscoop-web&amp;utm_campaign=Badge_Coverage)
+
 # cerioscoop-web
 We're Cerios! A young company with about 60 employees that helps organisations to successfully realize complex IT project. Cerios started educating Java software developers and came up with the idea for them to create a cinema web application. It is intended that the web application will be gradually expanded further over time. In the near future there will also be testers participating in this project to optimally stimulate the learning curve and collaboration.
 
@@ -12,6 +16,7 @@ We're Cerios! A young company with about 60 employees that helps organisations t
 * Run the script `src/main/scripts/mysql-testdata.sql`
 * Manage your database with [HeidiSQL](http://www.heidisql.com/download.php)
 * Visualize and manage your repositories with [SourceTree](https://www.atlassian.com/software/sourcetree) or use [Github Desktop](https://desktop.github.com)
+* Run automated browser testscenario's with [Selenium Client & Webdriver](http://www.seleniumhq.org/download/) or add [Selenium Maven dependency](http://www.seleniumhq.org/download/maven.jsp) and check the specific "third party" browser drivers for [Google Chrome](http://chromedriver.storage.googleapis.com/index.html?path=2.22/)
 
 ##### Configure DataSource
 In WebSphere Liberty Profile `server.xml` add this (chck and adjust properties!):
@@ -24,6 +29,32 @@ In WebSphere Liberty Profile `server.xml` add this (chck and adjust properties!)
   <jdbcDriver libraryRef="MySQL_lib"/>
   <properties serverName="localhost" portNumber="3306" databaseName="cerioscoop_db" user="root" password="{xor}MjcnaW9vZmY="/>
 </dataSource>
+```
+
+##### Configure Selenium
+* Download and install the [Selenium webdriver](http://www.seleniumhq.org/download/)
+* To run Selenium tests from Eclipse, open _Window_ > _Preferences_ > _Java_ > _Installed JRE's_, edit the (default) JRE and add a system property to the '_Default VM arguments_' field:
+
+  `-Dwebdriver.chrome.driver=$path_to_chromedriver.exe`
+
+* Create/edit your Maven [`settings.xml`](http://stackoverflow.com/questions/2941605/sample-settings-xml-for-maven) file and add a property in an activated profile, like this:
+```xml
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <profiles>
+        <profile>
+            <id>default</id>
+            <properties>
+                <webdriver.chrome.driver>$path_to_chromedriver.exe</webdriver.chrome.driver>
+            </properties>
+        </profile>
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>default</activeProfile>
+    </activeProfiles>
+</settings>
 ```
 
 ## Contributors

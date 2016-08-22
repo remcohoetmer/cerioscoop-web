@@ -1,22 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+	<link href='/cerioscoop-web/css/masterdetail.css' type='text/css' rel='stylesheet' />
+	
 </head>
 <body>
-<div id="navbar">
- 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
- 	</div>
+ 	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+ <div>
 <h1>Delete movie</h1>
 <form method="POST" action="/cerioscoop-web/DeleteMovieServlet"> 
-<br>Movie:<br>
-<input type="radio" name="movie_id" value="1">The Legend of Tarzan (2016)<br>
-<input type="radio" name="movie_id" value="2">Tarzan the Ape Man (1932)<br>
-<input type="radio" name="movie_id" value="3">Tarzan (1999)<br>
+<br>Select Movie:<br>
+ <input type="text" name="movie_id" required><br>
 <br><input type="submit" name="submitit" value="Submit">
 </form> 
+
+<table>
+<thead><th>MovieId</th><th>Category</th><th>Title</th><th>Duration</th><th>Type</th><th>Language</th><th>Description</th><th>Trailer</th></thead>
+<tbody>
+
+<c:forEach items="${currentMovies}" var="currentMovies">
+  
+<tr>
+	<td>${currentMovies.movieId}</td>
+	<td>${currentMovies.category}</td>
+	<td>${currentMovies.title}</td>
+	<td>${currentMovies.minutes}</td>
+	<td>${currentMovies.movieType}</td>
+	<td>${currentMovies.language}</td>
+	<td>${currentMovies.description}</td>
+	<td>${currentMovies.trailer}</td>
+	</tr>
+
+</c:forEach>
+
+</tbody>
+</table>
+</div>
+	<jsp:include page="/jsp/footer.jsp" />
 </body>
 </html>

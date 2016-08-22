@@ -9,76 +9,77 @@
 <%@page import="nl.cerios.cerioscoop.service.GeneralService"%>
 <%@page import="nl.cerios.cerioscoop.util.DateUtils"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Now Showing</title>
+<title>Now Showing  joepiedepoepie</title>
 
-	<!-- Cerioscoop CSS
+<!-- Cerioscoop CSS
    ================================================== -->
-	<link href='/cerioscoop-web/css/now-showing.css' type='text/css' rel='stylesheet' />
-	
-</head>
+<link href='/cerioscoop-web/css/now-showing.css' type='text/css'
+	rel='stylesheet' />
 
+</head>
 
 
 <body>
 	<div id="navbar">
- 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
- 	</div>
+		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+	</div>
 
-<h1>Now Showing</h1>
-<%
-// TODO EJB-calls vanuit servlets, niet vanuit een JSP! Dit willen we niet meer zien!
-final GeneralService generalService = (GeneralService) new InitialContext().lookup("java:module/GeneralService");
+	<h1>Now Showing</h1>
 
-final DateUtils dateUtils = new DateUtils();
-final List<Show> shows = generalService.getShows();
-final Show firstShowing = generalService.getFirstShowAfterCurrentDate();
-java.util.Date showingPremiere = null;
-String showingPremiereSqlDatabase = null;
- 
-showingPremiereSqlDatabase = dateUtils.sqlDatabaseFormat(firstShowing.getShowDate())+" "+dateUtils.timeFormat(firstShowing.getShowTime());
-try {
-	showingPremiere = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(showingPremiereSqlDatabase);
-} catch (ParseException e) {
-	throw new ShowException("Something went wrong while parsing premiere datum.", e);
-}
 
-shows.sort(new Comparator<Show>() {
+	<table>
+		<thead>
+			<th>ShowId</th>
+			<th>Movietitle</th>
+			<th>plays on</th>
+			<th>time</th>
+			<th>room</th>
+			<th>chairs</th>
+			<th>trailer</th>
+			<th>Buy Ticket</th>
 
-	public int compare(final Show itemL, final Show itemR) {  //is itemL groter dan itemR? anders bovenaan
-		if (itemL.getShowDate().before(itemR.getShowDate())) {
-			return -1;
-		} else if (itemL.getShowDate().after(itemR.getShowDate())) {
-			return 1;
-		} else {
-			return 0;
-		}
-	}
-});		
- %>
-<table>
-<thead><th>Movietitle</th><th>plays on:</th><th>time</th></thead>
-<tbody>
-<% for (Show item : shows) {
+		</thead>
+		<tbody>
 
-if (item.getShowDate().after(dateUtils.getCurrentDate())){
-%>
-<tr>
-	<td><%=generalService.getMovieByMovieId(item.getMovieId()).getTitle()%></td>
-	<td><%=dateUtils.format(item.getShowDate())%> </td>
-	<td><%=dateUtils.timeFormat(item.getShowTime())%></td>
-</tr>
-<% }} %>
-</tbody>
-</table>
-<p>Today it is <%= dateUtils.getDate()%>
-<br />The first upcoming film: <%=generalService.getMovieByMovieId(firstShowing.getMovieId()).getTitle()%> on <%=dateUtils.format2(firstShowing.getShowDate())%> at <%=dateUtils.timeFormat(firstShowing.getShowTime())%>
-<br />That's in <%= dateUtils.calculateTime(dateUtils.getSecondsBetween(showingPremiere, dateUtils.getCurrentDate())) %></p>
+			<c:forEach items="${nowShowing}" var="show">
 
+				<tr>
+					<td>${show.showingId}</td>
+					<td>${show.movieTitle}</td>
+					<td>${show.showingDate}</td>
+					<td>${show.showingTime}</td>
+					<td>${show.roomName}</td>
+					<td>${show.chairAmount}</td>
+					<td><a class="button" href="${show.trailer}">trailer</a></td>
+					<td>
+						<form method="post" action="TicketServlet">
+							<input type="hidden" name="showid" value=${show.showingId} />
+							<input type="hidden" name="movieTitle" value="${fn:escapeXml(show.movieTitle)}">
+							<input type="hidden" name="showingDate" value=${show.showingDate} />
+							<input type="hidden" name="showingTime" value=${show.showingTime} />
+							<input type="hidden" name="roomName" value=${show.roomName} />
+							<input type="hidden" name="chairAmount" value=${show.chairAmount} />
+							<input type="submit" value="Buy">
+						</form>
+					</td>
+				</tr>
+
+			</c:forEach>
+
+		</tbody>
+	</table>
+	<p>
+		Today it is ${todays_date} <br />The first upcoming film:
+		${first_upcoming_movie} <br />That's in ${countdown}
+	</p>
+
+	<jsp:include page="/jsp/footer.jsp" />
 </body>
 </html>
