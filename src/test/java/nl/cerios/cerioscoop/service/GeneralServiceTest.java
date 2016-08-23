@@ -16,6 +16,7 @@ import nl.cerios.cerioscoop.domain.Customer;
 import nl.cerios.cerioscoop.domain.Employee;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
+import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.domain.ShowPresentation;
 import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
 import nl.cerios.cerioscoop.util.DateUtils;
@@ -38,6 +39,14 @@ public class GeneralServiceTest extends DatabaseTest {
 
 		Assert.assertNotNull(movies);
 		Assert.assertEquals(3, movies.size());
+	}
+	
+	@Test
+	public void testGetShows() {
+		final List<Show> shows = generalService.getShows();
+
+		Assert.assertNotNull(shows);
+		Assert.assertEquals(4, shows.size());
 	}
 		
 	@Test
@@ -148,6 +157,30 @@ public class GeneralServiceTest extends DatabaseTest {
 	}
 	
 	@Test
+	public void testRegisterCustomer() throws ParseException {
+		final int idOfCustomerToBeRegistered = 4;
+		final Customer customerOne = new Customer(idOfCustomerToBeRegistered, "Michael", "Boogerd", "MB", "MB123", "michael@boogerd.com",
+				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("15-09-2017"))),
+				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
+		
+		final Customer customerBefore = getCustomer(idOfCustomerToBeRegistered);
+		Assert.assertNull(customerBefore);
+		
+		generalService.registerCustomer(customerOne);
+
+		final Customer customerAfter = getCustomer(idOfCustomerToBeRegistered);
+		Assert.assertNotNull(customerAfter);
+		Assert.assertEquals(customerOne.getFirstName(), customerAfter.getFirstName());
+		Assert.assertEquals(customerOne.getLastName(), customerAfter.getLastName());
+		Assert.assertEquals(customerOne.getUsername(), customerAfter.getUsername());
+		Assert.assertEquals(customerOne.getPassword(), customerAfter.getPassword());
+		Assert.assertEquals(customerOne.getEmail(), customerAfter.getEmail());
+		Assert.assertEquals(customerOne.getCreateDate(), customerAfter.getCreateDate());
+		// Compare java.sql.Time objects by their String values, to prevent differences in milliseconds from failing the test.
+		Assert.assertEquals(customerOne.getCreateTime().toString(), customerAfter.getCreateTime().toString());
+	}
+	
+	@Test
 	public void testAuthenticateCustomer() throws ParseException {
 	//Customers
 		final Customer customerOne = new Customer(0, "Bauke", "Mollema", "BM", "BM123", "bauke@mollema.com",
@@ -221,5 +254,12 @@ public class GeneralServiceTest extends DatabaseTest {
 		Assert.assertEquals(false, generalService.authenticateUser(testUser));
 		final Customer testCustomer = new Customer(1, "Marcel", "Groothuis", "Manollo7G", "secret", "mjg@cerios.nl", dateUtils.getCurrentSqlDate(), dateUtils.getCurrentSqlTime());
 		Assert.assertEquals(true, generalService.authenticateUser(testCustomer));
+	}
+	
+	private Customer getCustomer(final int customerID) {
+		return generalService.getCustomers().stream()
+				.filter(c -> c.getCustomerId() == customerID)
+				.findAny()
+				.orElse(null);
 	}
 }
