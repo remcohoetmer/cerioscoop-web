@@ -33,6 +33,7 @@ public class DeleteMovieServlet extends HttpServlet {
 		final List<Movie> currentMovies = generalService.getMovies();
 		request.setAttribute("currentMovies", currentMovies);
 		getServletContext().getRequestDispatcher("/jsp/delete-movie.jsp").forward(request, response);
+		doPost(request, response);
 	}
 	
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
