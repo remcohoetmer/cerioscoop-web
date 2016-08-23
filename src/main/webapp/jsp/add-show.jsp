@@ -27,8 +27,12 @@
 
 	<div>
 		<form name="add-showing" method="post" action="/cerioscoop-web/AddShowServlet">
-		Movie ID:<br>
-		<input type="text" name="movie_id"><br>
+		Select movie:<br>
+		<select name="movie_id">
+					<c:forEach items="${currentMovies}" var="currentMovies">
+							<option value="${currentMovies.movieId}">${currentMovies.title}</option>
+						</c:forEach>
+						</select><br>
 		<br>Room name:<br>
 		<input type="radio" name="room_id" value="1"> Red room<br>
 		<input type="radio" name="room_id" value="2"> Blue room<br>
