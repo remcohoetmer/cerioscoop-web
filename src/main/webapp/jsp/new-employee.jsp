@@ -10,7 +10,12 @@
 	<div id="navbar">
  		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
  	</div>
- 	
+ 	 		<div class="home-employee">
+		<div id="navbar-employee">
+			<jsp:include page="/jsp/navbar-employee.jsp"></jsp:include>
+		</div>
+		<div class="home-content-employee"></div>
+	</div>
 <h1>New Employee</h1>
 
 	<div>

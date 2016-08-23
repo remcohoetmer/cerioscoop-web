@@ -7,8 +7,13 @@
 <title>Register</title>
 </head>
 <body>
- 		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
-
+ 		<div><jsp:include page="/jsp/navbar.jsp"></jsp:include></div>
+		<div class="home-employee">
+		<div id="navbar-employee">
+			<jsp:include page="/jsp/navbar-employee.jsp"></jsp:include>
+		</div>
+		<div class="home-content-employee"></div>
+	</div>
 <h1>Add Room</h1>
 	
 	<div>
@@ -25,7 +30,7 @@
 	  <br><input type="submit" name="submitit" value="Submit">
 	</form> 
 	</div>
-	
+
 	<jsp:include page="/jsp/footer.jsp" />
 </body> 
 </html>

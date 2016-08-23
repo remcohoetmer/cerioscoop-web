@@ -14,6 +14,12 @@
 <div id="navbar">
  		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
  	</div>
+ 		<div class="home-employee">
+		<div id="navbar-employee">
+			<jsp:include page="/jsp/navbar-employee.jsp"></jsp:include>
+		</div>
+		<div class="home-content-employee"></div>
+	</div>
 <h1>Update movie</h1>
 <form method="POST" action="/cerioscoop-web/UpdateMovieServlet"> 
 <br>Select Movie:<br>
