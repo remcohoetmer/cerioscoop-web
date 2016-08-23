@@ -27,7 +27,7 @@
 				<img
 					onclick="document.location=this.id+'/cerioscoop-web/NowShowingServlet';return false;"
 					src="images/slider/slide1.jpg" style="width: 100%">
-				<div class="text">The Legend of Tarzan</div>
+				<div class="text">The Legend of Bob</div>
 			</div>
 
 			<div class="mySlides fade">
