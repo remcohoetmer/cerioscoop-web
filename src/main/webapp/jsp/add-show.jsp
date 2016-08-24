@@ -21,7 +21,7 @@
 
 </head>
 <body>
- 	<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+ <div><jsp:include page="/jsp/navbar.jsp"></jsp:include></div>	
 		<div class="home-employee">
 		<div id="navbar-employee">
 			<jsp:include page="/jsp/navbar-employee.jsp"></jsp:include>

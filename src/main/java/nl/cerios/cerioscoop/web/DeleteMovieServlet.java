@@ -45,7 +45,7 @@ public class DeleteMovieServlet extends HttpServlet {
 			employeeService.deleteMovieFromDatabase(MovieId);
 		
 		}
-		doGet(request, response);
+		
 	}
 	
 }

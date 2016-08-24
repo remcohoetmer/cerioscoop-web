@@ -5,6 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>New Employee</title>
+<link href='/cerioscoop-web/css/masterdetail.css' type='text/css'
+	rel='stylesheet' />
 </head>
 <body>
 	<div id="navbar">
