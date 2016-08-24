@@ -69,21 +69,6 @@
 </tbody>
 </table>
 
-<table>
-<thead><th>MovieId</th><th>Title</th></thead>
-<tbody>
-
-<c:forEach items="${currentMovies}" var="currentMovies">
-  
-<tr>
-    <td>${currentMovies.movieId}</td>
-    <td>${currentMovies.title}</td>
-</tr>
-
-</c:forEach>
-
-</tbody>
-</table>
 	</div>
 	<jsp:include page="/jsp/footer.jsp" />
 </body>
