@@ -160,7 +160,7 @@ public class EmployeeService {
 	        	preparedStatement.setTime(7,customer.getCreateTime());
 	        	preparedStatement.executeUpdate();
 	        	
-	        	System.out.println("Data inserted.");
+	        	System.out.println("Employee inserted.");
 		    }catch (final SQLException e) {
 		    	throw new ServiceException("Something went wrong while inserting the employee items.", e);
 			    }
