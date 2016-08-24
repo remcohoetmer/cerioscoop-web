@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
 import nl.cerios.cerioscoop.domain.Category;
+import nl.cerios.cerioscoop.domain.Employee;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
@@ -144,6 +145,30 @@ public class EmployeeServiceTest extends DatabaseTest {
 		// Compare java.sql.Time objects by their String values, to prevent differences in milliseconds from failing the test.
 		Assert.assertEquals(updatedTestShow.getShowTime().toString(), showAfter.getShowTime().toString());
 	}
+	@Test
+	public void testNewEmployee() throws ParseException {
+		final int idOfEmployeeToBeRegistered = 2;
+		final Employee employeeOne = new Employee(idOfEmployeeToBeRegistered, "Eddy", "Merckx ", "EM", "EM123", "eddy@merckx.com",
+				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("15-09-2017"))),
+				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
+		
+		final Employee employeeBefore = getEmployee(idOfEmployeeToBeRegistered);
+		Assert.assertNull(employeeBefore);
+		
+		employeeService.newEmployee(employeeOne);
+
+		final Employee employeeAfter = getEmployee(idOfEmployeeToBeRegistered);
+		Assert.assertNotNull(employeeAfter);
+		Assert.assertEquals(employeeOne.getFirstName(), employeeAfter.getFirstName());
+		Assert.assertEquals(employeeOne.getLastName(), employeeAfter.getLastName());
+		Assert.assertEquals(employeeOne.getUsername(), employeeAfter.getUsername());
+		Assert.assertEquals(employeeOne.getPassword(), employeeAfter.getPassword());
+		Assert.assertEquals(employeeOne.getEmail(), employeeAfter.getEmail());
+		Assert.assertEquals(employeeOne.getCreateDate(), employeeAfter.getCreateDate());
+		// Compare java.sql.Time objects by their String values, to prevent differences in milliseconds from failing the test.
+		Assert.assertEquals(employeeOne.getCreateTime().toString(), employeeAfter.getCreateTime().toString());
+	}
+	
 	
 	@Test
 	public void testDeleteShowFromDatabase() {
@@ -168,6 +193,12 @@ public class EmployeeServiceTest extends DatabaseTest {
 	private Show getShow(final int showID) {
 		return generalService.getShows().stream()
 				.filter(s -> s.getShowId() == showID)
+				.findAny()
+				.orElse(null);
+	}
+	private Employee getEmployee(final int employeeID) {
+		return generalService.getEmployees().stream()
+				.filter(e -> e.getEmployeeId() == employeeID)
 				.findAny()
 				.orElse(null);
 	}
