@@ -5,7 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Update Show</title>
-
+<link href='/cerioscoop-web/css/masterdetail.css' type='text/css'
+	rel='stylesheet' />
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.4/jquery.timepicker.min.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
