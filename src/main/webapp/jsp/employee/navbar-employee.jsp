@@ -9,6 +9,7 @@
 	<!-- Navigation CSS
    	================================================== -->
 	<link rel="stylesheet" href="/cerioscoop-web/css/navbar-employee.css">
+	<link href='/cerioscoop-web/css/shared.css' type='text/css' rel='stylesheet' />
 
 </head>
 <body>

@@ -9,11 +9,12 @@
 	<!-- Home CSS
    	================================================== -->
 	<link rel="stylesheet" href="/cerioscoop-web/css/home.css">
+	<link href='/cerioscoop-web/css/shared.css' type='text/css' rel='stylesheet' />
  
 </head>
 <body>
 <div class="container">
-<span><h1>The Legend of Tarzan</h1></span>
+<h1>The Legend of Tarzan</h1>
 </div>
  
 </body>

@@ -6,13 +6,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href='/cerioscoop-web/css/shared.css' type='text/css' rel='stylesheet' />
 <title>Insert title here</title>
 <link href='/cerioscoop-web/css/now-showing.css' type='text/css'
 	rel='stylesheet' />
 </head>
 <body>
 	<div id="navbar">
-		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+		<jsp:include page="/jsp/shared/navbar.jsp"></jsp:include>
 	</div>
 	<h1>Ticket</h1>
 	<table>
@@ -54,6 +55,6 @@
 
 		</tbody>
 	</table>
-	<jsp:include page="/jsp/footer.jsp" />
+	<jsp:include page="/jsp/shared/footer.jsp" />
 </body>
 </html>

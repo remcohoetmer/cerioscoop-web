@@ -9,12 +9,13 @@
 
 <!-- Index CSS ================================================== -->
 <link rel="stylesheet" href="/cerioscoop-web/css/index.css">
+<link href='/cerioscoop-web/css/shared.css' type='text/css' rel='stylesheet' />
 
 </head>
 <body>
 	<div class="body-navbar-wrapper">
 		<div class="navbar">
-			<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+			<jsp:include page="/jsp/shared/navbar.jsp"></jsp:include>
 		</div>
 	</div>
 
@@ -108,13 +109,11 @@
 				dots[slideIndex - 1].className += " active";
 			}
 		</script>
-
-
 	</div>
 
 	<div class="body-footer-wrapper">
 		<div class="footer">
-			<jsp:include page="/jsp/footer.jsp" />
+			<jsp:include page="/jsp/shared/footer.jsp" />
 		</div>
 	</div>
 </body>

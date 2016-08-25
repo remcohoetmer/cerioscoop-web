@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Update Show</title>
-<link href='/cerioscoop-web/css/masterdetail.css' type='text/css'
-	rel='stylesheet' />
+<link href='/cerioscoop-web/css/masterdetail.css' type='text/css'rel='stylesheet' />
+<link href='/cerioscoop-web/css/shared.css' type='text/css' rel='stylesheet' />
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.4/jquery.timepicker.min.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -22,11 +22,11 @@
 <body>
 
     <div id="navbar">
-         <jsp:include page="/jsp/navbar.jsp"></jsp:include>
+         <jsp:include page="/jsp/shared/navbar.jsp"></jsp:include>
      </div>
 	<div class="home-employee">
 		<div id="navbar-employee">
-			<jsp:include page="/jsp/navbar-employee.jsp"></jsp:include>
+			<jsp:include page="/jsp/employee/navbar-employee.jsp"></jsp:include>
 		</div>
 		<div class="home-content-employee"></div>
 	</div>
@@ -52,6 +52,6 @@
         </form>
      </div>
      
-     <jsp:include page="/jsp/footer.jsp" />
+     <jsp:include page="/jsp/shared/footer.jsp" />
 </body>
 </html>
