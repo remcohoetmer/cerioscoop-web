@@ -20,15 +20,15 @@
 
 <!-- Cerioscoop CSS
    ================================================== -->
-<link href='/cerioscoop-web/css/now-showing.css' type='text/css'
-	rel='stylesheet' />
+<link href='/cerioscoop-web/css/now-showing.css' type='text/css'rel='stylesheet' />
+<link href='/cerioscoop-web/css/shared.css' type='text/css' rel='stylesheet' />
 
 </head>
 
 
 <body>
 	<div id="navbar">
-		<jsp:include page="/jsp/navbar.jsp"></jsp:include>
+		<jsp:include page="/jsp/shared/navbar.jsp"></jsp:include>
 	</div>
 
 	<h1>Now Showing</h1>
@@ -80,6 +80,6 @@
 		${first_upcoming_movie} <br />That's in ${countdown}
 	</p>
 
-	<jsp:include page="/jsp/footer.jsp" />
+	<jsp:include page="/jsp/shared/footer.jsp" />
 </body>
 </html>

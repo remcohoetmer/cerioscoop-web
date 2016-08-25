@@ -9,6 +9,7 @@
 	<!-- Footer CSS
    ================================================== -->
 	<link href='/cerioscoop-web/css/footer.css' type='text/css' rel='stylesheet' />
+	<link href='/cerioscoop-web/css/shared.css' type='text/css' rel='stylesheet' />
 	
 
 </head>

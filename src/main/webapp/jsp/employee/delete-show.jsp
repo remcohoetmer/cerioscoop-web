@@ -5,14 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Delete show</title>
-<link href='/cerioscoop-web/css/masterdetail.css' type='text/css'
-	rel='stylesheet' />
+<link href='/cerioscoop-web/css/masterdetail.css' type='text/css' rel='stylesheet' />
+<link href='/cerioscoop-web/css/shared.css' type='text/css' rel='stylesheet' />
 </head>
 <body>
- <div><jsp:include page="/jsp/navbar.jsp"></jsp:include></div>	
+ <div><jsp:include page="/jsp/shared/navbar.jsp"></jsp:include></div>	
  		<div class="home-employee">
 		<div id="navbar-employee">
-			<jsp:include page="/jsp/navbar-employee.jsp"></jsp:include>
+			<jsp:include page="/jsp/employee/navbar-employee.jsp"></jsp:include>
 		</div>
 		<div class="home-content-employee"></div>
 	</div>
@@ -23,6 +23,6 @@
 <br><input type="submit" name="submitit" value="Submit">
 </form>
 
-	<jsp:include page="/jsp/footer.jsp" /> 
+	<jsp:include page="/jsp/shared/footer.jsp" /> 
 </body>
 </html>
