@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import nl.cerios.cerioscoop.domain.Customer;
 import nl.cerios.cerioscoop.domain.Employee;
@@ -46,17 +47,23 @@ public class LoginServlet extends HttpServlet {
 		authenticatedCustomer = generalService.authenticateCustomer(customer, dbCustomers);
 		authenticatedEmployee = generalService.authenticateEmployee(employee, dbEmployees);
 		
- 		if(generalService.authenticateUser(authenticatedCustomer)){
-			request.getSession().setAttribute("user", authenticatedCustomer);
+ 		final HttpSession session = request.getSession();
+		if(generalService.authenticateUser(authenticatedCustomer)){
+			session.setAttribute("user", authenticatedCustomer);
+			session.setAttribute("usertype", "customer");
 			response.sendRedirect("/cerioscoop-web/jsp/customer.jsp");
 			return;
 			}
 
 		if(generalService.authenticateUser(authenticatedEmployee)){
-			request.getSession().setAttribute("user", authenticatedEmployee);
+			session.setAttribute("user", authenticatedEmployee);
+			session.setAttribute("usertype", "employee");
 			response.sendRedirect("/cerioscoop-web/jsp/employee.jsp");
 			return;
 			}
+
+		session.removeAttribute("user");
+		session.removeAttribute("usertype");
 	}	
 }
 
