@@ -36,7 +36,7 @@ public class UpdateMovieServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		final List<Movie> currentMovies = generalService.getMovies();
 		request.setAttribute("currentMovies", currentMovies);
-		getServletContext().getRequestDispatcher("/jsp/update-movie.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/jsp/employee/update-movie.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

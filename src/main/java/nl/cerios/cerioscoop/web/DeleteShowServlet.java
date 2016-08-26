@@ -35,7 +35,7 @@ public class DeleteShowServlet extends HttpServlet {
 			employeeService.deleteShowFromDatabase(showId);
 		
 		}
-		request.getRequestDispatcher("/jsp/delete-show.jsp").
+		request.getRequestDispatcher("/jsp/employee/delete-show.jsp").
         forward(request,response);
 	}
 

@@ -41,7 +41,7 @@ public class AddShowServlet extends HttpServlet {
 				
 		request.setAttribute("currentMovies", currentMovies);
 		request.setAttribute("showing", showing);
-		getServletContext().getRequestDispatcher("/jsp/add-show.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/jsp/employee/add-show.jsp").forward(request, response);
 	}
 	
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
