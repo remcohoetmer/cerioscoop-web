@@ -38,7 +38,7 @@ public class AddRoomServlet extends HttpServlet {
 			employeeService.addRoom(room);
 		
 		}
-		request.getRequestDispatcher("/jsp/add-room.jsp").
+		request.getRequestDispatcher("/jsp/employee/add-room.jsp").
         forward(request,response);
 	}
 	

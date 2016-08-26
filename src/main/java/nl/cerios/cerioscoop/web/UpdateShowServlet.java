@@ -53,7 +53,7 @@ public class UpdateShowServlet extends HttpServlet {
               employeeService.updateShowFromDatabase(show);
           
           }
-          request.getRequestDispatcher("/jsp/update-show.jsp").
+          request.getRequestDispatcher("/jsp/employee/update-show.jsp").
           forward(request,response);
       }
   }
