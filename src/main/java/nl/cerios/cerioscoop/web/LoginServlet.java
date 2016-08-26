@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 		if(generalService.authenticateUser(authenticatedEmployee)){
 			session.setAttribute("user", authenticatedEmployee);
 			session.setAttribute("usertype", "employee");
-			response.sendRedirect("/cerioscoop-web/jsp/employee.jsp");
+			response.sendRedirect("/cerioscoop-web/jsp/employee/employee.jsp");
 			return;
 			}
 

@@ -41,7 +41,7 @@ public class EmployeeServlet extends HttpServlet {
 			employee.setCreateTime(dateUtils.getCurrentSqlTime());
 			employeeService.newEmployee(employee);
 		}
-		request.getRequestDispatcher("/jsp/new-employee.jsp").
+		request.getRequestDispatcher("/jsp/employee/new-employee.jsp").
         forward(request,response);
 	}
 
