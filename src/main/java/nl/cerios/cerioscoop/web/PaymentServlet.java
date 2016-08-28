@@ -30,7 +30,7 @@ public class PaymentServlet extends HttpServlet {
 		String movieTitle = (request.getParameter("movieTitle"));
 		request.setAttribute("movieTitle", movieTitle);
 
-		customerService.updateChairAmount(ticketAmount, chairAmount, showingId);
+		customerService.updateChairsSold(ticketAmount, showingId);
 		getServletContext().getRequestDispatcher("/jsp/successful-payment.jsp").forward(request, response);
 	}
 

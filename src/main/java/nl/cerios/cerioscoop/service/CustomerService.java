@@ -16,10 +16,10 @@ public class CustomerService {
 	@Resource(name = "jdbc/cerioscoop")
 	private DataSource dataSource;
 
-	public void updateChairAmount(int chairsSold, int chairAmount, int showingId) {
-		
+	public void updateChairsSold(int chairsSold, int showingId) {
+
 		String updateSQL = "UPDATE show_table SET chairs_sold = chairs_sold +? WHERE show_id = ?";
-		
+
 		try {
 			final Connection connection = dataSource.getConnection();
 			final PreparedStatement preparedStatement = connection.prepareStatement(updateSQL);
@@ -30,34 +30,28 @@ public class CustomerService {
 
 			System.out.println("Chairs_sold is updated.");
 		} catch (final SQLException e) {
-			throw new ServiceException("Something went wrong while updating the chairamount.", e);
+			throw new ServiceException("Something went wrong while updating the chairsSoldAmount.", e);
 		}
 	}
-	
-	
-	public int getChairsSoldAmount(){
-		
-		// TODO: wil je hier niet weten hoeveel stoelen per voorstelling ipv het totaal?
-		String SQL = "SELECT chairs_sold FROM show_table";
-		
-		try (final Connection connection = dataSource.getConnection();
+
+
+	public int getChairsSoldAmountByShowId(int showing_id) {
+		String id = Integer.toString(showing_id);
+		String SQL = "SELECT chairs_sold FROM show_presentation WHERE show_id =" + id;
+
+		try (final Connection connection = dataSource.getConnection()) {
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery(SQL)) {  
-			
-				// TODO: hoeveel rijen verwacht je eigenlijk dat hij teruggeeft?
-				// Als dit er altijd maar 1 kan zijn, dan heb je geen while loop nodig toch?
-				while (resultSet.next()) {
-					final int chairsSold = resultSet.getInt("chairs_sold");
-					
-					// TODO: altijd een beetje gek om een 'return' statement binnen een loop te hebben. Toch?
-					return chairsSold;
-				}
-			
-				// Hier komt hij dus als er geen 'next()' in de resultset is. Als er geen enkele record gevonden wordt dus.
-				throw new ServiceException("Niet mogelijk om aantal verkochte stoelen te bepalen, want record niet gevonden in de database");
-			
+			final ResultSet resultSet = statement.executeQuery(SQL);
+			{
+				resultSet.next();
+				int chairsSold = resultSet.getInt("chairs_sold");
+				System.out.println(chairsSold);
+				return chairsSold;
+			}
+
 		} catch (final SQLException e) {
-	    	throw new ServiceException("Something went terribly wrong while retrieving the amount of chairs sold.", e);
+			throw new ServiceException("Something went terribly wrong while retrieving the chairsSoldAmount.", e);
 		}
 	}
+
 }
