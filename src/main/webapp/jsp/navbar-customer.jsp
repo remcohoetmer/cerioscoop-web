@@ -13,9 +13,15 @@
 
 </head>
 <body>
-<div class="navbar-customer">
+
+
+<div class="navbar-customer" >
 	
-		<div class="nav-customer-button"><a href="../index.jsp"><span class="nav-customer-button-text">LOG OUT</span></a></div>
+		<div class="nav-customer-button" >
+			<form method="POST" action="../LogOutServlet">
+				<input type="submit" value="LOG OUT">
+			</form>
+		</div>
 		<div class="nav-customer-button"><a href="#editcustomer"><span class="nav-customer-button-text">EDIT CUSTOMER</span></a></div>
 	
 </div>

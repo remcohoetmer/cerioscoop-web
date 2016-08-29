@@ -61,9 +61,6 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("/cerioscoop-web/jsp/employee/employee.jsp");
 			return;
 			}
-
-		session.removeAttribute("user");
-		session.removeAttribute("usertype");
 	}	
 }
 
