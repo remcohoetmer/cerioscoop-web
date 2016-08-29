@@ -15,13 +15,14 @@
 	<div id="navbar">
 		<jsp:include page="/jsp/shared/navbar.jsp"></jsp:include>
 	</div>
-	<h1>Ticket</h1>
+   <h1>Ticket</h1>
 	<table>
 		<thead>
 			<th>Movietitle</th>
 			<th>plays on</th>
 			<th>time</th>
 			<th>room</th>
+			<th>chairs</th>
 			<th>available chairs</th>
 			<th>ticket amount</th>
 
@@ -29,16 +30,17 @@
 		<tbody>
 
 			<tr>
-				<td>${movieTitle}</td>
-				<td>${showingDate}</td>
-				<td>${showingTime}</td>
-				<td>${roomName}</td>
-				<td>${chairAmount}</td>
+				<td>${showPresentation.movieTitle}</td>
+				<td>${showPresentation.showingDate}</td>
+				<td>${showPresentation.showingTime}</td>
+				<td>${showPresentation.roomName}</td>
+				<td>${showPresentation.chairAmount}</td>
+				<td>${availableChairs}</td>
 				<td>
 					<form method="POST" action="PaymentServlet">
-						<input type="hidden" name="showid" value=${showingId } /> 
-						<input type="hidden" name="chairAmount" value=${chairAmount } /> 
-						<input type="hidden" name="movieTitle" value="${fn:escapeXml(movieTitle)}">
+						<input type="hidden" name="showid" value=${showPresentation.showingId } /> 
+						<input type="hidden" name="chairAmount" value=${showPresentation.chairAmount } /> 
+						<input type="hidden" name="movieTitle" value="${fn:escapeXml(showPresentation.movieTitle)}">
 						<select name="ticketamount">
 							<option value="1">1 Ticket</option>
 							<option value="2">2 Tickets</option>

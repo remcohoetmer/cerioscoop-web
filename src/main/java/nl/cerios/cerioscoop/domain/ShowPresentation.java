@@ -12,9 +12,10 @@ public class ShowPresentation {
 	private Time showingTime;
 	private BigInteger chairAmount;
 	private String trailer;
+	private BigInteger chairsSold;
 	
 	ShowPresentation(final BigInteger showingId, final String movieTitle, final String roomName, 
-			final Date showingDate, final Time showingTime, final BigInteger chairAmount, final String trailer) {
+			final Date showingDate, final Time showingTime, final BigInteger chairAmount, final String trailer, final BigInteger chairsSold) {
 		this.showingId = showingId;
 		this.movieTitle = movieTitle;
 		this.roomName = roomName;
@@ -22,6 +23,7 @@ public class ShowPresentation {
 		this.showingTime = showingTime;
 		this.chairAmount = chairAmount;
 		this.trailer = trailer;
+		this.chairsSold = chairsSold;
 	}
 	
 	public BigInteger getShowingId() {
@@ -44,5 +46,8 @@ public class ShowPresentation {
 	}
 	public String getTrailer() {
 		return trailer;
+	}
+	public BigInteger getChairsSold() {
+		return chairsSold;
 	}
 }

@@ -53,6 +53,7 @@ public class NowShowingServlet extends HttpServlet {
 					.withShowingDate(show.getShowingDate())
 					.withShowingTime(show.getShowingTime())
 					.withTrailer(show.getTrailer())
+					.withChairsSold(show.getChairsSold())
 					.build();			
 				nowShowing.add(show);
 			}

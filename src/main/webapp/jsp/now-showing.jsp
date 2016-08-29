@@ -61,11 +61,6 @@
 					<td>
 						<form method="post" action="TicketServlet">
 							<input type="hidden" name="showid" value=${show.showingId} />
-							<input type="hidden" name="movieTitle" value="${fn:escapeXml(show.movieTitle)}">
-							<input type="hidden" name="showingDate" value=${show.showingDate} />
-							<input type="hidden" name="showingTime" value=${show.showingTime} />
-							<input type="hidden" name="roomName" value=${show.roomName} />
-							<input type="hidden" name="chairAmount" value=${show.chairAmount} />
 							<input type="submit" value="Buy">
 						</form>
 					</td>

@@ -1,5 +1,6 @@
 package nl.cerios.cerioscoop.service;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +10,9 @@ import java.sql.Statement;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.sql.DataSource;
+
+import nl.cerios.cerioscoop.domain.ShowPresentation;
+import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
 
 @Stateless
 public class CustomerService {
@@ -35,22 +39,31 @@ public class CustomerService {
 	}
 
 
-	public int getChairsSoldAmountByShowId(int showing_id) {
+	public ShowPresentation getShowPresentationByShowId(int showing_id) {
 		String id = Integer.toString(showing_id);
-		String SQL = "SELECT chairs_sold FROM show_presentation WHERE show_id =" + id;
+		BigInteger showId = BigInteger.valueOf(showing_id);
+		String SQL = "SELECT title, room_name, show_date, show_time, chair_amount, trailer, chairs_sold FROM show_presentation WHERE show_id =" + id;
 
 		try (final Connection connection = dataSource.getConnection()) {
 			final Statement statement = connection.createStatement();
 			final ResultSet resultSet = statement.executeQuery(SQL);
 			{
 				resultSet.next();
-				int chairsSold = resultSet.getInt("chairs_sold");
-				System.out.println(chairsSold);
-				return chairsSold;
+				final ShowPresentation show = new ShowPresentationBuilder()
+						.withShowingId(showId)
+						.withMovieTitle(resultSet.getString("title"))
+						.withRoomName(resultSet.getString("room_name"))
+						.withShowingDate(resultSet.getDate("show_date"))
+						.withShowingTime(resultSet.getTime("show_time"))
+						.withChairAmount(resultSet.getBigDecimal("chair_amount").toBigInteger())
+						.withTrailer(resultSet.getString("trailer"))
+						.withChairsSold(resultSet.getBigDecimal("chairs_sold").toBigInteger())
+						.build();	
+				return show;
 			}
 
 		} catch (final SQLException e) {
-			throw new ServiceException("Something went terribly wrong while retrieving the chairsSoldAmount.", e);
+			throw new ServiceException("Something went terribly wrong while retrieving the showPresentation.", e);
 		}
 	}
 
