@@ -14,6 +14,11 @@
 </head>
 <body>
 <div class="navbar-employee">
+		<div class="nav-employee-button">
+			<form method="POST" action="/cerioscoop-web/LogOutServlet">
+				<input type="submit" value="LOG OUT">
+			</form>
+		</div>
 		<div class="nav-employee-button"><a href="http://localhost:9080/cerioscoop-web/AddMovieServlet"><span class="nav-employee-button-text">ADD MOVIE</span></a></div>
 		<div class="nav-employee-button"><a href="http://localhost:9080/cerioscoop-web/DeleteMovieServlet"><span class="nav-employee-button-text">DELETE MOVIE</span></a></div>
 		<div class="nav-employee-button"><a href="http://localhost:9080/cerioscoop-web/AddShowServlet"><span class="nav-employee-button-text">ADD SHOW</span></a></div>

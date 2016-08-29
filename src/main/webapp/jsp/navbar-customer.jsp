@@ -18,7 +18,7 @@
 <div class="navbar-customer" >
 	
 		<div class="nav-customer-button" >
-			<form method="POST" action="../LogOutServlet">
+			<form method="POST" action="/cerioscoop-web/LogOutServlet">
 				<input type="submit" value="LOG OUT">
 			</form>
 		</div>

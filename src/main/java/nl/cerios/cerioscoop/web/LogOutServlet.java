@@ -23,7 +23,6 @@ public class LogOutServlet extends HttpServlet {
 		final HttpSession session = request.getSession(false);
 		// session.setAttribute("user", null)
 		if (session!=null)
-		session.getMaxInactiveInterval();		//http://stackoverflow.com/questions/14154696/when-exactly-is-the-httpsession-expired-starts-being-eligible-for-destroying
 		session.removeAttribute("user");
 		session.removeAttribute("usertype");
 		session.invalidate();
