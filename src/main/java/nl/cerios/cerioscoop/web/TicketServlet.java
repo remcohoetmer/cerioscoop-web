@@ -17,8 +17,8 @@ import nl.cerios.cerioscoop.service.CustomerService;
 @WebServlet("/TicketServlet")
 public class TicketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ShowPresentation showPresentation;
-	int availableChairs;
+	private ShowPresentation showPresentation;
+	private int availableChairs;
 	
 	@EJB
 	private CustomerService customerService;
