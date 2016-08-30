@@ -50,3 +50,4 @@ public class ShowPresentationBuilder {
 		return new ShowPresentation(showingId, movieTitle, roomName, showingDate, showingTime, chairAmount, trailer, chairsSold);
 	}
 }
+

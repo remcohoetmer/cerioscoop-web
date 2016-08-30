@@ -32,6 +32,6 @@ public class PaymentServlet extends HttpServlet {
 
 		customerService.updateChairsSold(ticketAmount, showingId);
 		getServletContext().getRequestDispatcher("/jsp/successful-payment.jsp").forward(request, response);
-	}
+	} 
 
 }

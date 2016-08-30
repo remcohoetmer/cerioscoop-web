@@ -44,6 +44,6 @@ public class TicketServlet extends HttpServlet {
 		request.setAttribute("availableChairs", availableChairs);
 		
 		doGet(request, response);
-	}
+	} 
 
 }
