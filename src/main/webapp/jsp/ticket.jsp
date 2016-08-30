@@ -39,13 +39,9 @@
 				<td>
 					<form method="POST" action="PaymentServlet">
 						<input type="hidden" name="showid" value=${showPresentation.showingId } /> 
-						<select name="ticketamount">
-							<option value="1">1 Ticket</option>
-							<option value="2">2 Tickets</option>
-							<option value="3">3 Tickets</option>
-							<option value="4">4 Tickets</option>
-							<option value="5">5 Tickets</option>
-						</select> <input type="submit" name="submitit" value="Buy" />
+						<input type="text" name="ticketamount" placeholder="Enter amount" required>				
+						
+					 <input type="submit" name="submitit" value="Buy" />
 					</form>
 				</td>
 
