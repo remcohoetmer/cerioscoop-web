@@ -1,7 +1,6 @@
 package nl.cerios.cerioscoop.web;
 
 import java.io.IOException;
-
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +17,8 @@ import nl.cerios.cerioscoop.service.CustomerService;
 @WebServlet("/TicketServlet")
 public class TicketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	ShowPresentation showPresentation;
+	int availableChairs;
 	
 	@EJB
 	private CustomerService customerService;
@@ -26,8 +27,8 @@ public class TicketServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-
+		request.setAttribute("showPresentation", showPresentation);
+		request.setAttribute("availableChairs", availableChairs);
 		getServletContext().getRequestDispatcher("/jsp/ticket.jsp").forward(request, response);
 	}
 
@@ -36,14 +37,17 @@ public class TicketServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int showID =Integer.parseInt(request.getParameter("showid"));
-		ShowPresentation showPresentation = customerService.getShowPresentationByShowId(showID);
+ 		request.setAttribute("showID", showID);
+		showPresentation = customerService.getShowPresentationByShowId(showID);
 		request.setAttribute("showPresentation", showPresentation);
 		int chairAmount = (showPresentation.getChairAmount()).intValue();
 		int chairsSold = (showPresentation.getChairsSold()).intValue();
-		int availableChairs = chairAmount-chairsSold;
+		availableChairs = chairAmount-chairsSold;
 		request.setAttribute("availableChairs", availableChairs);
 		
-		doGet(request, response);
+				
+			doGet(request, response);
+		
 	} 
 
 }

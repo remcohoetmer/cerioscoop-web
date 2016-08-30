@@ -39,8 +39,6 @@
 				<td>
 					<form method="POST" action="PaymentServlet">
 						<input type="hidden" name="showid" value=${showPresentation.showingId } /> 
-						<input type="hidden" name="chairAmount" value=${showPresentation.chairAmount } /> 
-						<input type="hidden" name="movieTitle" value="${fn:escapeXml(showPresentation.movieTitle)}">
 						<select name="ticketamount">
 							<option value="1">1 Ticket</option>
 							<option value="2">2 Tickets</option>

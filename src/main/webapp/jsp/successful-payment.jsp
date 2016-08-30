@@ -12,7 +12,7 @@
 	<div id="navbar">
 		<jsp:include page="/jsp/shared/navbar.jsp"></jsp:include>
 	</div>
-	<h1>Thank you for purchasing ${movieTitle}!</h1>
+	<h1>Thank you for purchasing ${showPresentation.movieTitle}!</h1>
 	<h2>We hope seeing you back again soon!</h2>
 		<jsp:include page="/jsp/shared/footer.jsp" />
 </body>
