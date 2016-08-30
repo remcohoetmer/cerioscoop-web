@@ -1,6 +1,7 @@
 package nl.cerios.cerioscoop.web;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -36,6 +37,8 @@ public class LoginServlet extends HttpServlet {
 		final User employee = new Employee();
 		final User authenticatedCustomer;
 		final User authenticatedEmployee;
+		final HttpSession session = request.getSession();
+		final PrintWriter out = response.getWriter();
 		
 		//input
 		customer.setUsername(request.getParameter("txtUserName"));			
@@ -47,23 +50,23 @@ public class LoginServlet extends HttpServlet {
 		authenticatedCustomer = generalService.authenticateCustomer(customer, dbCustomers);
 		authenticatedEmployee = generalService.authenticateEmployee(employee, dbEmployees);
 		
- 		final HttpSession session = request.getSession();
-		if(generalService.authenticateUser(authenticatedCustomer)){
+        response.setContentType("text/html;charset=UTF-8");
+        
+		if (authenticatedCustomer == null && authenticatedEmployee == null) {
+			out.println("<script type=\"text/javascript\">");
+			out.println("alert('Combination username and password do not match!');");
+			out.println("location='index.jsp';");
+			out.println("</script>");
+		} else if (generalService.authenticateUser(authenticatedCustomer)) {
 			session.setAttribute("user", authenticatedCustomer);
 			session.setAttribute("usertype", "customer");
 			response.sendRedirect("/cerioscoop-web/jsp/customer.jsp");
-			return;
-			}
-
-		if(generalService.authenticateUser(authenticatedEmployee)){
+		} else if (generalService.authenticateUser(authenticatedEmployee)) {
 			session.setAttribute("user", authenticatedEmployee);
 			session.setAttribute("usertype", "employee");
 			response.sendRedirect("/cerioscoop-web/jsp/employee/employee.jsp");
+		} else
 			return;
-			}
-
-		session.removeAttribute("user");
-		session.removeAttribute("usertype");
-	}	
+	}
 }
 

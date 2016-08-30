@@ -16,7 +16,7 @@ public class LoginTest extends SeleniumTest {
 	      .loginToCustomerPage("ron","SuperRon");
 	    
 	    Assert.assertNotNull(customerPage);
-	    Assert.assertEquals("Login Successful!\nHello ron!", customerPage.getWelcomeMessage());
+	    Assert.assertEquals("Login Successful!\nHello ron (customer)!", customerPage.getWelcomeMessage());
 	  }
 	
 	@Test
@@ -25,6 +25,6 @@ public class LoginTest extends SeleniumTest {
 	      .loginToEmployeePage("A","A");
 	    
 	    Assert.assertNotNull(employeePage);
-	    Assert.assertEquals("Login Successful!\nHello A!", employeePage.getWelcomeMessage());
+	    Assert.assertEquals("Login Successful!\nHello A (employee)!", employeePage.getWelcomeMessage());
 	  }
 }

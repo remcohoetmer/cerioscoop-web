@@ -31,7 +31,7 @@
 	<div class="login-message">
 	<h3>Login Successful!</h3>
 		<% User customer = (User) session.getAttribute("user"); %>
-		Hello <%=customer.getUsername()%>!
+		Hello <%=customer.getUsername()%> (${usertype})!
 	</div> 
  	
  	<div class="body-footer-wrapper">
