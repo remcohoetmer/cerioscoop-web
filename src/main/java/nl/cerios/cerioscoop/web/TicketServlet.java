@@ -24,7 +24,8 @@ public class TicketServlet extends HttpServlet {
 	private CustomerService customerService;
        
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * This servlet checks if the request for buying a certain amount of tickets is possible or not,
+	 * if so it updates the chairs_sold amount.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("showPresentation", showPresentation);
@@ -32,9 +33,6 @@ public class TicketServlet extends HttpServlet {
 		getServletContext().getRequestDispatcher("/jsp/ticket.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int showID =Integer.parseInt(request.getParameter("showid"));
  		request.setAttribute("showID", showID);

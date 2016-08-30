@@ -42,6 +42,6 @@ public class RegisterCustomerTest extends SeleniumTest {
 		// Check username Sel in the page
 		Assert.assertEquals("Hello customer!", getWebDriver().getTitle());
 		final String loginMessage = getWebDriver().findElement(By.className("login-message")).getText();
-		Assert.assertEquals("Login Successful!\nHello Sel!", loginMessage);
+		Assert.assertEquals("Login Successful!\nHello Sel (customer)!", loginMessage);
 	}
 }

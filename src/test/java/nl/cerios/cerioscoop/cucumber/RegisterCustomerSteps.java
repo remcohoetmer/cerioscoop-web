@@ -51,7 +51,7 @@ public class RegisterCustomerSteps extends SeleniumTest {
 	@Then("^I check that the customer has been registered$")
 	public void checkIfCustomerIsRegistered() throws InterruptedException {
 		Assert.assertEquals("Hello customer!", getWebDriver().getTitle());
-		Assert.assertEquals("Login Successful!\nHello Sel!",
+		Assert.assertEquals("Login Successful!\nHello Sel (customer)!",
 				getWebDriver().findElement(By.className("login-message")).getText());
 	}
 }

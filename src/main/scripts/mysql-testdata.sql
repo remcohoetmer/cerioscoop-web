@@ -77,13 +77,13 @@ INSERT INTO `room` (`room_id`, `room_name`, `chair_amount`, `room_type`) VALUES
 
 -- Dumpen data van tabel cerioscoop.show: ~4 rows (ongeveer)
 DELETE FROM `show_table`;
-/*!40000 ALTER TABLE `show` DISABLE KEYS */;
-INSERT INTO `show_table` (`show_id`, `movie_id`, `room_id`, `show_date`, `show_time`) VALUES
-	(1, 1, 1, '2016-12-01', '20:00:00'),
-	(2, 2, 1, '2016-12-01', '21:00:00'),
-	(3, 2, 2, '2016-12-01', '22:00:00'),
-	(4, 3, 1, '2017-12-01', '21:00:00');
-/*!40000 ALTER TABLE `show` ENABLE KEYS */;
+/*!40000 ALTER TABLE `show_table` DISABLE KEYS */;
+INSERT INTO `show_table` (`show_id`, `movie_id`, `room_id`, `show_date`, `show_time`, `chairs_sold`) VALUES
+	(1, 1, 1, '2016-12-01', '20:00:00', 0),
+	(2, 2, 1, '2016-12-01', '21:00:00', 0),
+	(3, 2, 2, '2016-12-01', '22:00:00', 0),
+	(4, 3, 1, '2017-12-01', '21:00:00', 0);
+/*!40000 ALTER TABLE `show_table` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
