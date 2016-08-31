@@ -40,13 +40,14 @@ public class CustomerService {
 
 
 	public ShowPresentation getShowPresentationByShowId(int showing_id) {
-		String id = Integer.toString(showing_id);
 		BigInteger showId = BigInteger.valueOf(showing_id);
-		String SQL = "SELECT title, room_name, show_date, show_time, chair_amount, trailer, chairs_sold FROM show_presentation WHERE show_id =" + id;
+		String selectSQL = "SELECT title, room_name, show_date, show_time, chair_amount, trailer, chairs_sold FROM show_presentation WHERE show_id = ?";
 
 		try (final Connection connection = dataSource.getConnection()) {
-			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery(SQL);
+			final PreparedStatement preparedstatement = connection.prepareStatement(selectSQL);
+			preparedstatement.setInt(1, showing_id);
+			ResultSet resultSet = preparedstatement.executeQuery();
+			
 			{
 				resultSet.next();
 				final ShowPresentation show = new ShowPresentationBuilder()
