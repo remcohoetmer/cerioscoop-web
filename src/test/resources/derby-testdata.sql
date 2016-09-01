@@ -18,10 +18,14 @@ INSERT INTO language (language_name) VALUES
 	('French'),
 	('German');
 
-INSERT INTO movie (category, title, minutes, movie_type, language, description, trailer) VALUES
-	('ACTION', 'The Legend of Tarzan (2016)', 90, 3, 'Dutch', 'A story about a boy that survived in the jungle.', 'http://www.youtube.com/embed/hk8QXTuO9WM'),
-	('ACTION', 'Tarzan the Ape Man (1932)', 90, 2, 'English', 'A story about a boy that survived in the jungle.', '#'),
-	('KIDS', 'Tarzan (1999)', 120, 2, 'English', 'A story about a boy that survived in the jungle.', 'http://www.youtube.com/embed/lfciC33t3M0');
+INSERT INTO movie (category, title, minutes, movie_type, language, description, trailer, cover_url) VALUES
+	('ACTION', 'The Legend of Tarzan (2016)', 90, 3, 'Dutch', 'A story about a boy that survived in the jungle.', 'http://www.youtube.com/embed/hk8QXTuO9WM', 'images/covers/theLegendOfTarzan.jpg'),
+	('ACTION', 'Tarzan the Ape Man (1932)', 90, 2, 'English', 'A story about a boy that survived in the jungle.', 'https://www.youtube.com/watch?v=zJyXfpSBXLo', 'images/covers/tarzanTheApeMan.jpg'),
+	('KIDS', 'Tarzan (1999)', 120, 2, 'English', 'A story about a boy that survived in the jungle.', 'http://www.youtube.com/embed/lfciC33t3M0', 'images/covers/tarzan.jpg'),
+	('COMEDY', 'Wedding Crashers',120, 2, 'English', 'A story about two guys that crach weddings.', 'https://www.youtube.com/watch?v=VYrEQbtV2V4', 'images/covers/weddingCrashers.jpg'),
+	('ACTION', 'Blood Diamond', 130, 2, 'English', 'A story about illegal trading of diamonds in Sierra Leone.', 'https://www.youtube.com/watch?v=yknIZsvQjG4', 'images/covers/bloodDiamond.jpg'),
+	('KIDS', 'The Lion King', 100, 3, 'Dutch', 'A story about a lion called Simba.', 'https://www.youtube.com/watch?v=jOIu472cCq0', 'images/covers/theLionKing.jpg'),
+	('COMEDY', 'Snatch', 120, 2, 'English', 'A story about a diamond that all the pikeys want to have.', 'https://www.youtube.com/watch?v=PvQnBwDejfw', 'images/covers/snatch.jpg');
 
 INSERT INTO payment (customer_id, show_id, room_id, chair_id, amount, payment_date, payment_time) VALUES
 	(1, 2, 1, 1, 10, '2018-07-01', '21:00:00'),

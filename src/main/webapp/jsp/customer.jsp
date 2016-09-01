@@ -32,7 +32,6 @@
 	<h3>Login Successful!</h3>
 		<% User customer = (User) session.getAttribute("user"); %>
 		Hello <%=customer.getUsername()%> (${usertype})!<br>
-		Hello ${user.username}!
 	</div> 
  	
  	<div class="body-footer-wrapper">

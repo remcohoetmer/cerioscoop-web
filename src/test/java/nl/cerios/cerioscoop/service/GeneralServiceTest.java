@@ -38,7 +38,7 @@ public class GeneralServiceTest extends DatabaseTest {
 		final List<Movie> movies = generalService.getMovies();
 
 		Assert.assertNotNull(movies);
-		Assert.assertEquals(3, movies.size());
+		Assert.assertEquals(7, movies.size());
 	}
 	
 	@Test

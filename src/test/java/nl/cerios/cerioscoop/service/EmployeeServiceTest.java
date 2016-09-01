@@ -50,6 +50,7 @@ public class EmployeeServiceTest extends DatabaseTest {
 				.withLanguage("SQL")
 				.withDescription("bagger d-film")
 				.withTrailer("#")
+				.withCover("/images/cover.jpg")
 				.build();
 		
 		employeeService.addMovie(testMovie);
@@ -67,6 +68,7 @@ public class EmployeeServiceTest extends DatabaseTest {
 		Assert.assertEquals(testMovie.getLanguage(), insertedMovie.getLanguage());
 		Assert.assertEquals(testMovie.getDescription(), insertedMovie.getDescription());
 		Assert.assertEquals(testMovie.getTrailer(), insertedMovie.getTrailer());
+		Assert.assertEquals(testMovie.getCover(), insertedMovie.getCover());
 	}
 
 	@Test
@@ -81,6 +83,7 @@ public class EmployeeServiceTest extends DatabaseTest {
 				.withLanguage("SQL+")
 				.withDescription("bagger b-film")
 				.withTrailer("#")
+				.withCover("/images/cover.jpg")
 				.build();
 		
 		final Movie movieBefore = getMovie(idOfMovieToBeUpdated);
@@ -92,6 +95,7 @@ public class EmployeeServiceTest extends DatabaseTest {
 		Assert.assertNotEquals(updatedTestMovie.getLanguage(), movieBefore.getLanguage());
 		Assert.assertNotEquals(updatedTestMovie.getDescription(), movieBefore.getDescription());
 		Assert.assertNotEquals(updatedTestMovie.getTrailer(), movieBefore.getTrailer());
+		Assert.assertNotEquals(updatedTestMovie.getCover(), movieBefore.getCover());
 		
 		employeeService.updateMovieFromDatabase(updatedTestMovie);
 
@@ -104,6 +108,7 @@ public class EmployeeServiceTest extends DatabaseTest {
 		Assert.assertEquals(updatedTestMovie.getLanguage(), movieAfter.getLanguage());
 		Assert.assertEquals(updatedTestMovie.getDescription(), movieAfter.getDescription());
 		Assert.assertEquals(updatedTestMovie.getTrailer(), movieAfter.getTrailer());
+		Assert.assertEquals(updatedTestMovie.getCover(), movieAfter.getCover());
 	}
 
 	@Test

@@ -43,6 +43,7 @@ CREATE TABLE movie (
   language VARCHAR(50) NOT NULL,
   description VARCHAR(255) NOT NULL,
   trailer VARCHAR(50) NOT NULL,
+  cover_url VARCHAR(50) NOT NULL,
   PRIMARY KEY (movie_id)
 );
 

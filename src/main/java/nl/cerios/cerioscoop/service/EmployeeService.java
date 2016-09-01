@@ -22,7 +22,7 @@ public class EmployeeService {
 	public void addMovie(final Movie newMovie) {
 		try (final Connection connection = dataSource.getConnection()){
 			final PreparedStatement preparedStatement = connection.prepareStatement(
-					"INSERT INTO movie (category, title, minutes, movie_type, language, description, trailer) VALUES (?,?,?,?,?,?,?)");
+					"INSERT INTO movie (category, title, minutes, movie_type, language, description, trailer, cover_url) VALUES (?,?,?,?,?,?,?,?)");
 			preparedStatement.setString(1, newMovie.getCategory().name());
 			preparedStatement.setString(2, newMovie.getTitle());
 			preparedStatement.setInt(3, newMovie.getMinutes());
@@ -30,6 +30,7 @@ public class EmployeeService {
 			preparedStatement.setString(5, newMovie.getLanguage());
 			preparedStatement.setString(6, newMovie.getDescription());
 			preparedStatement.setString(7, newMovie.getTrailer());
+			preparedStatement.setString(8, newMovie.getCover());
 			preparedStatement.executeUpdate();
 			
 			System.out.println("Data inserted.");
@@ -91,7 +92,7 @@ public class EmployeeService {
 		try {
 	        final Connection connection = dataSource.getConnection();
 	        final PreparedStatement preparedStatement = 
-	        connection.prepareStatement("UPDATE movie SET category = ?, title = ?, minutes = ?, movie_type = ?, language = ?, description = ?, trailer = ? WHERE movie_id = ?");
+	        connection.prepareStatement("UPDATE movie SET category = ?, title = ?, minutes = ?, movie_type = ?, language = ?, description = ?, trailer = ?, cover_url = ? WHERE movie_id = ?");
 		                  
 	        preparedStatement.setString(1, updateMovie.getCategory().name());
 	        preparedStatement.setString(2, updateMovie.getTitle());
@@ -100,7 +101,8 @@ public class EmployeeService {
 		    preparedStatement.setString(5, updateMovie.getLanguage());
 		    preparedStatement.setString(6, updateMovie.getDescription());
 			preparedStatement.setString(7, updateMovie.getTrailer());
-		    preparedStatement.setInt(8, updateMovie.getMovieId().intValue());
+			preparedStatement.setString(8, updateMovie.getCover());
+		    preparedStatement.setInt(9, updateMovie.getMovieId().intValue());
 		    preparedStatement.executeUpdate();
 		              
 		    System.out.println("Movie is updated.");
