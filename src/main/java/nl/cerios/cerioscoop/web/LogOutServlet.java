@@ -26,6 +26,6 @@ public class LogOutServlet extends HttpServlet {
 		session.removeAttribute("user");
 		session.removeAttribute("usertype");
 		session.invalidate();
-		response.sendRedirect("/cerioscoop-web/index.jsp");
+		response.sendRedirect("/cerioscoop-web/IndexServlet");
 	}
 }

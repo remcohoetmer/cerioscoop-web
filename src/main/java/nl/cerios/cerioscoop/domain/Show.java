@@ -9,15 +9,17 @@ public class Show {
 	private int roomId;
 	private Date showDate;
 	private Time showTime;
+	private int chairsSold;
 	
 	public Show() {
 	}
-	public Show(final int showId, final int movieId, final int roomId, final Date showDate, final Time showTime) {
+	public Show(final int showId, final int movieId, final int roomId, final Date showDate, final Time showTime, final int chairsSold) {
 		this.showId = showId;
 		this.movieId = movieId;
 		this.roomId = roomId; 
 		this.showDate = showDate;
 		this.showTime = showTime;
+		this.chairsSold = chairsSold;
 	}
 	public int getShowId() {
 		return showId;
@@ -48,5 +50,11 @@ public class Show {
 	}
 	public void setShowTime(final Time showTime) {
 		this.showTime = showTime;
+	}
+	public int getChairsSold() {
+		return chairsSold;
+	}
+	public void setChairsSold(int chairsSold) {
+		this.chairsSold = chairsSold;
 	}
 }

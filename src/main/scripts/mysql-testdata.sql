@@ -29,14 +29,15 @@ DELETE FROM `customer`;
 INSERT INTO `customer` (`customer_id`, `first_name`, `last_name`, `username`, `password`, `email`, `customer_create_date`, `customer_create_time`) VALUES
 	(1, 'Rutger', 'van Velzen', 'faust', 'Fausttothemax', 'rutger.van.velzen@cerios.nl', '2016-07-01', '21:00:00'),
 	(2, 'Marcel', 'Groothuis', 'marcel', 'HeerserMarcel', 'marcel.groothuis@cerios.nl', '2016-07-01', '21:00:00'),
-	(3, 'Ron', 'Sanders', 'ron', 'SuperRon', 'ron.sanders@cerios.nl', '2016-07-01', '21:00:00');
+	(3, 'Ron', 'Sanders', 'ron', 'SuperRon', 'ron.sanders@cerios.nl', '2016-07-01', '21:00:00'),
+	(4, 'TestCustomer', 'C', 'C', 'C', 'C@cerios.nl', '2019-07-01', '21:00:00');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 
 -- Dumpen data van tabel cerioscoop.employee: ~3 rows (ongeveer)
 DELETE FROM `employee`;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
 INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `username`, `password`, `email`, `employee_create_date`, `employee_create_time`) VALUES
-	(1, 'Administrator', 'A', 'A', 'A', 'A@cerios.nl', '2016-07-01', '21:00:00');
+	(1, 'Administrator', 'A', 'A', 'A', 'A@cerios.nl', '2019-07-01', '21:00:00');
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 
 -- Dumpen data van tabel cerioscoop.language: ~4 rows (ongeveer)
@@ -49,13 +50,17 @@ INSERT INTO `language` (`language_id`, `language_name`) VALUES
 	(4, 'German');
 /*!40000 ALTER TABLE `language` ENABLE KEYS */;
 
--- Dumpen data van tabel cerioscoop.movie: ~3 rows (ongeveer)
+-- Dumpen data van tabel cerioscoop.movie: ~7 rows (ongeveer)
 DELETE FROM `movie`;
 /*!40000 ALTER TABLE `movie` DISABLE KEYS */;
-INSERT INTO `movie` (`movie_id`, `category`, `title`, `minutes`, `movie_type`, `language`, `description`, `trailer`) VALUES
-	(1, 'ACTION', 'The Legend of Tarzan (2016)', 90, 3, 'Dutch', 'A story about a boy that survived in the jungle.', 'http://www.youtube.com/embed/hk8QXTuO9WM'),
-	(2, 'ACTION', 'Tarzan the Ape Man (1932)', 90, 2, 'English', 'A story about a boy that survived in the jungle.', '#'),
-	(3, 'KIDS', 'Tarzan (1999)', 120, 2, 'English', 'A story about a boy that survived in the jungle.', 'http://www.youtube.com/embed/lfciC33t3M0');
+INSERT INTO `movie` (`movie_id`, `category`, `title`, `minutes`, `movie_type`, `language`, `description`, `trailer`, `cover_url`) VALUES
+	(1, 'ACTION', 'The Legend of Tarzan (2016)', 90, 3, 'Dutch', 'A story about a boy that survived in the jungle.', 'http://www.youtube.com/embed/hk8QXTuO9WM', 'images/covers/theLegendOfTarzan.jpg'),
+	(2, 'ACTION', 'Tarzan the Ape Man (1932)', 90, 2, 'English', 'A story about a boy that survived in the jungle.', 'https://www.youtube.com/watch?v=zJyXfpSBXLo', 'images/covers/tarzanTheApeMan.jpg'),
+	(3, 'KIDS', 'Tarzan (1999)', 120, 2, 'English', 'A story about a boy that survived in the jungle.', 'http://www.youtube.com/embed/lfciC33t3M0', 'images/covers/tarzan.jpg'),
+	(4, 'COMEDY', 'Wedding Crashers',120, 2, 'English', 'A story about two guys that crach weddings.', 'https://www.youtube.com/watch?v=VYrEQbtV2V4', 'images/covers/weddingCrashers.jpg'),
+	(5, 'ACTION', 'Blood Diamond', 130, 2, 'English', 'A story about illegal trading of diamonds in Sierra Leone.', 'https://www.youtube.com/watch?v=yknIZsvQjG4', 'images/covers/bloodDiamond.jpg'),
+	(6, 'KIDS', 'The Lion King', 100, 3, 'Dutch', 'A story about a lion called Simba.', 'https://www.youtube.com/watch?v=jOIu472cCq0', 'images/covers/theLionKing.jpg'),
+	(7, 'COMEDY', 'Snatch', 120, 2, 'English', 'A story about a diamond that all the pikeys want to have.', 'https://www.youtube.com/watch?v=PvQnBwDejfw', 'images/covers/snatch.jpg');
 /*!40000 ALTER TABLE `movie` ENABLE KEYS */;
 
 -- Dumpen data van tabel cerioscoop.payment: ~3 rows (ongeveer)
@@ -75,14 +80,20 @@ INSERT INTO `room` (`room_id`, `room_name`, `chair_amount`, `room_type`) VALUES
 	(2, 'blue room', 20, 3);
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 
--- Dumpen data van tabel cerioscoop.show: ~4 rows (ongeveer)
+-- Dumpen data van tabel cerioscoop.show: ~10 rows (ongeveer)
 DELETE FROM `show_table`;
 /*!40000 ALTER TABLE `show_table` DISABLE KEYS */;
 INSERT INTO `show_table` (`show_id`, `movie_id`, `room_id`, `show_date`, `show_time`, `chairs_sold`) VALUES
 	(1, 1, 1, '2016-12-01', '20:00:00', 0),
-	(2, 2, 1, '2016-12-01', '21:00:00', 0),
+	(2, 2, 1, '2017-12-01', '21:00:00', 0),
 	(3, 2, 2, '2016-12-01', '22:00:00', 0),
-	(4, 3, 1, '2017-12-01', '21:00:00', 0);
+	(4, 3, 2, '2018-09-01', '22:00:00', 0),
+	(5, 4, 2, '2016-12-01', '22:00:00', 0),
+	(6, 5, 2, '2019-05-01', '22:00:00', 0),
+	(7, 5, 1, '2016-12-01', '22:00:00', 0),
+	(8, 6, 2, '2018-12-01', '22:00:00', 0),
+	(9, 7, 1, '2016-12-01', '22:00:00', 0),
+	(10, 6, 1, '2017-12-01', '21:00:00', 0);
 /*!40000 ALTER TABLE `show_table` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -126,7 +126,7 @@ public class EmployeeServiceTest extends DatabaseTest {
 		final int idOfShowToBeUpdated = 1;
 		final Show updatedTestShow = new Show(idOfShowToBeUpdated,2,3, 
 				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-06-2016"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("21:00:00"))));
+				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("21:00:00"))),0);
 		
 		final Show showBefore = getShow(idOfShowToBeUpdated);
 		Assert.assertNotNull(showBefore);

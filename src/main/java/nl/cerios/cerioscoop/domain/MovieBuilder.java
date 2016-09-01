@@ -12,6 +12,7 @@ public final class MovieBuilder {
 	private String language;
 	private String description;
 	private String trailer;
+	private String cover;
 
 	public MovieBuilder withMovieId(final BigInteger value) {
 		movieId = value;
@@ -53,8 +54,13 @@ public final class MovieBuilder {
 		return this;
 	}
 	
+	public MovieBuilder withCover(final String value) {
+		cover = value;
+		return this;
+	}
+	
 	public Movie build() {
-		return new Movie(movieId, title, category, minutes, movieType, language, description, trailer);
+		return new Movie(movieId, title, category, minutes, movieType, language, description, trailer, cover);
 	}
 }
 

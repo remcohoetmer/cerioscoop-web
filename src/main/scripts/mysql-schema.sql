@@ -77,6 +77,7 @@ CREATE TABLE IF NOT EXISTS `movie` (
   `language` varchar(50) COLLATE utf8_bin NOT NULL,
   `description` varchar(255) COLLATE utf8_bin NOT NULL,
   `trailer` varchar(50) COLLATE utf8_bin NOT NULL,
+  `cover_url` varchar(50) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`movie_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 

@@ -12,9 +12,10 @@ public final class Movie {
 	private String language;
 	private String description;
 	private String trailer;
+	private String cover;
 
-	Movie(final BigInteger movieId, final String title, final Category category, 
-			final int minutes, final int movieType, final String language, final String description, final String trailer) {
+	Movie(final BigInteger movieId, final String title, final Category category, final int minutes, final int movieType, 
+			final String language, final String description, final String trailer, final String cover) {
 		this.movieId = movieId;
 		this.title = title;
 		this.category = category;
@@ -23,6 +24,7 @@ public final class Movie {
 		this.language = language;
 		this.description = description;
 		this.trailer = trailer;
+		this.cover = cover;
 	}
 
 	public BigInteger getMovieId() {
@@ -55,6 +57,10 @@ public final class Movie {
 
 	public String getTrailer() {
 		return trailer;
+	}
+
+	public String getCover() {
+		return cover;
 	}
 }
 

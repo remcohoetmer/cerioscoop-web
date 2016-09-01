@@ -35,7 +35,7 @@ public class GeneralService {
 		final List<Movie> movies = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()) {			//AutoCloseable
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, title, category, minutes, movie_type, language, description, trailer FROM movie");
+			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, title, category, minutes, movie_type, language, description, trailer, cover_url FROM movie");
 			while (resultSet.next()) {
 				final Movie movie = new MovieBuilder()
 						.withMovieId(resultSet.getBigDecimal("movie_id").toBigInteger())
@@ -46,6 +46,7 @@ public class GeneralService {
 						.withLanguage(resultSet.getString("language"))
 						.withDescription(resultSet.getString("description"))
 						.withTrailer(resultSet.getString("trailer"))
+						.withCover(resultSet.getString("cover_url"))
 						.build();
 				movies.add(movie);
 			}
@@ -59,15 +60,16 @@ public class GeneralService {
 		final List<Show> shows = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()){
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT show_id, movie_id, room_id, show_date, show_time FROM show_table"); { 
+			final ResultSet resultSet = statement.executeQuery("SELECT show_id, movie_id, room_id, show_date, show_time, chairs_sold FROM show_table"); { 
 			while (resultSet.next()) {
 				final int showId = resultSet.getInt("show_id");
 				final int movieId = resultSet.getInt("movie_id");
 				final int roomId = resultSet.getInt("room_id");
 				final Date showDate = resultSet.getDate("show_date");
 				final Time showTime = resultSet.getTime("show_time");
+				final int chairsSold = resultSet.getInt("chairs_sold");
 				
-	        	shows.add(new Show(showId, movieId, roomId, showDate, showTime));
+	        	shows.add(new Show(showId, movieId, roomId, showDate, showTime, chairsSold));
 	        	}
 	        return shows;
 	      }
