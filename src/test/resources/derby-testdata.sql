@@ -1,43 +1,32 @@
-INSERT INTO chair (nummer) VALUES
-	(1),
-	(2),
-	(3),
-	(4);
+INSERT INTO customer (first_name, last_name, username, password, email) VALUES
+	('Rutger', 'van Velzen', 'faust', 'Fausttothemax', 'rutger.van.velzen@cerios.nl'),
+	('Marcel', 'Groothuis', 'marcel', 'HeerserMarcel', 'marcel.groothuis@cerios.nl'),
+	('Ron', 'Sanders', 'ron', 'SuperRon', 'ron.sanders@cerios.nl');
 
-INSERT INTO customer (first_name, last_name, username, password, email, customer_create_date, customer_create_time) VALUES
-	('Rutger', 'van Velzen', 'faust', 'Fausttothemax', 'rutger.van.velzen@cerios.nl', '2016-07-01', '21:00:00'),
-	('Marcel', 'Groothuis', 'marcel', 'HeerserMarcel', 'marcel.groothuis@cerios.nl', '2016-07-01', '21:00:00'),
-	('Ron', 'Sanders', 'ron', 'SuperRon', 'ron.sanders@cerios.nl', '2016-07-01', '21:00:00');
+INSERT INTO movie (movie_title, movie_description) VALUES
+	('The Legend of Tarzan (2016)','A story about a boy that survived in the jungle.',
+	('Tarzan the Ape Man (1932)', 'A story about a boy that survived in the jungle.'),
+	('Tarzan (1999)', 'A story about a boy that survived in the jungle.'),
+	('Wedding Crashers', 'A story about two guys that crach weddings.'),
+	('Blood Diamond', 'A story about illegal trading of diamonds in Sierra Leone.'),
+	('The Lion King', 'A story about a lion called Simba.'),
+	('Snatch', 'A story about a diamond that all the pikeys want to have.');
 
-INSERT INTO employee (first_name, last_name, username, password, email, employee_create_date, employee_create_time) VALUES
-	('Administrator', 'A', 'A', 'A', 'A@cerios.nl', '2016-07-01', '21:00:00');
+INSERT INTO transaction (customer_id, show_id, bankaccount, total_price, reserved_places) VALUES
+	(1, 2, 1234567890, 10, 5),
+	(2, 1, 2234567890, 20, 2),
+	(2, 2, 3234567890, 20, 3),
+	(3, 1, 4234567890, 10, 1);
 
-INSERT INTO language (language_name) VALUES
-	('English'),
-	('Dutch'),
-	('French'),
-	('German');
+INSERT INTO room (room_name, capacity) VALUES
+	('red room', 50),
+	('blue room', 20);
 
-INSERT INTO movie (category, title, minutes, movie_type, language, description, trailer, cover_url) VALUES
-	('ACTION', 'The Legend of Tarzan (2016)', 90, 3, 'Dutch', 'A story about a boy that survived in the jungle.', 'http://www.youtube.com/embed/hk8QXTuO9WM', 'images/covers/theLegendOfTarzan.jpg'),
-	('ACTION', 'Tarzan the Ape Man (1932)', 90, 2, 'English', 'A story about a boy that survived in the jungle.', 'https://www.youtube.com/watch?v=zJyXfpSBXLo', 'images/covers/tarzanTheApeMan.jpg'),
-	('KIDS', 'Tarzan (1999)', 120, 2, 'English', 'A story about a boy that survived in the jungle.', 'http://www.youtube.com/embed/lfciC33t3M0', 'images/covers/tarzan.jpg'),
-	('COMEDY', 'Wedding Crashers',120, 2, 'English', 'A story about two guys that crach weddings.', 'https://www.youtube.com/watch?v=VYrEQbtV2V4', 'images/covers/weddingCrashers.jpg'),
-	('ACTION', 'Blood Diamond', 130, 2, 'English', 'A story about illegal trading of diamonds in Sierra Leone.', 'https://www.youtube.com/watch?v=yknIZsvQjG4', 'images/covers/bloodDiamond.jpg'),
-	('KIDS', 'The Lion King', 100, 3, 'Dutch', 'A story about a lion called Simba.', 'https://www.youtube.com/watch?v=jOIu472cCq0', 'images/covers/theLionKing.jpg'),
-	('COMEDY', 'Snatch', 120, 2, 'English', 'A story about a diamond that all the pikeys want to have.', 'https://www.youtube.com/watch?v=PvQnBwDejfw', 'images/covers/snatch.jpg');
-
-INSERT INTO payment (customer_id, show_id, room_id, chair_id, amount, payment_date, payment_time) VALUES
-	(1, 2, 1, 1, 10, '2018-07-01', '21:00:00'),
-	(2, 1, 2, 2, 10, '2018-07-01', '20:00:00'),
-	(3, 1, 1, 1, 10, '2018-07-01', '22:00:00');
-
-INSERT INTO room (room_name, chair_amount, room_type) VALUES
-	('red room', 50, 2),
-	('blue room', 20, 3);
-
-INSERT INTO show_table (movie_id, room_id, show_date, show_time, chairs_sold) VALUES
-	(1, 1, '2016-12-01', '20:00:00', 0),
-	(2, 1, '2016-12-01', '21:00:00', 0),
-	(2, 2, '2016-12-01', '22:00:00', 0),
-	(3, 1, '2017-12-01', '21:00:00', 0);
+INSERT INTO show_table (movie_id, room_id, show_date, show_time, available_places, show_price) VALUES
+	(1, 1, '2016-12-01', '12:00:00', 50, 10),
+	(2, 1, '2016-12-01', '21:00:00', 50, 20),
+	(3, 2, '2016-12-01', '16:00:00', 20, 10),
+	(4, 1, '2016-12-01', '20:00:00', 50, 20),
+	(5, 1, '2016-12-01', '21:00:00', 50, 20),
+	(6, 2, '2016-12-01', '10:00:00', 20, 10),
+	(7, 1, '2017-12-01', '15:00:00', 50, 10);

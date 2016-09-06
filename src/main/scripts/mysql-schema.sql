@@ -50,7 +50,9 @@ CREATE TABLE IF NOT EXISTS `transaction` (
   `bankaccount` varchar(34) COLLATE utf8_bin NOT NULL,
   `reserved_places` int(50) unsigned NOT NULL,
   `total_price` float NOT NULL,
-  PRIMARY KEY (`transaction_id`)
+  PRIMARY KEY (`transaction_id`),
+  FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
+  FOREIGN KEY (`show_id`) REFERENCES `show_table` (`show_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- Data exporteren was gedeselecteerd
@@ -69,12 +71,14 @@ DROP TABLE IF EXISTS `show_table`;
 CREATE TABLE IF NOT EXISTS `show_table` (
   `show_id` int(20) unsigned NOT NULL AUTO_INCREMENT,
   `movie_id` int(20) unsigned NOT NULL,
-  `room_id` int(20) NOT NULL,
+  `room_id` int(20) unsigned NOT NULL,
   `show_date` date NOT NULL,
   `show_time` time NOT NULL,
   `available_places` int(50) NOT NULL,
   `show_price` float NOT NULL,
-  PRIMARY KEY (`show_id`)
+  PRIMARY KEY (`show_id`),
+  FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`),
+  FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- Data exporteren was gedeselecteerd
