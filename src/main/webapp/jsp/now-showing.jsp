@@ -75,6 +75,5 @@
 		${first_upcoming_movie} <br />That's in ${countdown}
 	</p>
 
-	<jsp:include page="/jsp/shared/footer.jsp" />
 </body>
 </html>

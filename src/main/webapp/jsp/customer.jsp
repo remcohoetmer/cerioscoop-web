@@ -36,7 +36,7 @@
  	
  	<div class="body-footer-wrapper">
 		<div class="footer">
-			<jsp:include page="/jsp/shared/footer.jsp" />		
+				
 		</div>
 	</div>
 </body>

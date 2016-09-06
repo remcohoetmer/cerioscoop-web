@@ -51,6 +51,6 @@
 
 		</tbody>
 	</table>
-	<jsp:include page="/jsp/shared/footer.jsp" />
+
 </body>
 </html>

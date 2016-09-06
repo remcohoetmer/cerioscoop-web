@@ -23,13 +23,15 @@
 	  <input id="username" type="text" name="username" placeholder="Enter your username" required>
 	  <br>Password:<br>
 	  <input id="password" type="text" name="password" placeholder="Enter your password" required>
+	  <br>Password:<br>
+	  <input id="password" type="text" name="password2" placeholder="Enter your password" required>
 	  <br>E-mail:<br>
 	  <input id="email" type="email" name="email" placeholder="Enter your email address" required>
 	  <br>
-	  <br><input id="submit" type="submit" name="submitit" value="Submit">
+	  <br><input id="submit" type="submit" name="submitit" value="Login">
 	</form> 
 	</div>
 	
-	<jsp:include page="/jsp/shared/footer.jsp" />
+
 </body>
 </html>

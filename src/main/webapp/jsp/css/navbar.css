@@ -1,0 +1,68 @@
+@CHARSET "ISO-8859-1";
+
+body {
+      margin: auto;
+}
+
+span {
+    color: white;
+     font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.navbar {
+     margin: auto;
+     padding: 0;
+      width: 100%;
+      list-style-type: none;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.navbar-buttons-wrapper {
+    width: 50%;
+    margin: auto;
+}
+.navbar-button {
+    float: left;
+    padding: 30px;
+}
+
+.navbar-button:hover, .navbar-dropdown-button-movie-content a:hover, .navbar-button .login-menu a:hover {
+    background-color: #ffa500;
+}
+
+.navbar-dropdown-button-item a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar-dropdown-button-movie-content, .login-menu {
+    margin-top: 30px;
+    margin-left: -30px;
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 999;
+}
+.navbar-dropdown-button-movie-content a, .login-menu a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    z-index: 999;
+}
+
+.navbar-button:hover .navbar-dropdown-button-movie-content, .navbar-button:hover .login-menu {
+    display: block;
+}

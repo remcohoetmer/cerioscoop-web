@@ -1,6 +1,7 @@
 package nl.cerios.cerioscoop.web;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -19,27 +20,71 @@ import nl.cerios.cerioscoop.util.DateUtils;
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final DateUtils dateUtils = new DateUtils(); 
-	
+	private static final DateUtils dateUtils = new DateUtils();
+
 	@EJB
 	private GeneralService generalService;
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Customer customer = new Customer();
-		
-		if ("Submit".equals(request.getParameter("submitit"))) {		
-			customer.setFirstName(request.getParameter("firstname"));
-			customer.setLastName(request.getParameter("lastname"));
-			customer.setUsername(request.getParameter("username"));
-			customer.setPassword(request.getParameter("password"));
-			customer.setEmail(request.getParameter("email"));
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+
+		if ("Submit".equals(request.getParameter("submitit"))) {
+
+			if (request.getParameter("firstname").length() >= 8 && request.getParameter("firstname").length() <= 20) {
+				customer.setFirstName(request.getParameter("firstname"));
+			} else {
+				out.println("<script type=\"text/javascript\">");
+				out.println("alert('First name needs to be between 8 and 20 characters long');");
+				out.println("location='index.jsp';");
+				out.println("</script>");
+			}
+
+			if (request.getParameter("lastname").length() >= 8 && request.getParameter("lastname").length() <= 20) {
+				customer.setLastName(request.getParameter("lastname"));
+			} else {
+				out.println("<script type=\"text/javascript\">");
+				out.println("alert('Last name needs to be between 8 and 20 characters long');");
+				out.println("location='index.jsp';");
+				out.println("</script>");
+			}
+			if (request.getParameter("username").length() >= 8 && request.getParameter("username").length() <= 20) {
+				customer.setUsername(request.getParameter("username"));
+			} else {
+				out.println("<script type=\"text/javascript\">");
+				out.println("alert('Username needs to be between 8 and 20 characters long');");
+				out.println("location='index.jsp';");
+				out.println("</script>");
+			}
+
+			if (request.getParameter("password").length() >= 6 && request.getParameter("password").length() <= 12
+					&& request.getParameter("password").equals(request.getParameter("password2"))) {
+				customer.setPassword(request.getParameter("password"));
+			} else {
+				out.println("<script type=\"text/javascript\">");
+				out.println("alert('Password needs to be between 6 and 12 characters long');");
+				out.println("location='index.jsp';");
+				out.println("</script>");
+			}
+
+			if (customer.getEmail().length() >= 6 && customer.getEmail().contains("@")) {
+				customer.setEmail(request.getParameter("email"));
+			}
+			else {
+				out.println("<script type=\"text/javascript\">");
+				out.println("alert('Enter valid email with minimal 6 charachters long');");
+				out.println("location='index.jsp';");
+				out.println("</script>");
+			}
 			generalService.registerCustomer(customer);
 		}
-		request.getRequestDispatcher("/jsp/register.jsp").
-        forward(request,response);
+		request.getRequestDispatcher("/jsp/register.jsp").forward(request, response);
 	}
 
 }
