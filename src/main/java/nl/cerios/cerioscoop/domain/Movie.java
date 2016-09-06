@@ -5,13 +5,13 @@ import java.math.BigInteger;
 public final class Movie {
 
 	private BigInteger movieId;
-	private String movieTitle;
-	private String movieDescription;
+	private String title;
+	private String description;
 
-	Movie(final BigInteger movieId, final String movieTitle, final String movieDescription) {
+	Movie(final BigInteger movieId, final String title, final String movieDescription) {
 		this.movieId = movieId;
-		this.movieTitle = movieTitle;
-		this.movieDescription = movieDescription;
+		this.title = title;
+		this.description = movieDescription;
 
 	}
 
@@ -20,11 +20,11 @@ public final class Movie {
 	}
 
 	public String getTitle() {
-		return movieTitle;
+		return title;
 	}
 
 	public String getDescription() {
-		return movieDescription;
+		return description;
 	}
 
 }

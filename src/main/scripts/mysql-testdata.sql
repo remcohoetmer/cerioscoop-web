@@ -26,7 +26,7 @@ INSERT INTO `customer` (`customer_id`, `first_name`, `last_name`, `username`, `p
 -- Dumpen data van tabel cerioscoop.movie: ~7 rows (ongeveer)
 DELETE FROM `movie`;
 /*!40000 ALTER TABLE `movie` DISABLE KEYS */;
-INSERT INTO `movie` (`movie_id`, `movie_title`, `movie_description`) VALUES
+INSERT INTO `movie` (`movie_id`, `title`, `description`) VALUES
 	(1, 'The Legend of Tarzan (2016)', 'A story about a boy that survived in the jungle.'),
 	(2, 'Tarzan the Ape Man (1932)', 'A story about a boy that survived in the jungle.'),
 	(3, 'Tarzan (1999)', 'A story about a boy that survived in the jungle.'),

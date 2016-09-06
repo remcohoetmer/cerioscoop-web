@@ -3,7 +3,7 @@ INSERT INTO customer (first_name, last_name, username, password, email) VALUES
 	('Marcel', 'Groothuis', 'marcel', 'HeerserMarcel', 'marcel.groothuis@cerios.nl'),
 	('Ron', 'Sanders', 'ron', 'SuperRon', 'ron.sanders@cerios.nl');
 
-INSERT INTO movie (movie_title, movie_description) VALUES
+INSERT INTO movie (title, description) VALUES
 	('The Legend of Tarzan (2016)','A story about a boy that survived in the jungle.',
 	('Tarzan the Ape Man (1932)', 'A story about a boy that survived in the jungle.'),
 	('Tarzan (1999)', 'A story about a boy that survived in the jungle.'),

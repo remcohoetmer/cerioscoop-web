@@ -5,8 +5,8 @@ import java.math.BigInteger;
 public final class MovieBuilder {
 	
 	private BigInteger movieId;
-	private String movieTitle;
-	private String movieDescription;
+	private String title;
+	private String description;
 
 	public MovieBuilder withMovieId(final BigInteger value) {
 		movieId = value;
@@ -14,18 +14,18 @@ public final class MovieBuilder {
 	}
 
 	public MovieBuilder withMovieTitle(final String value) {
-		movieTitle = value;
+		title = value;
 		return this;
 	}
 
 	public MovieBuilder withMovieDescription(final String value) {
-		movieDescription = value;
+		description = value;
 		return this;
 	}
 
 	
 	public Movie build() {
-		return new Movie(movieId, movieTitle, movieDescription);
+		return new Movie(movieId, title, description);
 	}
 }
 

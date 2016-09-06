@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS `customer` (
 DROP TABLE IF EXISTS `movie`;
 CREATE TABLE IF NOT EXISTS `movie` (
   `movie_id` int(20) unsigned NOT NULL AUTO_INCREMENT,
-  `movie_title` varchar(20) COLLATE utf8_bin NOT NULL,
-  `movie_description` varchar(255) COLLATE utf8_bin NOT NULL,
+  `title` varchar(20) COLLATE utf8_bin NOT NULL,
+  `description` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`movie_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 

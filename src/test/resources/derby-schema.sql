@@ -10,8 +10,8 @@ CREATE TABLE customer (
 
 CREATE TABLE movie (
   movie_id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
-  movie_title VARCHAR(255) NOT NULL,
-  movie_description VARCHAR(255) NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
   PRIMARY KEY (movie_id)
 );
 
