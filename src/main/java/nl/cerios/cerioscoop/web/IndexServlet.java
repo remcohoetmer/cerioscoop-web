@@ -57,7 +57,6 @@ public class IndexServlet extends HttpServlet {
 
 			// 4. zet de src van elk plaatje in een atribuut
 			for (Movie movie : moviesFromAllShows) {
-				//System.out.println(movie.getMovieId().toString() + " " + movie.getTitle() + " " + movie.getCover());
 				request.setAttribute(movie.getMovieId().toString(), movie);
 			}
 		}

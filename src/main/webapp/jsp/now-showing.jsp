@@ -16,7 +16,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Now Showing  joepiedepoepie</title>
+<title>Now Showing</title>
 
 <!-- Cerioscoop CSS
    ================================================== -->

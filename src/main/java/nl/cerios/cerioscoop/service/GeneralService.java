@@ -33,12 +33,12 @@ public class GeneralService {
 		final List<Movie> movies = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()) {			//AutoCloseable
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, movie_title, movie_description FROM movie");
+			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, title, description FROM movie");
 			while (resultSet.next()) {
 				final Movie movie = new MovieBuilder()
 						.withMovieId(resultSet.getBigDecimal("movie_id").toBigInteger())
-						.withMovieTitle(resultSet.getString("movie_title"))
-						.withMovieDescription(resultSet.getString("movie_description"))
+						.withMovieTitle(resultSet.getString("title"))
+						.withMovieDescription(resultSet.getString("description"))
 						.build();
 				movies.add(movie);
 			}
@@ -100,12 +100,12 @@ public class GeneralService {
 		final List<ShowPresentation> showings = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()){
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT show_id, movie_title, room_name, show_date, show_time FROM show_presentation"); { 
+			final ResultSet resultSet = statement.executeQuery("SELECT show_id, title, room_name, show_date, show_time FROM show_presentation"); { 
 
 			while (resultSet.next()) {
 				final ShowPresentation show = new ShowPresentationBuilder()
 						.withShowId(resultSet.getBigDecimal("show_id").toBigInteger())
-						.withMovieTitle(resultSet.getString("movie_title"))
+						.withMovieTitle(resultSet.getString("title"))
 						.withShowingDate(resultSet.getDate("show_date"))
 						.withShowingTime(resultSet.getTime("show_time"))
 						.build();			
