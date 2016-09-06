@@ -5,25 +5,18 @@ import java.sql.Date;
 import java.sql.Time;
 
 public class ShowPresentationBuilder {
-	private BigInteger showingId;
+	private BigInteger showId;
 	private String movieTitle;
-	private String roomName;
 	private Date showingDate;
 	private Time showingTime;
-	private BigInteger chairAmount;
-	private String trailer;
-	private BigInteger chairsSold;
+
 	
-	public ShowPresentationBuilder withShowingId(final BigInteger value) {
-		showingId = value;
+	public ShowPresentationBuilder withShowId(final BigInteger value) {
+		showId = value;
 		return this;
 	}
 	public ShowPresentationBuilder withMovieTitle(final String value) {
 		movieTitle = value;
-		return this;
-	}
-	public ShowPresentationBuilder withRoomName(final String value) {
-		roomName = value;
 		return this;
 	}
 	public ShowPresentationBuilder withShowingDate(final Date value) {
@@ -34,20 +27,9 @@ public class ShowPresentationBuilder {
 		showingTime = value;
 		return this;
 	}
-	public ShowPresentationBuilder withChairAmount(final BigInteger value) {
-		chairAmount = value;
-		return this;
-	}
-	public ShowPresentationBuilder withTrailer(final String value) {
-		trailer = value;
-		return this;
-	}
-	public ShowPresentationBuilder withChairsSold(final BigInteger value) {
-		chairsSold = value;
-		return this;
-	}
+
 	public ShowPresentation build() {
-		return new ShowPresentation(showingId, movieTitle, roomName, showingDate, showingTime, chairAmount, trailer, chairsSold);
+		return new ShowPresentation(showId, movieTitle, showingDate, showingTime);
 	}
 }
 

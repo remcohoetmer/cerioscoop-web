@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
@@ -41,7 +40,7 @@ public class CustomerService {
 
 	public ShowPresentation getShowPresentationByShowId(int showing_id) {
 		BigInteger showId = BigInteger.valueOf(showing_id);
-		String selectSQL = "SELECT title, room_name, show_date, show_time, chair_amount, trailer, chairs_sold FROM show_presentation WHERE show_id = ?";
+		String selectSQL = "SELECT movie_title, show_date, show_time FROM show_presentation WHERE show_id = ?";
 
 		try (final Connection connection = dataSource.getConnection()) {
 			final PreparedStatement preparedstatement = connection.prepareStatement(selectSQL);
@@ -51,14 +50,10 @@ public class CustomerService {
 			{
 				resultSet.next();
 				final ShowPresentation show = new ShowPresentationBuilder()
-						.withShowingId(showId)
-						.withMovieTitle(resultSet.getString("title"))
-						.withRoomName(resultSet.getString("room_name"))
+						.withShowId(showId)
+						.withMovieTitle(resultSet.getString("movie_title"))
 						.withShowingDate(resultSet.getDate("show_date"))
 						.withShowingTime(resultSet.getTime("show_time"))
-						.withChairAmount(resultSet.getBigDecimal("chair_amount").toBigInteger())
-						.withTrailer(resultSet.getString("trailer"))
-						.withChairsSold(resultSet.getBigDecimal("chairs_sold").toBigInteger())
 						.build();	
 				return show;
 			}

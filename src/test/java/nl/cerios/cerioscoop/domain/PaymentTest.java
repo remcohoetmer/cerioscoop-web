@@ -11,7 +11,7 @@ public class PaymentTest {
 
 	@Test
 	public void testInstantiatePayment() throws ParseException {
-		final Payment payment = new Payment();
+		final Transaction payment = new Transaction();
 		final DateUtils dateUtils = new DateUtils();
 		
 			payment.setPaymentId(100);		

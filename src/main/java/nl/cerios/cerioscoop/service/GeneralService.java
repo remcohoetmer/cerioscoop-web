@@ -14,9 +14,7 @@ import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.sql.DataSource;
 
-import nl.cerios.cerioscoop.domain.Category;
 import nl.cerios.cerioscoop.domain.Customer;
-import nl.cerios.cerioscoop.domain.Employee;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
@@ -39,14 +37,8 @@ public class GeneralService {
 			while (resultSet.next()) {
 				final Movie movie = new MovieBuilder()
 						.withMovieId(resultSet.getBigDecimal("movie_id").toBigInteger())
-						.withTitle(resultSet.getString("title"))
-						.withCategory(Category.valueOf(resultSet.getString("category")))
-						.withMinutes(resultSet.getInt("minutes"))
-						.withType(resultSet.getInt("movie_type"))
-						.withLanguage(resultSet.getString("language"))
-						.withDescription(resultSet.getString("description"))
-						.withTrailer(resultSet.getString("trailer"))
-						.withCover(resultSet.getString("cover_url"))
+						.withMovieTitle(resultSet.getString("movie_title"))
+						.withMovieDescription(resultSet.getString("movie_description"))
 						.build();
 				movies.add(movie);
 			}
@@ -60,16 +52,18 @@ public class GeneralService {
 		final List<Show> shows = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()){
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT show_id, movie_id, room_id, show_date, show_time, chairs_sold FROM show_table"); { 
+			final ResultSet resultSet = statement.executeQuery("SELECT show_id, movie_id, room_id, show_date, show_time, available_places, show_price FROM show_table"); { 
 			while (resultSet.next()) {
 				final int showId = resultSet.getInt("show_id");
 				final int movieId = resultSet.getInt("movie_id");
 				final int roomId = resultSet.getInt("room_id");
 				final Date showDate = resultSet.getDate("show_date");
 				final Time showTime = resultSet.getTime("show_time");
-				final int chairsSold = resultSet.getInt("chairs_sold");
+				final int availablePlaces = resultSet.getInt("available_places");
+				final float showPrice = resultSet.getInt("show_price");
 				
-	        	shows.add(new Show(showId, movieId, roomId, showDate, showTime, chairsSold));
+				
+	        	shows.add(new Show(showId, movieId, roomId, showDate, showTime, availablePlaces, showPrice));
 	        	}
 	        return shows;
 	      }
@@ -82,7 +76,7 @@ public class GeneralService {
 		final List<Customer> customers = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()){
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT customer_id, first_name, last_name, username, password, email, customer_create_date, customer_create_time FROM customer"); { 
+			final ResultSet resultSet = statement.executeQuery("SELECT customer_id, first_name, last_name, username, password, email FROM customer"); { 
 
 			while (resultSet.next()) {
 				final int customerId = resultSet.getInt("customer_id");
@@ -91,10 +85,9 @@ public class GeneralService {
 				final String username = resultSet.getString("username");
 				final String password = resultSet.getString("password");
 				final String email = resultSet.getString("email");
-				final Date createDate = resultSet.getDate("customer_create_date");
-				final Time createTime = resultSet.getTime("customer_create_time");
+
 				
-				customers.add(new Customer(customerId, firstName, lastName, username, password, email, createDate, createTime));
+				customers.add(new Customer(customerId, firstName, lastName, username, password, email));
 	        	}
 	        return customers;
 	      }
@@ -102,32 +95,7 @@ public class GeneralService {
 	    	throw new ServiceException("Something went terribly wrong while retrieving the customers.", e);
 	    }
 	}
-	
-	public List<Employee> getEmployees(){
-		final List<Employee> employees = new ArrayList<>();
-		try (final Connection connection = dataSource.getConnection()){
-			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT employee_id, first_name, last_name, username, password, email, employee_create_date, employee_create_time FROM employee"); { 
-
-			while (resultSet.next()) {
-				final int employeeId = resultSet.getInt("employee_id");
-				final String firstName = resultSet.getString("first_name");
-				final String lastName = resultSet.getString("last_name");
-				final String username = resultSet.getString("username");
-				final String password = resultSet.getString("password");
-				final String email = resultSet.getString("email");
-				final Date createDate = resultSet.getDate("employee_create_date");
-				final Time createTime = resultSet.getTime("employee_create_time");
-				
-				employees.add(new Employee(employeeId, firstName, lastName, username, password, email, createDate, createTime));
-	        	}
-	        return employees;
-	      }
-	    }catch (final SQLException e) {
-	    	throw new ServiceException("Something went terribly wrong while retrieving the employees.", e);
-	    }
-	}
-	
+		
 	public List<ShowPresentation> getShowings(){
 		final List<ShowPresentation> showings = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()){
@@ -136,14 +104,10 @@ public class GeneralService {
 
 			while (resultSet.next()) {
 				final ShowPresentation show = new ShowPresentationBuilder()
-						.withShowingId(resultSet.getBigDecimal("show_id").toBigInteger())
+						.withShowId(resultSet.getBigDecimal("show_id").toBigInteger())
 						.withMovieTitle(resultSet.getString("title"))
-						.withRoomName(resultSet.getString("room_name"))
 						.withShowingDate(resultSet.getDate("show_date"))
 						.withShowingTime(resultSet.getTime("show_time"))
-						.withChairAmount(resultSet.getBigDecimal("chair_amount").toBigInteger())
-						.withTrailer(resultSet.getString("trailer"))
-						.withChairsSold(resultSet.getBigDecimal("chairs_sold").toBigInteger())
 						.build();			
 				showings.add(show);
 	        	}
@@ -191,15 +155,13 @@ public class GeneralService {
 	public void registerCustomer(final Customer customer){
 		try (final Connection connection = dataSource.getConnection();
 				final PreparedStatement preparedStatement = connection.prepareStatement(
-						"INSERT INTO customer (first_name, last_name, username, password, email, customer_create_date, customer_create_time) VALUES (?,?,?,?,?,?,?)")) {
+						"INSERT INTO customer (first_name, last_name, username, password, email) VALUES (?,?,?,?,?)")) {
 				
 	        	preparedStatement.setString(1, customer.getFirstName());
 	        	preparedStatement.setString(2, customer.getLastName());
 	        	preparedStatement.setString(3, customer.getUsername());
 	        	preparedStatement.setString(4, customer.getPassword());
 	        	preparedStatement.setString(5, customer.getEmail());
-	        	preparedStatement.setDate(6, customer.getCreateDate()); 
-	        	preparedStatement.setTime(7,customer.getCreateTime());
 	        	preparedStatement.executeUpdate();
 	        	
 	        	System.out.println("Data inserted.");
@@ -223,19 +185,6 @@ public class GeneralService {
 	}
 	
 	
-	public User authenticateEmployee(User employee, List<Employee> listOfEmployees){
-		final List<Employee> dbEmployees = listOfEmployees;	
-		final String usernameEmployee = employee.getUsername();
-		final String passwordEmployee = employee.getPassword();
-		User authenticatedEmployee = null;
-		
-		for (final Employee employeeItem : dbEmployees){
-			if(employeeItem.getUsername().equals(usernameEmployee) && employeeItem.getPassword().equals(passwordEmployee)){
-				authenticatedEmployee = employeeItem;
-				}
-		}
-		return authenticatedEmployee;
-	}
 	
 	public Boolean authenticateUser(User authenticatedUser){
 		if(authenticatedUser == null){

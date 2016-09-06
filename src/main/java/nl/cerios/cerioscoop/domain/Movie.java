@@ -3,66 +3,28 @@ package nl.cerios.cerioscoop.domain;
 import java.math.BigInteger;
 
 public final class Movie {
-	
-	private BigInteger movieId;
-	private Category category;
-	private String title;
-	private int minutes;
-	private int movieType;
-	private String language;
-	private String description;
-	private String trailer;
-	private String cover;
 
-	Movie(final BigInteger movieId, final String title, final Category category, final int minutes, final int movieType, 
-			final String language, final String description, final String trailer, final String cover) {
+	private BigInteger movieId;
+	private String movieTitle;
+	private String movieDescription;
+
+	Movie(final BigInteger movieId, final String movieTitle, final String movieDescription) {
 		this.movieId = movieId;
-		this.title = title;
-		this.category = category;
-		this.minutes = minutes;
-		this.movieType = movieType;
-		this.language = language;
-		this.description = description;
-		this.trailer = trailer;
-		this.cover = cover;
+		this.movieTitle = movieTitle;
+		this.movieDescription = movieDescription;
+
 	}
 
 	public BigInteger getMovieId() {
 		return movieId;
 	}
-	
-	public Category getCategory() {
-		return category;
-	}
 
 	public String getTitle() {
-		return title;
-	}
-
-	public int getMinutes() {
-		return minutes;
-	}
-
-	public int getMovieType() {
-		return movieType;
-	}
-
-	public String getLanguage() {
-		return language;
+		return movieTitle;
 	}
 
 	public String getDescription() {
-		return description;
+		return movieDescription;
 	}
 
-	public String getTrailer() {
-		return trailer;
-	}
-
-	public String getCover() {
-		return cover;
-	}
 }
-
-
-

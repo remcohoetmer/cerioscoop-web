@@ -36,8 +36,6 @@ public class RegisterServlet extends HttpServlet {
 			customer.setUsername(request.getParameter("username"));
 			customer.setPassword(request.getParameter("password"));
 			customer.setEmail(request.getParameter("email"));
-			customer.setCreateDate(dateUtils.getCurrentSqlDate());
-			customer.setCreateTime(dateUtils.getCurrentSqlTime());
 			generalService.registerCustomer(customer);
 		}
 		request.getRequestDispatcher("/jsp/register.jsp").
