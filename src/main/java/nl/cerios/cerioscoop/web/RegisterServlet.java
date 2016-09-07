@@ -35,55 +35,49 @@ public class RegisterServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		if ("Submit".equals(request.getParameter("submitit"))) {
-
-			if (request.getParameter("firstname").length() >= 8 && request.getParameter("firstname").length() <= 20) {
-				customer.setFirstName(request.getParameter("firstname"));
-			} else {
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('First name needs to be between 8 and 20 characters long');");
-				out.println("location='index.jsp';");
-				out.println("</script>");
-			}
-
-			if (request.getParameter("lastname").length() >= 8 && request.getParameter("lastname").length() <= 20) {
-				customer.setLastName(request.getParameter("lastname"));
-			} else {
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('Last name needs to be between 8 and 20 characters long');");
-				out.println("location='index.jsp';");
-				out.println("</script>");
-			}
-			if (request.getParameter("username").length() >= 8 && request.getParameter("username").length() <= 20) {
-				customer.setUsername(request.getParameter("username"));
-			} else {
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('Username needs to be between 8 and 20 characters long');");
-				out.println("location='index.jsp';");
-				out.println("</script>");
-			}
-
-			if (request.getParameter("password").length() >= 6 && request.getParameter("password").length() <= 12
-					&& request.getParameter("password").equals(request.getParameter("password2"))) {
-				customer.setPassword(request.getParameter("password"));
-			} else {
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('Password needs to be between 6 and 12 characters long');");
-				out.println("location='index.jsp';");
-				out.println("</script>");
-			}
-
-			if (customer.getEmail().length() >= 6 && customer.getEmail().contains("@")) {
-				customer.setEmail(request.getParameter("email"));
-			}
-			else {
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('Enter valid email with minimal 6 charachters long');");
-				out.println("location='index.jsp';");
-				out.println("</script>");
-			}
-			generalService.registerCustomer(customer);
+		if (request.getParameter("firstname").length() >= 8 && request.getParameter("firstname").length() <= 20) {
+			customer.setFirstName(request.getParameter("firstname"));
+		} else {
+			out.println("<script type=\"text/javascript\">");
+			out.println("alert('User or password incorrect');");
+			out.println("location='index.jsp';");
+			out.println("</script>");
 		}
+
+		/*
+		 * if (request.getParameter("lastname").length() >= 8 &&
+		 * request.getParameter("lastname").length() <= 20) {
+		 * customer.setLastName(request.getParameter("lastname")); } else {
+		 * out.println("<script type=\"text/javascript\">"); out.println(
+		 * "alert('Last name needs to be between 8 and 20 characters long');");
+		 * out.println("location='index.jsp';"); out.println("</script>"); } if
+		 * (request.getParameter("username").length() >= 8 &&
+		 * request.getParameter("username").length() <= 20) {
+		 * customer.setUsername(request.getParameter("username")); } else {
+		 * out.println("<script type=\"text/javascript\">"); out.println(
+		 * "alert('Username needs to be between 8 and 20 characters long');");
+		 * out.println("location='index.jsp';"); out.println("</script>"); }
+		 * 
+		 * if (request.getParameter("password").length() >= 6 &&
+		 * request.getParameter("password").length() <= 12 &&
+		 * request.getParameter("password").equals(request.getParameter(
+		 * "password2"))) {
+		 * customer.setPassword(request.getParameter("password")); } else {
+		 * out.println("<script type=\"text/javascript\">"); out.println(
+		 * "alert('Password needs to be between 6 and 12 characters long');");
+		 * out.println("location='index.jsp';"); out.println("</script>"); }
+		 * 
+		 * if (request.getParameter("email").length() >= 6 &&
+		 * request.getParameter("email").contains("@")) {
+		 * customer.setEmail(request.getParameter("email"));
+		 * generalService.registerCustomer(customer);
+		 * getServletContext().getRequestDispatcher("/.......").forward(request,
+		 * response); } else { out.println("<script type=\"text/javascript\">");
+		 * out.println(
+		 * "alert('Enter valid email with minimal 6 charachters long');");
+		 * out.println("location='index.jsp';"); out.println("</script>"); }
+		 */
+
 		request.getRequestDispatcher("/jsp/register.jsp").forward(request, response);
 	}
 

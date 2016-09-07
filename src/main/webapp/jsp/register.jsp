@@ -5,28 +5,25 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Register</title>
-<link href='/cerioscoop-web/css/masterdetail.css' type='text/css' rel='stylesheet' />
-<link href='/cerioscoop-web/css/shared.css' type='text/css' rel='stylesheet' />
 </head>
 <body>
- 		<div><jsp:include page="/jsp/shared/navbar.jsp"></jsp:include></div>
 
 <h1>Register</h1>
 
 	<div>
 	<form method="POST" action="/cerioscoop-web/RegisterServlet"> 
 	  First name:<br>
-	  <input id="firstname" type="text" name="firstname" placeholder="Enter your first name" required>
+	  <input id="firstname" type="text" name="firstname" placeholder="Enter your first name">
 	  <br>Last name:<br>
-	  <input id="lastname" type="text" name="lastname" placeholder="Enter your last name" required>
+	  <input id="lastname" type="text" name="lastname" placeholder="Enter your last name">
 	  <br>Username:<br>
-	  <input id="username" type="text" name="username" placeholder="Enter your username" required>
+	  <input id="username" type="text" name="username" placeholder="Enter your username">
 	  <br>Password:<br>
-	  <input id="password" type="text" name="password" placeholder="Enter your password" required>
+	  <input id="password" type="text" name="password" placeholder="Enter your password">
 	  <br>Password:<br>
-	  <input id="password" type="text" name="password2" placeholder="Enter your password" required>
+	  <input id="password" type="text" name="password2" placeholder="Enter your password">
 	  <br>E-mail:<br>
-	  <input id="email" type="email" name="email" placeholder="Enter your email address" required>
+	  <input id="email" type="text" name="email" placeholder="Enter your email address">
 	  <br>
 	  <br><input id="submit" type="submit" name="submitit" value="Login">
 	</form> 
