@@ -43,21 +43,30 @@ public class NowShowingServlet extends HttpServlet {
 		});
 		
 		//Building the NowShowingList to show only the shows after the current date
+		
 		for (ShowPresentation show : showing){
-			if (show.getShowingDate().after(dateUtils.getCurrentDate())){
+	//		if (show.getShowingDate().equals(dateUtils.getCurrentSqlDate())){
 				show = new ShowPresentationBuilder()
 					.withShowingId(show.getShowingId())
 					.withMovieTitle(show.getMovieTitle())
-					.withRoomName(show.getRoomName())
-					.withChairAmount(show.getChairAmount())
 					.withShowingDate(show.getShowingDate())
 					.withShowingTime(show.getShowingTime())
-					.withTrailer(show.getTrailer())
-					.withChairsSold(show.getChairsSold())
 					.build();			
 				nowShowing.add(show);
-			}
+	//		}
 		}
+		
+		//zet record van nowShowing in var en vergelijk die later
+		String MT = null;
+		for (ShowPresentation show : nowShowing){
+			if (show.getMovieTitle() == MT){
+				
+			}
+			System.out.println(show.getMovieTitle());
+			MT = show.getMovieTitle();
+		}
+		
+		
 		request.setAttribute("nowShowing", nowShowing);
 		
 		if(firstShowing != null){
@@ -66,7 +75,7 @@ public class NowShowingServlet extends HttpServlet {
 			final String countdown = dateUtils.calculateTime(dateUtils.getSecondsBetween(showDateTime, dateUtils.getCurrentDate()));
 
 			// Objects to sent to the now-showing.jsp
-			request.setAttribute("first_upcoming_movie", firstShowing.getMovieTitle());
+			request.setAttribute("first_movie_today", firstShowing.getMovieTitle());
 			request.setAttribute("countdown", countdown);
 		}
 		request.setAttribute("todays_date", dateUtils.getDate());

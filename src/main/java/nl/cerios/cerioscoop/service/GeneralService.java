@@ -100,11 +100,11 @@ public class GeneralService {
 		final List<ShowPresentation> showings = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()){
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT show_id, title, room_name, show_date, show_time FROM show_presentation"); { 
+			final ResultSet resultSet = statement.executeQuery("SELECT show_id, title, show_date, show_time FROM show_presentation"); { 
 
 			while (resultSet.next()) {
 				final ShowPresentation show = new ShowPresentationBuilder()
-						.withShowId(resultSet.getBigDecimal("show_id").toBigInteger())
+						.withShowingId(resultSet.getBigDecimal("show_id").toBigInteger())
 						.withMovieTitle(resultSet.getString("title"))
 						.withShowingDate(resultSet.getDate("show_date"))
 						.withShowingTime(resultSet.getTime("show_time"))

@@ -36,34 +36,20 @@
 
 	<table>
 		<thead>
-			<th>ShowId</th>
 			<th>Movietitle</th>
-			<th>plays on</th>
-			<th>time</th>
-			<th>room</th>
-			<th>chairs</th>
-			<th>trailer</th>
-			<th>Buy Ticket</th>
-
+			<th>Morning times</th>
+			<th>Afternoon times</th>
+			<th>Evening times</th>
+			
 		</thead>
 		<tbody>
 
 			<c:forEach items="${nowShowing}" var="show">
-
 				<tr>
-					<td>${show.showingId}</td>
 					<td>${show.movieTitle}</td>
-					<td>${show.showingDate}</td>
-					<td>${show.showingTime}</td>
-					<td>${show.roomName}</td>
-					<td>${show.chairAmount}</td>
-					<td><a class="button" href="${show.trailer}">trailer</a></td>
-					<td>
-						<form method="post" action="TicketServlet">
-							<input type="hidden" name="showid" value=${show.showingId} />
-							<input type="submit" value="Buy">
-						</form>
-					</td>
+					<td><a class="button" href="/cerioscoop-web/PaymentServlet">${show.showingTime}</a></td>
+					<td><a class="button" href="/cerioscoop-web/PaymentServlet">${show.showingTime}</a></td>
+					<td><a class="button" href="/cerioscoop-web/PaymentServlet">${show.showingTime}</a></td>
 				</tr>
 
 			</c:forEach>
@@ -71,8 +57,8 @@
 		</tbody>
 	</table>
 	<p>
-		Today it is ${todays_date} <br />The first upcoming film:
-		${first_upcoming_movie} <br />That's in ${countdown}
+		Today it is ${todays_date} <br />The first movie today:
+		${first_movie_today} <br />That's in ${countdown}
 	</p>
 
 </body>

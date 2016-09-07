@@ -10,6 +10,6 @@
 
 </head>
 <body>
-	<jsp:forward page="/IndexServlet"></jsp:forward>
+	<jsp:forward page="/NowShowingServlet"></jsp:forward>
 </body>
 </html>

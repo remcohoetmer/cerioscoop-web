@@ -5,14 +5,14 @@ import java.sql.Date;
 import java.sql.Time;
 
 public class ShowPresentationBuilder {
-	private BigInteger showId;
+	private BigInteger showingId;
 	private String movieTitle;
 	private Date showingDate;
 	private Time showingTime;
 
 	
-	public ShowPresentationBuilder withShowId(final BigInteger value) {
-		showId = value;
+	public ShowPresentationBuilder withShowingId(final BigInteger value) {
+		showingId = value;
 		return this;
 	}
 	public ShowPresentationBuilder withMovieTitle(final String value) {
@@ -29,7 +29,7 @@ public class ShowPresentationBuilder {
 	}
 
 	public ShowPresentation build() {
-		return new ShowPresentation(showId, movieTitle, showingDate, showingTime);
+		return new ShowPresentation(showingId, movieTitle, showingDate, showingTime);
 	}
 }
 

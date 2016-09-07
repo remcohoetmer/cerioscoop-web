@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import nl.cerios.cerioscoop.domain.Customer;
-import nl.cerios.cerioscoop.domain.Employee;
 import nl.cerios.cerioscoop.domain.User;
 import nl.cerios.cerioscoop.service.GeneralService;
 
@@ -31,28 +30,22 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		final List<Employee> dbEmployees = generalService.getEmployees();	
 		final List<Customer> dbCustomers = generalService.getCustomers();	
 		final User customer = new Customer();
-		final User employee = new Employee();
 		final User authenticatedCustomer;
-		final User authenticatedEmployee;
 		final HttpSession session = request.getSession();
 		final PrintWriter out = response.getWriter();
 		
 		//input
 		customer.setUsername(request.getParameter("txtUserName"));			
 		customer.setPassword(request.getParameter("txtPassword"));
-		employee.setUsername(request.getParameter("txtUserName"));			
-		employee.setPassword(request.getParameter("txtPassword"));
-		
+				
 		//output
 		authenticatedCustomer = generalService.authenticateCustomer(customer, dbCustomers);
-		authenticatedEmployee = generalService.authenticateEmployee(employee, dbEmployees);
-		
+				
         response.setContentType("text/html;charset=UTF-8");
         
-		if (authenticatedCustomer == null && authenticatedEmployee == null) {
+		if (authenticatedCustomer == null) {
 			out.println("<script type=\"text/javascript\">");
 			out.println("alert('Combination username and password do not match!');");
 			out.println("location='index.jsp';");
@@ -61,10 +54,6 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("user", authenticatedCustomer);
 			session.setAttribute("usertype", "customer");
 			response.sendRedirect("/cerioscoop-web/jsp/customer.jsp");
-		} else if (generalService.authenticateUser(authenticatedEmployee)) {
-			session.setAttribute("user", authenticatedEmployee);
-			session.setAttribute("usertype", "employee");
-			response.sendRedirect("/cerioscoop-web/jsp/employee/employee.jsp");
 		} else
 			return;
 	}

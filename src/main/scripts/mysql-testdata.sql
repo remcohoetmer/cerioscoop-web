@@ -61,9 +61,9 @@ INSERT INTO `room` (`room_id`, `room_name`, `capacity`) VALUES
 DELETE FROM `show_table`;
 /*!40000 ALTER TABLE `show_table` DISABLE KEYS */;
 INSERT INTO `show_table` (`show_id`,`movie_id`, `room_id`, `show_date`, `show_time`, `available_places`, `show_price`) VALUES
-	(1, 1, 1, '2016-12-01', '12:00:00', 50, 10),
-	(2, 2, 1, '2016-12-01', '21:00:00', 50, 20),
-	(3, 3, 2, '2016-12-01', '16:00:00', 20, 10),
+	(1, 1, 1, CURDATE(), '12:00:00', 50, 10),
+	(2, 2, 1, CURDATE(), '21:00:00', 50, 20),
+	(3, 3, 2, CURDATE(), '16:00:00', 20, 10),
 	(4, 4, 1, '2016-12-01', '20:00:00', 50, 20),
 	(5, 5, 1, '2016-12-01', '21:00:00', 50, 20),
 	(6, 6, 2, '2016-12-01', '10:00:00', 20, 10),
