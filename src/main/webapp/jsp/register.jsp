@@ -24,7 +24,7 @@
 	  <br>Password:<br>
 	  <input id="password" type="text" name="password" placeholder="Enter your password">
 	  <br>Password:<br>
-	  <input id="password" type="text" name="password2" placeholder="Enter your password">
+	  <input id="password2" type="text" name="password2" placeholder="Enter your password">
 	  <br>E-mail:<br>
 	  <input id="email" type="text" name="email" placeholder="Enter your email address">
 	  <br>

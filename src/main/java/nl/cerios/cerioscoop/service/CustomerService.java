@@ -1,5 +1,6 @@
 package nl.cerios.cerioscoop.service;
 
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,7 +38,6 @@ public class CustomerService {
 		}
 	}
 
-
 	public ShowPresentation getShowPresentationByShowId(int showing_id) {
 		BigInteger showId = BigInteger.valueOf(showing_id);
 		String selectSQL = "SELECT movie_title, show_date, show_time FROM show_presentation WHERE show_id = ?";
@@ -46,15 +46,13 @@ public class CustomerService {
 			final PreparedStatement preparedstatement = connection.prepareStatement(selectSQL);
 			preparedstatement.setInt(1, showing_id);
 			ResultSet resultSet = preparedstatement.executeQuery();
-			
+
 			{
 				resultSet.next();
-				final ShowPresentation show = new ShowPresentationBuilder()
-						.withShowingId(showId)
+				final ShowPresentation show = new ShowPresentationBuilder().withShowingId(showId)
 						.withMovieTitle(resultSet.getString("movie_title"))
-						.withShowingDate(resultSet.getDate("show_date"))
-						.withShowingTime(resultSet.getTime("show_time"))
-						.build();	
+						.withShowingDate(resultSet.getDate("show_date")).withShowingTime(resultSet.getTime("show_time"))
+						.build();
 				return show;
 			}
 
@@ -63,5 +61,44 @@ public class CustomerService {
 		}
 	}
 
+	public boolean isValidChar(CharSequence seq) {
+		int len = seq.length();
+		for (int i = 0; i < len; i++) {
+			char c = seq.charAt(i);
+			// Test for all positive cases
+			if ('0' <= c && c <= '9')
+				continue;
+			if ('a' <= c && c <= 'z')
+				continue;
+			if ('A' <= c && c <= 'Z')
+				continue;
+			if (c == ' ')
+				continue;
+			if (c == '-')
+				continue;
+			// If we get here, we had an invalid char, fail right away
+			return false;
+		}
+		// All seen chars were valid, succeed
+		return true;
+	}
 
+	public boolean isUniqueUser(String user) {
+		String SQL = "SELECT username FROM customer where username=?";
+		try (final Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedstatement = connection.prepareStatement(SQL);
+			preparedstatement.setString(1, user);
+			ResultSet resultSet = preparedstatement.executeQuery();
+
+			if (!resultSet.next()) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (final SQLException e) {
+			throw new ServiceException("Something went terribly wrong while retrieving the username.", e);
+		}
+
+	}
 }
