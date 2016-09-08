@@ -36,7 +36,7 @@ public class RegisterServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
         final HttpSession session = request.getSession();
-
+        String message="";
 
         if (request.getParameter("firstname").length() >= 8 && request.getParameter("firstname").length() <= 20 && customerService.isValidChar(request.getParameter("firstname"))) {
 			customer.setFirstName(request.getParameter("firstname"));
@@ -63,6 +63,10 @@ public class RegisterServlet extends HttpServlet {
 			out.println("location='index.jsp';");
 			out.println("</script>");
 		}
+        
+        
+        System.out.println(customerService.isUniqueUser(request.getParameter("username")));
+        
 		if (request.getParameter("firstname").length() >= 8 && request.getParameter("firstname").length() <= 20) {
 				customer.setFirstName(request.getParameter("firstname"));
 			} else {
@@ -92,9 +96,15 @@ public class RegisterServlet extends HttpServlet {
 			out.println("alert('Enter valid email with minimal 6 charachters long');");
 			out.println("location='index.jsp';");
 			out.println("</script>");
+
+			message="Enter valid email with minimal 6 charachters long";
 		}
 
-		request.getRequestDispatcher("/jsp/register.jsp").forward(request, response);
+			request.setAttribute("message", message);
+
+
+			request.getRequestDispatcher("/jsp/register.jsp").forward(request, response);
+
 	}
 
 }

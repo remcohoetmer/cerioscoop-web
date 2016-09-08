@@ -5,8 +5,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Register</title>
+<script type="text/javascript">
+function message_popup()
+{
+<% if (request.getAttribute("message")!=null) {%>
+		alert('<%=request.getAttribute("message")%>')
+		<%}%>
+}
+</script>
 </head>
-<body>
+<body onload="message_popup();">
 	<div id="navbar">
 		<jsp:include page="/jsp/shared/navbar.jsp"></jsp:include>
 	</div>
