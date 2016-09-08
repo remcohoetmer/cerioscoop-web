@@ -1,7 +1,6 @@
 package nl.cerios.cerioscoop.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -33,71 +32,44 @@ public class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Customer customer = new Customer();
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
         final HttpSession session = request.getSession();
         String message="";
 
         if (request.getParameter("firstname").length() >= 8 && request.getParameter("firstname").length() <= 20 && customerService.isValidChar(request.getParameter("firstname"))) {
 			customer.setFirstName(request.getParameter("firstname"));
 		} else {
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('User or password incorrect');");
-			out.println("location='index.jsp';");
-			out.println("</script>");
+			message = "Invalid firstname: min 8 / max 20 alfanumeric characters";
 		}
 
         if (request.getParameter("lastname").length() >= 8 && request.getParameter("lastname").length() <= 20 && customerService.isValidChar(request.getParameter("lastname"))) {
 			customer.setLastName(request.getParameter("lastname"));
 		} else {
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Last name needs to be between 8 and 20 characters long');");
-			out.println("location='index.jsp';");
-			out.println("</script>");
+			message = "Invalid lastname: min 8 / max 20 alfanumeric characters";
 		}
-        if (request.getParameter("username").length() >= 8 && request.getParameter("username").length() <= 20 && customerService.isValidChar(request.getParameter("username"))) {
+        if (request.getParameter("username").length() >= 8 && request.getParameter("username").length() <= 20 && customerService.isValidChar(request.getParameter("username")) && customerService.isUniqueUser(request.getParameter("username"))) {
 			customer.setUsername(request.getParameter("username"));
 		} else {
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Username needs to be between 8 and 20 characters long');");
-			out.println("location='index.jsp';");
-			out.println("</script>");
+			message = "Username invalid or not unique: min 8 / max 20 alfanumeric characters";
 		}
-        
-        
-        System.out.println(customerService.isUniqueUser(request.getParameter("username")));
-        
-		if (request.getParameter("firstname").length() >= 8 && request.getParameter("firstname").length() <= 20) {
-				customer.setFirstName(request.getParameter("firstname"));
-			} else {
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('First name needs to be between 8 and 20 characters long');");
-				out.println("location='index.jsp';");
-				out.println("</script>");
-			}
-
+           
 		if (request.getParameter("password").length() >= 6 && request.getParameter("password").length() <= 12
 				&& request.getParameter("password").equals(request.getParameter("password2"))) {
 			customer.setPassword(request.getParameter("password"));
 		} else {
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Password needs to be between 6 and 12 characters long');");
-			out.println("location='index.jsp';");
-			out.println("</script>");
+			message= "Invalid username/password combination (username: min 6 / max 12 characters)";
 		}
 
 		if (request.getParameter("email").length() >= 6 && request.getParameter("email").contains("@")) {
 			customer.setEmail(request.getParameter("email"));
-			generalService.registerCustomer(customer);
-            session.setAttribute("customer", customer);
+		
             //getServletContext().getRequestDispatcher("/...ENTER VALID LINK....").forward(request, response); 
 		} else {
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Enter valid email with minimal 6 charachters long');");
-			out.println("location='index.jsp';");
-			out.println("</script>");
-
-			message="Enter valid email with minimal 6 charachters long";
+		
+			message= "Invalid email: minimal of 6 characters needed";
+		}
+		if(customer.getFirstName() !=null && customer.getLastName() !=null && customer.getUsername() != null && customer.getPassword() !=null && customer.getEmail() !=null ){
+			generalService.registerCustomer(customer);
+            session.setAttribute("customer", customer);
 		}
 
 			request.setAttribute("message", message);

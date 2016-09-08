@@ -1,6 +1,5 @@
 package nl.cerios.cerioscoop.service;
 
-import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
