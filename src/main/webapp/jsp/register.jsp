@@ -22,14 +22,18 @@
 	  <br>Username:<br>
 	  <input id="username" type="text" name="username" placeholder="Enter your username">
 	  <br>Password:<br>
-	  <input id="password" type="text" name="password" placeholder="Enter your password">
+	  <input id="password" type="password" name="password" placeholder="Enter your password">
 	  <br>Password:<br>
-	  <input id="password2" type="text" name="password2" placeholder="Enter your password">
+	  <input id="password2" type="password" name="password2" placeholder="Enter your password">
 	  <br>E-mail:<br>
 	  <input id="email" type="text" name="email" placeholder="Enter your email address">
 	  <br>
 	  <br><input id="submit" type="submit" name="submitit" value="Login">
 	</form> 
+    <form action="/cerioscoop-web/RegisterServlet">
+    <input type="submit" value="Cancel" />
+</form>
+
 	</div>
 	
 
