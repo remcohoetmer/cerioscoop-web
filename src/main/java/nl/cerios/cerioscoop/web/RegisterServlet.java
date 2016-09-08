@@ -12,16 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import nl.cerios.cerioscoop.domain.Customer;
 import nl.cerios.cerioscoop.service.GeneralService;
-import nl.cerios.cerioscoop.util.DateUtils;
-
 /**
  * Servlet implementation class RegisterServlet
  */
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final DateUtils dateUtils = new DateUtils();
-
 	@EJB
 	private GeneralService generalService;
 
@@ -60,6 +56,14 @@ public class RegisterServlet extends HttpServlet {
 			out.println("location='index.jsp';");
 			out.println("</script>");
 		}
+		if (request.getParameter("firstname").length() >= 8 && request.getParameter("firstname").length() <= 20) {
+				customer.setFirstName(request.getParameter("firstname"));
+			} else {
+				out.println("<script type=\"text/javascript\">");
+				out.println("alert('First name needs to be between 8 and 20 characters long');");
+				out.println("location='index.jsp';");
+				out.println("</script>");
+			}
 
 		if (request.getParameter("password").length() >= 6 && request.getParameter("password").length() <= 12
 				&& request.getParameter("password").equals(request.getParameter("password2"))) {
