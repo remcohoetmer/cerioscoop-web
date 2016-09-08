@@ -50,7 +50,7 @@ public class CustomerService {
 			{
 				resultSet.next();
 				final ShowPresentation show = new ShowPresentationBuilder()
-						.withShowId(showId)
+						.withShowingId(showId)
 						.withMovieTitle(resultSet.getString("movie_title"))
 						.withShowingDate(resultSet.getDate("show_date"))
 						.withShowingTime(resultSet.getTime("show_time"))

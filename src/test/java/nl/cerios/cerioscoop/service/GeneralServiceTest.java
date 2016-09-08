@@ -11,9 +11,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
-import nl.cerios.cerioscoop.domain.Category;
 import nl.cerios.cerioscoop.domain.Customer;
-import nl.cerios.cerioscoop.domain.Employee;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
@@ -58,14 +56,6 @@ public class GeneralServiceTest extends DatabaseTest {
 	}
 	
 	@Test
-	public void testGetEmployees() {
-		final List<Employee> employees = generalService.getEmployees();
-
-		Assert.assertNotNull(employees);
-		Assert.assertEquals(1, employees.size());
-	}
-	
-	@Test
 	public void testGetShowings() {
 		final List<ShowPresentation> showings = generalService.getShowings();
 
@@ -80,7 +70,6 @@ public class GeneralServiceTest extends DatabaseTest {
 		final ShowPresentation showOne = new ShowPresentationBuilder()
 				.withShowingId(BigInteger.valueOf(1))
 				.withMovieTitle("showOne")
-				.withRoomName("Yellow room")
 				.withShowingDate(dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("08-01-2020"))))
 				.withShowingTime(dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))))
 				.build();	
@@ -88,7 +77,6 @@ public class GeneralServiceTest extends DatabaseTest {
 		final ShowPresentation showTwo = new ShowPresentationBuilder()
 				.withShowingId(BigInteger.valueOf(2))
 				.withMovieTitle("showTwo")
-				.withRoomName("Yellow room")
 				.withShowingDate(dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("07-23-2020"))))
 				.withShowingTime(dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))))
 				.build();	
@@ -96,7 +84,6 @@ public class GeneralServiceTest extends DatabaseTest {
 		final ShowPresentation showThree = new ShowPresentationBuilder()
 				.withShowingId(BigInteger.valueOf(3))
 				.withMovieTitle("showThree")
-				.withRoomName("Yellow room")
 				.withShowingDate(dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-03-2020"))))
 				.withShowingTime(dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))))
 				.build();	
@@ -118,30 +105,18 @@ public class GeneralServiceTest extends DatabaseTest {
 	//Movies	
 		final Movie movieOne = new MovieBuilder()
 				.withMovieId(BigInteger.valueOf(1))
-				.withTitle("top titel")
-				.withMinutes(98)
-				.withType(3) // 3D
-				.withLanguage("Fries")
-				.withDescription("bagger v-film")
-				.withCategory(Category.COMEDY)
+				.withMovieTitle("top titel")
+				.withMovieDescription("bagger v-film")
 				.build();
 		final Movie movieTwo = new MovieBuilder()
 				.withMovieId(BigInteger.valueOf(2))
-				.withTitle("lekkere titel")
-				.withMinutes(453)
-				.withType(3) // 3D
-				.withLanguage("Grieks")
-				.withDescription("bagger v-film")
-				.withCategory(Category.COMEDY)
+				.withMovieTitle("lekkere titel")
+				.withMovieDescription("bagger v-film")
 				.build();
 		final Movie movieThree = new MovieBuilder()
 				.withMovieId(BigInteger.valueOf(3))
-				.withTitle("keke titel")
-				.withMinutes(9)
-				.withType(3) // 3D
-				.withLanguage("Twents")
-				.withDescription("bagger v-film")
-				.withCategory(Category.COMEDY)
+				.withMovieTitle("keke titel")
+				.withMovieDescription("bagger v-film")
 				.build();
 		
 	//Putting all movies in a list
@@ -159,9 +134,7 @@ public class GeneralServiceTest extends DatabaseTest {
 	@Test
 	public void testRegisterCustomer() throws ParseException {
 		final int idOfCustomerToBeRegistered = 4;
-		final Customer customerOne = new Customer(idOfCustomerToBeRegistered, "Michael", "Boogerd", "MB", "MB123", "michael@boogerd.com",
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("15-09-2017"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
+		final Customer customerOne = new Customer(idOfCustomerToBeRegistered, "Michael", "Boogerd", "MB", "MB123", "michael@boogerd.com");
 		
 		final Customer customerBefore = getCustomer(idOfCustomerToBeRegistered);
 		Assert.assertNull(customerBefore);
@@ -175,30 +148,19 @@ public class GeneralServiceTest extends DatabaseTest {
 		Assert.assertEquals(customerOne.getUsername(), customerAfter.getUsername());
 		Assert.assertEquals(customerOne.getPassword(), customerAfter.getPassword());
 		Assert.assertEquals(customerOne.getEmail(), customerAfter.getEmail());
-		Assert.assertEquals(customerOne.getCreateDate(), customerAfter.getCreateDate());
-		// Compare java.sql.Time objects by their String values, to prevent differences in milliseconds from failing the test.
-		Assert.assertEquals(customerOne.getCreateTime().toString(), customerAfter.getCreateTime().toString());
 	}
 	
 	@Test
 	public void testAuthenticateCustomer() throws ParseException {
 	//Customers
-		final Customer customerOne = new Customer(0, "Bauke", "Mollema", "BM", "BM123", "bauke@mollema.com",
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-06-2016"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
+		final Customer customerOne = new Customer(0, "Bauke", "Mollema", "BM", "BM123", "bauke@mollema.com");
 		
-		final Customer customerTwo = new Customer(1, "Tom", "Dumoulin", "TD", "TD123", "tom@dumoulin.com",
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-06-2016"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
+		final Customer customerTwo = new Customer(1, "Tom", "Dumoulin", "TD", "TD123", "tom@dumoulin.com");
 		
-		final Customer customerThree = new Customer(2, "Stef", "Clement", "SC", "SC123", "stef@clement.com",
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-06-2016"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
+		final Customer customerThree = new Customer(2, "Stef", "Clement", "SC", "SC123", "stef@clement.com");
 	
 	//The no-customer test-user
-		final Customer noCustomer = new Customer(3, "Chris", "Froome", "CF", "CF123", "chris@froome.com",
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-06-2016"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
+		final Customer noCustomer = new Customer(3, "Chris", "Froome", "CF", "CF123", "chris@froome.com");
 		
 	//Putting all customers in a list
 		final List<Customer> dbCustomers = new ArrayList<>();
@@ -214,45 +176,10 @@ public class GeneralServiceTest extends DatabaseTest {
 	}
 	
 	@Test
-	public void testAuthenticateEmployee() throws ParseException {
-	//Employee
-		final Employee employeeOne = new Employee(0, "Wout", "Poels", "WP", "WP123", "wout@poels.com",
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-06-2016"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
-		
-		
-		final Employee employeeTwo = new Employee(1, "Wilco", "Kelderman", "WK", "WK123", "wilco@kelderman.com",
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-06-2016"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
-		
-		
-		final Employee employeeThree = new Employee(2, "Laurens", "tenDam", "LTD", "LTD123", "laurens@tendam.com",
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-06-2016"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
-		
-	//The no-employee test-user
-		final Employee noEmployee = new Employee(3, "Tom", "Slagter", "TS", "TS123", "tom@slagter.com",
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-06-2016"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
-		
-	//Putting all customers in a list
-		final List<Employee> dbEmployees = new ArrayList<>();
-		dbEmployees.add(0, employeeOne);
-		dbEmployees.add(1, employeeTwo);
-		dbEmployees.add(2, employeeThree);
-		
-	//Authentication control 
-		Assert.assertEquals(employeeOne ,generalService.authenticateEmployee(employeeOne, dbEmployees));
-		Assert.assertEquals(employeeTwo ,generalService.authenticateEmployee(employeeTwo, dbEmployees));
-		Assert.assertEquals(employeeThree ,generalService.authenticateEmployee(employeeThree, dbEmployees));
-		Assert.assertNotEquals(noEmployee ,generalService.authenticateEmployee(noEmployee, dbEmployees));
-	}
-	
-	@Test
 	public void testAuthenticateUser() {
-		final Employee testUser = null;
+		final Customer testUser = null;
 		Assert.assertEquals(false, generalService.authenticateUser(testUser));
-		final Customer testCustomer = new Customer(1, "Marcel", "Groothuis", "Manollo7G", "secret", "mjg@cerios.nl", dateUtils.getCurrentSqlDate(), dateUtils.getCurrentSqlTime());
+		final Customer testCustomer = new Customer(1, "Marcel", "Groothuis", "Manollo7G", "secret", "mjg@cerios.nl");
 		Assert.assertEquals(true, generalService.authenticateUser(testCustomer));
 	}
 	

@@ -29,24 +29,24 @@ public class PaymentServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
     	int showingId = (Integer.parseInt(request.getParameter("showid")));
     	final ShowPresentation showPresentation = customerService.getShowPresentationByShowId(showingId);
-    	int chairAmount = (showPresentation.getChairAmount()).intValue();
-    	int chairsSold = (showPresentation.getChairsSold()).intValue();
+    	//int chairAmount = (showPresentation.getChairAmount()).intValue();
+    	//int chairsSold = (showPresentation.getChairsSold()).intValue();
     	int ticketAmount = (Integer.parseInt(request.getParameter("ticketamount")));
-		int availableChairs = chairAmount-chairsSold;
+		//int availableChairs = chairAmount-chairsSold;
 	
 	
-		if((availableChairs-ticketAmount) >=0){
-			request.setAttribute("showPresentation", showPresentation);
-			customerService.updateChairsSold(ticketAmount, showingId);
-			getServletContext().getRequestDispatcher("/jsp/successful-payment.jsp").forward(request, response);
-		}
-		else{
-			   out.println("<script type=\"text/javascript\">");
-	            out.println("alert('Not enough tickets');");
-	            out.println("location='TicketServlet';");
-	            out.println("</script>");   
-
-		}
+//		if((availableChairs-ticketAmount) >=0){
+//			request.setAttribute("showPresentation", showPresentation);
+//			customerService.updateChairsSold(ticketAmount, showingId);
+//			getServletContext().getRequestDispatcher("/jsp/successful-payment.jsp").forward(request, response);
+//		}
+//		else{
+//			   out.println("<script type=\"text/javascript\">");
+//	            out.println("alert('Not enough tickets');");
+//	            out.println("location='TicketServlet';");
+//	            out.println("</script>");   
+//
+//		}
 	} 
 
 }

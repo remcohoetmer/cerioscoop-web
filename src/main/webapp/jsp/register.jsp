@@ -7,6 +7,9 @@
 <title>Register</title>
 </head>
 <body>
+	<div id="navbar">
+		<jsp:include page="/jsp/shared/navbar.jsp"></jsp:include>
+	</div>
 
 <h1>Register</h1>
 

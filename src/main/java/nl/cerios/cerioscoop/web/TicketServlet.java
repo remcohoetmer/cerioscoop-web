@@ -38,10 +38,10 @@ public class TicketServlet extends HttpServlet {
  		request.setAttribute("showID", showID);
 		showPresentation = customerService.getShowPresentationByShowId(showID);
 		request.setAttribute("showPresentation", showPresentation);
-		int chairAmount = (showPresentation.getChairAmount()).intValue();
-		int chairsSold = (showPresentation.getChairsSold()).intValue();
-		availableChairs = chairAmount-chairsSold;
-		request.setAttribute("availableChairs", availableChairs);
+//		int chairAmount = (showPresentation.getChairAmount()).intValue();
+//		int chairsSold = (showPresentation.getChairsSold()).intValue();
+//		availableChairs = chairAmount-chairsSold;
+//		request.setAttribute("availableChairs", availableChairs);
 		
 				
 			doGet(request, response);

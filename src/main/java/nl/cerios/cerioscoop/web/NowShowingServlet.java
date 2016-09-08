@@ -60,7 +60,7 @@ public class NowShowingServlet extends HttpServlet {
 		String MT = null;
 		for (ShowPresentation show : nowShowing){
 			if (show.getMovieTitle() == MT){
-				
+				return;
 			}
 			System.out.println(show.getMovieTitle());
 			MT = show.getMovieTitle();
