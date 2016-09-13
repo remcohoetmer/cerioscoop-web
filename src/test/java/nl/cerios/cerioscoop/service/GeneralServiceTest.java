@@ -17,6 +17,7 @@ import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.domain.ShowPresentation;
 import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
+import nl.cerios.cerioscoop.domain.ShowsPresentationVO;
 import nl.cerios.cerioscoop.util.DateUtils;
 import nl.cerios.testutil.DatabaseTest;
 
@@ -44,7 +45,7 @@ public class GeneralServiceTest extends DatabaseTest {
 		final List<Show> shows = generalService.getShows();
 
 		Assert.assertNotNull(shows);
-		Assert.assertEquals(4, shows.size());
+		Assert.assertEquals(7, shows.size());
 	}
 		
 	@Test
@@ -52,7 +53,7 @@ public class GeneralServiceTest extends DatabaseTest {
 		final List<Customer> customers = generalService.getCustomers();
 
 		Assert.assertNotNull(customers);
-		Assert.assertEquals(3, customers.size());
+		Assert.assertEquals(4, customers.size());
 	}
 	
 	@Test
@@ -60,7 +61,7 @@ public class GeneralServiceTest extends DatabaseTest {
 		final List<ShowPresentation> showings = generalService.getShowings();
 
 		Assert.assertNotNull(showings);
-		Assert.assertEquals(4, showings.size());
+		Assert.assertEquals(7, showings.size());
 	}
 	
 	
@@ -182,6 +183,77 @@ public class GeneralServiceTest extends DatabaseTest {
 		final Customer testCustomer = new Customer(1, "Marcel", "Groothuis", "Manollo7G", "secret", "mjg@cerios.nl");
 		Assert.assertEquals(true, generalService.authenticateUser(testCustomer));
 	}
+	
+	@Test 
+	public void testGenerateShowTable() throws ParseException, MovieNotFoundException {
+	//Shows
+		final Show showOne = new Show(0, 1, 
+				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
+				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("18:00:00"))));
+		final Show showTwo = new Show(0, 2, 
+				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
+				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("19:00:00"))));
+		final Show showThree = new Show(0, 3, 
+				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
+				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
+		final Show showFour = new Show(0, 2, 
+				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
+				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("10:00:00"))));
+		final Show showFive = new Show(0, 1, 
+				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
+				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
+	//Movies	
+		final Movie movieOne = new MovieBuilder()
+				.withMovieId(BigInteger.valueOf(1))
+				.withMovieTitle("top titel")
+				.withMovieDescription("bagger v-film")
+				.build();
+		final Movie movieTwo = new MovieBuilder()
+				.withMovieId(BigInteger.valueOf(2))
+				.withMovieTitle("lekkere titel")
+				.withMovieDescription("bagger v-film")
+				.build();
+		final Movie movieThree = new MovieBuilder()
+				.withMovieId(BigInteger.valueOf(3))
+				.withMovieTitle("keke titel")
+				.withMovieDescription("bagger v-film")
+				.build();
+		
+	//Lijsten maken objecten gelijkheid, gelijk is als ze dezelfde instance zijn
+		final List<ShowsPresentationVO> todaysShowsTable = new ArrayList<ShowsPresentationVO>();
+		final List<Show> testShows = new ArrayList<>();
+		final List<Movie> testMovies = new ArrayList<>();
+		
+	//checken van de huidige staat van de tabel (leeg)
+		Assert.assertEquals(todaysShowsTable, generalService.generateShowTable(testShows, testMovies));
+		
+		
+	//shows lijst vullen
+		testShows.add(0, showOne);	
+		testShows.add(1, showTwo);	
+		testShows.add(2, showThree);	
+		testShows.add(3, showFour);	
+		testShows.add(4, showFive);	
+		
+	//movies lijst vullen
+		testMovies.add(0, movieOne);
+		testMovies.add(1, movieTwo);
+		testMovies.add(2, movieThree);
+		
+	//checken of de tabel niet leeg is!
+		Assert.assertNotEquals(todaysShowsTable, generalService.generateShowTable(testShows, testMovies));
+		
+	//generateShowTable() aanroepen met de testdata
+		
+	//checken of de movie al bestaat
+		
+	
+	//checken van de uiteindelijke staat van de tabel
+		//Assert.assertEquals(testShows	
+	
+		
+	}
+	
 	
 	private Customer getCustomer(final int customerID) {
 		return generalService.getCustomers().stream()

@@ -4,7 +4,7 @@ INSERT INTO customer (first_name, last_name, username, password, email) VALUES
 	('Ron', 'Sanders', 'ron', 'SuperRon', 'ron.sanders@cerios.nl');
 
 INSERT INTO movie (title, description) VALUES
-	('The Legend of Tarzan (2016)','A story about a boy that survived in the jungle.',
+	('The Legend of Tarzan (2016)', 'A story about a boy that survived in the jungle.'),
 	('Tarzan the Ape Man (1932)', 'A story about a boy that survived in the jungle.'),
 	('Tarzan (1999)', 'A story about a boy that survived in the jungle.'),
 	('Wedding Crashers', 'A story about two guys that crach weddings.'),
@@ -12,11 +12,11 @@ INSERT INTO movie (title, description) VALUES
 	('The Lion King', 'A story about a lion called Simba.'),
 	('Snatch', 'A story about a diamond that all the pikeys want to have.');
 
-INSERT INTO transaction (customer_id, show_id, bankaccount, total_price, reserved_places) VALUES
-	(1, 2, 1234567890, 10, 5),
-	(2, 1, 2234567890, 20, 2),
-	(2, 2, 3234567890, 20, 3),
-	(3, 1, 4234567890, 10, 1);
+INSERT INTO transaction (customer_id, show_id, bankaccount, reserved_places, total_price) VALUES
+	(2, 1, 'NL32INGB1234567890', 5, 50),
+	(1, 7, 'NL32INGB2234567890', 2, 20),
+	(3, 6, 'NL32INGB3234567890', 3, 30),
+	(2, 5, 'NL32INGB5234567890', 5, 50);
 
 INSERT INTO room (room_name, capacity) VALUES
 	('red room', 50),

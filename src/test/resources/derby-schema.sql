@@ -21,10 +21,8 @@ CREATE TABLE transaction (
   show_id INTEGER NOT NULL,
   bankaccount varchar(34) NOT NULL,
   reserved_places INTEGER NOT NULL,
-  total_prices FLOAT DEFAULT NULL,
-  PRIMARY KEY (transaction_id),
-  FOREIGN KEY (customer_id) REFERENCES customer (customer_id),
-  FOREIGN KEY (show_id) REFERENCES show_table (show_id)
+  total_price FLOAT NOT NULL,
+  PRIMARY KEY (transaction_id)
 );
 
 CREATE TABLE room (
@@ -42,12 +40,10 @@ CREATE TABLE show_table (
   show_time TIME NOT NULL,
   available_places INTEGER NOT NULL,
   show_price FLOAT NOT NULL,
-  PRIMARY KEY (show_id),
-  FOREIGN KEY (movie_id) REFERENCES movie (movie_id),
-  FOREIGN KEY (room_id) REFERENCES room (room_id)
+  PRIMARY KEY (show_id)
 );
 
 CREATE VIEW show_presentation AS
-	SELECT S.show_id, M.movie_title, R.room_name, S.show_date, S.show_time
+	SELECT S.show_id, M.title, S.show_date, S.show_time
 		FROM show_table S 
 		JOIN movie M ON S.movie_id = M.movie_id
