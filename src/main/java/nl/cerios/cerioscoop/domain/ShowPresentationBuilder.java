@@ -10,21 +10,23 @@ public class ShowPresentationBuilder {
 	private Date showingDate;
 	private Time showingTime;
 
-	
 	public ShowPresentationBuilder withShowingId(final BigInteger value) {
 		showingId = value;
 		return this;
 	}
+	
 	public ShowPresentationBuilder withMovieTitle(final String value) {
 		movieTitle = value;
 		return this;
 	}
+	
 	public ShowPresentationBuilder withShowingDate(final Date value) {
 		showingDate = value;
 		return this;
 	}
-	public ShowPresentationBuilder withShowingTime(final Time value) {
-		showingTime = value;
+	
+	public ShowPresentationBuilder withShowingTime(final Time time) {
+		showingTime = time;
 		return this;
 	}
 
@@ -32,4 +34,3 @@ public class ShowPresentationBuilder {
 		return new ShowPresentation(showingId, movieTitle, showingDate, showingTime);
 	}
 }
-

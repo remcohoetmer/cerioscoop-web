@@ -14,6 +14,13 @@ public class Show {
 	
 	public Show() {
 	}
+	
+	public Show(final int showId, final int movieId,final Date showDate, final Time showTime) {
+		this.showId = showId;
+		this.movieId = movieId;
+		this.showDate = showDate;
+		this.showTime = showTime;
+	}
 	public Show(final int showId, final int movieId, final int roomId, final Date showDate, final Time showTime, final int availablePlaces, final float showPrice) {
 		this.showId = showId;
 		this.movieId = movieId;

@@ -25,6 +25,7 @@ public class RegisterCustomerTest extends SeleniumTest {
 		getWebDriver().findElement(By.id("lastname")).sendKeys("London");
 		getWebDriver().findElement(By.id("username")).sendKeys("Sel");
 		getWebDriver().findElement(By.id("password")).sendKeys("london");
+		getWebDriver().findElement(By.id("password2")).sendKeys("london");
 		getWebDriver().findElement(By.id("email")).sendKeys("selenium@london.com");
 		// Submit registration
 		getWebDriver().findElement(By.id("submit")).click();

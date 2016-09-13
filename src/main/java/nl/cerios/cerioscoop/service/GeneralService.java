@@ -20,6 +20,7 @@ import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.domain.ShowPresentation;
 import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
+import nl.cerios.cerioscoop.domain.ShowsPresentationVO;
 import nl.cerios.cerioscoop.domain.User;
 import nl.cerios.cerioscoop.util.DateUtils;
 
@@ -62,9 +63,9 @@ public class GeneralService {
 				final int availablePlaces = resultSet.getInt("available_places");
 				final float showPrice = resultSet.getInt("show_price");
 				
-				
 	        	shows.add(new Show(showId, movieId, roomId, showDate, showTime, availablePlaces, showPrice));
 	        	}
+			System.out.println(shows);
 	        return shows;
 	      }
 	    }catch (final SQLException e) {
@@ -86,7 +87,6 @@ public class GeneralService {
 				final String password = resultSet.getString("password");
 				final String email = resultSet.getString("email");
 
-				
 				customers.add(new Customer(customerId, firstName, lastName, username, password, email));
 	        	}
 	        return customers;
@@ -117,6 +117,28 @@ public class GeneralService {
 	    	throw new ServiceException("Something went terribly wrong while retrieving the ShowingList.", e);
 	    }
 	}
+	
+	public List<Show> getTodaysShows(){
+		//syso
+		final List<Show> shows = new ArrayList<>();
+		try (final Connection connection = dataSource.getConnection()){
+			final Statement statement = connection.createStatement();
+			final ResultSet resultSet = statement.executeQuery("SELECT show_id, movie_id, show_date, show_time FROM show_table WHERE show_date = CURDATE()"); { 
+
+			while (resultSet.next()) {
+				final int showId = resultSet.getInt("show_id");
+				final int movieId = resultSet.getInt("movie_id");
+				final Date showDate = resultSet.getDate("show_date");
+				final Time showTime = resultSet.getTime("show_time");
+				shows.add(new Show(showId, movieId, showDate, showTime));
+        	}
+        return shows;
+	      }
+	    }catch (final SQLException e) {
+	    	throw new ServiceException("Something went terribly wrong while retrieving the ShowingList.", e);
+	    }
+	}
+	
 	/**
 	 * Returns a first showing record.
 	 * 
@@ -184,13 +206,48 @@ public class GeneralService {
 		return authenticatedCustomer;
 	}
 	
-	
-	
 	public Boolean authenticateUser(User authenticatedUser){
 		if(authenticatedUser == null){
 			return false;
 		}
 		return true;
 	}
+	
+	public List<ShowsPresentationVO> generateShowTable(final List<Show> shows, final List<Movie> movies) throws MovieNotFoundException {
+		List<ShowsPresentationVO> todaysShowsTable = new ArrayList<ShowsPresentationVO>();
+
+		// voeg alle shows toe aan de tabel
+		for (Show show : shows) {
+			ShowsPresentationVO existingShowRow = null; // checkt of de movie van de huidige tabel al is opgenomen
+			for (ShowsPresentationVO showsRowIter : todaysShowsTable) {
+				if (show.getMovieId() == showsRowIter.getMovieId()) {// hier bestaat de movie al in de index
+					showsRowIter.shows.add(show);
+					existingShowRow = showsRowIter;
+				}
+			}
+			if (existingShowRow == null) {//
+				ShowsPresentationVO newShowRow = new ShowsPresentationVO();
+				List<Show> showRow = new ArrayList<Show>();
+				showRow.add(show);
+				newShowRow.setMovieId(show.getMovieId());
+				newShowRow.setShows(showRow);
+				todaysShowsTable.add(newShowRow);
+			}
+		}
+		for (ShowsPresentationVO showsPresentationVO : todaysShowsTable) {
+			String row_title = getMovieByMovieId(showsPresentationVO.getMovieId(), movies).getTitle();
+			showsPresentationVO.setMovieTitle(row_title);
+		}
+		// data integriteit, constraint in de DB ondervangt verkeerde data
+		// Logbestand maken, gelogd worden als technische 
+		// standaard applicatielog en daar moet de melding terecht komen
+		// Nu is de tabel todaysShowsTable gevuld met de juiste waarden
+		// Dan kan deze worden gesorteerd. Eerst de kolommen en daarna de rijen.
+		// Unittest wat is de toestand van een rij of een kolom wanneer je een operatie/actie hebt uitgevoerd
+		// 
+		return todaysShowsTable;
+	}
+		
 }
+
 

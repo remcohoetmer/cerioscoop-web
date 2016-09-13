@@ -21,6 +21,7 @@ import nl.cerios.cerioscoop.service.GeneralService;
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	@EJB
 	private GeneralService generalService;
 
@@ -87,6 +88,8 @@ public class RegisterServlet extends HttpServlet {
 			generalService.registerCustomer(customer);
 			session.setAttribute("customer", customer);
 		}
+		//System.out.println(customer.getFirstName()+customer.getLastName()+customer.getUsername()+customer.getPassword()+customer.getEmail());
+
 
 		if (!message.equals("")) {
 			request.setAttribute("message", message);
@@ -100,6 +103,9 @@ public class RegisterServlet extends HttpServlet {
 			// change link to the correct page after valid registration
 		}
 
+		generalService.registerCustomer(customer);
+        session.setAttribute("customer", customer);
+		//request.getRequestDispatcher("/jsp/register.jsp").forward(request, response);
 	}
 
 }

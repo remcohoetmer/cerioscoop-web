@@ -12,9 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import nl.cerios.cerioscoop.domain.Movie;
+import nl.cerios.cerioscoop.domain.Show;
 import nl.cerios.cerioscoop.domain.ShowPresentation;
 import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
+import nl.cerios.cerioscoop.service.DataAccessObject;
 import nl.cerios.cerioscoop.service.GeneralService;
+import nl.cerios.cerioscoop.service.MovieNotFoundException;
+import nl.cerios.cerioscoop.domain.ShowsPresentationVO;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 /**
@@ -27,8 +32,22 @@ public class NowShowingServlet extends HttpServlet {
 	@EJB // call DB
 	private GeneralService generalService;
 
-	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+	@EJB // call DB
+	private DataAccessObject dao;
+
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
+			throws ServletException, IOException {
 		final DateUtils dateUtils = new DateUtils();
+		final List<Show> shows = dao.getShowsForToday();
+		final List<Movie> movies = dao.getMovies();
+		try {
+			final List<ShowsPresentationVO> SPVO = generalService.generateShowTable(shows, movies);
+			System.out.println(SPVO.size());
+		} catch (MovieNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		final List<ShowPresentation> showing = generalService.getShowings();
 		final List<ShowPresentation> nowShowing = new ArrayList<ShowPresentation>();
 		final ShowPresentation firstShowing = generalService.getFirstShowAfterCurrentDate(showing);
@@ -41,38 +60,35 @@ public class NowShowingServlet extends HttpServlet {
 			}
 			return compare;
 		});
-		
-		//Building the NowShowingList to show only the shows after the current date
-		
-		for (ShowPresentation show : showing){
-	//		if (show.getShowingDate().equals(dateUtils.getCurrentSqlDate())){
-				show = new ShowPresentationBuilder()
-					.withShowingId(show.getShowingId())
-					.withMovieTitle(show.getMovieTitle())
-					.withShowingDate(show.getShowingDate())
-					.withShowingTime(show.getShowingTime())
-					.build();			
-				nowShowing.add(show);
-	//		}
+
+		// Building the NowShowingList to show only the shows after the current
+		// date
+		for (ShowPresentation show : showing) {
+			// if (show.getShowingDate().equals(dateUtils.getCurrentSqlDate())){
+			show = new ShowPresentationBuilder().withShowingId(show.getShowingId()).withMovieTitle(show.getMovieTitle())
+					.withShowingDate(show.getShowingDate()).withShowingTime(show.getShowingTime()).build();
+			nowShowing.add(show);
+			// }
 		}
-		
-		//zet record van nowShowing in var en vergelijk die later
+
+		// zet record van nowShowing in var en vergelijk die later
 		String MT = null;
-		for (ShowPresentation show : nowShowing){
-			if (show.getMovieTitle() == MT){
+		for (ShowPresentation show : nowShowing) {
+			if (show.getMovieTitle() == MT) {
 				return;
 			}
-			System.out.println(show.getMovieTitle());
+			// System.out.println(show.getMovieTitle());
 			MT = show.getMovieTitle();
 		}
-		
-		
+
 		request.setAttribute("nowShowing", nowShowing);
-		
-		if(firstShowing != null){
+
+		if (firstShowing != null) {
 			// Third object in red box
-			final Date showDateTime = DateUtils.toDateTime(firstShowing.getShowingDate(), firstShowing.getShowingTime());
-			final String countdown = dateUtils.calculateTime(dateUtils.getSecondsBetween(showDateTime, dateUtils.getCurrentDate()));
+			final Date showDateTime = DateUtils.toDateTime(firstShowing.getShowingDate(),
+					firstShowing.getShowingTime());
+			final String countdown = dateUtils
+					.calculateTime(dateUtils.getSecondsBetween(showDateTime, dateUtils.getCurrentDate()));
 
 			// Objects to sent to the now-showing.jsp
 			request.setAttribute("first_movie_today", firstShowing.getMovieTitle());
@@ -87,6 +103,6 @@ public class NowShowingServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
-	} 
+	}
 
 }
