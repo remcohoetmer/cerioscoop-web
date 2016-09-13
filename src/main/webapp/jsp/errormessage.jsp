@@ -7,7 +7,10 @@
 <title>Error</title>
 </head>
 <body>
-<%=request.getAttribute("message")%>
+	<div id="navbar">
+		<jsp:include page="/jsp/shared/navbar.jsp"></jsp:include>
+	</div>
+<%=request.getAttribute("errorMessage")%>
 <form method="post" action="/cerioscoop-web/ConserveFormDataServlet">
 <input type="hidden" name="firstname" value=<%=request.getAttribute("firstname")%>>
 <input type="hidden" name="lastname" value=<%=request.getAttribute("lastname")%>>

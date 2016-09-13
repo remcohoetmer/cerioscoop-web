@@ -16,20 +16,20 @@
 	<div>
 		<form method="POST" action="/cerioscoop-web/RegisterServlet">
 			First name:<br> <input id="firstname" type="text"
-				name="firstname" placeholder="Enter your first name"> <br>Last
-			name:<br> <input id="lastname" type="text" name="lastname"
-				value=<%=request.getAttribute("firstname")%>> <br>Username:<br>
+				name="firstname" placeholder="Enter your first name" value=<%=request.getAttribute("firstname")%>> <br>Last
+			name:<br> <input id="lastname" type="text" name="lastname" placeholder="Enter your last name"
+				value=<%=request.getAttribute("lastname")%>> <br>Username:<br>
 			<input id="username" type="text" name="username"
 				placeholder="Enter your username"> <br>Password:<br>
 			<input id="password" type="password" name="password"
-				placeholder="Enter your password"> <br>Password:<br>
+				placeholder="Enter your password" value=<%=request.getAttribute("password")%>> <br>Password:<br>
 			<input id="password2" type="password" name="password2"
-				placeholder="Enter your password"> <br>E-mail:<br>
+				placeholder="Enter your password" value=<%=request.getAttribute("password")%>> <br>E-mail:<br>
 			<input id="email" type="text" name="email"
-				placeholder="Enter your email address"> <br> <br>
-			<input id="submit" type="submit" name="submitit" value="Login">
+				placeholder="Enter your email address" value=<%=request.getAttribute("email")%>> <br> <br>
+			<input id="submit" type="submit" name="submitit" value="Register">
 		</form>
-		<form action="/cerioscoop-web/RegisterServlet">
+		<form action="/cerioscoop-web">
 			<input type="submit" value="Cancel" />
 		</form>
 	</div>

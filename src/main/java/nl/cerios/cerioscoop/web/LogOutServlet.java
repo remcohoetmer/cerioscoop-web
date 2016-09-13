@@ -15,17 +15,15 @@ import javax.servlet.http.HttpSession;
 public class LogOutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		final HttpSession session = request.getSession(false);
 		// session.setAttribute("user", null)
-		if (session!=null)
-		session.removeAttribute("user");
+		if (session != null)
+			session.removeAttribute("user");
 		session.removeAttribute("usertype");
 		session.invalidate();
-		response.sendRedirect("/cerioscoop-web/IndexServlet");
+		response.sendRedirect("/cerioscoop-web/");
 	}
 }

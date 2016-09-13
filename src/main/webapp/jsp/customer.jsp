@@ -1,7 +1,7 @@
 <%@page import="nl.cerios.cerioscoop.domain.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="nl.cerios.cerioscoop.domain.Customer"%> 
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <c:if test="${usertype ne 'customer'}">
 	<c:redirect url="/"/>
 </c:if> 
@@ -29,7 +29,7 @@
  		<jsp:include page="/jsp/navbar-customer.jsp"></jsp:include>
  	</div>
 	<div class="login-message">
-	<h3>Login Successful!</h3>
+	<h3><%=request.getAttribute("successfulRegistry")%><%=request.getAttribute("successfulLogin")%></h3>
 		<% User customer = (User) session.getAttribute("user"); %>
 		Hello <%=customer.getUsername()%> (${usertype})!<br>
 	</div> 

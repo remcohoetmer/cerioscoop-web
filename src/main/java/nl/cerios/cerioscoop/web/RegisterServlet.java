@@ -21,7 +21,7 @@ import nl.cerios.cerioscoop.service.GeneralService;
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	@EJB
 	private GeneralService generalService;
 
@@ -30,11 +30,12 @@ public class RegisterServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("firstname","");
+		request.setAttribute("firstname", "");
 		request.setAttribute("lastname", "");
 		request.setAttribute("password", "");
 		request.setAttribute("email", "");
 		getServletContext().getRequestDispatcher("/jsp/register.jsp").forward(request, response);
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -44,14 +45,15 @@ public class RegisterServlet extends HttpServlet {
 		Pattern punctuation = Pattern.compile("[a-zA-Z0-9_?<>.,;:'`]");
 
 		final HttpSession session = request.getSession();
-		String message = "";
+		String errorMessage = "";
+		String successfulRegistry = "";
 
 		if (request.getParameter("firstname").length() >= 8 && request.getParameter("firstname").length() <= 20
 				&& customerService.isAlfanumeric(request.getParameter("firstname"))
 				&& alfanumeric.matcher(request.getParameter("firstname")).find()) {
 			customer.setFirstName(request.getParameter("firstname"));
 		} else {
-			message = "Invalid firstname: min 8 / max 20 alfanumeric characters";
+			errorMessage = "Invalid firstname: min 8 / max 20 alfanumeric characters";
 		}
 
 		if (request.getParameter("lastname").length() >= 8 && request.getParameter("lastname").length() <= 20
@@ -59,14 +61,13 @@ public class RegisterServlet extends HttpServlet {
 				&& alfanumeric.matcher(request.getParameter("lastname")).find()) {
 			customer.setLastName(request.getParameter("lastname"));
 		} else {
-			message = "Invalid lastname: min 8 / max 20 alfanumeric characters";
+			errorMessage = "Invalid lastname: min 8 / max 20 alfanumeric characters";
 		}
 		if (request.getParameter("username").length() >= 8 && request.getParameter("username").length() <= 20
-				&& customerService.isAlfanumeric(request.getParameter("username"))
-				/*&& customerService.isUniqueUser(request.getParameter("username"))*/) {
+				&& customerService.isAlfanumeric(request.getParameter("username"))) {
 			customer.setUsername(request.getParameter("username"));
 		} else {
-			message = "Username invalid or not unique: min 8 / max 20 alfanumeric characters";
+			errorMessage = "Username invalid or not unique: min 8 / max 20 alfanumeric characters";
 		}
 
 		if (request.getParameter("password").length() >= 6 && request.getParameter("password").length() <= 12
@@ -74,38 +75,40 @@ public class RegisterServlet extends HttpServlet {
 				&& punctuation.matcher(request.getParameter("password")).find()) {
 			customer.setPassword(request.getParameter("password"));
 		} else {
-			message = "Invalid username/password combination (username: min 6 / max 12 characters)";
+			errorMessage = "Invalid username/password combination (username: min 6 / max 12 characters)";
 		}
 
 		if (request.getParameter("email").length() >= 6 && request.getParameter("email").contains("@")) {
 			customer.setEmail(request.getParameter("email"));
 		} else {
 
-			message = "Enter valid email (min 6 characters)";
+			errorMessage = "Enter valid email (min 6 characters)";
 		}
 		if (customer.getFirstName() != null && customer.getLastName() != null && customer.getUsername() != null
 				&& customer.getPassword() != null && customer.getEmail() != null) {
 			generalService.registerCustomer(customer);
 			session.setAttribute("customer", customer);
 		}
-		//System.out.println(customer.getFirstName()+customer.getLastName()+customer.getUsername()+customer.getPassword()+customer.getEmail());
 
-
-		if (!message.equals("")) {
-			request.setAttribute("message", message);
+		if (!errorMessage.equals("")) {
+			request.setAttribute("errorMessage", errorMessage);
 			request.setAttribute("firstname", request.getParameter("firstname"));
 			request.setAttribute("lastname", request.getParameter("lastname"));
 			request.setAttribute("password", request.getParameter("password"));
 			request.setAttribute("email", request.getParameter("email"));
 			request.getRequestDispatcher("/jsp/errormessage.jsp").forward(request, response);
 		} else {
-			response.sendRedirect("/cerioscoop-web/");
+			if (session != null) {
+				session.removeAttribute("user");
+				session.removeAttribute("usertype");
+			}
+			session.setAttribute("user", customer);
+			session.setAttribute("usertype", "customer");
+			successfulRegistry = "Welcome, your registry has been processed!";
+			request.setAttribute("successfulRegistry", successfulRegistry);
+			request.getRequestDispatcher("/jsp/customer.jsp").forward(request, response);
 			// change link to the correct page after valid registration
 		}
-
-		generalService.registerCustomer(customer);
-        session.setAttribute("customer", customer);
-		//request.getRequestDispatcher("/jsp/register.jsp").forward(request, response);
 	}
 
 }

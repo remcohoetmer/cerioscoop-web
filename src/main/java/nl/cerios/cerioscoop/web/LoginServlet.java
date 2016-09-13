@@ -22,29 +22,29 @@ import nl.cerios.cerioscoop.service.GeneralService;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	@EJB
-	private GeneralService generalService; 
-	
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		final List<Customer> dbCustomers = generalService.getCustomers();	
+	private GeneralService generalService;
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		final List<Customer> dbCustomers = generalService.getCustomers();
 		final User customer = new Customer();
 		final User authenticatedCustomer;
 		final HttpSession session = request.getSession();
 		final PrintWriter out = response.getWriter();
-		
-		//input
-		customer.setUsername(request.getParameter("txtUserName"));			
+		String successfulLogin = "Welcome, you have been logged in successfully";
+
+		// input
+		customer.setUsername(request.getParameter("txtUserName"));
 		customer.setPassword(request.getParameter("txtPassword"));
-				
-		//output
+
+		// output
 		authenticatedCustomer = generalService.authenticateCustomer(customer, dbCustomers);
-				
-        response.setContentType("text/html;charset=UTF-8");
-        
+
+		response.setContentType("text/html;charset=UTF-8");
+
 		if (authenticatedCustomer == null) {
 			out.println("<script type=\"text/javascript\">");
 			out.println("alert('Combination username and password do not match!');");
@@ -53,9 +53,10 @@ public class LoginServlet extends HttpServlet {
 		} else if (generalService.authenticateUser(authenticatedCustomer)) {
 			session.setAttribute("user", authenticatedCustomer);
 			session.setAttribute("usertype", "customer");
-			response.sendRedirect("/cerioscoop-web/jsp/customer.jsp");
+			request.setAttribute("successfulRegistry", "");
+			request.setAttribute("successfulLogin", successfulLogin);
+			getServletContext().getRequestDispatcher("/jsp/customer.jsp").forward(request, response);
 		} else
 			return;
 	}
 }
-
