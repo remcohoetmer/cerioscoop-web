@@ -52,8 +52,8 @@
 				</a>
 			</div>
 			<div class="navbar-button">
-				<a href="/cerioscoop-web/jsp/team.jsp"> <span
-					class="navbar-button-text">TEAM</span>
+				<a href="/cerioscoop-web/RegisterServlet"> <span
+					class="navbar-button-text">REGISTER</span>
 				</a>
 			</div>
 	

@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `username` varchar(20) COLLATE utf8_bin NOT NULL,
   `password` varchar(20) COLLATE utf8_bin NOT NULL,
   `email` varchar(20) COLLATE utf8_bin NOT NULL,
+  UNIQUE (`username`),
   PRIMARY KEY (`customer_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 

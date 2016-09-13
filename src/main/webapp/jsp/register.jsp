@@ -5,17 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Register</title>
-<script type="text/javascript">
-function message_popup()
-{
-<%if (request.getAttribute("message") != null) {%>
-		alert('<%=request.getAttribute("message")%>
-	')
-<%}%>
-	}
-</script>
 </head>
-<body onload="message_popup();">
+<body>
 	<div id="navbar">
 		<jsp:include page="/jsp/shared/navbar.jsp"></jsp:include>
 	</div>
@@ -27,7 +18,7 @@ function message_popup()
 			First name:<br> <input id="firstname" type="text"
 				name="firstname" placeholder="Enter your first name"> <br>Last
 			name:<br> <input id="lastname" type="text" name="lastname"
-				placeholder="Enter your last name"> <br>Username:<br>
+				value=<%=request.getAttribute("firstname")%>> <br>Username:<br>
 			<input id="username" type="text" name="username"
 				placeholder="Enter your username"> <br>Password:<br>
 			<input id="password" type="password" name="password"

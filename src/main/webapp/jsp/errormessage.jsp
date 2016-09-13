@@ -8,5 +8,12 @@
 </head>
 <body>
 <%=request.getAttribute("message")%>
+<form method="post" action="/cerioscoop-web/ConserveFormDataServlet">
+<input type="hidden" name="firstname" value=<%=request.getAttribute("firstname")%>>
+<input type="hidden" name="lastname" value=<%=request.getAttribute("lastname")%>>
+<input type="hidden" name="password" value=<%=request.getAttribute("password")%>>
+<input type="hidden" name="email" value=<%=request.getAttribute("email")%>>
+<br><button type="submit">Try again</button>
+		</form>
 </body>
 </html>

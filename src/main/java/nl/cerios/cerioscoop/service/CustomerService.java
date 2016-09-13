@@ -60,7 +60,7 @@ public class CustomerService {
 		}
 	}
 
-	public boolean isValidChar(CharSequence seq) {
+	public boolean isAlfanumeric(CharSequence seq) {
 		int len = seq.length();
 		for (int i = 0; i < len; i++) {
 			char c = seq.charAt(i);
@@ -72,8 +72,6 @@ public class CustomerService {
 			if ('A' <= c && c <= 'Z')
 				continue;
 			if (c == ' ')
-				continue;
-			if (c == '-')
 				continue;
 			// If we get here, we had an invalid char, fail right away
 			return false;
