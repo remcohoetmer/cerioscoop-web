@@ -26,7 +26,7 @@ INSERT INTO `customer` (`customer_id`, `first_name`, `last_name`, `username`, `p
 -- Dumpen data van tabel cerioscoop.movie: ~7 rows (ongeveer)
 DELETE FROM `movie`;
 /*!40000 ALTER TABLE `movie` DISABLE KEYS */;
-INSERT INTO `movie` (`movie_id`, `title`, `description`) VALUES
+INSERT INTO `movie` (`movie_id`, `title`, `movie_description`) VALUES
 	(1, 'The Legend of Tarzan (2016)', 'A story about a boy that survived in the jungle.'),
 	(2, 'Tarzan the Ape Man (1932)', 'A story about a boy that survived in the jungle.'),
 	(3, 'Tarzan (1999)', 'A story about a boy that survived in the jungle.'),
@@ -36,10 +36,10 @@ INSERT INTO `movie` (`movie_id`, `title`, `description`) VALUES
 	(7, 'Snatch', 'A story about a diamond that all the pikeys want to have.');
 /*!40000 ALTER TABLE `movie` ENABLE KEYS */;
 
--- Dumpen data van tabel cerioscoop.payment: ~3 rows (ongeveer)
-DELETE FROM `transaction`;
-/*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
-INSERT INTO `transaction` (`transaction_id`, `customer_id`, `show_id`, `bankaccount`, `reserved_places`, `total_price`) VALUES
+-- Dumpen data van tabel cerioscoop.show_transaction: ~3 rows (ongeveer)
+DELETE FROM `show_transaction`;
+/*!40000 ALTER TABLE `show_transaction` DISABLE KEYS */;
+INSERT INTO `show_transaction` (`transaction_id`, `customer_id`, `show_id`, `bankaccount`, `reserved_places`, `total_price`) VALUES
 	(1, 2, 1, 'NL32INGB1234567890', 5, 50),
 	(2, 1, 7, 'NL32INGB2234567890', 2, 20),
 	(3, 3, 6, 'NL32INGB3234567890', 3, 30),
@@ -47,7 +47,7 @@ INSERT INTO `transaction` (`transaction_id`, `customer_id`, `show_id`, `bankacco
 	(5, 1, 4, 'NL32INGB6234567890', 2, 20),
 	(6, 4, 3, 'NL32INGB7234567890', 3, 30),
 	(7, 3, 2, 'NL32INGB4234567890', 1, 10);
-/*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
+/*!40000 ALTER TABLE `show_transaction` ENABLE KEYS */;
 
 -- Dumpen data van tabel cerioscoop.room: ~2 rows (ongeveer)
 DELETE FROM `room`;

@@ -37,14 +37,14 @@ DROP TABLE IF EXISTS `movie`;
 CREATE TABLE IF NOT EXISTS `movie` (
   `movie_id` int(20) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(20) COLLATE utf8_bin NOT NULL,
-  `description` varchar(255) COLLATE utf8_bin NOT NULL,
+  `movie_description` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`movie_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- Data exporteren was gedeselecteerd
--- Structuur van  tabel cerioscoop.payment wordt geschreven
-DROP TABLE IF EXISTS `transaction`;
-CREATE TABLE IF NOT EXISTS `transaction` (
+-- Structuur van  tabel cerioscoop.show_transaction wordt geschreven
+DROP TABLE IF EXISTS `show_transaction`;
+CREATE TABLE IF NOT EXISTS `show_transaction` (
   `transaction_id` int(20) unsigned NOT NULL AUTO_INCREMENT,
   `customer_id` int(20) unsigned NOT NULL,
   `show_id` int(20) unsigned NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `room` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- Data exporteren was gedeselecteerd
--- Structuur van  tabel cerioscoop.show wordt geschreven
+-- Structuur van  tabel cerioscoop.show_table wordt geschreven
 DROP TABLE IF EXISTS `show_table`;
 CREATE TABLE IF NOT EXISTS `show_table` (
   `show_id` int(20) unsigned NOT NULL AUTO_INCREMENT,

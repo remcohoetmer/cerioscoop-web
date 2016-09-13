@@ -34,12 +34,12 @@ public class GeneralService {
 		final List<Movie> movies = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()) {			//AutoCloseable
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, title, description FROM movie");
+			final ResultSet resultSet = statement.executeQuery("SELECT movie_id, title, movie_description FROM movie");
 			while (resultSet.next()) {
 				final Movie movie = new MovieBuilder()
 						.withMovieId(resultSet.getBigDecimal("movie_id").toBigInteger())
 						.withMovieTitle(resultSet.getString("title"))
-						.withMovieDescription(resultSet.getString("description"))
+						.withMovieDescription(resultSet.getString("movie_description"))
 						.build();
 				movies.add(movie);
 			}

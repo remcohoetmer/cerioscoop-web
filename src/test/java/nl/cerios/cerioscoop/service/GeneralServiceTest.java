@@ -35,7 +35,6 @@ public class GeneralServiceTest extends DatabaseTest {
 	@Test
 	public void testGetMovies() {
 		final List<Movie> movies = generalService.getMovies();
-
 		Assert.assertNotNull(movies);
 		Assert.assertEquals(7, movies.size());
 	}
@@ -53,7 +52,7 @@ public class GeneralServiceTest extends DatabaseTest {
 		final List<Customer> customers = generalService.getCustomers();
 
 		Assert.assertNotNull(customers);
-		Assert.assertEquals(4, customers.size());
+		Assert.assertEquals(3, customers.size());
 	}
 	
 	@Test
