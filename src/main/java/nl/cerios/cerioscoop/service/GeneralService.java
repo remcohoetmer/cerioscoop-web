@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
@@ -112,27 +113,6 @@ public class GeneralService {
 				showings.add(show);
 	        	}
 	        return showings;
-	      }
-	    }catch (final SQLException e) {
-	    	throw new ServiceException("Something went terribly wrong while retrieving the ShowingList.", e);
-	    }
-	}
-	
-	public List<Show> getTodaysShows(){
-		//syso
-		final List<Show> shows = new ArrayList<>();
-		try (final Connection connection = dataSource.getConnection()){
-			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT show_id, movie_id, show_date, show_time FROM show_table WHERE show_date = CURDATE()"); { 
-
-			while (resultSet.next()) {
-				final int showId = resultSet.getInt("show_id");
-				final int movieId = resultSet.getInt("movie_id");
-				final Date showDate = resultSet.getDate("show_date");
-				final Time showTime = resultSet.getTime("show_time");
-				shows.add(new Show(showId, movieId, showDate, showTime));
-        	}
-        return shows;
 	      }
 	    }catch (final SQLException e) {
 	    	throw new ServiceException("Something went terribly wrong while retrieving the ShowingList.", e);
@@ -247,7 +227,17 @@ public class GeneralService {
 		// 
 		return todaysShowsTable;
 	}
-		
+	
+	public String generateRandomUsername(){
+		char[] chars = "abcdefghijklmnopqrstuvwxyz1234567890".toCharArray();
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+		for (int i = 0; i < 20; i++) {
+		    char c = chars[random.nextInt(chars.length)];
+		    sb.append(c);
+		}
+		return sb.toString();
+	}
 }
 
 

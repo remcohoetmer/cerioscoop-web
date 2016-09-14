@@ -10,13 +10,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Hello customer!</title>
-
-	<!-- Customer CSS
-   	================================================== -->
-	<link rel="stylesheet" href="/cerioscoop-web/css/customer.css">
-	<link href='/cerioscoop-web/css/shared.css' type='text/css' rel='stylesheet' />
-
-
 </head>
 <body>
  	<div class="body-navbar-wrapper">
@@ -25,19 +18,10 @@
 		</div>
 	</div>
 
-	<div id="navbar-customer">
- 		<jsp:include page="/jsp/navbar-customer.jsp"></jsp:include>
- 	</div>
 	<div class="login-message">
 	<h3><%=request.getAttribute("successfulRegistry")%><%=request.getAttribute("successfulLogin")%></h3>
 		<% User customer = (User) session.getAttribute("user"); %>
 		Hello <%=customer.getUsername()%> (${usertype})!<br>
 	</div> 
- 	
- 	<div class="body-footer-wrapper">
-		<div class="footer">
-				
-		</div>
-	</div>
 </body>
 </html>

@@ -27,7 +27,7 @@
 	</div>
 	<div>
 		<br>New Customer
-		<br><a id="register-button" href="/cerioscoop-web/jsp/register.jsp" class="button">REGISTER</a>
+		<br><a id="register-button" href="/cerioscoop-web/RegisterServlet" class="button">REGISTER</a>
 	</div>
 </div>
 </body>
