@@ -185,73 +185,121 @@ public class GeneralServiceTest extends DatabaseTest {
 	
 	@Test 
 	public void testGenerateShowTable() throws ParseException, MovieNotFoundException {
-	//Shows
-		final Show showOne = new Show(0, 1, 
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("18:00:00"))));
-		final Show showTwo = new Show(0, 2, 
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("19:00:00"))));
-		final Show showThree = new Show(0, 3, 
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
-		final Show showFour = new Show(0, 2, 
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("10:00:00"))));
-		final Show showFive = new Show(0, 1, 
-				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
-				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
-	//Movies	
-		final Movie movieOne = new MovieBuilder()
-				.withMovieId(BigInteger.valueOf(1))
-				.withMovieTitle("top titel")
-				.withMovieDescription("bagger v-film")
-				.build();
-		final Movie movieTwo = new MovieBuilder()
-				.withMovieId(BigInteger.valueOf(2))
-				.withMovieTitle("lekkere titel")
-				.withMovieDescription("bagger v-film")
-				.build();
-		final Movie movieThree = new MovieBuilder()
-				.withMovieId(BigInteger.valueOf(3))
-				.withMovieTitle("keke titel")
-				.withMovieDescription("bagger v-film")
-				.build();
+		//Shows
+			final Show showOne = new Show(0, 1, 
+					dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
+					dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("18:00:00"))));
+			final Show showTwo = new Show(0, 2, 
+					dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
+					dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("19:00:00"))));
+			final Show showThree = new Show(0, 3, 
+					dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
+					dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
+			final Show showFour = new Show(0, 2, 
+					dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
+					dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("10:00:00"))));
+			final Show showFive = new Show(0, 1, 
+					dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("12-09-2016"))),
+					dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
+		//Movies	
+			final Movie movieOne = new MovieBuilder()
+					.withMovieId(BigInteger.valueOf(1))
+					.withMovieTitle("top titel")
+					.withMovieDescription("bagger v-film")
+					.build();
+			final Movie movieTwo = new MovieBuilder()
+					.withMovieId(BigInteger.valueOf(2))
+					.withMovieTitle("lekkere titel")
+					.withMovieDescription("bagger v-film")
+					.build();
+			final Movie movieThree = new MovieBuilder()
+					.withMovieId(BigInteger.valueOf(3))
+					.withMovieTitle("keke titel")
+					.withMovieDescription("bagger v-film")
+					.build();
+			
+		//Lijsten maken
+			final List<ShowsPresentationVO> todaysShowsTableBefore = new ArrayList<ShowsPresentationVO>();
+			List<ShowsPresentationVO> todaysShowsTableAfter = new ArrayList<ShowsPresentationVO>();
+			final List<Show> testShows = new ArrayList<>();
+			final List<Movie> testMovies = new ArrayList<>();		
 		
-	//Lijsten maken objecten gelijkheid, gelijk is als ze dezelfde instance zijn
-		final List<ShowsPresentationVO> todaysShowsTable = new ArrayList<ShowsPresentationVO>();
-		final List<Show> testShows = new ArrayList<>();
-		final List<Movie> testMovies = new ArrayList<>();
+			List<Show> movieOneShows = new ArrayList<>();
+			List<Show> movieTwoShows = new ArrayList<>();
+			List<Show> movieThreeShows = new ArrayList<>();        
+			ShowsPresentationVO showsPresentationVORowOne = null;
+			ShowsPresentationVO showsPresentationVORowTwo = null;
+			ShowsPresentationVO showsPresentationVORowThree = null;
+			
+		//Before: de todaysShowsTable vullen met de lege shows en movies.
+			todaysShowsTableAfter = generalService.generateShowTable(testShows, testMovies);
 		
-	//checken van de huidige staat van de tabel (leeg)
-		Assert.assertEquals(todaysShowsTable, generalService.generateShowTable(testShows, testMovies));
+		//Before checken van de huidige staat van de todaysShowsTable (leeg)
+			for (ShowsPresentationVO showsPresentationVOBefore : todaysShowsTableBefore){
+				if(movieOne.getMovieId().intValue() == showsPresentationVOBefore.getMovieId()){
+					showsPresentationVORowOne = showsPresentationVOBefore;
+					}else if(movieTwo.getMovieId().intValue() == showsPresentationVOBefore.getMovieId()){
+						showsPresentationVORowTwo = showsPresentationVOBefore;
+					}else if(movieThree.getMovieId().intValue() == showsPresentationVOBefore.getMovieId()){
+						showsPresentationVORowThree = showsPresentationVOBefore;
+					}
+			}
+			
+			Assert.assertEquals(todaysShowsTableBefore, generalService.generateShowTable(testShows, testMovies));
+			Assert.assertEquals(testMovies.size(), todaysShowsTableBefore.size());
+			Assert.assertNull(showsPresentationVORowOne);
+			Assert.assertNull(showsPresentationVORowTwo);
+			Assert.assertNull(showsPresentationVORowThree);
+			
+		//shows lijst vullen
+			testShows.add(0, showOne);	
+			testShows.add(1, showTwo);	
+			testShows.add(2, showThree);	
+			testShows.add(3, showFour);	
+			testShows.add(4, showFive);	
+			
+		//movies lijst vullen
+			testMovies.add(0, movieOne);
+			testMovies.add(1, movieTwo);
+			testMovies.add(2, movieThree);
+			
+		//De todaysShowsTable vullen met de shows en movies.
+			todaysShowsTableAfter = generalService.generateShowTable(testShows, testMovies);
+			
+		//checken of de tabel niet leeg is!
+			Assert.assertNotEquals(todaysShowsTableBefore, todaysShowsTableAfter);
+			Assert.assertEquals(testMovies.size(), todaysShowsTableAfter.size());
 		
-		
-	//shows lijst vullen
-		testShows.add(0, showOne);	
-		testShows.add(1, showTwo);	
-		testShows.add(2, showThree);	
-		testShows.add(3, showFour);	
-		testShows.add(4, showFive);	
-		
-	//movies lijst vullen
-		testMovies.add(0, movieOne);
-		testMovies.add(1, movieTwo);
-		testMovies.add(2, movieThree);
-		
-	//checken of de tabel niet leeg is!
-		Assert.assertNotEquals(todaysShowsTable, generalService.generateShowTable(testShows, testMovies));
-		
-	//generateShowTable() aanroepen met de testdata
-		
-	//checken of de movie al bestaat
-		
-	
-	//checken van de uiteindelijke staat van de tabel
-		//Assert.assertEquals(testShows	
-	
-		
-	}
+		//generateShowTable() aanroepen met de testdata
+			for (Show show : testShows){
+				if(show.getMovieId() == movieOne.getMovieId().intValue()){
+					movieOneShows.add(show);
+				}else if(show.getMovieId() == movieTwo.getMovieId().intValue()){
+					movieTwoShows.add(show);
+				}else if(show.getMovieId() == movieThree.getMovieId().intValue()){
+					movieThreeShows.add(show);
+				}
+			}
+		//checken of de movie al bestaat
+			for (ShowsPresentationVO showsPresentationVOAfter : todaysShowsTableAfter){
+				if(movieOne.getMovieId().intValue() == showsPresentationVOAfter.getMovieId()){
+				showsPresentationVORowOne = showsPresentationVOAfter;
+				}else if(movieTwo.getMovieId().intValue() == showsPresentationVOAfter.getMovieId()){
+					showsPresentationVORowTwo = showsPresentationVOAfter;
+				}else if(movieThree.getMovieId().intValue() == showsPresentationVOAfter.getMovieId()){
+					showsPresentationVORowThree = showsPresentationVOAfter;
+				}
+			}
+			Assert.assertEquals(movieOne.getMovieId().intValue(), showsPresentationVORowOne.getMovieId());
+			Assert.assertEquals(movieOne.getTitle(), showsPresentationVORowOne.getMovieTitle());
+			Assert.assertEquals(movieOneShows.size(), showsPresentationVORowOne.getShows().size());				
+			Assert.assertEquals(movieTwo.getMovieId().intValue(), showsPresentationVORowTwo.getMovieId());
+			Assert.assertEquals(movieTwo.getTitle(), showsPresentationVORowTwo.getMovieTitle());
+			Assert.assertEquals(movieTwoShows.size(), showsPresentationVORowTwo.getShows().size());
+			Assert.assertEquals(movieThree.getMovieId().intValue(), showsPresentationVORowThree.getMovieId());
+			Assert.assertEquals(movieThree.getTitle(), showsPresentationVORowThree.getMovieTitle());
+			Assert.assertEquals(movieThreeShows.size(), showsPresentationVORowThree.getShows().size());
+		}
 	
 	
 	private Customer getCustomer(final int customerID) {
