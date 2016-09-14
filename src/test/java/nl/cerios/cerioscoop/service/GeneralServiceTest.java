@@ -15,8 +15,6 @@ import nl.cerios.cerioscoop.domain.Customer;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
-import nl.cerios.cerioscoop.domain.ShowPresentation;
-import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
 import nl.cerios.cerioscoop.domain.ShowsPresentationVO;
 import nl.cerios.cerioscoop.util.DateUtils;
 import nl.cerios.testutil.DatabaseTest;
@@ -53,52 +51,31 @@ public class GeneralServiceTest extends DatabaseTest {
 
 		Assert.assertNotNull(customers);
 		Assert.assertEquals(3, customers.size());
-	}
+	}	
 	
 	@Test
-	public void testGetShowings() {
-		final List<ShowPresentation> showings = generalService.getShowings();
-
-		Assert.assertNotNull(showings);
-		Assert.assertEquals(7, showings.size());
-	}
-	
-	
-	@Test
-	public void testGetFirstShowAfterCurrentDate() throws ParseException{
+	public void testGetFirstShowforToday() throws ParseException{
 	//Shows	
-		final ShowPresentation showOne = new ShowPresentationBuilder()
-				.withShowingId(BigInteger.valueOf(1))
-				.withMovieTitle("showOne")
-				.withShowingDate(dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("08-01-2020"))))
-				.withShowingTime(dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))))
-				.build();	
-		
-		final ShowPresentation showTwo = new ShowPresentationBuilder()
-				.withShowingId(BigInteger.valueOf(2))
-				.withMovieTitle("showTwo")
-				.withShowingDate(dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("07-23-2020"))))
-				.withShowingTime(dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))))
-				.build();	
-				
-		final ShowPresentation showThree = new ShowPresentationBuilder()
-				.withShowingId(BigInteger.valueOf(3))
-				.withMovieTitle("showThree")
-				.withShowingDate(dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-03-2020"))))
-				.withShowingTime(dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))))
-				.build();	
-		
+		final Show showOne = new Show(0, 1, 
+				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("07-20-2020"))),
+				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
+		final Show showTwo = new Show(0, 2, 
+				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("07-23-2020"))),
+				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));
+		final Show showThree = new Show(0, 3, 
+				dateUtils.convertUtilDateToSqlDate(dateUtils.toDate(dateUtils.toDateFormat("09-03-2020"))),
+				dateUtils.convertUtilDateToSqlTime(dateUtils.toTime(dateUtils.toTimeFormat("20:00:00"))));	
 		
 	//Putting all movies in a list
-		final List<ShowPresentation> listOfShows = new ArrayList<>();
+		final List<Show> listOfShows = new ArrayList<>();
 		listOfShows.add(0, showOne);
 		listOfShows.add(1, showTwo);
 		listOfShows.add(2, showThree);
 		
 	//First show after the current date control 
-		Assert.assertNotEquals(showOne.getShowingDate() ,generalService.getFirstShowAfterCurrentDate(listOfShows).getShowingDate());
-		Assert.assertEquals(showTwo.getShowingDate() ,generalService.getFirstShowAfterCurrentDate(listOfShows).getShowingDate());
-		Assert.assertNotEquals(showThree.getShowingDate() ,generalService.getFirstShowAfterCurrentDate(listOfShows).getShowingDate());
+		Assert.assertEquals(showOne.getShowDate() ,generalService.getFirstShowforToday(listOfShows).getShowDate());
+		Assert.assertNotEquals(showTwo.getShowDate() ,generalService.getFirstShowforToday(listOfShows).getShowDate());
+		Assert.assertNotEquals(showThree.getShowDate() ,generalService.getFirstShowforToday(listOfShows).getShowDate());
 	}
 	@Test
 	public void testGetMovieByMovieId() throws MovieNotFoundException{

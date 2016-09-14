@@ -8,6 +8,7 @@
 <%@page import="nl.cerios.cerioscoop.domain.Show"%>
 <%@page import="nl.cerios.cerioscoop.service.GeneralService"%>
 <%@page import="nl.cerios.cerioscoop.util.DateUtils"%>
+<%@page import="nl.cerios.cerioscoop.domain.ShowsPresentationVO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -31,28 +32,31 @@
 		<jsp:include page="/jsp/shared/navbar.jsp"></jsp:include>
 	</div>
 
-	<h1>Now Showing</h1>
+	<h1>Today Showing</h1>
 
 
 	<table>
 		<thead>
 			<th>Movietitle</th>
-			<th>Morning times</th>
-			<th>Afternoon times</th>
-			<th>Evening times</th>
+			<th>Movie times</th>
 			
 		</thead>
 		<tbody>
-
-			<c:forEach items="${nowShowing}" var="show">
+			<% //List<ShowsPresentationVO> todaysShowTable = (List<ShowsPresentationVO>) request.getAttribute("todaysShowTable");%>
+			<% for(int i = 1; i < 100; i++) { %>
+				<%if(request.getAttribute("ShowsPresentationVO"+Integer.toString(i)) != null) { %>
 				<tr>
-					<td>${show.movieTitle}</td>
-					<td><a class="button" href="/cerioscoop-web/PaymentServlet">${show.showingTime}</a></td>
-					<td><a class="button" href="/cerioscoop-web/PaymentServlet">${show.showingTime}</a></td>
-					<td><a class="button" href="/cerioscoop-web/PaymentServlet">${show.showingTime}</a></td>
+					<td><%ShowsPresentationVO showsPresentationVO = (ShowsPresentationVO) request.getAttribute("ShowsPresentationVO"+Integer.toString(i));%>
+					<%=showsPresentationVO.getMovieTitle()%></td>
+					
+					
+					<% for(int s = 1; s <= 10; s++) {%>
+					<%if(request.getAttribute("showMovie"+Integer.toString(s)) != null) { %>
+					<td><%Show show = (Show) request.getAttribute("showMovie"+Integer.toString(s));%>
+					<a class="button" href="/cerioscoop-web/#"><%=show.getShowTime()%></a></td>
+					<% }} %>
 				</tr>
-
-			</c:forEach>
+			<% }} %>
 
 		</tbody>
 	</table>

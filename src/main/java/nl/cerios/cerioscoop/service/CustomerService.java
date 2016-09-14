@@ -1,17 +1,17 @@
 package nl.cerios.cerioscoop.service;
 
-import java.math.BigInteger;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.sql.DataSource;
 
-import nl.cerios.cerioscoop.domain.ShowPresentation;
-import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
+import nl.cerios.cerioscoop.domain.Show;
 
 @Stateless
 public class CustomerService {
@@ -37,27 +37,30 @@ public class CustomerService {
 		}
 	}
 
-	public ShowPresentation getShowPresentationByShowId(int showing_id) {
-		BigInteger showId = BigInteger.valueOf(showing_id);
+	public Show getShowByShowId(int show_id) {
+		Show show = new Show();
 		String selectSQL = "SELECT movie_title, show_date, show_time FROM show_presentation WHERE show_id = ?";
 
 		try (final Connection connection = dataSource.getConnection()) {
 			final PreparedStatement preparedstatement = connection.prepareStatement(selectSQL);
-			preparedstatement.setInt(1, showing_id);
-			ResultSet resultSet = preparedstatement.executeQuery();
-
-			{
-				resultSet.next();
-				final ShowPresentation show = new ShowPresentationBuilder().withShowingId(showId)
-						.withMovieTitle(resultSet.getString("movie_title"))
-						.withShowingDate(resultSet.getDate("show_date")).withShowingTime(resultSet.getTime("show_time"))
-						.build();
-				return show;
-			}
-
-		} catch (final SQLException e) {
-			throw new ServiceException("Something went terribly wrong while retrieving the showPresentation.", e);
-		}
+			preparedstatement.setInt(1, show_id);
+			ResultSet resultSet = preparedstatement.executeQuery();{
+				while (resultSet.next()) {
+				final int showId = show_id;
+				final int movieId = resultSet.getInt("movie_id");
+				final int roomId = resultSet.getInt("room_id");
+				final Date showDate = resultSet.getDate("show_date");
+				final Time showTime = resultSet.getTime("show_time");
+				final int availablePlaces = resultSet.getInt("available_places");
+				final float showPrice = resultSet.getInt("show_price");
+				
+	        	show = new Show(showId, movieId, roomId, showDate, showTime, availablePlaces, showPrice);
+	        	}
+	        return show;
+			   }
+	    }catch (final SQLException e) {
+	    	throw new ServiceException("Something went terribly wrong while retrieving the first date.", e);
+	    }
 	}
 
 	public boolean isAlfanumeric(CharSequence seq) {

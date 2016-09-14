@@ -10,9 +10,6 @@
 
 </head>
 <body>
-<div id="navbar">
-		<jsp:include page="/jsp/shared/navbar.jsp"></jsp:include>
-	</div>
-	Welkom op de cerioscoop!
+    <jsp:forward page="/NowShowingServlet"></jsp:forward>
 </body>
 </html>

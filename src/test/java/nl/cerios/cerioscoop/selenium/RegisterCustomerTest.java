@@ -34,13 +34,10 @@ public class RegisterCustomerTest extends SeleniumTest {
 		getWebDriver().findElement(By.id("email")).sendKeys("selenium@london.com");
 		// Submit registration
 		getWebDriver().findElement(By.id("submit")).click();
-
-		//Tijdelijk object met een null waarde voor het slagen van de Seleniumtest
-		String dummy = null;
 		
 		// Check username Sel in the page
 		Assert.assertEquals("Hello customer!", getWebDriver().getTitle());
 		final String loginMessage = getWebDriver().findElement(By.className("login-message")).getText().toString();
-		Assert.assertEquals("Welcome, your registry has been processed!"+dummy+"\nHello "+userName+" (customer)!", loginMessage);
+		Assert.assertEquals("Welcome, your registry has been processed!\nHello "+userName+" (customer)!", loginMessage);
 	}
 }

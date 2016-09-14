@@ -37,12 +37,9 @@ public class RegisterCustomerSteps extends SeleniumTest {
 	}
 
 	@Then("^I check that the customer has been registered$")
-	public void checkIfCustomerIsRegistered() throws InterruptedException {
-		//Tijdelijk object met een null waarde voor het slagen van de Seleniumtest
-		String dummy = null;
-		
+	public void checkIfCustomerIsRegistered() throws InterruptedException {	
 		Assert.assertEquals("Hello customer!", getWebDriver().getTitle());
-		Assert.assertEquals("Welcome, your registry has been processed!"+dummy+"\nHello "+userName+" (customer)!",
+		Assert.assertEquals("Welcome, your registry has been processed!\nHello "+userName+" (customer)!",
 				getWebDriver().findElement(By.className("login-message")).getText());		
 	}
 }

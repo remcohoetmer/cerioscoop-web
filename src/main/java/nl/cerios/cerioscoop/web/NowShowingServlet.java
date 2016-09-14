@@ -14,12 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.Show;
-import nl.cerios.cerioscoop.domain.ShowPresentation;
-import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
+import nl.cerios.cerioscoop.domain.ShowsPresentationVO;
 import nl.cerios.cerioscoop.service.DataAccessObject;
 import nl.cerios.cerioscoop.service.GeneralService;
 import nl.cerios.cerioscoop.service.MovieNotFoundException;
-import nl.cerios.cerioscoop.domain.ShowsPresentationVO;
 import nl.cerios.cerioscoop.util.DateUtils;
 
 /**
@@ -35,69 +33,51 @@ public class NowShowingServlet extends HttpServlet {
 	@EJB // call DB
 	private DataAccessObject dao;
 
-	protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		final DateUtils dateUtils = new DateUtils();
 		final List<Show> shows = dao.getShowsForToday();
 		final List<Movie> movies = dao.getMovies();
+		List<ShowsPresentationVO> todaysShowsTable = new ArrayList<ShowsPresentationVO>();
 		try {
-			final List<ShowsPresentationVO> SPVO = generalService.generateShowTable(shows, movies);
-			System.out.println(SPVO.size());
+			todaysShowsTable = generalService.generateShowTable(shows, movies);
+			request.setAttribute("todaysShowsTable", todaysShowsTable);
 		} catch (MovieNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		final List<ShowPresentation> showing = generalService.getShowings();
-		final List<ShowPresentation> nowShowing = new ArrayList<ShowPresentation>();
-		final ShowPresentation firstShowing = generalService.getFirstShowAfterCurrentDate(showing);
-
-		// Sort the shows by their showDate/showTime, oldest first.
-		showing.sort((itemL, itemR) -> {
-			int compare = itemL.getShowingDate().compareTo(itemR.getShowingDate());
-			if (compare == 0) {
-				compare = itemL.getShowingTime().compareTo(itemR.getShowingTime());
+		
+		for (ShowsPresentationVO showsPresentationVO : todaysShowsTable){
+			request.setAttribute("ShowsPresentationVO"+Integer.toString(showsPresentationVO.getMovieId()), showsPresentationVO);
+			
+			List<Show> showsSorted	= showsPresentationVO.getShows();
+			showsSorted.sort((itemL, itemR) -> {
+				int compare = itemL.getShowDate().compareTo(itemR.getShowDate());
+				if (compare == 0) {
+					compare = itemL.getShowTime().compareTo(itemR.getShowTime());
+				}
+				return compare;
+			});
+			for (Show show : showsSorted) {
+				request.setAttribute("showMovie"+Integer.toString(show.getShowId()), show);
 			}
-			return compare;
-		});
-
-		// Building the NowShowingList to show only the shows after the current
-		// date
-		for (ShowPresentation show : showing) {
-			// if (show.getShowingDate().equals(dateUtils.getCurrentSqlDate())){
-			show = new ShowPresentationBuilder().withShowingId(show.getShowingId()).withMovieTitle(show.getMovieTitle())
-					.withShowingDate(show.getShowingDate()).withShowingTime(show.getShowingTime()).build();
-			nowShowing.add(show);
-			// }
 		}
-
-		// zet record van nowShowing in var en vergelijk die later
-		String MT = null;
-		for (ShowPresentation show : nowShowing) {
-			if (show.getMovieTitle() == MT) {
-				return;
-			}
-			// System.out.println(show.getMovieTitle());
-			MT = show.getMovieTitle();
-		}
-
-		request.setAttribute("nowShowing", nowShowing);
-
+		
+		final Show firstShowing = generalService.getFirstShowforToday(shows);
 		if (firstShowing != null) {
 			// Third object in red box
-			final Date showDateTime = DateUtils.toDateTime(firstShowing.getShowingDate(),
-					firstShowing.getShowingTime());
-			final String countdown = dateUtils
-					.calculateTime(dateUtils.getSecondsBetween(showDateTime, dateUtils.getCurrentDate()));
+			final Date showDateTime = dateUtils.toDateTime(firstShowing.getShowDate(),firstShowing.getShowTime());
+			final String countdown = dateUtils.calculateTime(dateUtils.getSecondsBetween(showDateTime, dateUtils.getCurrentDate()));
 
 			// Objects to sent to the now-showing.jsp
-			request.setAttribute("first_movie_today", firstShowing.getMovieTitle());
+			try {
+				request.setAttribute("first_movie_today", generalService.getMovieByMovieId(firstShowing.getMovieId(), movies).getTitle());
+			} catch (MovieNotFoundException e) {
+				e.printStackTrace();
+			}
 			request.setAttribute("countdown", countdown);
 		}
 		request.setAttribute("todays_date", dateUtils.getDate());
-
 		// route to jsp
-		getServletContext().getRequestDispatcher("/jsp/now-showing.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/jsp/today-showing.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

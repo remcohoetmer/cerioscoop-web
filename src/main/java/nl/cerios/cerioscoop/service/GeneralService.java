@@ -19,8 +19,6 @@ import nl.cerios.cerioscoop.domain.Customer;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
-import nl.cerios.cerioscoop.domain.ShowPresentation;
-import nl.cerios.cerioscoop.domain.ShowPresentationBuilder;
 import nl.cerios.cerioscoop.domain.ShowsPresentationVO;
 import nl.cerios.cerioscoop.domain.User;
 import nl.cerios.cerioscoop.util.DateUtils;
@@ -30,6 +28,7 @@ public class GeneralService {
 
 	@Resource(name = "jdbc/cerioscoop")			//Content Dependency Injection techniek
 	private DataSource dataSource;
+	private DateUtils dateUtils = new DateUtils();
 	
 	public List<Movie> getMovies(){
 		final List<Movie> movies = new ArrayList<>();
@@ -66,7 +65,6 @@ public class GeneralService {
 				
 	        	shows.add(new Show(showId, movieId, roomId, showDate, showTime, availablePlaces, showPrice));
 	        	}
-			System.out.println(shows);
 	        return shows;
 	      }
 	    }catch (final SQLException e) {
@@ -96,46 +94,21 @@ public class GeneralService {
 	    	throw new ServiceException("Something went terribly wrong while retrieving the customers.", e);
 	    }
 	}
-		
-	public List<ShowPresentation> getShowings(){
-		final List<ShowPresentation> showings = new ArrayList<>();
-		try (final Connection connection = dataSource.getConnection()){
-			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT show_id, title, show_date, show_time FROM show_presentation"); { 
-
-			while (resultSet.next()) {
-				final ShowPresentation show = new ShowPresentationBuilder()
-						.withShowingId(resultSet.getBigDecimal("show_id").toBigInteger())
-						.withMovieTitle(resultSet.getString("title"))
-						.withShowingDate(resultSet.getDate("show_date"))
-						.withShowingTime(resultSet.getTime("show_time"))
-						.build();			
-				showings.add(show);
-	        	}
-	        return showings;
-	      }
-	    }catch (final SQLException e) {
-	    	throw new ServiceException("Something went terribly wrong while retrieving the ShowingList.", e);
-	    }
-	}
 	
 	/**
 	 * Returns a first showing record.
 	 * 
 	 * @return firstShowing
 	 */
-	public ShowPresentation getFirstShowAfterCurrentDate(final List<ShowPresentation> listOfShows){
-		final List<ShowPresentation> shows = listOfShows;
-		final DateUtils dateUtils = new DateUtils();
-		ShowPresentation firstShow = null;
-		
-		for (final ShowPresentation show : shows) {
-			if(show.getShowingDate().after(dateUtils.getCurrentSqlDate())){	
+	public Show getFirstShowforToday(final List<Show> listOfShows){
+		Show firstShow = null;	
+		for (final Show show : listOfShows) {
+			if(dateUtils.toDateTime(show.getShowDate(), show.getShowTime()).after(dateUtils.getCurrentSqlTime())){	
 				if(firstShow == null){			//hier wordt voor 1x eerstVolgendeFilm gevuld					
 					firstShow = show;
 				}
-				else if(show.getShowingDate().before(firstShow.getShowingDate())){
-					firstShow = show;			
+				else if(show.getShowTime().before(firstShow.getShowTime())){
+					firstShow = show;		
 				}
 			}
 		}
@@ -218,13 +191,6 @@ public class GeneralService {
 			String row_title = getMovieByMovieId(showsPresentationVO.getMovieId(), movies).getTitle();
 			showsPresentationVO.setMovieTitle(row_title);
 		}
-		// data integriteit, constraint in de DB ondervangt verkeerde data
-		// Logbestand maken, gelogd worden als technische 
-		// standaard applicatielog en daar moet de melding terecht komen
-		// Nu is de tabel todaysShowsTable gevuld met de juiste waarden
-		// Dan kan deze worden gesorteerd. Eerst de kolommen en daarna de rijen.
-		// Unittest wat is de toestand van een rij of een kolom wanneer je een operatie/actie hebt uitgevoerd
-		// 
 		return todaysShowsTable;
 	}
 	
