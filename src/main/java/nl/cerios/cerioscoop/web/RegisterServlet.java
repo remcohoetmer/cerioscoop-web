@@ -30,10 +30,11 @@ public class RegisterServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("firstname", "");
-		request.setAttribute("lastname", "");
-		request.setAttribute("password", "");
-		request.setAttribute("email", "");
+		final HttpSession session = request.getSession();
+		session.setAttribute("firstname", "");
+		session.setAttribute("lastname", "");
+		session.setAttribute("password", "");
+		session.setAttribute("email", "");
 		getServletContext().getRequestDispatcher("/jsp/register.jsp").forward(request, response);
 	
 	}
@@ -47,6 +48,11 @@ public class RegisterServlet extends HttpServlet {
 		final HttpSession session = request.getSession();
 		String errorMessage = "";
 		String successfulRegistry = "";
+		
+		session.setAttribute("firstname", request.getParameter("firstname"));
+		session.setAttribute("lastname", request.getParameter("lastname"));
+		session.setAttribute("password", request.getParameter("password"));
+		session.setAttribute("email", request.getParameter("email"));
 
 		if (request.getParameter("firstname").length() >= 8 && request.getParameter("firstname").length() <= 20
 				&& customerService.isAlfanumeric(request.getParameter("firstname"))
@@ -67,7 +73,7 @@ public class RegisterServlet extends HttpServlet {
 				&& customerService.isAlfanumeric(request.getParameter("username"))) {
 			customer.setUsername(request.getParameter("username"));
 		} else {
-			errorMessage = "Username invalid or not unique: min 8 / max 20 alfanumeric characters";
+			errorMessage = "Username invalid: min 8 / max 20 alfanumeric characters";
 		}
 
 		if (request.getParameter("password").length() >= 6 && request.getParameter("password").length() <= 12
@@ -92,10 +98,6 @@ public class RegisterServlet extends HttpServlet {
 
 		if (!errorMessage.equals("")) {
 			request.setAttribute("errorMessage", errorMessage);
-			request.setAttribute("firstname", request.getParameter("firstname"));
-			request.setAttribute("lastname", request.getParameter("lastname"));
-			request.setAttribute("password", request.getParameter("password"));
-			request.setAttribute("email", request.getParameter("email"));
 			request.getRequestDispatcher("/jsp/errormessage.jsp").forward(request, response);
 		} else {
 			if (session != null) {
@@ -104,8 +106,13 @@ public class RegisterServlet extends HttpServlet {
 			}
 			session.setAttribute("user", customer);
 			session.setAttribute("usertype", "customer");
+			session.removeAttribute("firstname");
+			session.removeAttribute("lastname");
+			session.removeAttribute("password");
+			session.removeAttribute("email");
 			successfulRegistry = "Welcome, your registry has been processed!";
 			request.setAttribute("successfulRegistry", successfulRegistry);
+			request.setAttribute("successfulLogin", "");
 			request.getRequestDispatcher("/jsp/customer.jsp").forward(request, response);
 			// change link to the correct page after valid registration
 		}

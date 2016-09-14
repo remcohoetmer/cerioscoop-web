@@ -23,37 +23,7 @@
 				</a>
 			</div>
 
-			<div class="navbar-button">
-				<a href="#movies"> <span class="navbar-button-text">MOVIES</span>
-				</a>
-				<div class="navbar-dropdown-button-movie-content">
-					<div class="navbar-dropdown-button-item">
-						<a href="/cerioscoop-web/jsp/trailers.jsp"> <span
-							class="navbar-button-text">TRAILERS</span>
-						</a>
-					</div>
-					<div class="navbar-dropdown-button-item">
-						<a href="/cerioscoop-web/NowShowingServlet"> <span
-							class="navbar-button-text">NOW SHOWING</span>
-						</a>
-					</div>
-					<div class="navbar-dropdown-button-item">
-						<a href="#"> <span class="navbar-button-text">COMING
-								SOON</span>
-						</a>
-					</div>
-					<div class="navbar-dropdown-button-item">
-						<a href="#"> <span class="navbar-button-text">CATEGORY</span>
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="navbar-button">
-				<a href="/cerioscoop-web/jsp/about.jsp"> <span
-					class="navbar-button-text">ABOUT</span>
-				</a>
-			</div>
-			<div class="navbar-button">
+				<div class="navbar-button">
 				<a href="/cerioscoop-web/RegisterServlet"> <span
 					class="navbar-button-text">REGISTER</span>
 				</a>
