@@ -42,12 +42,12 @@
 			
 		</thead>
 		<tbody>
-			<% //List<ShowsPresentationVO> todaysShowTable = (List<ShowsPresentationVO>) request.getAttribute("todaysShowTable");%>
 			<% for(int i = 1; i < 100; i++) { %>
 				<%if(request.getAttribute("ShowsPresentationVO"+Integer.toString(i)) != null) { %>
 				<tr>
 					<td><%ShowsPresentationVO showsPresentationVO = (ShowsPresentationVO) request.getAttribute("ShowsPresentationVO"+Integer.toString(i));%>
-					<%=showsPresentationVO.getMovieTitle()%></td>
+					<form><input type="hidden" name="<%=showsPresentationVO.getMovieId()%>" value=<%=showsPresentationVO.getMovieId()%>></form>
+					<a class="button" href="/cerioscoop-web/MoviePresentationServlet#"><%=showsPresentationVO.getMovieTitle()%></a></td>
 					
 					
 					<% for(int s = 1; s <= 10; s++) {%>
