@@ -12,10 +12,6 @@
 	</div>
 <%=request.getAttribute("errorMessage")%>
 <form>
-<input type="hidden" name="firstname" value=<%=session.getAttribute("firstname")%>>
-<input type="hidden" name="lastname" value=<%=session.getAttribute("lastname")%>>
-<input type="hidden" name="password" value=<%=session.getAttribute("password")%>>
-<input type="hidden" name="email" value=<%=session.getAttribute("email")%>>
 <br><a id="register-button" href="/cerioscoop-web/jsp/register.jsp" class="button">Try again</a>
 		</form>
 		
