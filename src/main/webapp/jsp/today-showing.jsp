@@ -42,18 +42,16 @@
 			
 		</thead>
 		<tbody>
-			<% for(int i = 1; i < 100; i++) { %>
-				<%if(request.getAttribute("ShowsPresentationVO"+Integer.toString(i)) != null) { %>
+			<% for(ShowsPresentationVO showsPresentationVO : (List<ShowsPresentationVO>)request.getAttribute("todaysShowsTable")) { %>
+			<%if(showsPresentationVO != null) { %>
 				<tr>
-					<td><%ShowsPresentationVO showsPresentationVO = (ShowsPresentationVO) request.getAttribute("ShowsPresentationVO"+Integer.toString(i));%>
+					<td>
 					<form><input type="hidden" name="<%=showsPresentationVO.getMovieId()%>" value=<%=showsPresentationVO.getMovieId()%>></form>
 					<a class="button" href="/cerioscoop-web/MoviePresentationServlet#"><%=showsPresentationVO.getMovieTitle()%></a></td>
-					
-					
-					<% for(int s = 1; s <= 10; s++) {%>
-					<%if(request.getAttribute("showMovie"+Integer.toString(s)) != null) { %>
-					<td><%Show show = (Show) request.getAttribute("showMovie"+Integer.toString(s));%>
-					<a class="button" href="/cerioscoop-web/#"><%=show.getShowTime()%></a></td>
+			
+					<% for(Show show : showsPresentationVO.getShows()){ %>
+					<% if(showsPresentationVO.getShows() != null) { %>
+					<td><a class="button" href="/cerioscoop-web/#"><%=show.getShowTime()%></a></td>
 					<% }} %>
 				</tr>
 			<% }} %>

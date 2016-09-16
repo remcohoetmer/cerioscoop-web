@@ -38,27 +38,20 @@ public class NowShowingServlet extends HttpServlet {
 		final List<Show> shows = dao.getShowsForToday();
 		final List<Movie> movies = dao.getMovies();
 		List<ShowsPresentationVO> todaysShowsTable = new ArrayList<ShowsPresentationVO>();
+		
+		shows.sort((itemL, itemR) -> {
+			int compare = itemL.getShowDate().compareTo(itemR.getShowDate());
+			if (compare == 0) {
+				compare = itemL.getShowTime().compareTo(itemR.getShowTime());
+			}
+			return compare;
+		});
+		
 		try {
 			todaysShowsTable = generalService.generateShowTable(shows, movies);
 			request.setAttribute("todaysShowsTable", todaysShowsTable);
 		} catch (MovieNotFoundException e) {
 			e.printStackTrace();
-		}
-		
-		for (ShowsPresentationVO showsPresentationVO : todaysShowsTable){
-			request.setAttribute("ShowsPresentationVO"+Integer.toString(showsPresentationVO.getMovieId()), showsPresentationVO);
-			
-			List<Show> showsSorted	= showsPresentationVO.getShows();
-			showsSorted.sort((itemL, itemR) -> {
-				int compare = itemL.getShowDate().compareTo(itemR.getShowDate());
-				if (compare == 0) {
-					compare = itemL.getShowTime().compareTo(itemR.getShowTime());
-				}
-				return compare;
-			});
-			for (Show show : showsSorted) {
-				request.setAttribute("showMovie"+Integer.toString(show.getShowId()), show);
-			}
 		}
 		
 		final Show firstShowing = generalService.getFirstShowforToday(shows);
