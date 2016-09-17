@@ -14,12 +14,17 @@ import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
 
 @Stateless
 public class DataAccessObject {
+	
+	private static Logger LOG = LoggerFactory.getLogger(DataAccessObject.class);
 	
 	@Resource(name = "jdbc/cerioscoop")			//Content Dependency Injection techniek
 	private DataSource dataSource;
@@ -37,6 +42,7 @@ public class DataAccessObject {
 						.build();
 				movies.add(movie);
 			}
+			LOG.debug("Fetched {} movies.", movies.size());
 			return movies;
 	    }catch (final SQLException e) {
 	    	throw new ServiceException("Something went terribly wrong while retrieving the movie.", e);
@@ -56,6 +62,7 @@ public class DataAccessObject {
 				final Time showTime = resultSet.getTime("show_time");
 				shows.add(new Show(showId, movieId, showDate, showTime));
         	}
+			LOG.debug("Fetched {} shows.", shows.size());
         return shows;
 	      }
 	    }catch (final SQLException e) {
@@ -68,8 +75,8 @@ public class DataAccessObject {
 			final PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM customer WHERE username = ?");
             preparedStatement.setString(1, username);
             preparedStatement.executeUpdate();
-                
-            System.out.println("Customer is deleted.");
+
+			LOG.debug("Customer is deleted.");
         }catch (final SQLException e) {
             throw new ServiceException("Something went wrong while deleting the customer items.", e);
         }
