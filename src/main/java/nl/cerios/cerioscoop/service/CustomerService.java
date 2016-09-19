@@ -63,25 +63,6 @@ public class CustomerService {
 	    }
 	}
 
-	public boolean isAlfanumeric(CharSequence seq) {
-		int len = seq.length();
-		for (int i = 0; i < len; i++) {
-			char c = seq.charAt(i);
-			// Test for all positive cases
-			if ('0' <= c && c <= '9')
-				continue;
-			if ('a' <= c && c <= 'z')
-				continue;
-			if ('A' <= c && c <= 'Z')
-				continue;
-			if (c == ' ')
-				continue;
-			// If we get here, we had an invalid char, fail right away
-			return false;
-		}
-		// All seen chars were valid, succeed
-		return true;
-	}
 
 	public boolean isUniqueUser(String user) {
 		String SQL = "SELECT username FROM customer where username=?";
