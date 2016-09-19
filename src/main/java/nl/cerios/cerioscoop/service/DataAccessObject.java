@@ -43,6 +43,27 @@ public class DataAccessObject {
 	    }
 	}
 	
+	public Movie getMovieByMovieId(int movieId) {
+		Movie movie = null;
+		try (final Connection connection = dataSource.getConnection()) {
+			final PreparedStatement preparedstatement = connection
+					.prepareStatement("SELECT movie_id, title, movie_description FROM movie WHERE movie_id = ?");
+			preparedstatement.setInt(1, movieId);
+			ResultSet resultSet = preparedstatement.executeQuery();
+			{
+				while (resultSet.next()) {
+					movie = new MovieBuilder().withMovieId(resultSet.getBigDecimal("movie_id").toBigInteger())
+							.withMovieTitle(resultSet.getString("title"))
+							.withMovieDescription(resultSet.getString("movie_description")).build();
+
+				}
+				return movie;
+			}
+		} catch (final SQLException e) {
+			throw new ServiceException("Something went terribly wrong while retrieving the movie.", e);
+		}
+	}
+	
 	public List<Show> getShowsForToday(){
 		final List<Show> shows = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()){

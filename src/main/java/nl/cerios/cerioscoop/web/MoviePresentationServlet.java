@@ -1,7 +1,6 @@
 package nl.cerios.cerioscoop.web;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -27,20 +26,11 @@ public class MoviePresentationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		final List<Movie> movies = dao.getMovies();
-		request.setAttribute("movies", movies);
+		final int movieId = Integer.parseInt(request.getParameter("movieId"));
+		final Movie movie = dao.getMovieByMovieId(movieId);
+		request.setAttribute("movie", movie);
 
-		//int movieId = (int) request.getAttribute("4");
-		//System.out.println(movieId);
-		//for loop maken 
 		getServletContext().getRequestDispatcher("/jsp/movie-presentation.jsp").forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

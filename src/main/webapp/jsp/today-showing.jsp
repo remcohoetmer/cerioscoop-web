@@ -13,6 +13,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,29 +26,25 @@
 <link href='/cerioscoop-web/css/shared.css' type='text/css' rel='stylesheet' />
 
 </head>
-
-
 <body>
 	<div id="navbar">
 		<jsp:include page="/jsp/shared/navbar.jsp"></jsp:include>
 	</div>
-
 	<h1>Today Showing</h1>
-
-
 	<table>
 		<thead>
 			<th>Movietitle</th>
 			<th>Movie times</th>
-			
 		</thead>
 		<tbody>
 			<% for(ShowsPresentationVO showsPresentationVO : (List<ShowsPresentationVO>)request.getAttribute("todaysShowsTable")) { %>
 			<%if(showsPresentationVO != null) { %>
 				<tr>
 					<td>
-					<form><input type="hidden" name="<%=showsPresentationVO.getMovieId()%>" value=<%=showsPresentationVO.getMovieId()%>></form>
-					<a class="button" href="/cerioscoop-web/MoviePresentationServlet#"><%=showsPresentationVO.getMovieTitle()%></a></td>
+					<form method="GET" action="/cerioscoop-web/MoviePresentationServlet">
+					<input type="hidden" name="movieId" value=<%=showsPresentationVO.getMovieId()%>>
+					<input id="<%=showsPresentationVO.getMovieId()%>" class="button" type="submit" value="<%=showsPresentationVO.getMovieTitle()%>"></form>
+					</td>
 			
 					<% for(Show show : showsPresentationVO.getShows()){ %>
 					<% if(showsPresentationVO.getShows() != null) { %>
@@ -55,7 +52,6 @@
 					<% }} %>
 				</tr>
 			<% }} %>
-
 		</tbody>
 	</table>
 	<p>
