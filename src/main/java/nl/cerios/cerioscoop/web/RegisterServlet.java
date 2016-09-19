@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import nl.cerios.cerioscoop.domain.Customer;
+import nl.cerios.cerioscoop.domain.ErrorMessage;
 import nl.cerios.cerioscoop.service.CustomerService;
 import nl.cerios.cerioscoop.service.GeneralService;
 
@@ -36,7 +37,7 @@ public class RegisterServlet extends HttpServlet {
 		session.setAttribute("password", "");
 		session.setAttribute("email", "");
 		getServletContext().getRequestDispatcher("/jsp/register.jsp").forward(request, response);
-	
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -46,34 +47,32 @@ public class RegisterServlet extends HttpServlet {
 		Pattern punctuation = Pattern.compile("[a-zA-Z0-9_?<>.,;:'`]");
 
 		final HttpSession session = request.getSession();
-		String errorMessage = "";
+		ErrorMessage errorMessage = new ErrorMessage();
 		String successfulRegistry = "";
-		
+
 		session.setAttribute("firstname", request.getParameter("firstname"));
 		session.setAttribute("lastname", request.getParameter("lastname"));
 		session.setAttribute("password", request.getParameter("password"));
 		session.setAttribute("email", request.getParameter("email"));
 
 		if (request.getParameter("firstname").length() >= 8 && request.getParameter("firstname").length() <= 20
-				&& customerService.isAlfanumeric(request.getParameter("firstname"))
 				&& alfanumeric.matcher(request.getParameter("firstname")).find()) {
 			customer.setFirstName(request.getParameter("firstname"));
 		} else {
-			errorMessage = "Invalid firstname: min 8 / max 20 alfanumeric characters";
+			errorMessage.setFirstnameError("Invalid firstname: min 8 / max 20 alfanumeric characters"); 
 		}
 
 		if (request.getParameter("lastname").length() >= 8 && request.getParameter("lastname").length() <= 20
-				&& customerService.isAlfanumeric(request.getParameter("lastname"))
 				&& alfanumeric.matcher(request.getParameter("lastname")).find()) {
 			customer.setLastName(request.getParameter("lastname"));
 		} else {
-			errorMessage = "Invalid lastname: min 8 / max 20 alfanumeric characters";
+			errorMessage.setLastnameError("Invalid lastname: min 8 / max 20 alfanumeric characters");
 		}
 		if (request.getParameter("username").length() >= 8 && request.getParameter("username").length() <= 20
-				&& customerService.isAlfanumeric(request.getParameter("username"))) {
+				&& customerService.isUniqueUser(request.getParameter("username"))) {
 			customer.setUsername(request.getParameter("username"));
 		} else {
-			errorMessage = "Username invalid: min 8 / max 20 alfanumeric characters";
+			errorMessage.setUsernameError("Username invalid: min 8 / max 20 alfanumeric characters");
 		}
 
 		if (request.getParameter("password").length() >= 6 && request.getParameter("password").length() <= 12
@@ -81,14 +80,14 @@ public class RegisterServlet extends HttpServlet {
 				&& punctuation.matcher(request.getParameter("password")).find()) {
 			customer.setPassword(request.getParameter("password"));
 		} else {
-			errorMessage = "Invalid username/password combination (username: min 6 / max 12 characters)";
+			errorMessage.setPasswordError("Invalid username/password combination (username: min 6 / max 12 characters)");
 		}
 
 		if (request.getParameter("email").length() >= 6 && request.getParameter("email").contains("@")) {
 			customer.setEmail(request.getParameter("email"));
 		} else {
 
-			errorMessage = "Enter valid email (min 6 characters)";
+			errorMessage.setEmailError("Enter valid email (min 6 characters)"); 
 		}
 		if (customer.getFirstName() != null && customer.getLastName() != null && customer.getUsername() != null
 				&& customer.getPassword() != null && customer.getEmail() != null) {
@@ -96,9 +95,11 @@ public class RegisterServlet extends HttpServlet {
 			session.setAttribute("customer", customer);
 		}
 
-		if (!errorMessage.equals("")) {
+		if (errorMessage.getFirstnameError() != null || errorMessage.getLastnameError() != null
+                || errorMessage.getUsernameError() != null || errorMessage.getPasswordError() != null
+                || errorMessage.getEmailError() != null) {
 			request.setAttribute("errorMessage", errorMessage);
-			request.getRequestDispatcher("/jsp/errormessage.jsp").forward(request, response);
+			request.getRequestDispatcher("/jsp/register.jsp").forward(request, response);
 		} else {
 			if (session != null) {
 				session.removeAttribute("user");
