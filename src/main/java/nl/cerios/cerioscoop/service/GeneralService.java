@@ -169,11 +169,13 @@ public class GeneralService {
 	public List<ShowsPresentationVO> generateShowTable(final List<Show> shows, final List<Movie> movies) throws MovieNotFoundException {
 		List<ShowsPresentationVO> todaysShowsTable = new ArrayList<ShowsPresentationVO>();
 
+		
 		// voeg alle shows toe aan de tabel
 		for (Show show : shows) {
 			ShowsPresentationVO existingShowRow = null; // checkt of de movie van de huidige tabel al is opgenomen
 			for (ShowsPresentationVO showsRowIter : todaysShowsTable) {
 				if (show.getMovieId() == showsRowIter.getMovieId()) {// hier bestaat de movie al in de index
+					showsRowIter.setSoldOut(checkIfThereAreNoAvailablePlaces(show.getAvailablePlaces()));
 					showsRowIter.shows.add(show);
 					existingShowRow = showsRowIter;
 				}
@@ -182,6 +184,7 @@ public class GeneralService {
 				ShowsPresentationVO newShowRow = new ShowsPresentationVO();
 				List<Show> showRow = new ArrayList<Show>();
 				showRow.add(show);
+				newShowRow.setSoldOut(checkIfThereAreNoAvailablePlaces(show.getAvailablePlaces()));
 				newShowRow.setMovieId(show.getMovieId());
 				newShowRow.setShows(showRow);
 				todaysShowsTable.add(newShowRow);
@@ -203,6 +206,14 @@ public class GeneralService {
 		    sb.append(c);
 		}
 		return sb.toString();
+	}
+	
+	public Boolean checkIfThereAreNoAvailablePlaces(int availablePlaces){
+		if(availablePlaces == 0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }
 

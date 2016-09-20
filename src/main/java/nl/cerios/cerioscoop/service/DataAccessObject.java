@@ -68,14 +68,15 @@ public class DataAccessObject {
 		final List<Show> shows = new ArrayList<>();
 		try (final Connection connection = dataSource.getConnection()){
 			final Statement statement = connection.createStatement();
-			final ResultSet resultSet = statement.executeQuery("SELECT show_id, movie_id, show_date, show_time FROM show_table WHERE show_date = CURDATE()"); { 
+			final ResultSet resultSet = statement.executeQuery("SELECT show_id, movie_id, show_date, show_time, available_places FROM show_table WHERE show_date = CURDATE()"); { 
 
 			while (resultSet.next()) {
 				final int showId = resultSet.getInt("show_id");
 				final int movieId = resultSet.getInt("movie_id");
 				final Date showDate = resultSet.getDate("show_date");
 				final Time showTime = resultSet.getTime("show_time");
-				shows.add(new Show(showId, movieId, showDate, showTime));
+				final int availablePlaces = resultSet.getInt("available_places");
+				shows.add(new Show(showId, movieId, showDate, showTime, availablePlaces));
         	}
         return shows;
 	      }

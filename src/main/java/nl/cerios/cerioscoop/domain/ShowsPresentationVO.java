@@ -13,7 +13,8 @@ public class ShowsPresentationVO {
 	private int movieId;
 	public String movieTitle;
 	public List<Show> shows;
-	
+	public Boolean soldOut;
+
 	public ShowsPresentationVO() {
 		
 	}
@@ -40,6 +41,14 @@ public class ShowsPresentationVO {
 
 	public void setShows(List<Show> show) {
 		this.shows = show;
+	}
+	
+	public Boolean getSoldOut() {
+		return soldOut;
+	}
+
+	public void setSoldOut(Boolean soldOut) {
+		this.soldOut = soldOut;
 	}
 
 }

@@ -47,9 +47,11 @@
 					</td>
 			
 					<% for(Show show : showsPresentationVO.getShows()){ %>
-					<% if(showsPresentationVO.getShows() != null) { %>
-					<td><a class="button" href="/cerioscoop-web/#"><%=show.getShowTime()%></a></td>
-					<% }} %>
+					<% if(showsPresentationVO.getShows() != null){ %>
+					<% String soldOut; %>
+					<% if(showsPresentationVO.getSoldOut()){soldOut = "*";}else{soldOut ="";}{ %>
+					<td><a class="button" href="/cerioscoop-web/#"><%=show.getShowTime()+soldOut%></a></td>
+					<% }}} %>
 				</tr>
 			<% }} %>
 		</tbody>
