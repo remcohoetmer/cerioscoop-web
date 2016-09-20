@@ -12,6 +12,9 @@ public class IndexPage {
 
 	@FindBy(id = "navbar-login")
 	private WebElement loginNavigationLink;
+	
+	@FindBy(id = "navbar-register")
+	private WebElement registerNavigationLink;
 
 	@FindBy(id = "loginUsername")
 	private WebElement usernameTextfield;
@@ -78,5 +81,11 @@ public class IndexPage {
 			
 		}
 		return new MoviePage(driver);
+	}
+	
+	public RegisterPage navigateToRegisterPage() {
+		registerNavigationLink.click();
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		return new RegisterPage(driver);
 	}
 }

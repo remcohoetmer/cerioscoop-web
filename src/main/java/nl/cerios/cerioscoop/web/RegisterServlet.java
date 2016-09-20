@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import nl.cerios.cerioscoop.domain.Customer;
 import nl.cerios.cerioscoop.domain.ErrorMessage;
+import nl.cerios.cerioscoop.domain.RegisterAttributes;
 import nl.cerios.cerioscoop.service.CustomerService;
 import nl.cerios.cerioscoop.service.GeneralService;
 
@@ -31,11 +32,11 @@ public class RegisterServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		final HttpSession session = request.getSession();
-		session.setAttribute("firstname", "");
-		session.setAttribute("lastname", "");
-		session.setAttribute("password", "");
-		session.setAttribute("email", "");
+		RegisterAttributes registerAttributes = new RegisterAttributes();
+		registerAttributes.setFirstname("");
+		registerAttributes.setLastname("");
+		registerAttributes.setEmail("");
+		request.setAttribute("registerAttributes", registerAttributes);
 		getServletContext().getRequestDispatcher("/jsp/register.jsp").forward(request, response);
 
 	}
@@ -48,13 +49,13 @@ public class RegisterServlet extends HttpServlet {
 
 		final HttpSession session = request.getSession();
 		ErrorMessage errorMessage = new ErrorMessage();
+		RegisterAttributes registerAttributes = new RegisterAttributes();
 		String successfulRegistry = "";
 
-		session.setAttribute("firstname", request.getParameter("firstname"));
-		session.setAttribute("lastname", request.getParameter("lastname"));
-		session.setAttribute("password", request.getParameter("password"));
-		session.setAttribute("email", request.getParameter("email"));
-
+		registerAttributes.setFirstname(request.getParameter("firstname"));
+		registerAttributes.setLastname(request.getParameter("lastname"));
+		registerAttributes.setEmail(request.getParameter("email"));
+		
 		if (request.getParameter("firstname").length() >= 8 && request.getParameter("firstname").length() <= 20
 				&& alfanumeric.matcher(request.getParameter("firstname")).find()) {
 			customer.setFirstName(request.getParameter("firstname"));
@@ -68,8 +69,7 @@ public class RegisterServlet extends HttpServlet {
 		} else {
 			errorMessage.setLastnameError("Invalid lastname: min 8 / max 20 alfanumeric characters");
 		}
-		if (request.getParameter("username").length() >= 8 && request.getParameter("username").length() <= 20
-				&& customerService.isUniqueUser(request.getParameter("username"))) {
+		if (request.getParameter("username").length() >= 8 && request.getParameter("username").length() <= 20) {
 			customer.setUsername(request.getParameter("username"));
 		} else {
 			errorMessage.setUsernameError("Username invalid: min 8 / max 20 alfanumeric characters");
@@ -99,7 +99,9 @@ public class RegisterServlet extends HttpServlet {
                 || errorMessage.getUsernameError() != null || errorMessage.getPasswordError() != null
                 || errorMessage.getEmailError() != null) {
 			request.setAttribute("errorMessage", errorMessage);
-			request.getRequestDispatcher("/jsp/register.jsp").forward(request, response);
+			request.setAttribute("registerAttributes", registerAttributes);
+			getServletContext().getRequestDispatcher("/jsp/register.jsp").forward(request, response);
+			//request.getRequestDispatcher("/jsp/register.jsp").forward(request, response);
 		} else {
 			if (session != null) {
 				session.removeAttribute("user");
@@ -107,10 +109,6 @@ public class RegisterServlet extends HttpServlet {
 			}
 			session.setAttribute("user", customer);
 			session.setAttribute("usertype", "customer");
-			session.removeAttribute("firstname");
-			session.removeAttribute("lastname");
-			session.removeAttribute("password");
-			session.removeAttribute("email");
 			successfulRegistry = "Welcome, your registry has been processed!";
 			request.setAttribute("successfulRegistry", successfulRegistry);
 			request.setAttribute("successfulLogin", "");

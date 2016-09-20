@@ -1,3 +1,4 @@
+<%@page import="nl.cerios.cerioscoop.domain.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -15,6 +16,8 @@
 </head>
 <body>
 
+	<%	if(session.getAttribute("user") !=null) { User customer = (User) session.getAttribute("user"); customer.getUsername();} %>
+
 	<div class="navbar">
 		<div class="navbar-buttons-wrapper">
 			<div class="navbar-button">
@@ -22,9 +25,12 @@
 					class="navbar-button-text">CERIOSCOOP</span>
 				</a>
 			</div>
-
+			<% 
+			User user = (User)session.getAttribute("user");
+			if (user == null) {
+			%>
 				<div class="navbar-button">
-				<a href="/cerioscoop-web/RegisterServlet"> <span
+				<a id="navbar-register" href="/cerioscoop-web/RegisterServlet"> <span
 					class="navbar-button-text">REGISTER</span>
 				</a>
 			</div>
@@ -37,16 +43,23 @@
 					<jsp:include page="/jsp/login.jsp" />
 				</div>
 			</div>
+			<% } else {
+			%>
 				<div class="navbar-button">
 				<a href="/cerioscoop-web/LogOutServlet"> <span
 					class="navbar-button-text">LOGOUT</span>
 				</a>
 			</div>
-		           
+			<% } %>
+		           	<div class="navbar-button"><span>
+			<%	if(session.getAttribute("user") !=null) { User customer = (User) session.getAttribute("user"); out.println("Logged in as: "+customer.getUsername());} %>
+		</span>
+			</div>
 		
 		</div>
 		
+		
+		
 	</div>
-
 </body>
 </html>
