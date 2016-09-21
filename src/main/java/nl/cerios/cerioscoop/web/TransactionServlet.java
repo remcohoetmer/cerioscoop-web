@@ -28,16 +28,19 @@ public class TransactionServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		List<Transaction> transactions = new ArrayList<Transaction>();
 		final HttpSession session = request.getSession();
 		User customer = (User) session.getAttribute("user");
+		if(customer !=null) {
 		System.out.println(customer);
 		String a = customer.getUsername();
 		System.out.println(a);
 		transactions = dao.getTransactionByUsername(a);
 		request.setAttribute("transactions", transactions);
-
 		getServletContext().getRequestDispatcher("/jsp/transactions.jsp").forward(request, response);
+		}
+		else{getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);}
 	}
 
 

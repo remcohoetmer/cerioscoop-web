@@ -7,6 +7,9 @@
 <%@page import="nl.cerios.cerioscoop.domain.Show"%>
 <%@page import="nl.cerios.cerioscoop.domain.Customer"%>
 <%@page import="java.util.List"%>
+<c:if test="${usertype ne 'customer'}">
+	<c:redirect url="/"/>
+</c:if>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
