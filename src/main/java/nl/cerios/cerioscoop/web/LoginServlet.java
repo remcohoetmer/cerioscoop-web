@@ -26,7 +26,12 @@ public class LoginServlet extends HttpServlet {
 	@EJB
 	private GeneralService generalService;
 
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("successfulRegistry", "");
+		request.setAttribute("successfulLogin", "");
+		getServletContext().getRequestDispatcher("/jsp/customer.jsp").forward(request, response);
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		final List<Customer> dbCustomers = generalService.getCustomers();

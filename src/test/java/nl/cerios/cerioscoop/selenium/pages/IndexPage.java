@@ -85,7 +85,6 @@ public class IndexPage {
 	
 	public RegisterPage navigateToRegisterPage() {
 		registerNavigationLink.click();
-		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 		return new RegisterPage(driver);
 	}
 }

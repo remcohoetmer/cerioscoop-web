@@ -50,6 +50,12 @@
 					class="navbar-button-text">LOGOUT</span>
 				</a>
 			</div>
+			
+				<div class="navbar-button">
+				<a id="transaction-button" href="/cerioscoop-web/TransactionServlet"> <span
+					class="navbar-button-text">TRANSACTIONS</span>
+				</a>
+			</div>
 			<% } %>
 		           	<div class="navbar-button"><span>
 			<%	if(session.getAttribute("user") !=null) { User customer = (User) session.getAttribute("user"); out.println("Logged in as: "+customer.getUsername());} %>

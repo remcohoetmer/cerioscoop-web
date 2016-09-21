@@ -2,50 +2,51 @@ package nl.cerios.cerioscoop.domain;
 
 public class Transaction {
 	private int transactionId;
-	private int customerId;
-	private int showId;
-	private int roomId;
-	private double totalPrice;
+	private Customer customer;
+	private Show show;
+	private Room room;
+	private Movie movie;
+	private float totalPrice;
 	private int reservedChairs;
-	private int bankAccount;
+	private String bankAccount;
 
 	public int getTransactionId() {
 		return transactionId;
 	}
-
+	
 	public void setTransactionId(int transactionId) {
 		this.transactionId = transactionId;
 	}
 
-	public int getCustomerId() {
-		return customerId;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
-	public int getShowId() {
-		return showId;
+	public Show getShow() {
+		return show;
 	}
 
-	public void setShowId(int showId) {
-		this.showId = showId;
+	public void setShow(Show show) {
+		this.show = show;
 	}
 
-	public int getRoomId() {
-		return roomId;
+	public Room getRoom() {
+		return room;
 	}
 
-	public void setRoomId(int roomId) {
-		this.roomId = roomId;
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 
-	public double getTotalPrice() {
+	public float getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(double totalPrice) {
+	public void setTotalPrice(float totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
@@ -57,12 +58,19 @@ public class Transaction {
 		this.reservedChairs = reservedChairs;
 	}
 
-	public int getBankAccount() {
+	public String getBankAccount() {
 		return bankAccount;
 	}
 
-	public void setBankAccount(int bankAccount) {
+	public void setBankAccount(String bankAccount) {
 		this.bankAccount = bankAccount;
+	}
+	public Movie getMovie() {
+		return movie;
+	}
+
+	public void setMovie(Movie movie) {
+		this.movie = movie;
 	}
 
 }

@@ -92,7 +92,7 @@ public class RegisterServlet extends HttpServlet {
 		if (customer.getFirstName() != null && customer.getLastName() != null && customer.getUsername() != null
 				&& customer.getPassword() != null && customer.getEmail() != null) {
 			generalService.registerCustomer(customer);
-			session.setAttribute("customer", customer);
+			session.setAttribute("user", customer);
 		}
 
 		if (errorMessage.getFirstnameError() != null || errorMessage.getLastnameError() != null
