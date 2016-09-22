@@ -11,11 +11,11 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
+import nl.cerios.cerioscoop.ValueObjects.ShowsPresentationVO;
 import nl.cerios.cerioscoop.domain.Customer;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
-import nl.cerios.cerioscoop.domain.ShowsPresentationVO;
 import nl.cerios.cerioscoop.util.DateUtils;
 import nl.cerios.testutil.DatabaseTest;
 
@@ -193,36 +193,36 @@ public class GeneralServiceTest extends DatabaseTest {
 			ShowsPresentationVO Snatch = null;
 			
 			for (ShowsPresentationVO showsPresentationVO : filledTodaysShowsTable){
-				if(1 == showsPresentationVO.getMovieId()){
+				if(1 == showsPresentationVO.getMovie().getMovieId().intValue()){
 					TheLegendOfTarzan = showsPresentationVO;
-				}else if(2 == showsPresentationVO.getMovieId()){
+				}else if(2 == showsPresentationVO.getMovie().getMovieId().intValue()){
 					TarzanTheApeMan = showsPresentationVO;
-				}else if(3 == showsPresentationVO.getMovieId()){
+				}else if(3 == showsPresentationVO.getMovie().getMovieId().intValue()){
 					Tarzan = showsPresentationVO;
-				}else if(4 == showsPresentationVO.getMovieId()){
+				}else if(4 == showsPresentationVO.getMovie().getMovieId().intValue()){
 					WeddingCrashers = showsPresentationVO;
-				}else if(5 == showsPresentationVO.getMovieId()){
+				}else if(5 == showsPresentationVO.getMovie().getMovieId().intValue()){
 					BloodDiamond = showsPresentationVO;
-				}else if(6 == showsPresentationVO.getMovieId()){
+				}else if(6 == showsPresentationVO.getMovie().getMovieId().intValue()){
 					TheLionKing = showsPresentationVO;
-				}else if(7 == showsPresentationVO.getMovieId()){
+				}else if(7 == showsPresentationVO.getMovie().getMovieId().intValue()){
 					Snatch = showsPresentationVO;
 				}
 			}
 			Assert.assertEquals(filledTodaysShowsTable.size(), generalService.generateShowTable(shows, movies).size());
 			Assert.assertEquals(4, filledTodaysShowsTable.size());
-			Assert.assertEquals(1, TheLegendOfTarzan.getMovieId());
-			Assert.assertEquals("The Legend of Tarzan (2016)", TheLegendOfTarzan.getMovieTitle());
-			Assert.assertEquals(1, TheLegendOfTarzan.getShows().size());				
-			Assert.assertEquals(2, TarzanTheApeMan.getMovieId());
-			Assert.assertEquals("Tarzan the Ape Man (1932)", TarzanTheApeMan.getMovieTitle());
-			Assert.assertEquals(3, TarzanTheApeMan.getShows().size());
-			Assert.assertEquals(4, WeddingCrashers.getMovieId());
-			Assert.assertEquals("Wedding Crashers", WeddingCrashers.getMovieTitle());
-			Assert.assertEquals(1, WeddingCrashers.getShows().size());
-			Assert.assertEquals(5, BloodDiamond.getMovieId());
-			Assert.assertEquals("Blood Diamond", BloodDiamond.getMovieTitle());
-			Assert.assertEquals(2, BloodDiamond.getShows().size());
+			Assert.assertEquals(1, TheLegendOfTarzan.getMovie().getMovieId().intValue());
+			Assert.assertEquals("The Legend of Tarzan (2016)", TheLegendOfTarzan.getMovie().getTitle());
+			Assert.assertEquals(1, TheLegendOfTarzan.getShowsPresentationVO().size());				
+			Assert.assertEquals(2, TarzanTheApeMan.getMovie().getMovieId().intValue());
+			Assert.assertEquals("Tarzan the Ape Man (1932)", TarzanTheApeMan.getMovie().getTitle());
+			Assert.assertEquals(3, TarzanTheApeMan.getShowsPresentationVO().size());
+			Assert.assertEquals(4, WeddingCrashers.getMovie().getMovieId().intValue());
+			Assert.assertEquals("Wedding Crashers", WeddingCrashers.getMovie().getTitle());
+			Assert.assertEquals(1, WeddingCrashers.getShowsPresentationVO().size());
+			Assert.assertEquals(5, BloodDiamond.getMovie().getMovieId().intValue());
+			Assert.assertEquals("Blood Diamond", BloodDiamond.getMovie().getTitle());
+			Assert.assertEquals(2, BloodDiamond.getShowsPresentationVO().size());
 			Assert.assertNull(Tarzan);
 			Assert.assertNull(TheLionKing);
 			Assert.assertNull(Snatch);

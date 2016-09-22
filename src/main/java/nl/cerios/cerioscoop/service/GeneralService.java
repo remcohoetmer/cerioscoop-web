@@ -15,11 +15,12 @@ import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.sql.DataSource;
 
+import nl.cerios.cerioscoop.ValueObjects.ShowPresentationVO;
+import nl.cerios.cerioscoop.ValueObjects.ShowsPresentationVO;
 import nl.cerios.cerioscoop.domain.Customer;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.MovieBuilder;
 import nl.cerios.cerioscoop.domain.Show;
-import nl.cerios.cerioscoop.domain.ShowsPresentationVO;
 import nl.cerios.cerioscoop.domain.User;
 import nl.cerios.cerioscoop.util.DateUtils;
 
@@ -169,30 +170,30 @@ public class GeneralService {
 	public List<ShowsPresentationVO> generateShowTable(final List<Show> shows, final List<Movie> movies) throws MovieNotFoundException {
 		List<ShowsPresentationVO> todaysShowsTable = new ArrayList<ShowsPresentationVO>();
 
-		
 		// voeg alle shows toe aan de tabel
-		for (Show show : shows) {
-			ShowsPresentationVO existingShowRow = null; // checkt of de movie van de huidige tabel al is opgenomen
+		for (Show todaysShow : shows) {
+			ShowsPresentationVO existingShowsPresentationVORow = null; // checkt of de movie van de huidige tabel al is opgenomen
 			for (ShowsPresentationVO showsRowIter : todaysShowsTable) {
-				if (show.getMovieId() == showsRowIter.getMovieId()) {// hier bestaat de movie al in de index
-					showsRowIter.setSoldOut(checkIfThereAreNoAvailablePlaces(show.getAvailablePlaces()));
-					showsRowIter.shows.add(show);
-					existingShowRow = showsRowIter;
+				if (todaysShow.getMovieId() == showsRowIter.getMovie().getMovieId().intValue()) {// hier bestaat de movie al in de index
+					ShowPresentationVO newShowPresentationVO = new ShowPresentationVO();
+					newShowPresentationVO.setShow(todaysShow);
+					newShowPresentationVO.setSoldOut(checkIfThereAreNoAvailablePlaces(todaysShow.getAvailablePlaces()));			
+					showsRowIter.shows.add(newShowPresentationVO);
+					existingShowsPresentationVORow = showsRowIter;
 				}
 			}
-			if (existingShowRow == null) {//
-				ShowsPresentationVO newShowRow = new ShowsPresentationVO();
-				List<Show> showRow = new ArrayList<Show>();
-				showRow.add(show);
-				newShowRow.setSoldOut(checkIfThereAreNoAvailablePlaces(show.getAvailablePlaces()));
-				newShowRow.setMovieId(show.getMovieId());
-				newShowRow.setShows(showRow);
-				todaysShowsTable.add(newShowRow);
+			if (existingShowsPresentationVORow == null) {//Nieuwe MovieRow worst gemaakt
+				ShowPresentationVO newShowPresentationVO = new ShowPresentationVO();
+				newShowPresentationVO.setShow(todaysShow);
+				newShowPresentationVO.setSoldOut(checkIfThereAreNoAvailablePlaces(todaysShow.getAvailablePlaces()));
+				
+				ShowsPresentationVO newShowsPresentationRowVO = new ShowsPresentationVO();			
+				List<ShowPresentationVO> showPresentationVOList = new ArrayList<ShowPresentationVO>();
+				showPresentationVOList.add(newShowPresentationVO);
+				newShowsPresentationRowVO.setMovie(getMovieByMovieId(todaysShow.getMovieId(), movies));
+				newShowsPresentationRowVO.setShowsPresentationVO(showPresentationVOList);
+				todaysShowsTable.add(newShowsPresentationRowVO);
 			}
-		}
-		for (ShowsPresentationVO showsPresentationVO : todaysShowsTable) {
-			String row_title = getMovieByMovieId(showsPresentationVO.getMovieId(), movies).getTitle();
-			showsPresentationVO.setMovieTitle(row_title);
 		}
 		return todaysShowsTable;
 	}

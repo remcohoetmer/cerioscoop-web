@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import nl.cerios.cerioscoop.ValueObjects.ShowsPresentationVO;
 import nl.cerios.cerioscoop.domain.Movie;
 import nl.cerios.cerioscoop.domain.Show;
-import nl.cerios.cerioscoop.domain.ShowsPresentationVO;
 import nl.cerios.cerioscoop.service.DataAccessObject;
 import nl.cerios.cerioscoop.service.GeneralService;
 import nl.cerios.cerioscoop.service.MovieNotFoundException;
@@ -49,6 +49,7 @@ public class NowShowingServlet extends HttpServlet {
 		
 		try {
 			todaysShowsTable = generalService.generateShowTable(shows, movies);
+			System.out.println(todaysShowsTable.size());
 			request.setAttribute("todaysShowsTable", todaysShowsTable);
 		} catch (MovieNotFoundException e) {
 			e.printStackTrace();

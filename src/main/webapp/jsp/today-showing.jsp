@@ -1,3 +1,4 @@
+<%@page import="nl.cerios.cerioscoop.ValueObjects.ShowPresentationVO"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="nl.cerios.cerioscoop.domain.Movie"%>
 <%@page import="java.util.Comparator"%>
@@ -8,7 +9,7 @@
 <%@page import="nl.cerios.cerioscoop.domain.Show"%>
 <%@page import="nl.cerios.cerioscoop.service.GeneralService"%>
 <%@page import="nl.cerios.cerioscoop.util.DateUtils"%>
-<%@page import="nl.cerios.cerioscoop.domain.ShowsPresentationVO"%>
+<%@page import="nl.cerios.cerioscoop.ValueObjects.ShowsPresentationVO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -42,15 +43,15 @@
 				<tr>
 					<td>
 					<form method="GET" action="/cerioscoop-web/MoviePresentationServlet">
-					<input type="hidden" name="movieId" value=<%=showsPresentationVO.getMovieId()%>>
-					<input id="<%=showsPresentationVO.getMovieId()%>" class="button" type="submit" value="<%=showsPresentationVO.getMovieTitle()%>"></form>
+					<input type="hidden" name="movieId" value=<%=showsPresentationVO.getMovie().getMovieId().intValue()%>>
+					<input id="<%=showsPresentationVO.getMovie().getMovieId().intValue()%>" class="button" type="submit" value="<%=showsPresentationVO.getMovie().getTitle()%>"></form>
 					</td>
 			
-					<% for(Show show : showsPresentationVO.getShows()){ %>
-					<% if(showsPresentationVO.getShows() != null){ %>
+					<% for(ShowPresentationVO show : showsPresentationVO.getShowsPresentationVO()){ %>
+					<% if(showsPresentationVO.getShowsPresentationVO() != null){ %>
 					<% String soldOut; %>
-					<% if(showsPresentationVO.getSoldOut()){soldOut = "*";}else{soldOut ="";}{ %>
-					<td><a class="button" href="/cerioscoop-web/#"><%=show.getShowTime()+soldOut%></a></td>
+					<% if(show.getSoldOut()){soldOut = "*";}else{soldOut ="";}{ %>
+					<td><a class="button" href="/cerioscoop-web/#"><%=show.getShow().getShowTime()+soldOut%></a></td>
 					<% }}} %>
 				</tr>
 			<% }} %>
