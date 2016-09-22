@@ -26,7 +26,7 @@
 				value=${registerAttributes.lastname}>
 				<br>Username:<br>
 			<input id="username" type="text" name="username"
-				placeholder="Enter your username">
+				placeholder="Enter your username" value=${registerAttributes.username}>
 				<br>Password:<br>
 			<input id="password" type="password" name="password"
 				placeholder="Enter your password"> <br>Password:<br>

@@ -4,6 +4,8 @@ public class RegisterAttributes {
 	
 	private String firstname;
 	private String lastname;
+	private String username;
+
 	private String email;
 	
 	public String getFirstname() {
@@ -17,6 +19,12 @@ public class RegisterAttributes {
 	}
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getEmail() {
 		return email;

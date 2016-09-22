@@ -35,6 +35,7 @@ public class RegisterServlet extends HttpServlet {
 		RegisterAttributes registerAttributes = new RegisterAttributes();
 		registerAttributes.setFirstname("");
 		registerAttributes.setLastname("");
+		registerAttributes.setUsername("");
 		registerAttributes.setEmail("");
 		request.setAttribute("registerAttributes", registerAttributes);
 		getServletContext().getRequestDispatcher("/jsp/register.jsp").forward(request, response);
@@ -54,6 +55,7 @@ public class RegisterServlet extends HttpServlet {
 
 		registerAttributes.setFirstname(request.getParameter("firstname"));
 		registerAttributes.setLastname(request.getParameter("lastname"));
+		registerAttributes.setUsername(request.getParameter("username"));
 		registerAttributes.setEmail(request.getParameter("email"));
 		
 		if (request.getParameter("firstname").length() >= 8 && request.getParameter("firstname").length() <= 20
