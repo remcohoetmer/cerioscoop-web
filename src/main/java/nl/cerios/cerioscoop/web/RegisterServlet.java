@@ -82,7 +82,7 @@ public class RegisterServlet extends HttpServlet {
 				&& punctuation.matcher(request.getParameter("password")).find()) {
 			customer.setPassword(request.getParameter("password"));
 		} else {
-			errorMessage.setPasswordError("Invalid username/password combination (username: min 6 / max 12 characters)");
+			errorMessage.setPasswordError("Invalid username/password combination");
 		}
 
 		if (request.getParameter("email").length() >= 6 && request.getParameter("email").contains("@")) {
