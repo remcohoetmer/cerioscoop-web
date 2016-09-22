@@ -105,10 +105,7 @@ public class RegisterServlet extends HttpServlet {
 			getServletContext().getRequestDispatcher("/jsp/register.jsp").forward(request, response);
 			//request.getRequestDispatcher("/jsp/register.jsp").forward(request, response);
 		} else {
-			if (session != null) {
-				session.removeAttribute("user");
-				session.removeAttribute("usertype");
-			}
+			
 			session.setAttribute("user", customer);
 			session.setAttribute("usertype", "customer");
 			successfulRegistry = "Welcome, your registry has been processed!";
