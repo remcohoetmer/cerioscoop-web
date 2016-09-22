@@ -38,8 +38,8 @@
 		<tbody>
 <% for(Transaction transactions : (List<Transaction>)request.getAttribute("transactions")) { %>
 		<tr>
-			<td id="movietitle"><%=transactions.getMovie().getTitle()%></td>
-				<td id="roomname"><%=transactions.getRoom().getRoomName()%></td>
+			<td id="movietitle"><%=transactions.getShow().getMovie().getTitle()%></td>
+				<td id="roomname"><%=transactions.getShow().getRoom().getRoomName()%></td>
 				<td id="showdate"><%=transactions.getShow().getShowDate()%></td>
 				<td id="showtime"><%=transactions.getShow().getShowTime()%></td>
 				<td id="reservedchairs"><%=transactions.getReservedChairs()%></td>

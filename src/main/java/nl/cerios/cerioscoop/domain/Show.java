@@ -11,7 +11,11 @@ public class Show {
 	private Time showTime;
 	private int availablePlaces;
 	private float showPrice;
+	private Movie movie;
+	private Room room;
 	
+
+
 	public Show() {
 	}
 	
@@ -79,6 +83,18 @@ public class Show {
 	}
 	public void setShowPrice(int showPrice) {
 		this.showPrice = showPrice;
+	}
+	public Movie getMovie() {
+		return movie;
+	}
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
+	public Room getRoom() {
+		return room;
+	}
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 
 }

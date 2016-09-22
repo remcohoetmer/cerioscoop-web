@@ -4,8 +4,6 @@ public class Transaction {
 	private int transactionId;
 	private Customer customer;
 	private Show show;
-	private Room room;
-	private Movie movie;
 	private float totalPrice;
 	private int reservedChairs;
 	private String bankAccount;
@@ -34,14 +32,6 @@ public class Transaction {
 		this.show = show;
 	}
 
-	public Room getRoom() {
-		return room;
-	}
-
-	public void setRoom(Room room) {
-		this.room = room;
-	}
-
 	public float getTotalPrice() {
 		return totalPrice;
 	}
@@ -64,13 +54,6 @@ public class Transaction {
 
 	public void setBankAccount(String bankAccount) {
 		this.bankAccount = bankAccount;
-	}
-	public Movie getMovie() {
-		return movie;
-	}
-
-	public void setMovie(Movie movie) {
-		this.movie = movie;
 	}
 
 }

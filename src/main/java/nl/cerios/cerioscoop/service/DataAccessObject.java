@@ -119,9 +119,10 @@ public class DataAccessObject {
 					
 					Movie movie = new MovieBuilder().withMovieTitle(resultSet.getString("M.title")).build();
 					
+					show.setRoom(room);
+					show.setMovie(movie);
 					transaction.setShow(show);
-					transaction.setRoom(room);
-					transaction.setMovie(movie);
+					
 					//de class show moet nog gerefactored worden volgens OO en dan zit de movietitle gewoon in het show-object
 					
 					transactions.add(transaction);
@@ -129,6 +130,33 @@ public class DataAccessObject {
 				}
 				 System.out.println("Transaction(s) retrieved.");
 				return transactions;
+			}
+      
+        }catch (final SQLException e) {
+            throw new ServiceException("Something went wrong while retrieving the transactions.", e);
+        }
+    }
+    
+    public Show getShowById(int showid){
+    	Show show = new Show();
+       	String SQL = "SELECT M.title, R.room_name FROM show_table S INNER JOIN movie M on M.movie_id = S.movie_id INNER JOIN room R on R.room_id = S.room_id WHERE S.show_id = ?";
+    	try (final Connection connection = dataSource.getConnection()) {
+			final PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setInt(1, showid);
+    		ResultSet resultSet = preparedStatement.executeQuery();
+    		{
+				while (resultSet.next()) {
+				Room room = new Room();
+				room.setRoomName(resultSet.getString("R.room_name"));
+
+				Movie movie = new MovieBuilder().withMovieTitle(resultSet.getString("M.title")).build();
+				
+				show.setMovie(movie);
+				show.setRoom(room);
+ 
+				}
+				 System.out.println("Transaction(s) retrieved.");
+				return show;
 			}
       
         }catch (final SQLException e) {
